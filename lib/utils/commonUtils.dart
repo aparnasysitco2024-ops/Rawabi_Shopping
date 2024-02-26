@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../widget/commomwidget/reusable_button1.dart';
-import '../widget/commomwidget/reusable_text.dart';
+import '../widget/commonwidget/reusable_button1.dart';
+import '../widget/commonwidget/reusable_text.dart';
 import 'colors.dart';
 
 class CommonUtils{
@@ -133,6 +133,11 @@ class CommonUtils{
             ),
           );
         });
+  }
+
+  void messageBox(String message) {
+    ScaffoldMessenger.of(Get.context!)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
 

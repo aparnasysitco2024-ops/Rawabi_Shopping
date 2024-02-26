@@ -2,19 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/widget/commomwidget/reusable_button.dart';
-import 'package:rawabi/widget/commomwidget/reusable_text.dart';
+import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/homeController.dart';
+import '../model/homeResponse.dart';
 
 class AdsWidget extends StatefulWidget {
   String? title;
+  ItemGroup? itemGroup;
   final homeController = Get.put(HomeController());
 
-  AdsWidget({super.key, this.title});
+  AdsWidget({super.key, this.title, this.itemGroup});
 
   @override
   State<AdsWidget> createState() => _AdsWidgetState();
@@ -38,27 +37,28 @@ class _AdsWidgetState extends State<AdsWidget> {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         FlutterCarousel(
           options: CarouselOptions(
-            height: 180.0,
+            height: 130.0,
             showIndicator: false,
           ),
-          items: widget.homeController.bannerList3.map((i) {
+          items: widget.itemGroup!.grpImages!.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Padding(
-                  padding: const EdgeInsets.only(
-                      right: 5, top: 5, bottom: 5),
-                  child: Image.asset(
-                    i,
-                    fit: BoxFit.fill,
-                  ),
-                );
+                  padding: const EdgeInsets.only(right: 5, top: 5, bottom: 5),
+                  child: FadeInImage.assetNetwork(
+                      fit: BoxFit.fill,
+                      placeholder: 'assets/images/logo.png',
+                      image: i.image.toString()));
               },
             );
           }).toList(),
+        ),
+        const SizedBox(
+          height: 5,
         ),
       ],
     );

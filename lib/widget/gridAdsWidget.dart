@@ -1,12 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/widget/commomwidget/reusable_button.dart';
-import 'package:rawabi/widget/commomwidget/reusable_text.dart';
+import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/homeController.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/controller/loginController.dart';
+import 'package:rawabi/controller/signUpController.dart';
 import 'package:rawabi/screen/splashScreen.dart';
 import 'package:rawabi/utils/commonUtils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button.dart';
@@ -10,21 +10,21 @@ import '../utils/app_utils.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_textformfieldbox.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  SignupScreen({super.key});
 
-  final loginController = Get.put(LoginController());
+  final signupController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: loginController.formKey,
         child: Container(
           color: Colors.white,
           width: double.infinity,
           height: double.infinity,
-          child: Column(
+          child: SingleChildScrollView(
+              child: Column(
             children: [
               Container(
                 decoration: const BoxDecoration(
@@ -78,13 +78,38 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     ReusableTextFormBox(
-                      controller: loginController.mobileController,
+                      controller: signupController.nameController,
                       fillColor: silver,
-                      hintText: "Enter Mobile number or Email".tr,
+                      keyboardType: TextInputType.name,
+                      hintText: "Enter Your Name".tr,
                       validator: (value) {
-                        value!.isEmpty
-                            ? "Please enter Mobile number or Email".tr
-                            : null;
+                        value!.isEmpty ? "Please Enter Your Name".tr : null;
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ReusableTextFormBox(
+                      controller: signupController.mobileController,
+                      fillColor: silver,
+                      keyboardType: TextInputType.phone,
+                      hintText: "Enter Mobile number".tr,
+                      validator: (value) {
+                        value!.isEmpty ? "Please enter Mobile number".tr : null;
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ReusableTextFormBox(
+                      controller: signupController.emailController,
+                      fillColor: silver,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: "Enter Mobile Email".tr,
+                      validator: (value) {
+                        value!.isEmpty ? "Please enter Email".tr : null;
                         return null;
                       },
                     ),
@@ -93,21 +118,24 @@ class LoginScreen extends StatelessWidget {
                     ),
                     ReusableButton(
                       onTap: () {
-                        if (loginController.mobileController.text.isEmpty) {
-                          CommonUtils().messageBox(
-                              "Please Enter Mobile number or Email".tr);
+                        if (signupController.nameController.text.isEmpty) {
+                          CommonUtils().messageBox("Please enter your name".tr);
+                        }else if (signupController.mobileController.text.isEmpty) {
+                          CommonUtils().messageBox("Please enter your mobile number".tr);
+                        }else if (signupController.emailController.text.isEmpty) {
+                          CommonUtils().messageBox("Please enter your email".tr);
                         } else {
-                          loginController.checkUser();
+                          signupController.signupApi();
                         }
                       },
-                      title: "Proceed".tr,
+                      title: "Sign Up".tr,
                       borderRadius: 7.0,
                     )
                   ],
                 ),
               ),
             ],
-          ),
+          )),
         ),
       ),
     );

@@ -9,6 +9,7 @@ class ReusableText extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLine;
   final String? fontFamily;
+  final bool strike;
 
   const ReusableText(
       {Key? key,
@@ -17,9 +18,10 @@ class ReusableText extends StatelessWidget {
       this.weight,
       this.color = Colors.black,
       this.fontStyle,
-      this.fontFamily='DMSans' ,
+      this.fontFamily = 'DMSans',
       this.maxLine = 100,
-      this.textAlign})
+      this.textAlign,
+      this.strike = false})
       : super(key: key);
 
   @override
@@ -29,6 +31,8 @@ class ReusableText extends StatelessWidget {
       title!,
       textAlign: textAlign,
       style: TextStyle(
+          decoration:
+              strike ? TextDecoration.lineThrough : TextDecoration.none,
           fontSize: size,
           fontWeight: weight,
           color: color,

@@ -2,41 +2,40 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/signupScreen.dart';
-import 'package:rawabi/screen/verification_code_screen.dart';
-import 'package:rawabi/utils/app_utils.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 
-import '../model/loginResponse.dart';
+import '../model/signupResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
-import '../utils/storage_manager.dart';
 
-class LoginController extends GetxController {
-  final formKey = GlobalKey<FormState>(debugLabel: 'formKey');
+class SignUpController extends GetxController {
   var loading = false.obs;
+  var nameController = TextEditingController();
   var mobileController = TextEditingController();
+  var emailController = TextEditingController();
 
-  Future<void> checkUser() async {
+  Future<void> signupApi() async {
     try {
       CommonUtils.showLoader();
       var requestBody = {
+        "name": nameController.text,
         "phone": mobileController.text,
+        "email": emailController.text,
       };
 
-      var response = await BaseClient().post(check_user, requestBody);
+      var response = await BaseClient().post(signup, requestBody);
       CommonUtils.hideLoader();
       if (response != null) {
         var responseData =
-        LoginResponse.fromJson(json.decode(response.toString()));
+            SignupResponse.fromJson(json.decode(response.toString()));
 
-        if (responseData.code == "200") {
+        if (responseData.code == "300") {
+          StorageManager.saveData(StorageManager.keyUserName, nameController.text);
+          StorageManager.saveData(StorageManager.keyUserEmail, emailController.text);
           StorageManager.saveData(StorageManager.keyUserMobile, mobileController.text);
-          StorageManager.saveData(StorageManager.keyUserID, responseData.userid);
-          AppUtils.navigateToPageReplace(VerificationCode());
-        } else if (responseData.code == "404") {
-          AppUtils.navigateToPageReplace(
-              SignupScreen());
+          StorageManager.saveData(StorageManager.keyUserID, responseData.id);
+
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

@@ -29,6 +29,7 @@ class ReusableTextForm extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         obscureText: obscureText!,
+        textAlign: TextAlign.left,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,

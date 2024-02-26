@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/widget/commomwidget/reusable_button.dart';
-import 'package:rawabi/widget/commomwidget/reusable_text.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-import '../model/homeResponse.dart';
+import '../model/products.dart';
 
 class ItemsWidget extends StatefulWidget {
   String? title;
-  ItemGroup? itemGroup;
+  List<Products>? products;
+  bool hideViewAll;
 
-  ItemsWidget({super.key, this.title, this.itemGroup});
+  ItemsWidget({super.key, this.title, this.products, this.hideViewAll = false});
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
@@ -32,36 +34,38 @@ class _ItemsWidgetState extends State<ItemsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const SizedBox(
-                width: 10,
-              ),
-              ReusableText(
-                title: widget.title,
-                weight: FontWeight.bold,
-              ),
-              const Spacer(),
-              ReusableText(
-                title: "See All".tr,
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
+          widget.hideViewAll
+              ? const SizedBox(width: double.infinity,)
+              : Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ReusableText(
+                      title: widget.title,
+                      weight: FontWeight.bold,
+                    ),
+                    const Spacer(),
+                    ReusableText(
+                      title: "See All".tr,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                ),
           const SizedBox(
             height: 10,
           ),
           SizedBox(
-              height: 225,
+              height: 247,
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: widget.itemGroup?.grpItems?.length,
+                  itemCount: widget.products?.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Container(
-                        width: 150,
+                        width: 155,
                         margin: const EdgeInsets.only(left: 10, bottom: 5),
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
@@ -88,16 +92,56 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                             height: 130,
                             child: FadeInImage.assetNetwork(
                                 placeholder: 'assets/images/logo.png',
-                                image: widget
-                                    .itemGroup!.grpItems![index].productImage
+                                image: widget.products![index].productImage
                                     .toString()),
                           ),
-                          ReusableText(
-                            title:
-                                widget.itemGroup!.grpItems?[index].productName,
-                            maxLine: 3,
-                            size: 12,
-                            textAlign: TextAlign.center,
+                          SizedBox(
+                            height: 40,
+                            child: ReusableText(
+                              title: widget.products![index].productName,
+                              maxLine: 2,
+                              size: 12,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 80,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ReusableText(
+                                      title:
+                                          "QAR ${widget.products![index].sellingPrice}",
+                                      maxLine: 1,
+                                      size: 10,
+                                      textAlign: TextAlign.center,
+                                      strike: true,
+                                    ),
+                                    ReusableText(
+                                      title:
+                                          "QAR ${widget.products![index].offerPrice}",
+                                      maxLine: 1,
+                                      weight: FontWeight.bold,
+                                      size: 11,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              SizedBox(
+                                width: 55.0,
+                                height: 25,
+                                child: ReusableButton1(
+                                  fontSize: 11.0,
+                                  onPressed: () {
+                                  },
+                                  title: "Add".tr,
+                                ),
+                              )
+                            ],
                           )
                         ]),
                       )))

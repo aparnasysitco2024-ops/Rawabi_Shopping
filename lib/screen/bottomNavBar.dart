@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:rawabi/screen/splashScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 
-import '../widget/commomwidget/reusable_text.dart';
-import '../widget/commomwidget/svg_icon.dart';
+import '../widget/commonwidget/reusable_text.dart';
+import '../widget/commonwidget/svg_icon.dart';
 import 'homeScreen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -18,30 +18,26 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
   final List _pages = [
-     HomeScreen(),
+    HomeScreen(),
     const SplashScreen(),
     const SplashScreen(),
     const SplashScreen(),
     const SplashScreen()
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: white,
+        surfaceTintColor: white,
         elevation: 10,
         shape: const CircularNotchedRectangle(),
         child: Container(
           // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 0),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           decoration: const BoxDecoration(
             // image: DecorationImage(
             //     image: AssetImage('assets/images/pattern2.png'),

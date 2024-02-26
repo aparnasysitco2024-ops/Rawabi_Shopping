@@ -1,3 +1,5 @@
+import 'package:rawabi/model/products.dart';
+
 class HomeResponse {
   String? code;
   String? message;
@@ -141,9 +143,10 @@ class ItemGroup {
   String? grpDesign;
   String? grpStartDate;
   String? grpEndDate;
-  List<GrpItems>? grpItems;
+  List<Products>? grpItems;
   List<Category>? grpCategory;
   String? grpImage;
+  List<GrpImages>? grpImages;
 
   ItemGroup(
       {this.grpId,
@@ -154,7 +157,8 @@ class ItemGroup {
         this.grpEndDate,
         this.grpItems,
         this.grpCategory,
-        this.grpImage});
+        this.grpImage,
+        this.grpImages});
 
   ItemGroup.fromJson(Map<String, dynamic> json) {
     grpId = json['grp_id'];
@@ -164,9 +168,9 @@ class ItemGroup {
     grpStartDate = json['grp_start_date'];
     grpEndDate = json['grp_end_date'];
     if (json['grp_items'] != null) {
-      grpItems = <GrpItems>[];
+      grpItems = <Products>[];
       json['grp_items'].forEach((v) {
-        grpItems!.add(GrpItems.fromJson(v));
+        grpItems!.add(Products.fromJson(v));
       });
     }
     if (json['grp_category'] != null) {
@@ -176,6 +180,12 @@ class ItemGroup {
       });
     }
     grpImage = json['grp_image'];
+    if (json['grp_images'] != null) {
+      grpImages = <GrpImages>[];
+      json['grp_images'].forEach((v) {
+        grpImages!.add(GrpImages.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -193,51 +203,26 @@ class ItemGroup {
       data['grp_category'] = grpCategory!.map((v) => v.toJson()).toList();
     }
     data['grp_image'] = grpImage;
+    if (grpImages != null) {
+      data['grp_images'] = grpImages!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
 
-class GrpItems {
-  String? productId;
-  String? productName;
-  String? sellingPrice;
-  String? offerPrice;
-  String? purchasePrice;
-  String? stock;
-  String? storeStock;
-  String? productImage;
 
-  GrpItems(
-      {this.productId,
-        this.productName,
-        this.sellingPrice,
-        this.offerPrice,
-        this.purchasePrice,
-        this.stock,
-        this.storeStock,
-        this.productImage});
+class GrpImages {
+  String? image;
 
-  GrpItems.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'];
-    productName = json['product_name'];
-    sellingPrice = json['selling_price'];
-    offerPrice = json['offer_price'];
-    purchasePrice = json['purchase_price'];
-    stock = json['stock'];
-    storeStock = json['store_stock'];
-    productImage = json['product_image'];
+  GrpImages({this.image});
+
+  GrpImages.fromJson(Map<String, dynamic> json) {
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['product_id'] = productId;
-    data['product_name'] = productName;
-    data['selling_price'] = sellingPrice;
-    data['offer_price'] = offerPrice;
-    data['purchase_price'] = purchasePrice;
-    data['stock'] = stock;
-    data['store_stock'] = storeStock;
-    data['product_image'] = productImage;
+    data['image'] = image;
     return data;
   }
 }

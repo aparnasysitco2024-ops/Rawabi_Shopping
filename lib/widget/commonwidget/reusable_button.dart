@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rawabi/widget/commomwidget/reusable_text.dart';
+import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../../utils/colors.dart';
 

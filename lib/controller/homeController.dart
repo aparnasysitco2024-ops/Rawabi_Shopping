@@ -8,6 +8,10 @@ import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 
 class HomeController extends GetxController {
+  var grpTypeImage = "1";
+  var grpTypeCategory = "2";
+  var grpTypeProduct = "3";
+
   var isExpress = true.obs;
   var categoryList = <Category>[].obs;
   var bannerList = <Slider>[].obs;
@@ -18,11 +22,11 @@ class HomeController extends GetxController {
     'assets/images/banner.png',
     'assets/images/banner.png'
   ].obs;
-  var bannerList3 = [
-    'assets/images/ads3.png',
-    'assets/images/banner.png',
-    'assets/images/banner.png'
-  ].obs;
+  // var bannerList3 = [
+  //   'assets/images/ads3.png',
+  //   'assets/images/banner.png',
+  //   'assets/images/banner.png'
+  // ].obs;
 
   var isHomeLoaded = false;
   var loading = false.obs;

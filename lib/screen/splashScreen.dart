@@ -3,10 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/bottomNavBar.dart';
 import 'package:rawabi/utils/app_utils.dart';
-import 'package:rawabi/widget/commomwidget/reusable_button.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 
 import '../utils/colors.dart';
-import '../widget/commomwidget/reusable_text.dart';
+import '../widget/commonwidget/reusable_text.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
