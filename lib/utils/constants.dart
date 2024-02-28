@@ -7,8 +7,7 @@ const signup = '${baseURL}signup';
 const signin = '${baseURL}signin';
 const products = '${baseURL}products';
 const product_details = '${baseURL}product_details';
-
+const addtocart = '${baseURL}addtocart';
 
 //keys
 const token = "Rawabi_jc";
-

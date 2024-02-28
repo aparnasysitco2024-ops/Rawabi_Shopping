@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../controller/productsDetailsController.dart';
 import '../utils/colors.dart';
@@ -17,6 +19,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   // ProductDetailsController? productDetailsController;
   final productDetailsController = Get.put(ProductDetailsController());
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -185,117 +188,135 @@ class ProductDetailsScreen extends StatelessWidget {
                 child: SingleChildScrollView(
               child: productDetailsController.loading.value
                   ? SizedBox(
-                height: MediaQuery.of(context).size.height - 180,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: primaryColor,
-                  ),
-                ),
-              )
-                  :Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          width: 30,
+                      height: MediaQuery.of(context).size.height - 180,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
                         ),
-                        Flexible(
-                            child: Container(
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                child: NetworkImageWidget(
-                                  image: productDetailsController
-                                      .productDetails?.productImage,
-                                  height: 210.0,
-                                ))),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            SvgPicture.asset(
-                              "assets/icons/heart.svg",
-                              height: 18,
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            InkWell(
-                              child: SvgPicture.asset("assets/icons/share.svg"),
-                              onTap: () {
-                              },
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                      ],
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                width: 30,
+                              ),
+                              Flexible(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      width: double.infinity,
+                                      child: NetworkImageWidget(
+                                        image: productDetailsController
+                                            .productDetails?.productImage,
+                                        height: 210.0,
+                                      ))),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SvgPicture.asset(
+                                    "assets/icons/heart.svg",
+                                    height: 18,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  InkWell(
+                                    child: SvgPicture.asset(
+                                        "assets/icons/share.svg"),
+                                    onTap: () {},
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ReusableText(
+                            title: productDetailsController
+                                .productDetails!.productName,
+                            size: 18.0,
+                            weight: FontWeight.w600,
+                          ),
+                          const ReusableText(
+                            title: "Pack size - 1kg",
+                            size: 14.0,
+                            weight: FontWeight.w600,
+                          ),
+                          ReusableText(
+                            title:
+                                "QAR ${productDetailsController.productDetails!.offerPrice}",
+                            size: 18.0,
+                            weight: FontWeight.w600,
+                          ),
+                          const Divider(
+                            color: lightGreyColor,
+                            thickness: 3,
+                            height: 20,
+                          ),
+                          const ReusableText(
+                            title: "Overview",
+                            size: 14.0,
+                            weight: FontWeight.w600,
+                          ),
+                          const Divider(
+                            color: grey,
+                            thickness: .5,
+                            height: 20,
+                          ),
+                          Html(
+                              data: productDetailsController
+                                  .productDetails!.shortDesc),
+                          const Divider(
+                            color: lightGreyColor,
+                            thickness: 3,
+                            height: 20,
+                          ),
+                          const ReusableText(
+                            title: "Details",
+                            size: 14.0,
+                            weight: FontWeight.w600,
+                          ),
+                          const Divider(
+                            color: grey,
+                            thickness: .5,
+                            height: 20,
+                          ),
+                          Html(
+                              data: productDetailsController
+                                  .productDetails!.detailedDesc),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ReusableButton1(
+                            title: "Add to Cart".tr,
+                            onPressed: () {
+                              homeController.addToCart(
+                                  productID,
+                                  "",
+                                  productDetailsController
+                                      .productDetails!.offerPrice,
+                                  "1");
+                            },
+                          ),const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
                     ),
-                    ReusableText(
-                      title:
-                          productDetailsController.productDetails!.productName,
-                      size: 18.0,
-                      weight: FontWeight.w600,
-                    ),
-                    const ReusableText(
-                      title: "Pack size - 1kg",
-                      size: 14.0,
-                      weight: FontWeight.w600,
-                    ),
-                    ReusableText(
-                      title:
-                          "QAR ${productDetailsController.productDetails!.offerPrice}",
-                      size: 18.0,
-                      weight: FontWeight.w600,
-                    ),
-                    const Divider(
-                      color: lightGreyColor,
-                      thickness: 3,
-                      height: 20,
-                    ),
-                    const ReusableText(
-                      title: "Overview",
-                      size: 14.0,
-                      weight: FontWeight.w600,
-                    ),
-                    const Divider(
-                      color: grey,
-                      thickness: .5,
-                      height: 20,
-                    ),
-                    Html(
-                        data: productDetailsController
-                            .productDetails!.shortDesc),
-                    const Divider(
-                      color: lightGreyColor,
-                      thickness: 3,
-                      height: 20,
-                    ),
-                    const ReusableText(
-                      title: "Details",
-                      size: 14.0,
-                      weight: FontWeight.w600,
-                    ),
-                    const Divider(
-                      color: grey,
-                      thickness: .5,
-                      height: 20,
-                    ),
-                    Html(
-                        data: productDetailsController
-                            .productDetails!.detailedDesc),
-
-                  ],
-                ),
-              ),
             ))
           ])),
     );

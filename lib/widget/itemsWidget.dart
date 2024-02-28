@@ -9,6 +9,8 @@ import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../model/products.dart';
+import '../screen/productDetailsScreen.dart';
+import '../utils/app_utils.dart';
 
 class ItemsWidget extends StatefulWidget {
   String? title;
@@ -35,7 +37,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           widget.hideViewAll
-              ? const SizedBox(width: double.infinity,)
+              ? const SizedBox(
+                  width: double.infinity,
+                )
               : Row(
                   children: [
                     const SizedBox(
@@ -64,86 +68,91 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                   shrinkWrap: true,
                   itemCount: widget.products?.length,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                        width: 155,
-                        margin: const EdgeInsets.only(left: 10, bottom: 5),
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5)),
-                            border: Border.all(color: silver)),
-                        child: Column(children: [
-                          Row(
-                            children: [
-                              ReusableButton(
-                                onTap: () {},
-                                title: "35% OFF",
-                                width: 70.0,
-                                borderRadius: 5.0,
-                                padding: 5.0,
-                                textSize: 12.0,
-                                buttonColor: pink,
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset("assets/icons/heart.svg")
-                            ],
-                          ),
-                          SizedBox(
-                            height: 130,
-                            child: FadeInImage.assetNetwork(
-                                placeholder: 'assets/images/logo.png',
-                                image: widget.products![index].productImage
-                                    .toString()),
-                          ),
-                          SizedBox(
-                            height: 40,
-                            child: ReusableText(
-                              title: widget.products![index].productName,
-                              maxLine: 2,
-                              size: 12,
-                              textAlign: TextAlign.center,
+                  itemBuilder: (context, index) => GestureDetector(
+                        child: Container(
+                          width: 155,
+                          margin: const EdgeInsets.only(left: 10, bottom: 5),
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(5)),
+                              border: Border.all(color: silver)),
+                          child: Column(children: [
+                            Row(
+                              children: [
+                                ReusableButton(
+                                  onTap: () {},
+                                  title: "35% OFF",
+                                  width: 70.0,
+                                  borderRadius: 5.0,
+                                  padding: 5.0,
+                                  textSize: 12.0,
+                                  buttonColor: pink,
+                                ),
+                                const Spacer(),
+                                SvgPicture.asset("assets/icons/heart.svg")
+                              ],
                             ),
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 80,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ReusableText(
-                                      title:
-                                          "QAR ${widget.products![index].sellingPrice}",
-                                      maxLine: 1,
-                                      size: 10,
-                                      textAlign: TextAlign.center,
-                                      strike: true,
-                                    ),
-                                    ReusableText(
-                                      title:
-                                          "QAR ${widget.products![index].offerPrice}",
-                                      maxLine: 1,
-                                      weight: FontWeight.bold,
-                                      size: 11,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
+                            SizedBox(
+                              height: 130,
+                              child: FadeInImage.assetNetwork(
+                                  placeholder: 'assets/images/logo.png',
+                                  image: widget.products![index].productImage
+                                      .toString()),
+                            ),
+                            SizedBox(
+                              height: 40,
+                              child: ReusableText(
+                                title: widget.products![index].productName,
+                                maxLine: 2,
+                                size: 12,
+                                textAlign: TextAlign.center,
                               ),
-                              const Spacer(),
-                              SizedBox(
-                                width: 55.0,
-                                height: 25,
-                                child: ReusableButton1(
-                                  fontSize: 11.0,
-                                  onPressed: () {
-                                  },
-                                  title: "Add".tr,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 80,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title:
+                                            "QAR ${widget.products![index].sellingPrice}",
+                                        maxLine: 1,
+                                        size: 10,
+                                        textAlign: TextAlign.center,
+                                        strike: true,
+                                      ),
+                                      ReusableText(
+                                        title:
+                                            "QAR ${widget.products![index].offerPrice}",
+                                        maxLine: 1,
+                                        weight: FontWeight.bold,
+                                        size: 11,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            ],
-                          )
-                        ]),
+                                const Spacer(),
+                                SizedBox(
+                                  width: 55.0,
+                                  height: 25,
+                                  child: ReusableButton1(
+                                    fontSize: 11.0,
+                                    onPressed: () {},
+                                    title: "Add".tr,
+                                  ),
+                                )
+                              ],
+                            )
+                          ]),
+                        ),
+                        onTap: () => AppUtils.navigateToPage(
+                            ProductDetailsScreen(
+                                productID: widget.products![index].productId)),
                       )))
         ],
       ),
