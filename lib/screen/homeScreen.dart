@@ -3,8 +3,6 @@ import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
-import 'package:rawabi/screen/productDetailsScreen.dart';
-import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
@@ -56,8 +54,8 @@ class HomeScreen extends StatelessWidget {
                   InkWell(
                     child: SvgPicture.asset("assets/icons/notification.svg"),
                     onTap: () {
-                      AppUtils.navigateToPage(
-                          ProductDetailsScreen(productID: "3"));
+                      // AppUtils.navigateToPage(
+                      //     ProductDetailsScreen(productID: "3"));
                     },
                   ),
                   const SizedBox(
