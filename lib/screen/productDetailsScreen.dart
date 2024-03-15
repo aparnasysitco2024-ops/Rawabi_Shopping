@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -12,18 +11,17 @@ import '../utils/colors.dart';
 import '../widget/commonwidget/networkImageWidget.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
+// ignore: must_be_immutable
 class ProductDetailsScreen extends StatelessWidget {
   var productID;
 
   ProductDetailsScreen({super.key, required this.productID});
 
-  // ProductDetailsController? productDetailsController;
   final productDetailsController = Get.put(ProductDetailsController());
   final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    // productDetailsController = Get.put(ProductDetailsController(productID));
     productDetailsController.getProductDetails(productID);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -80,9 +78,9 @@ class ProductDetailsScreen extends StatelessWidget {
                         scale: 0.7,
                         child: Switch(
                           activeColor: primaryColor,
-                          value: productDetailsController.isExpress.value,
+                          value: homeController.isExpress.value,
                           onChanged: (value) {
-                            productDetailsController.isExpress.value = value;
+                            homeController.isExpress.value = value;
                           },
                         ),
                       )
@@ -306,7 +304,8 @@ class ProductDetailsScreen extends StatelessWidget {
                             onPressed: () {
                               homeController.addToCart(
                                   productID,
-                                  "",
+                                  productDetailsController
+                                      .productDetails!.storeId.toString(),
                                   productDetailsController
                                       .productDetails!.offerPrice,
                                   "1");

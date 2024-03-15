@@ -18,7 +18,7 @@ class ReusableText extends StatelessWidget {
       this.weight,
       this.color = Colors.black,
       this.fontStyle,
-      this.fontFamily = 'DMSans',
+      this.fontFamily = 'openSans',
       this.maxLine = 100,
       this.textAlign,
       this.strike = false})

@@ -83,6 +83,9 @@ flutter:
     - family: DMSans
       fonts:
         - asset: assets/fonts/DMSans.ttf
+    - family: openSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
 
   # example:
   # fonts:

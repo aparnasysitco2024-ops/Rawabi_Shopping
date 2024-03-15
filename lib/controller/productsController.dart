@@ -9,7 +9,6 @@ import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 
 class ProductController extends GetxController {
-  var isExpress = true.obs;
 
   var isLoaded = false;
   var loading = false.obs;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/splashScreen.dart';
+import 'package:rawabi/screen/cartScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 
 import '../widget/commonwidget/reusable_text.dart';
@@ -19,12 +19,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List _pages = [
     HomeScreen(),
-    const SplashScreen(),
-    const SplashScreen(),
-    const SplashScreen(),
-    const SplashScreen()
+    HomeScreen(),
+    HomeScreen(),
+    CartScreen(),
+    HomeScreen()
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +32,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bottomNavigationBar: BottomAppBar(
         color: white,
         surfaceTintColor: white,
-        elevation: 10,
+        elevation: 15,
         shape: const CircularNotchedRectangle(),
         child: Container(
-          // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 0),
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10,top: 10),
+          padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
           decoration: const BoxDecoration(
-            // image: DecorationImage(
-            //     image: AssetImage('assets/images/pattern2.png'),
-            //     fit: BoxFit.cover),
             color: Colors.white,
-            // borderRadius: BorderRadius.circular(18),
-            // gradient: bottomNavGradient,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,12 +50,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     });
                   },
                   child: SizedBox(
-                    height: 45,
+                    height: 40,
                     child: Column(
                       children: [
                         SvgIcon(
                           image: "assets/icons/home.svg",
-                          height: 25,
+                          height: 20,
                           color:
                               _currentIndex == 0 ? primaryColor : Colors.black,
                         ),
@@ -81,12 +75,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     });
                   },
                   child: SizedBox(
-                    height: 45,
+                    height: 40,
                     child: Column(
                       children: [
                         SvgIcon(
                           image: "assets/icons/explore.svg",
-                          height: 25,
+                          height: 20,
                           color:
                               _currentIndex == 1 ? primaryColor : Colors.black,
                         ),
@@ -106,12 +100,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     });
                   },
                   child: SizedBox(
-                    height: 45,
+                    height: 40,
                     child: Column(
                       children: [
                         SvgIcon(
                           image: "assets/icons/gift.svg",
-                          height: 25,
+                          height: 20,
                           color:
                               _currentIndex == 2 ? primaryColor : Colors.black,
                         ),
@@ -131,12 +125,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     });
                   },
                   child: SizedBox(
-                    height: 45,
+                    height: 40,
                     child: Column(
                       children: [
                         SvgIcon(
                           image: "assets/icons/cart.svg",
-                          height: 25,
+                          height: 20,
                           color:
                               _currentIndex == 3 ? primaryColor : Colors.black,
                         ),
@@ -156,12 +150,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     });
                   },
                   child: SizedBox(
-                    height: 45,
+                    height: 40,
                     child: Column(
                       children: [
                         SvgIcon(
                           image: "assets/icons/account.svg",
-                          height: 25,
+                          height: 20,
                           color:
                               _currentIndex == 4 ? primaryColor : Colors.black,
                         ),

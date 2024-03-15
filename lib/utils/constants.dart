@@ -1,4 +1,4 @@
-const baseURL = 'https://cafode.com/E-commerce/rawabi/demo/Api/';
+const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/';
 
 //APis
 const home = '${baseURL}home_api';
@@ -8,6 +8,7 @@ const signin = '${baseURL}signin';
 const products = '${baseURL}products';
 const product_details = '${baseURL}product_details';
 const addtocart = '${baseURL}addtocart';
+const cartList = '${baseURL}cartList';
 
 //keys
 const token = "Rawabi_jc";

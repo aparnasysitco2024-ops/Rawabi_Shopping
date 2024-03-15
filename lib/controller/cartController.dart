@@ -7,12 +7,12 @@ import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 
-class ProductDetailsController extends GetxController {
+class CartController extends GetxController {
 
   var loading = false.obs;
   ProductDetails? productDetails;
 
-  ProductDetailsController();
+  CartController();
 
   @override
   onInit() async {
@@ -20,11 +20,10 @@ class ProductDetailsController extends GetxController {
 
   }
 
-  Future<void> getProductDetails(String productID) async {
+  Future<void> getCartList() async {
     try {
       loading.value = true;
-      var request = {"id": productID};
-      var response = await BaseClient().post(product_details, request);
+      var response = await BaseClient().get(cartList);
       loading.value = false;
       if (response != null) {
         var responseData =

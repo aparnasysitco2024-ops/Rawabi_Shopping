@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/bottomNavBar.dart';
-import 'package:rawabi/utils/app_utils.dart';
-import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
+import 'loginScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,14 +19,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Timer(const Duration(seconds: 1), () {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (_) => const LoginScreen(),
-    //     ),
-    //   );
-    // });
+    Timer(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) =>  LoginScreen(),
+        ),
+      );
+    });
   }
 
   @override
@@ -65,12 +65,12 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(
               height: 30,
             ),
-            ReusableButton(
-                width: 200.0,
-                onTap: () {
-                  AppUtils.navigateToPageReplace(const BottomNavBar());
-                },
-                title: "Shop now".tr)
+            // ReusableButton(
+            //     width: 200.0,
+            //     onTap: () {
+            //       AppUtils.navigateToPageReplace(const BottomNavBar());
+            //     },
+            //     title: "Shop now".tr)
           ],
         ),
       ),

@@ -25,37 +25,51 @@ class ProductDetailsResponse {
 class ProductDetails {
   String? productId;
   String? productName;
-  String? shortDesc;
-  String? detailedDesc;
   String? sellingPrice;
   String? offerPrice;
+  String? storeId;
+  String? sellerId;
+  String? shortDesc;
+  String? detailedDesc;
   String? purchasePrice;
   String? stock;
   String? storeStock;
+  List<Features>? features;
   String? productImage;
 
   ProductDetails(
       {this.productId,
         this.productName,
-        this.shortDesc,
-        this.detailedDesc,
         this.sellingPrice,
         this.offerPrice,
+        this.storeId,
+        this.sellerId,
+        this.shortDesc,
+        this.detailedDesc,
         this.purchasePrice,
         this.stock,
         this.storeStock,
+        this.features,
         this.productImage});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
     productName = json['product_name'];
-    shortDesc = json['short_desc'];
-    detailedDesc = json['detailed_desc'];
     sellingPrice = json['selling_price'];
     offerPrice = json['offer_price'];
+    storeId = json['store_id'];
+    sellerId = json['seller_id'];
+    shortDesc = json['short_desc'];
+    detailedDesc = json['detailed_desc'];
     purchasePrice = json['purchase_price'];
     stock = json['stock'];
     storeStock = json['store_stock'];
+    if (json['features'] != null) {
+      features = <Features>[];
+      json['features'].forEach((v) {
+        features!.add(Features.fromJson(v));
+      });
+    }
     productImage = json['product_image'];
   }
 
@@ -63,14 +77,38 @@ class ProductDetails {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['product_id'] = productId;
     data['product_name'] = productName;
-    data['short_desc'] = shortDesc;
-    data['detailed_desc'] = detailedDesc;
     data['selling_price'] = sellingPrice;
     data['offer_price'] = offerPrice;
+    data['store_id'] = storeId;
+    data['seller_id'] = sellerId;
+    data['short_desc'] = shortDesc;
+    data['detailed_desc'] = detailedDesc;
     data['purchase_price'] = purchasePrice;
     data['stock'] = stock;
     data['store_stock'] = storeStock;
+    if (features != null) {
+      data['features'] = features!.map((v) => v.toJson()).toList();
+    }
     data['product_image'] = productImage;
+    return data;
+  }
+}
+
+class Features {
+  String? featureTitle;
+  String? feature;
+
+  Features({this.featureTitle, this.feature});
+
+  Features.fromJson(Map<String, dynamic> json) {
+    featureTitle = json['feature_title'];
+    feature = json['feature'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['feature_title'] = featureTitle;
+    data['feature'] = feature;
     return data;
   }
 }

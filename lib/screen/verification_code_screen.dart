@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/baseResponse.dart';
-import 'package:rawabi/screen/splashScreen.dart';
+import 'package:rawabi/screen/bottomNavBar.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/constants.dart';
@@ -45,7 +45,7 @@ class VerificationCode extends StatelessWidget {
           var responseData =
               BaseResponse.fromJson(json.decode(response.toString()));
           if (responseData.code == "200") {
-           AppUtils.navigateToPageReplace(const SplashScreen());
+           AppUtils.navigateToPageReplace(const BottomNavBar());
           } else {
             CommonUtils.showErrorDialog(responseData.message);
           }
@@ -57,12 +57,6 @@ class VerificationCode extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -79,8 +73,7 @@ class VerificationCode extends StatelessWidget {
               height: 5,
             ),
             ReusableText(
-                title: "An 4 digit code has been sent to your phone number".tr +
-                    "\n" +
+                title: "An 4 digit code has been sent to your phone number".tr + "\n" +
                     verificationController.mobile.toString(),
                 weight: FontWeight.w400,
                 color: Colors.black),

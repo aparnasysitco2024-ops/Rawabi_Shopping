@@ -5,6 +5,7 @@ import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
+import '../controller/homeController.dart';
 import '../widget/itemsWidget.dart';
 
 // ignore: must_be_immutable
@@ -13,6 +14,7 @@ class ProductsByCategory extends StatelessWidget {
 
   ProductsByCategory({super.key, required this.catID});
 
+  final homeController = Get.put(HomeController());
   final productController = Get.put(ProductController());
 
   @override
@@ -105,9 +107,9 @@ class ProductsByCategory extends StatelessWidget {
                         scale: 0.7,
                         child: Switch(
                           activeColor: primaryColor,
-                          value: productController.isExpress.value,
+                          value: homeController.isExpress.value,
                           onChanged: (value) {
-                            productController.isExpress.value = value;
+                            homeController.isExpress.value = value;
                           },
                         ),
                       )

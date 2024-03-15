@@ -33,7 +33,7 @@ class LoginController extends GetxController {
         if (responseData.code == "200") {
           StorageManager.saveData(StorageManager.keyUserMobile, mobileController.text);
           StorageManager.saveData(StorageManager.keyUserID, responseData.userid);
-          AppUtils.navigateToPageReplace(VerificationCode());
+          AppUtils.navigateToPageReplace(const VerificationCode());
         } else if (responseData.code == "404") {
           AppUtils.navigateToPageReplace(
               SignupScreen());

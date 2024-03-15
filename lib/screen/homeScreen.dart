@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +27,7 @@ class HomeScreen extends StatelessWidget {
       body: Obx(() => Column(
             children: [
               const SizedBox(
-                height: 60,
+                height: 50,
               ),
               Row(
                 children: [
