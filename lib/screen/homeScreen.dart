@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
               //Location
               Container(
                 padding: const EdgeInsets.only(left: 10, right: 10),
-                height: 40,
+                height: 30,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -180,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(3))),
                     child: ReusableText(
                       title: "Change".tr,
-                      size: 10,
+                      size: 9,
                       color: blue,
                     ),
                   )
@@ -260,17 +260,34 @@ class HomeScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Container(
+                                        padding: const EdgeInsets.all(5),
                                         decoration: BoxDecoration(
-                                            color: skyBlue,
+                                            gradient: const LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color(0x332BAAE2),
+                                                  Color(0x339EB9E0),
+                                                  Color(0x33F1C4DE)
+                                                ]),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         height: 90,
-                                        child: FadeInImage.assetNetwork(
-                                            placeholder:
-                                                'assets/images/logo.png',
-                                            image: homeController
-                                                .categoryList[index].catIcon
-                                                .toString())
+                                        width: double.infinity,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(15),
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white),
+                                          child: FadeInImage.assetNetwork(
+                                              fit: BoxFit.cover,
+                                              placeholder:
+                                                  'assets/images/logo.png',
+                                              image: homeController
+                                                  .categoryList[index].catIcon
+                                                  .toString()),
+                                        )
+
                                         // Image.network(homeController.categoryList[index].catIcon.toString()),
                                         ),
                                     const SizedBox(

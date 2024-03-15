@@ -35,10 +35,10 @@ class CartController extends GetxController {
           CommonUtils.showErrorDialog(responseData.message);
         }
       } else {
-        CommonUtils.showErrorDialog(response.message);
+        // CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      CommonUtils.showErrorDialog(error.toString());
+      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

@@ -17,7 +17,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // cartController.getCartList();
+    cartController.getCartList();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => Column(
@@ -86,25 +86,17 @@ class CartScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ReusableText(
-                                  title: "Your orders".tr,
-                                  size: 14,
-                                  weight: FontWeight.w600),
+                                  title: "Your orders".tr, size: 14, weight: FontWeight.w600),
                               ReusableText(
-                                title: "items".tr,
-                                size: 10,
-                              ),
+                                  title: "items".tr, size: 10,),
                               const Divider(
                                 color: lightGreyColor,
                                 thickness: 2,
                                 height: 10,
                               ),
-                              ListView.builder(
-                                itemBuilder: (context, index) {
-                                  return ReusableText(
-                                    title: "",
-                                  );
-                                },
-                              )
+                              ListView.builder(itemBuilder: (context, index) {
+                                return ReusableText(title: "",);
+                              },)
                             ],
                           ),
                         ),
