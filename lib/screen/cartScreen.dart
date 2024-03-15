@@ -86,17 +86,18 @@ class CartScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ReusableText(
-                                  title: "Your orders".tr, size: 14, weight: FontWeight.w600),
+                                  title: "Your orders".tr,
+                                  size: 14,
+                                  weight: FontWeight.w600),
                               ReusableText(
-                                  title: "items".tr, size: 10,),
+                                title: "items".tr,
+                                size: 10,
+                              ),
                               const Divider(
                                 color: lightGreyColor,
                                 thickness: 2,
                                 height: 10,
                               ),
-                              ListView.builder(itemBuilder: (context, index) {
-                                return ReusableText(title: "",);
-                              },)
                             ],
                           ),
                         ),

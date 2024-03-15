@@ -9,7 +9,6 @@ import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 
 class ProductController extends GetxController {
-
   var isLoaded = false;
   var loading = false.obs;
   var productList = <Products>[].obs;
@@ -28,7 +27,9 @@ class ProductController extends GetxController {
 
         if (responseData.code == "200") {
           catName.value = responseData.res!.category!.catName!;
-          productList.addAll(responseData.res!.products as List<Products>);
+          if (responseData.res?.products != null) {
+            productList.addAll(responseData.res?.products as List<Products>);
+          }
 
           isLoaded = true;
         } else {
