@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
-import 'package:rawabi/screen/productsByCategoryScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
@@ -12,6 +11,7 @@ import 'package:rawabi/widget/categoryWidget.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/gridAdsWidget.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
+import 'package:rawabi/widget/mainCategoryItem.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -250,58 +250,8 @@ class HomeScreen extends StatelessWidget {
                                     mainAxisExtent: 130,
                                     crossAxisCount: 4),
                             itemBuilder: (_, index) {
-                              return InkWell(
-                                onTap: () {
-                                  AppUtils.navigateToPage(ProductsByCategory(
-                                    catID: homeController
-                                        .categoryList[index].catId,
-                                  ));
-                                },
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            gradient: const LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Color(0x332BAAE2),
-                                                  Color(0x339EB9E0),
-                                                  Color(0x33F1C4DE)
-                                                ]),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        height: 90,
-                                        width: double.infinity,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(15),
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white),
-                                          child: FadeInImage.assetNetwork(
-                                              fit: BoxFit.cover,
-                                              placeholder:
-                                                  'assets/images/logo.png',
-                                              image: homeController
-                                                  .categoryList[index].catIcon
-                                                  .toString()),
-                                        )
-
-                                        // Image.network(homeController.categoryList[index].catIcon.toString()),
-                                        ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    ReusableText(
-                                      title: homeController
-                                          .categoryList[index].catName,
-                                      size: 11,
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
-                              );
+                              return MainCategoryItem(
+                                  category: homeController.categoryList[index]);
                             }),
                         const SizedBox(
                           height: 10,
