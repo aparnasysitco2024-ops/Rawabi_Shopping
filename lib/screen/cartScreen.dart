@@ -72,7 +72,7 @@ class CartScreen extends StatelessWidget {
                 ),
                 cartController.loading.value
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height - 180,
+                        height: MediaQuery.of(context).size.height - 280,
                         child: const Center(
                           child: CircularProgressIndicator(
                             color: primaryColor,
@@ -80,68 +80,61 @@ class CartScreen extends StatelessWidget {
                         ),
                       )
                     : Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 45,
-                              width: double.maxFinite,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0, vertical: 2),
-                                    child: ReusableText(
-                                        title: "Your orders".tr,
-                                        size: 14,
-                                        weight: FontWeight.w600),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0, vertical: 2),
-                                    child: ReusableText(
-                                      title: "3 items".tr,
-                                      size: 10,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 2),
+                                      child: ReusableText(
+                                          title: "Your orders".tr,
+                                          size: 14,
+                                          weight: FontWeight.w600),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 2),
+                                      child: ReusableText(
+                                        title: cartController.products!.length
+                                                .toString() +
+                                            " items".tr,
+                                        size: 10,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            /*const Divider(
-                              color: lightGreyColor,
-                              thickness: 2,
-                              height: 10,
-                            ),*/
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
+                              Container(
                                   color: lightGreyColor,
-                                  padding: const EdgeInsets.only(top: 10,bottom: 10),
-                                  child: Column(
-                                    children: [
-                                      CartItemDetails(
-                                          imageName: "assets/images/casina.png"),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      CartItemDetails(
-                                          imageName: "assets/images/casina.png"),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      CartItemDetails(
-                                          imageName:
-                                              "assets/images/casina.png", ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
+                                  padding: const EdgeInsets.only(
+                                      top: 10, bottom: 10),
+                                  child: ListView.builder(
+                                      padding: const EdgeInsets.all(0),
+                                      shrinkWrap: true,
+                                      // physics: const NeverScrollableScrollPhysics(),
+                                      itemCount:
+                                          cartController.products!.length,
+                                      itemBuilder: (context, index) =>
+                                          CartItemDetails(
+                                              products: cartController
+                                                  .products![index]))
+                                  )
+                            ],
+                          ),
                         ),
                       ),
               ])),

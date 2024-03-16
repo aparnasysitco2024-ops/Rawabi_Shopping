@@ -215,9 +215,6 @@ class HomeScreen extends StatelessWidget {
                                               placeholder:
                                                   'assets/images/logo.png',
                                               image: i.bannerImage.toString()));
-                                      // return FadeInImage.assetNetwork(
-                                      //     placeholder: 'assets/images/logo.png',
-                                      //     image: i.bannerImage.toString());
                                     },
                                   );
                                 }).toList(),

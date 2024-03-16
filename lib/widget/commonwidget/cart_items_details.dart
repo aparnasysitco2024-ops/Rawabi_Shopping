@@ -2,82 +2,90 @@ import 'package:flutter/material.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-class CartItemDetails extends StatelessWidget {
-  final String imageName;
+import '../../model/cartListResponse.dart';
 
-  CartItemDetails({super.key, required this.imageName});
+class CartItemDetails extends StatelessWidget {
+  final Products products;
+
+  const CartItemDetails({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 1),
-      //alignment: Alignment.center,
-      decoration:  BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CircleAvatar(
-            radius: 25,
-            backgroundColor: white,
-            child: ClipOval(
-              child:Image.asset(
-                imageName,
-                fit: BoxFit.cover,
-              ),
-            ),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 1),
+          //alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: white,
+            borderRadius: BorderRadius.circular(12),
           ),
-          const SizedBox(
-            width: 5,
-          ),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ReusableText(
-                title: "Ajmi Special Pathiripodi 1 Kg",
-                size: 10,
-                weight: FontWeight.w600,
+              SizedBox(
+                  width: 50,
+                  child: FadeInImage.assetNetwork(
+                      fit: BoxFit.fill,
+                      placeholder: 'assets/images/logo.png',
+                      image: products.productImage.toString())),
+              const SizedBox(
+                width: 5,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ReusableText(
+                      title: products.productName,
+                      size: 10,
+                      weight: FontWeight.w600,
+                      color: darkGrey,
+                    ),
+                    ReusableText(
+                      title: "QAR ${products.subtotal}",
+                      size: 12,
+                      weight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              const SizedBox(
+                width: 25,
+                child: CircleAvatar(
+                  backgroundColor: pink,
+                  radius: 15,
+                  child: ClipOval(child: Icon(size: 15, Icons.remove_outlined)),
+                ),
+              ),
+              const SizedBox(
+                width: 5,
               ),
               ReusableText(
-                title: "QAR 10.50َ",
+                title: products.quantity,
                 size: 12,
                 weight: FontWeight.bold,
               ),
-
+              const SizedBox(
+                width: 5,
+              ),
+              const SizedBox(
+                width: 25,
+                child: CircleAvatar(
+                  backgroundColor: primaryColor,
+                  radius: 15,
+                  child: ClipOval(child: Icon(size: 15, Icons.add)),
+                ),
+              ),
             ],
           ),
-
-          Spacer(),
-          CircleAvatar(
-            backgroundColor: pink,
-            radius: 15,
-            child: ClipOval(
-              child:Icon(Icons.remove_outlined)
-            ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          ReusableText(
-            title: "2",
-            size: 12,
-            weight: FontWeight.bold,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          CircleAvatar(
-            backgroundColor: primaryColor,
-            radius: 15,
-            child: ClipOval(
-              child:Icon(Icons.add)
-            ),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: 5,
+        )
+      ],
     );
   }
 }
