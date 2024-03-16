@@ -22,10 +22,11 @@ class CartItemDetails extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25,
+            backgroundColor: white,
             child: ClipOval(
               child:Image.asset(
                 imageName,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -33,15 +34,16 @@ class CartItemDetails extends StatelessWidget {
             width: 5,
           ),
           const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ReusableText(
                 title: "Ajmi Special Pathiripodi 1 Kg",
-                size: 14,
-                weight: FontWeight.bold,
+                size: 10,
+                weight: FontWeight.w600,
               ),
               ReusableText(
                 title: "QAR 10.50َ",
-                size: 14,
+                size: 12,
                 weight: FontWeight.bold,
               ),
 

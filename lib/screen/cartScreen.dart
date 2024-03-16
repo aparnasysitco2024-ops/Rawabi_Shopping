@@ -7,6 +7,7 @@ import 'package:rawabi/controller/homeController.dart';
 
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
+import '../widget/commonwidget/cart_items_details.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
 class CartScreen extends StatelessWidget {
@@ -69,38 +70,80 @@ class CartScreen extends StatelessWidget {
                     )
                   ]),
                 ),
-                Expanded(
-                    child: SingleChildScrollView(
-                  child: cartController.loading.value
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height - 180,
-                          child: const Center(
-                            child: CircularProgressIndicator(
-                              color: primaryColor,
-                            ),
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ReusableText(
-                                  title: "Your orders".tr, size: 14, weight: FontWeight.w600),
-                              ReusableText(
-                                  title: "items".tr, size: 10,),
-                              const Divider(
-                                color: lightGreyColor,
-                                thickness: 2,
-                                height: 10,
-                              ),
-                              ListView.builder(itemBuilder: (context, index) {
-                                return ReusableText(title: "",);
-                              },)
-                            ],
+                cartController.loading.value
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height - 180,
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
                           ),
                         ),
-                ))
+                      )
+                    : Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 45,
+                              width: double.maxFinite,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 2),
+                                    child: ReusableText(
+                                        title: "Your orders".tr,
+                                        size: 14,
+                                        weight: FontWeight.w600),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 2),
+                                    child: ReusableText(
+                                      title: "3 items".tr,
+                                      size: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            /*const Divider(
+                              color: lightGreyColor,
+                              thickness: 2,
+                              height: 10,
+                            ),*/
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  color: lightGreyColor,
+                                  padding: const EdgeInsets.only(top: 10,bottom: 10),
+                                  child: Column(
+                                    children: [
+                                      CartItemDetails(
+                                          imageName: "assets/images/casina.png"),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      CartItemDetails(
+                                          imageName: "assets/images/casina.png"),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      CartItemDetails(
+                                          imageName:
+                                              "assets/images/casina.png", ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
               ])),
     );
   }
