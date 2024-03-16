@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 
-import '../model/productDetailsResponse.dart';
+import '../model/cartListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
@@ -10,7 +10,7 @@ import '../utils/http_client/base_client.dart';
 class CartController extends GetxController {
 
   var loading = false.obs;
-  ProductDetails? productDetails;
+  List<Products>? products;
 
   CartController();
 
@@ -27,15 +27,15 @@ class CartController extends GetxController {
       loading.value = false;
       if (response != null) {
         var responseData =
-        ProductDetailsResponse.fromJson(json.decode(response.toString()));
+        CartListResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          productDetails= responseData.productDetails;
+          products= responseData.products;
 
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
       } else {
-        // CommonUtils.showErrorDialog(response.message);
+        CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
       // CommonUtils.showErrorDialog(error.toString());
