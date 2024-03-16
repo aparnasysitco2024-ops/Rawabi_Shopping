@@ -15,7 +15,7 @@ class CartItemDetails extends StatelessWidget {
       //alignment: Alignment.center,
       decoration:  BoxDecoration(
         color: white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
