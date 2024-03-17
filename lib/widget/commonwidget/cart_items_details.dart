@@ -6,7 +6,6 @@ import '../../model/cartListResponse.dart';
 
 class CartItemDetails extends StatelessWidget {
   final Products products;
-
   const CartItemDetails({super.key, required this.products});
 
   @override
