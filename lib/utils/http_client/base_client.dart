@@ -10,7 +10,7 @@ import 'package:http/io_client.dart';
 import '../constants.dart';
 import 'app_exception.dart';
 
-IOClient _ioClient = new IOClient();
+IOClient _ioClient = IOClient();
 
 class BaseClient {
   static const int TIME_OUT_DURATION = 60;
