@@ -235,12 +235,12 @@ class CartScreen extends StatelessWidget {
                                         Radio(
                                             value: cartController.masterCard,
                                             groupValue:
-                                                cartController.groupValue,
+                                                cartController.groupValue.value,
                                             activeColor:
                                                 MaterialStateColor.resolveWith(
                                                     (states) => primaryColor),
                                             onChanged: (v) {
-                                              cartController.groupValue = v;
+                                              cartController.groupValue.value = v!;
                                             })
                                       ],
                                     ),
@@ -263,12 +263,12 @@ class CartScreen extends StatelessWidget {
                                         Radio(
                                             value: cartController.visa,
                                             groupValue:
-                                                cartController.groupValue,
+                                                cartController.groupValue.value,
                                             activeColor:
                                                 MaterialStateColor.resolveWith(
                                                     (states) => primaryColor),
                                             onChanged: (v) {
-                                              cartController.groupValue = v;
+                                              cartController.groupValue.value = v!;
                                             })
                                       ],
                                     ),
@@ -320,12 +320,12 @@ class CartScreen extends StatelessWidget {
                                         Radio(
                                             value: cartController.cash,
                                             groupValue:
-                                                cartController.groupValue,
+                                                cartController.groupValue.value,
                                             activeColor:
                                                 MaterialStateColor.resolveWith(
                                                     (states) => primaryColor),
                                             onChanged: (v) {
-                                              cartController.groupValue = v;
+                                              cartController.groupValue.value = v!;
                                             })
                                       ],
                                     ),

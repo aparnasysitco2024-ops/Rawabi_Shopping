@@ -11,7 +11,7 @@ class CartController extends GetxController {
 
   var loading = false.obs;
   var isContactless = false.obs;
-  String? groupValue = "Cash";
+  var groupValue = "Cash".obs;
   List<Products>? products;
   String masterCard = "Master Card";
   String visa = "Visa";
