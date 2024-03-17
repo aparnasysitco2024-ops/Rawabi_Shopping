@@ -537,7 +537,7 @@ class CartScreen extends StatelessWidget {
                                     const Spacer(),
                                     Flexible(
                                       child: SizedBox(
-                                        height: 44,
+                                        height: 40,
                                         child: ReusableButton1(
                                           title: "Place order".tr,
                                           fontSize: 14,
