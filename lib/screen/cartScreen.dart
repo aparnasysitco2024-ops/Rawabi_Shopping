@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
-import 'package:rawabi/widget/commonwidget/reusable_button.dart';
-
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/round_card.dart';
@@ -243,7 +241,6 @@ class CartScreen extends StatelessWidget {
                                                     (states) => primaryColor),
                                             onChanged: (v) {
                                               cartController.groupValue = v;
-                                              cartController.refresh();
                                             })
                                       ],
                                     ),
@@ -272,7 +269,6 @@ class CartScreen extends StatelessWidget {
                                                     (states) => primaryColor),
                                             onChanged: (v) {
                                               cartController.groupValue = v;
-                                              cartController.refresh();
                                             })
                                       ],
                                     ),
@@ -330,7 +326,6 @@ class CartScreen extends StatelessWidget {
                                                     (states) => primaryColor),
                                             onChanged: (v) {
                                               cartController.groupValue = v;
-                                              cartController.refresh();
                                             })
                                       ],
                                     ),
