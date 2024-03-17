@@ -10,7 +10,12 @@ import '../utils/http_client/base_client.dart';
 class CartController extends GetxController {
 
   var loading = false.obs;
+  var isContactless = false.obs;
+  String? groupValue = "Cash";
   List<Products>? products;
+  String masterCard = "Master Card";
+  String visa = "Visa";
+  String cash = "Cash";
 
   CartController();
 

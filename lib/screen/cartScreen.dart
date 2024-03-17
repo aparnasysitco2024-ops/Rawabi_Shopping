@@ -7,6 +7,7 @@ import 'package:rawabi/controller/homeController.dart';
 
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
+import '../widget/commonwidget/card_widget.dart';
 import '../widget/commonwidget/cart_items_details.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
@@ -132,7 +133,212 @@ class CartScreen extends StatelessWidget {
                                           CartItemDetails(
                                               products: cartController
                                                   .products![index]))
-                                  )
+                                  ),
+                              Container(
+                                height: 76,
+                                width: double.maxFinite,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [blue, lightBlue, pink]),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0, vertical: 10),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: primaryColor,
+                                            child: ClipOval(
+                                              child: SvgPicture.asset(
+                                                "assets/images/home.svg",
+                                                height: 30,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              ReusableText(
+                                                title:
+                                                "Contactless Delivery".tr,
+                                                size: 12,
+                                                weight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                              ReusableText(
+                                                title:
+                                                "We will ring the bell and leave the delivery on \n your doorstep"
+                                                    .tr,
+                                                size: 10,
+                                                weight: FontWeight.w600,
+                                                color: Colors.black,
+                                              ),
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          Transform.scale(
+                                            scale: 0.7,
+                                            child: Switch(
+                                              activeColor: primaryColor,
+                                              value: cartController
+                                                  .isContactless.value,
+                                              onChanged: (value) {
+                                                cartController.isContactless
+                                                    .value = value;
+                                              },
+                                            ),
+                                          )
+                                        ]),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                color: white,
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ReusableText(
+                                      title: "Select Payment Method".tr,
+                                      size: 16,
+                                      weight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const RoundCard(image: 'assets/images/mastercard.svg'),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const ReusableText(
+                                          title: "Card ending in 6785",
+                                          weight: FontWeight.w400,
+                                        ),
+                                        const Spacer(),
+                                        Radio(
+                                            value: cartController.masterCard,
+                                            groupValue:
+                                            cartController.groupValue,
+                                            onChanged: (v) {
+                                              cartController.groupValue = v;
+                                            })
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const RoundCard(image: 'assets/images/visacard.svg',),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const ReusableText(
+                                          title: "Card ending in 2314",
+                                          weight: FontWeight.w400,
+                                        ),
+                                        const Spacer(),
+                                        Radio(
+                                            value: cartController.visa,
+                                            groupValue:
+                                            cartController.groupValue,
+                                            onChanged: (v) {
+                                              cartController.groupValue = v;
+                                            })
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.055,
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.15,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: silver, width: 1),
+                                          ),
+                                          child: const Icon(
+                                            Icons.add,
+                                            color: silver,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        ReusableText(
+                                          title: "Add new Card".tr,
+                                          weight: FontWeight.w400,
+                                        ),
+                                        const Spacer(),
+                                        const Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: silver,
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Divider(),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Card(
+                                          child: SvgPicture.asset(
+                                              'assets/images/money.svg'),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        ReusableText(
+                                          title: "Cash on Delivery".tr,
+                                          weight: FontWeight.w400,
+                                        ),
+                                        const Spacer(),
+                                        Radio(
+                                            value: cartController.cash,
+                                            groupValue:
+                                            cartController.groupValue,
+                                            onChanged: (v) {
+                                              cartController.groupValue = v;
+                                            })
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
