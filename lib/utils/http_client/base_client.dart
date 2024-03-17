@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
 import '../constants.dart';
-import '../storage_manager.dart';
 import 'app_exception.dart';
 
 IOClient _ioClient = IOClient();
@@ -16,36 +15,15 @@ IOClient _ioClient = IOClient();
 class BaseClient {
   static const int TIME_OUT_DURATION = 60;
 
-  // static Map<String, String> header = {
-  //   "Content-Type": "application/json",
-  //   "Access-Control-Allow-Origin": "*",
-  //   "Access-Control-Allow-Methods": "DELETE, POST, GET, PUT",
-  //   "Access-Control-Max-Age": "1728000",
-  //   "Access-Control-Allow-Headers":
-  //       "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-  // };
-
-  // Future<Map<String, dynamic>> headerWithUserID() async => Future.value({
-  //       "Token": token,
-  //       "Lang": "eng",
-  //       "Userid": await StorageManager.readData(StorageManager.keyUserName),
-  //     });
-
-  // Map<String, String> header = {
-  //   // "Content-Type": "application/json",
-  //   "Token": token,
-  //   "Lang": "eng",
-  // };
-
   Future<Map<String, String>> getHeader() async {
     Map<String, String> header = {
-      // "Content-Type": "application/json",
       "Token": token,
-      "Userid": await StorageManager.getUserID(),
-      "Guestid": "362241606",
+      // "Userid": await StorageManager.getUserID(),
+      "Userid": "9",
+      "Guestid": "0",
+
       // "Guestid": await StorageManager.readData(StorageManager.keyGuestID),
       "Lang": Get.locale?.languageCode == 'ar' ? "ar" : "English",
-      // "Lang": await StorageManager.getLanguage(),
     };
     log('header=$header');
     return header;
@@ -88,10 +66,6 @@ class BaseClient {
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
       log(response.body);
       print('${response.statusCode}');
-      // if ((response.body.contains('"messageCode": 401') ||
-      //         response.body.contains('"Status": 401'))) {
-      //   throw UnAuthorizedException(response.body, url_);
-      // }
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(
