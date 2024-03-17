@@ -11,7 +11,7 @@ import '../constants.dart';
 import '../storage_manager.dart';
 import 'app_exception.dart';
 
-IOClient _ioClient = new IOClient();
+IOClient _ioClient = IOClient();
 
 class BaseClient {
   static const int TIME_OUT_DURATION = 60;
