@@ -16,6 +16,10 @@ class CartController extends GetxController {
   String masterCard = "Master Card";
   String visa = "Visa";
   String cash = "Cash";
+  var subTotal = 0.00.obs;
+  var delivery = 0.00.obs;
+  var bagFee = 0.00.obs;
+  var grandTotal = 0.00.obs;
 
   CartController();
 
@@ -29,11 +33,19 @@ class CartController extends GetxController {
       loading.value = true;
       var response = await BaseClient().get(cartList);
       loading.value = false;
+      subTotal.value = 0.00;
       if (response != null) {
         var responseData =
             CartListResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           products = responseData.products;
+
+          products?.forEach((element) {
+            subTotal.value =
+                subTotal.value + double.parse(element.subtotal.toString());
+          });
+
+          grandTotal.value = subTotal.value + delivery.value + bagFee.value;
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -57,6 +69,36 @@ class CartController extends GetxController {
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> checkoutCart() async {
+    try {
+      loading.value = true;
+      var request = {
+        "address_id": "4",
+        "subtotal": subTotal.value,
+        "discount": "0",
+        "payable": grandTotal.value,
+        "managed_by": "2"
+      };
+      var response = await BaseClient().post(checkout, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartList();
+          CommonUtils.showSuccessDialog(responseData.message, "");
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

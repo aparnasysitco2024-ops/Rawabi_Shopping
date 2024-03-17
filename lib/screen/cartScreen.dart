@@ -403,22 +403,22 @@ class CartScreen extends StatelessWidget {
                                 height: 145,
                                 padding: const EdgeInsets.only(
                                     left: 18, right: 18, top: 6, bottom: 1.0),
-                                child: const Column(
+                                child:  Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
-                                        ReusableText(
+                                        const ReusableText(
                                           title: "Cart Total",
                                           size: 12,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         ReusableText(
-                                          title: "QAR- 0.00",
+                                          title: "QAR- ${cartController.subTotal.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -427,15 +427,15 @@ class CartScreen extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        ReusableText(
+                                        const ReusableText(
                                           title: "Delivery",
                                           size: 12,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         ReusableText(
-                                          title: "QAR- 0.00",
+                                          title: "QAR- ${cartController.delivery.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -444,35 +444,35 @@ class CartScreen extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        ReusableText(
+                                        const ReusableText(
                                           title: "Bag Fee",
                                           size: 12,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         ReusableText(
-                                          title: "QAR- 0.00",
+                                          title: "QAR- ${cartController.bagFee.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
                                       ],
                                     ),
-                                    Divider(
+                                    const Divider(
                                       thickness: 1,
                                     ),
                                     Row(
                                       children: [
-                                        ReusableText(
+                                        const ReusableText(
                                           title: "Grand Total",
                                           size: 12,
                                           weight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         ReusableText(
-                                          title: "QAR- 61.00",
+                                          title: "QAR- ${cartController.grandTotal.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -506,19 +506,19 @@ class CartScreen extends StatelessWidget {
                                 width: double.maxFinite,
                                 child: Row(
                                   children: [
-                                    const Column(
+                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "QAR- 61.00",
+                                          title: "QAR- ${cartController.grandTotal.value}",
                                           size: 14,
                                           weight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
-                                        ReusableText(
+                                        const ReusableText(
                                           title: "Total amount",
                                           size: 10,
                                           weight: FontWeight.w400,
@@ -526,22 +526,27 @@ class CartScreen extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Spacer(),
-                                    Container(
-                                      height: 44,
-                                      width: 185,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 18, vertical: 10),
-                                      decoration: const BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4))),
-                                      child: Center(
-                                        child: ReusableText(
-                                          title: "Place order".tr,
-                                          size: 14,
-                                          color: white,
-                                          weight: FontWeight.bold,
+                                    const Spacer(),
+                                    InkWell(
+                                      onTap: () {
+                                       cartController.checkoutCart();
+                                      },
+                                      child: Container(
+                                        height: 44,
+                                        width: 185,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18, vertical: 10),
+                                        decoration: const BoxDecoration(
+                                            color: primaryColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4))),
+                                        child: Center(
+                                          child: ReusableText(
+                                            title: "Place order".tr,
+                                            size: 14,
+                                            color: white,
+                                            weight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
