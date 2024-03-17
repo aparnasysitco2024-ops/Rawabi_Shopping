@@ -102,6 +102,7 @@ class BaseClient {
     }
   }
 
+
   dynamic _processResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
