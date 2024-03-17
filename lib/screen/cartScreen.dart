@@ -132,7 +132,7 @@ class CartScreen extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           CartItemDetails(
                                               products: cartController
-                                                  .products![index]))
+                                                  .products![index], ))
                                   ),
                               Container(
                                 height: 76,
