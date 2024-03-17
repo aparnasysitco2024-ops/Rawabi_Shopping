@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:rawabi/model/baseResponse.dart';
+import 'package:rawabi/screen/orderPlacedScreen.dart';
+import 'package:rawabi/utils/app_utils.dart';
 
 import '../model/cartListResponse.dart';
 import '../utils/commonUtils.dart';
@@ -98,7 +100,7 @@ class CartController extends GetxController {
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
-          CommonUtils.showSuccessDialog(responseData.message, "");
+          AppUtils.navigateToPage(const OrderPlacedScreen());
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

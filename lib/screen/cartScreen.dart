@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
@@ -14,11 +15,13 @@ class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
   final cartController = Get.put(CartController());
+
   // final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     cartController.getCartList();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => Column(
@@ -403,7 +406,7 @@ class CartScreen extends StatelessWidget {
                                 height: 145,
                                 padding: const EdgeInsets.only(
                                     left: 18, right: 18, top: 6, bottom: 1.0),
-                                child:  Column(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -418,7 +421,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         const Spacer(),
                                         ReusableText(
-                                          title: "QAR- ${cartController.subTotal.value}",
+                                          title:
+                                              "QAR- ${cartController.subTotal.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -435,7 +439,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         const Spacer(),
                                         ReusableText(
-                                          title: "QAR- ${cartController.delivery.value}",
+                                          title:
+                                              "QAR- ${cartController.delivery.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -452,7 +457,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         const Spacer(),
                                         ReusableText(
-                                          title: "QAR- ${cartController.bagFee.value}",
+                                          title:
+                                              "QAR- ${cartController.bagFee.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -472,7 +478,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         const Spacer(),
                                         ReusableText(
-                                          title: "QAR- ${cartController.grandTotal.value}",
+                                          title:
+                                              "QAR- ${cartController.grandTotal.value}",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -506,14 +513,15 @@ class CartScreen extends StatelessWidget {
                                 width: double.maxFinite,
                                 child: Row(
                                   children: [
-                                     Column(
+                                    Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "QAR- ${cartController.grandTotal.value}",
+                                          title:
+                                              "QAR- ${cartController.grandTotal.value}",
                                           size: 14,
                                           weight: FontWeight.bold,
                                           color: Colors.black,
@@ -527,26 +535,15 @@ class CartScreen extends StatelessWidget {
                                       ],
                                     ),
                                     const Spacer(),
-                                    InkWell(
-                                      onTap: () {
-                                       cartController.checkoutCart();
-                                      },
-                                      child: Container(
+                                    Flexible(
+                                      child: SizedBox(
                                         height: 44,
-                                        width: 185,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 18, vertical: 10),
-                                        decoration: const BoxDecoration(
-                                            color: primaryColor,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(4))),
-                                        child: Center(
-                                          child: ReusableText(
-                                            title: "Place order".tr,
-                                            size: 14,
-                                            color: white,
-                                            weight: FontWeight.bold,
-                                          ),
+                                        child: ReusableButton1(
+                                          title: "Place order".tr,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          onPressed: () =>
+                                              cartController.checkoutCart(),
                                         ),
                                       ),
                                     ),

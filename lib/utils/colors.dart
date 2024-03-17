@@ -14,5 +14,3 @@ const skyBlue =Color(0x3329AAE2);
 const white = Color(0xFFFFFFFF);
 const lightGreyColor = Color(0xFFF3F3F3);
 
-
-
