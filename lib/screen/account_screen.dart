@@ -169,7 +169,7 @@ class AccountScreen extends StatelessWidget {
                   Divider(thickness: 1,),
                   ProfileTile(image: "assets/icons/location.svg", title: "Address"),
                   Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/glode.svg", title: "Language"),
+                  ProfileTile(image: "assets/icons/globe.svg", title: "Language"),
                   Divider(thickness: 1,),
                   ProfileTile(image: "assets/icons/user.svg", title: "My Profile"),
                   Divider(thickness: 1,),

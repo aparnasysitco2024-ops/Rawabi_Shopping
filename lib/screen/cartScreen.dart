@@ -3,18 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/controller/homeController.dart';
+
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
-import '../widget/commonwidget/round_card.dart';
 import '../widget/commonwidget/cart_items_details.dart';
 import '../widget/commonwidget/reusable_text.dart';
+import '../widget/commonwidget/round_card.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
   final cartController = Get.put(CartController());
-  final homeController = Get.put(HomeController());
+  // final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +240,8 @@ class CartScreen extends StatelessWidget {
                                                 MaterialStateColor.resolveWith(
                                                     (states) => primaryColor),
                                             onChanged: (v) {
-                                              cartController.groupValue.value = v!;
+                                              cartController.groupValue.value =
+                                                  v!;
                                             })
                                       ],
                                     ),
@@ -268,7 +269,8 @@ class CartScreen extends StatelessWidget {
                                                 MaterialStateColor.resolveWith(
                                                     (states) => primaryColor),
                                             onChanged: (v) {
-                                              cartController.groupValue.value = v!;
+                                              cartController.groupValue.value =
+                                                  v!;
                                             })
                                       ],
                                     ),
@@ -325,7 +327,8 @@ class CartScreen extends StatelessWidget {
                                                 MaterialStateColor.resolveWith(
                                                     (states) => primaryColor),
                                             onChanged: (v) {
-                                              cartController.groupValue.value = v!;
+                                              cartController.groupValue.value =
+                                                  v!;
                                             })
                                       ],
                                     ),
@@ -399,10 +402,11 @@ class CartScreen extends StatelessWidget {
                                 width: double.maxFinite,
                                 height: 145,
                                 padding: const EdgeInsets.only(
-                                    left: 18,right: 18, top:6,bottom: 1.0),
+                                    left: 18, right: 18, top: 6, bottom: 1.0),
                                 child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
@@ -414,7 +418,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Spacer(),
                                         ReusableText(
-                                          title: "QAR- 50.00",
+                                          title: "QAR- 0.00",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -431,7 +435,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Spacer(),
                                         ReusableText(
-                                          title: "QAR- 10.00",
+                                          title: "QAR- 0.00",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
@@ -448,14 +452,16 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Spacer(),
                                         ReusableText(
-                                          title: "QAR- 1.00",
+                                          title: "QAR- 0.00",
                                           size: 10,
                                           weight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
                                       ],
                                     ),
-                                    Divider(thickness: 1,),
+                                    Divider(
+                                      thickness: 1,
+                                    ),
                                     Row(
                                       children: [
                                         ReusableText(
@@ -473,7 +479,6 @@ class CartScreen extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -486,20 +491,26 @@ class CartScreen extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 5,
+                              ),
                               Container(
                                 color: silver,
                                 height: 5,
                                 width: double.maxFinite,
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 6),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18, vertical: 6),
                                 height: 64,
                                 width: double.maxFinite,
-                                child:  Row(
+                                child: Row(
                                   children: [
                                     const Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
                                           title: "QAR- 61.00",
@@ -519,8 +530,8 @@ class CartScreen extends StatelessWidget {
                                     Container(
                                       height: 44,
                                       width: 185,
-
-                                      padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18, vertical: 10),
                                       decoration: const BoxDecoration(
                                           color: primaryColor,
                                           borderRadius: BorderRadius.all(
@@ -537,7 +548,6 @@ class CartScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
                         ),

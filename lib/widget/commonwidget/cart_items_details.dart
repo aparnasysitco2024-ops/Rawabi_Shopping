@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
+import '../../controller/cartController.dart';
 import '../../model/cartListResponse.dart';
 
 class CartItemDetails extends StatelessWidget {
   final Products products;
-  const CartItemDetails({super.key, required this.products});
+
+  final cartController = Get.put(CartController());
+
+  CartItemDetails({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +56,18 @@ class CartItemDetails extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const SizedBox(
-                width: 25,
-                child: CircleAvatar(
-                  backgroundColor: pink,
-                  radius: 15,
-                  child: ClipOval(child: Icon(size: 15, Icons.remove_outlined)),
+              InkWell(
+                onTap: () {
+                  cartController.removeCartItem(products.productId);
+                },
+                child: const SizedBox(
+                  width: 25,
+                  child: CircleAvatar(
+                    backgroundColor: pink,
+                    radius: 15,
+                    child:
+                        ClipOval(child: Icon(size: 15, Icons.remove_outlined)),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -70,12 +81,15 @@ class CartItemDetails extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              const SizedBox(
-                width: 25,
-                child: CircleAvatar(
-                  backgroundColor: primaryColor,
-                  radius: 15,
-                  child: ClipOval(child: Icon(size: 15, Icons.add)),
+              InkWell(
+                onTap: () {},
+                child: const SizedBox(
+                  width: 25,
+                  child: CircleAvatar(
+                    backgroundColor: primaryColor,
+                    radius: 15,
+                    child: ClipOval(child: Icon(size: 15, Icons.add)),
+                  ),
                 ),
               ),
             ],

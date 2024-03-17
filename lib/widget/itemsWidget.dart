@@ -8,6 +8,7 @@ import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
+import '../controller/homeController.dart';
 import '../model/products.dart';
 import '../screen/productDetailsScreen.dart';
 import '../utils/app_utils.dart';
@@ -16,6 +17,7 @@ class ItemsWidget extends StatefulWidget {
   String? title;
   List<Products>? products;
   bool hideViewAll;
+  final homeController = Get.put(HomeController());
 
   ItemsWidget({super.key, this.title, this.products, this.hideViewAll = false});
 
@@ -142,7 +144,16 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                   height: 25,
                                   child: ReusableButton1(
                                     fontSize: 11.0,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      widget.homeController.addToCart(
+                                          widget.products![index].productId
+                                              .toString(),
+                                          widget.products![index].storeId
+                                              .toString(),
+                                          widget.products![index].offerPrice
+                                              .toString(),
+                                          "1");
+                                    },
                                     title: "Add".tr,
                                   ),
                                 )

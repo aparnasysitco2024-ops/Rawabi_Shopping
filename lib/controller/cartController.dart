@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:rawabi/model/baseResponse.dart';
 
 import '../model/cartListResponse.dart';
 import '../utils/commonUtils.dart';
@@ -8,7 +9,6 @@ import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 
 class CartController extends GetxController {
-
   var loading = false.obs;
   var isContactless = false.obs;
   var groupValue = "Cash".obs;
@@ -22,7 +22,6 @@ class CartController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-
   }
 
   Future<void> getCartList() async {
@@ -32,10 +31,32 @@ class CartController extends GetxController {
       loading.value = false;
       if (response != null) {
         var responseData =
-        CartListResponse.fromJson(json.decode(response.toString()));
+            CartListResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          products= responseData.products;
+          products = responseData.products;
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
 
+  Future<void> removeCartItem(var itemId) async {
+    try {
+      loading.value = true;
+      var request = {"item_id": itemId};
+      var response = await BaseClient().post(deletecart, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartList();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

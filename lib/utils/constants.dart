@@ -9,6 +9,8 @@ const products = '${baseURL}products';
 const product_details = '${baseURL}product_details';
 const addtocart = '${baseURL}addtocart';
 const cartList = '${baseURL}cartList';
+const deletecart = '${baseURL}deletecart';
+
 
 //keys
 const token = "Rawabi_jc";
