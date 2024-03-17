@@ -11,11 +11,11 @@ class RoundCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.055,
-      width: MediaQuery.of(context).size.width * 0.15,
+      height: 30,
+      width: 45,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         border: Border.all(color: grey,width: 1),
       ),
       child: SvgPicture.asset(

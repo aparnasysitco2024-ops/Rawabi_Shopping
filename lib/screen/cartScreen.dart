@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
-import '../widget/commonwidget/card_widget.dart';
+import '../widget/commonwidget/round_card.dart';
 import '../widget/commonwidget/cart_items_details.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
@@ -131,9 +132,9 @@ class CartScreen extends StatelessWidget {
                                           cartController.products!.length,
                                       itemBuilder: (context, index) =>
                                           CartItemDetails(
-                                              products: cartController
-                                                  .products![index], ))
-                                  ),
+                                            products:
+                                                cartController.products![index],
+                                          ))),
                               Container(
                                 height: 76,
                                 width: double.maxFinite,
@@ -149,13 +150,13 @@ class CartScreen extends StatelessWidget {
                                         horizontal: 16.0, vertical: 10),
                                     child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: [
                                           CircleAvatar(
                                             backgroundColor: primaryColor,
                                             child: ClipOval(
                                               child: SvgPicture.asset(
-                                                "assets/images/home.svg",
+                                                "assets/icons/blue_home.svg",
                                                 height: 30,
                                               ),
                                             ),
@@ -165,21 +166,21 @@ class CartScreen extends StatelessWidget {
                                           ),
                                           Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               ReusableText(
                                                 title:
-                                                "Contactless Delivery".tr,
+                                                    "Contactless Delivery".tr,
                                                 size: 12,
                                                 weight: FontWeight.bold,
                                                 color: Colors.black,
                                               ),
                                               ReusableText(
                                                 title:
-                                                "We will ring the bell and leave the delivery on \n your doorstep"
-                                                    .tr,
+                                                    "We will ring the bell and leave the delivery on \n your doorstep"
+                                                        .tr,
                                                 size: 10,
                                                 weight: FontWeight.w600,
                                                 color: Colors.black,
@@ -204,8 +205,11 @@ class CartScreen extends StatelessWidget {
                                 ),
                               ),
                               Container(
+                                height: 250,
+                                width: double.maxFinite,
                                 color: white,
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18, vertical: 5),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -215,11 +219,13 @@ class CartScreen extends StatelessWidget {
                                       weight: FontWeight.bold,
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
                                     Row(
                                       children: [
-                                        const RoundCard(image: 'assets/images/mastercard.svg'),
+                                        const RoundCard(
+                                            image:
+                                                'assets/icons/mastercard.svg'),
                                         const SizedBox(
                                           width: 10,
                                         ),
@@ -231,18 +237,24 @@ class CartScreen extends StatelessWidget {
                                         Radio(
                                             value: cartController.masterCard,
                                             groupValue:
-                                            cartController.groupValue,
+                                                cartController.groupValue,
+                                            activeColor:
+                                                MaterialStateColor.resolveWith(
+                                                    (states) => primaryColor),
                                             onChanged: (v) {
                                               cartController.groupValue = v;
+                                              cartController.refresh();
                                             })
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
                                     Row(
                                       children: [
-                                        const RoundCard(image: 'assets/images/visacard.svg',),
+                                        const RoundCard(
+                                          image: 'assets/icons/visacard.svg',
+                                        ),
                                         const SizedBox(
                                           width: 10,
                                         ),
@@ -254,40 +266,23 @@ class CartScreen extends StatelessWidget {
                                         Radio(
                                             value: cartController.visa,
                                             groupValue:
-                                            cartController.groupValue,
+                                                cartController.groupValue,
+                                            activeColor:
+                                                MaterialStateColor.resolveWith(
+                                                    (states) => primaryColor),
                                             onChanged: (v) {
                                               cartController.groupValue = v;
+                                              cartController.refresh();
                                             })
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
                                     Row(
                                       children: [
-                                        Container(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.055,
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.15,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: silver, width: 1),
-                                          ),
-                                          child: const Icon(
-                                            Icons.add,
-                                            color: silver,
-                                          ),
+                                        const RoundCard(
+                                          image: 'assets/icons/plus.svg',
                                         ),
                                         const SizedBox(
                                           width: 10,
@@ -297,24 +292,26 @@ class CartScreen extends StatelessWidget {
                                           weight: FontWeight.w400,
                                         ),
                                         const Spacer(),
-                                        const Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: silver,
+                                        const Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: grey,
+                                          ),
                                         )
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
                                     const Divider(),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
                                     Row(
                                       children: [
-                                        Card(
-                                          child: SvgPicture.asset(
-                                              'assets/images/money.svg'),
+                                        const RoundCard(
+                                          image: 'assets/icons/money.svg',
                                         ),
                                         const SizedBox(
                                           width: 10,
@@ -327,18 +324,225 @@ class CartScreen extends StatelessWidget {
                                         Radio(
                                             value: cartController.cash,
                                             groupValue:
-                                            cartController.groupValue,
+                                                cartController.groupValue,
+                                            activeColor:
+                                                MaterialStateColor.resolveWith(
+                                                    (states) => primaryColor),
                                             onChanged: (v) {
                                               cartController.groupValue = v;
+                                              cartController.refresh();
                                             })
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 20,
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                color: silver,
+                                height: 5,
+                                width: double.maxFinite,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18, vertical: 6),
+                                height: 36,
+                                width: double.maxFinite,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SvgPicture.asset(
+                                        "assets/icons/Verified.svg",
+                                        height: 18,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const ReusableText(
+                                        title: "Apply Coupon",
+                                        size: 14,
+                                        weight: FontWeight.w600,
+                                        color: Colors.black,
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        height: 22,
+                                        width: 48,
+                                        margin:
+                                            const EdgeInsets.only(right: 16),
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: const BoxDecoration(
+                                            color: primaryColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(3))),
+                                        child: Center(
+                                          child: ReusableText(
+                                            title: "Apply".tr,
+                                            size: 10,
+                                            color: white,
+                                            weight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                              Container(
+                                color: silver,
+                                height: 5,
+                                width: double.maxFinite,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 6.0),
+                                child: ReusableText(
+                                  title: "Order Summary",
+                                  size: 14,
+                                  weight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Container(
+                                width: double.maxFinite,
+                                height: 145,
+                                padding: const EdgeInsets.only(
+                                    left: 18,right: 18, top:6,bottom: 1.0),
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        ReusableText(
+                                          title: "Cart Total",
+                                          size: 12,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                        Spacer(),
+                                        ReusableText(
+                                          title: "QAR- 50.00",
+                                          size: 10,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        ReusableText(
+                                          title: "Delivery",
+                                          size: 12,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                        Spacer(),
+                                        ReusableText(
+                                          title: "QAR- 10.00",
+                                          size: 10,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        ReusableText(
+                                          title: "Bag Fee",
+                                          size: 12,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                        Spacer(),
+                                        ReusableText(
+                                          title: "QAR- 1.00",
+                                          size: 10,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(thickness: 1,),
+                                    Row(
+                                      children: [
+                                        ReusableText(
+                                          title: "Grand Total",
+                                          size: 12,
+                                          weight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                        Spacer(),
+                                        ReusableText(
+                                          title: "QAR- 61.00",
+                                          size: 10,
+                                          weight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 18.0),
+                                child: ReusableText(
+                                  title: "Inclusive of all taxes",
+                                  size: 10,
+                                  weight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Container(
+                                color: silver,
+                                height: 5,
+                                width: double.maxFinite,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 6),
+                                height: 64,
+                                width: double.maxFinite,
+                                child:  Row(
+                                  children: [
+                                    const Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ReusableText(
+                                          title: "QAR- 61.00",
+                                          size: 14,
+                                          weight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                        ReusableText(
+                                          title: "Total amount",
+                                          size: 10,
+                                          weight: FontWeight.w400,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                      height: 44,
+                                      width: 185,
+
+                                      padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 10),
+                                      decoration: const BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4))),
+                                      child: Center(
+                                        child: ReusableText(
+                                          title: "Place order".tr,
+                                          size: 14,
+                                          color: white,
+                                          weight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+
                             ],
                           ),
                         ),

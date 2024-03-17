@@ -54,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     child: Column(
                       children: [
                         SvgIcon(
-                          image: "assets/icons/home.svg",
+                          image: "assets/icons/blue_home.svg",
                           height: 20,
                           color:
                               _currentIndex == 0 ? primaryColor : Colors.black,
