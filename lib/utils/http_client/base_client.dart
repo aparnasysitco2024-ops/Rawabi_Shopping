@@ -21,6 +21,7 @@ class BaseClient {
       // "Userid": await StorageManager.getUserID(),
       "Userid": "9",
       "Guestid": "0",
+
       // "Guestid": await StorageManager.readData(StorageManager.keyGuestID),
       "Lang": Get.locale?.languageCode == 'ar' ? "ar" : "English",
     };
