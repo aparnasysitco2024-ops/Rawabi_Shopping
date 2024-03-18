@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/account_screen.dart';
+import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/cartScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 

@@ -4,8 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-import '../../utils/colors.dart';
-
 class ProfileTile extends StatelessWidget {
   final String image;
   final String title;

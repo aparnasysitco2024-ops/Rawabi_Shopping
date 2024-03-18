@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rawabi/screen/myAddressesScreen.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
@@ -161,13 +163,17 @@ class AccountScreen extends StatelessWidget {
               color: white,
               padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 5),
               width: double.maxFinite,
-              child: const Column(
+              child:  Column(
                 children: [
                   ProfileTile(image: "assets/icons/eReceipt.svg", title: "E-Receipt"),
                   Divider(thickness: 1,),
                   ProfileTile(image: "assets/icons/love.svg", title: "Wishlist"),
                   Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/location.svg", title: "Address"),
+                  InkWell(
+                    onTap: (){
+                      AppUtils.navigateToPage(const MyAddressesScreen());
+                    },
+                      child: ProfileTile(image: "assets/icons/location.svg", title: "Address")),
                   Divider(thickness: 1,),
                   ProfileTile(image: "assets/icons/globe.svg", title: "Language"),
                   Divider(thickness: 1,),
