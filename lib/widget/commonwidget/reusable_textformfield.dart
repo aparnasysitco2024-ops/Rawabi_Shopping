@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/utils/colors.dart';
 
 class ReusableTextForm extends StatelessWidget {
   final String? Function(String?)? validator;
@@ -10,6 +11,9 @@ class ReusableTextForm extends StatelessWidget {
   final bool? enabled;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final Color? fillColor;
+  final double? borderRadius;
+  final EdgeInsetsGeometry? contentPadding;
 
   const ReusableTextForm({
     Key? key,
@@ -21,6 +25,9 @@ class ReusableTextForm extends StatelessWidget {
     this.obscureText = false,
     this.enabled = true,
     this.prefixIcon,
+    this.fillColor,
+    this.borderRadius,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -32,7 +39,7 @@ class ReusableTextForm extends StatelessWidget {
         textAlign: TextAlign.left,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          fillColor: fillColor ?? white,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
           enabled: enabled!,
@@ -45,21 +52,21 @@ class ReusableTextForm extends StatelessWidget {
             fontFamily:
                 Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',
           ),
-          contentPadding: const EdgeInsets.all(20),
+          contentPadding: contentPadding??const EdgeInsets.all(20),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(borderRadius??30),
             borderSide: BorderSide.none,
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(borderRadius??30),
             borderSide: BorderSide.none,
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(borderRadius??30),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(borderRadius??30),
             borderSide: BorderSide.none,
           ),
         ),
