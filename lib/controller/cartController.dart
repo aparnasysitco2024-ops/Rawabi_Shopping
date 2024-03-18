@@ -55,15 +55,15 @@ class CartController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      // CommonUtils.showErrorDialog(error.toString());
+      CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }
 
-  Future<void> removeCartItem(var itemId) async {
+  Future<void> removeCartItem(var id) async {
     try {
       loading.value = true;
-      var request = {"item_id": itemId};
+      var request = {"id": id};
       var response = await BaseClient().post(deletecart, request);
       loading.value = false;
       if (response != null) {
@@ -109,6 +109,35 @@ class CartController extends GetxController {
       }
     } catch (error) {
       // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> addToCart(
+      String itemID, String storeID, String? itemPrice, String itemQty) async {
+    try {
+      loading.value = true;
+      var request = {
+        "item_id": itemID,
+        "store_id": storeID,
+        "item_price": itemPrice,
+        "item_qty": itemQty
+      };
+      var response = await BaseClient().post(addtocart, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+        BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartList();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

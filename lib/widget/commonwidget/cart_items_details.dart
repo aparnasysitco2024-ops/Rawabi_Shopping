@@ -58,7 +58,7 @@ class CartItemDetails extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () {
-                  cartController.removeCartItem(products.productId);
+                  cartController.removeCartItem(products.cartId);
                 },
                 child: const SizedBox(
                   width: 25,
@@ -82,7 +82,10 @@ class CartItemDetails extends StatelessWidget {
                 width: 5,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  cartController.addToCart(products.productId.toString(),
+                      products.storeId.toString(), products.itemPrice, "1");
+                },
                 child: const SizedBox(
                   width: 25,
                   child: CircleAvatar(
