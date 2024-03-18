@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/orderItemTile.dart';
 import 'package:rawabi/widget/searchOrderWidget.dart';
-
 import '../utils/colors.dart';
-import '../widget/addressTile.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
 class MyOrdersScreen extends StatefulWidget {
