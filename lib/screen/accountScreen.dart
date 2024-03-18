@@ -171,7 +171,7 @@ class AccountScreen extends StatelessWidget {
                   Divider(thickness: 1,),
                   InkWell(
                     onTap: (){
-                      AppUtils.navigateToPage(const MyAddressesScreen());
+                      AppUtils.navigateToPage( MyAddressesScreen());
                     },
                       child: ProfileTile(image: "assets/icons/location.svg", title: "Address")),
                   Divider(thickness: 1,),

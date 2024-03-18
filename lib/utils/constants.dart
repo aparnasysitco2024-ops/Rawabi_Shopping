@@ -11,7 +11,8 @@ const addtocart = '${baseURL}addtocart';
 const cartList = '${baseURL}cartList';
 const deletecart = '${baseURL}deletecart';
 const checkout = '${baseURL}checkout';
-
+const addressList = '${baseURL}addressList';
+const deleteaddress = '${baseURL}deleteaddress';
 
 
 //keys
