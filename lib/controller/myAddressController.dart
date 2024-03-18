@@ -7,9 +7,11 @@ import '../model/addressListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
+import '../utils/storage_manager.dart';
 
 class MyAddressController extends GetxController {
   var loading = false.obs;
+  var defaultAddressId = "".obs;
 
   MyAddressController();
 
@@ -22,6 +24,8 @@ class MyAddressController extends GetxController {
 
   Future<void> getAddressList() async {
     try {
+      defaultAddressId.value =
+          await StorageManager.readData(StorageManager.keyDefaultAddressId);
       loading.value = true;
       var response = await BaseClient().get(addressList);
       loading.value = false;
@@ -38,7 +42,7 @@ class MyAddressController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      CommonUtils.showErrorDialog(error.toString());
+      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

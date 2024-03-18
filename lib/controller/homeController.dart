@@ -7,6 +7,7 @@ import '../model/homeResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
+import '../utils/storage_manager.dart';
 
 class HomeController extends GetxController {
   var grpTypeImage = "1";
@@ -24,14 +25,18 @@ class HomeController extends GetxController {
     'assets/images/banner.png'
   ].obs;
 
-  // var bannerList3 = [
-  //   'assets/images/ads3.png',
-  //   'assets/images/banner.png',
-  //   'assets/images/banner.png'
-  // ].obs;
+  var defaultAddressId = "".obs;
+  var defaultAddress = "".obs;
 
   var isHomeLoaded = false;
   var loading = false.obs;
+
+  Future<void> getDefaultAddress() async {
+    defaultAddressId.value =
+        await StorageManager.readData(StorageManager.keyDefaultAddressId);
+    defaultAddress.value =
+        await StorageManager.readData(StorageManager.keyDefaultAddress);
+  }
 
   Future<void> getHomeData() async {
     try {

@@ -14,6 +14,9 @@ class StorageManager {
   static String keyFirebaseToken = "keyFirebaseToken";
   static String keyFirebaseTokenSend = "keyFirebaseTokenSend";
   static String keyGuestID = "keyGuestID";
+  static String keyDefaultAddressId = "keyDefaultAddressId";
+  static String keyDefaultAddress = "keyDefaultAddress";
+
 
   static void saveData(String key, dynamic value) async {
     final prefs = await SharedPreferences.getInstance();

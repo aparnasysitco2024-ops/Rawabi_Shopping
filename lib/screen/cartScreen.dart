@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/myAddressesScreen.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../controller/cartController.dart';
+import '../controller/homeController.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/cart_items_details.dart';
 import '../widget/commonwidget/reusable_text.dart';
@@ -16,7 +19,7 @@ class CartScreen extends StatelessWidget {
 
   final cartController = Get.put(CartController());
 
-  // final homeController = Get.put(HomeController());
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +56,8 @@ class CartScreen extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    const ReusableText(
-                      title: "deliver to: al wakra, doha, qatar",
+                    ReusableText(
+                      title: "deliver to: ${homeController.defaultAddress.value}",
                       size: 12,
                       weight: FontWeight.bold,
                       color: Colors.black,
@@ -65,10 +68,14 @@ class CartScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(3))),
-                      child: ReusableText(
-                        title: "Change".tr,
-                        size: 8,
-                        color: blue,
+                      child: InkWell(
+                        onTap: () =>
+                            AppUtils.navigateToPage(MyAddressesScreen()),
+                        child: ReusableText(
+                          title: "Change".tr,
+                          size: 8,
+                          color: blue,
+                        ),
                       ),
                     )
                   ]),
@@ -570,17 +577,20 @@ class CartScreen extends StatelessWidget {
                             ),
                           )
                         : Flexible(
-                          child: SizedBox(width: double.infinity,
-                            height: double.infinity,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
                                     SvgPicture.asset("assets/icons/logo.svg"),
-                                  const ReusableText(title: "Your cart is empty!!",)
+                                    const ReusableText(
+                                      title: "Your cart is empty!!",
+                                    )
                                   ]),
+                            ),
                           ),
-                        ),
               ])),
     );
   }

@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/addressListResponse.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 
+import '../controller/homeController.dart';
 import '../controller/myAddressController.dart';
 import 'commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class AddressTile extends StatefulWidget {
   AddressList addressList;
+
   final myAddressController = Get.put(MyAddressController());
+  final homeController = Get.put(HomeController());
 
   AddressTile({super.key, required this.addressList});
 
@@ -18,8 +22,6 @@ class AddressTile extends StatefulWidget {
 }
 
 class _AddressTileState extends State<AddressTile> {
-  bool defaultSelection = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,10 +59,18 @@ class _AddressTileState extends State<AddressTile> {
               Checkbox(
                 checkColor: white,
                 activeColor: primaryColor,
-                value: defaultSelection,
+                value: widget.myAddressController.defaultAddressId.value ==
+                    widget.addressList.addressId,
                 onChanged: (bool? value) {
                   setState(() {
-                    defaultSelection = value!;
+                    widget.myAddressController.defaultAddressId.value =
+                        widget.addressList.addressId!;
+                    StorageManager.saveData(StorageManager.keyDefaultAddressId,
+                        widget.addressList.addressId!);
+                    StorageManager.saveData(StorageManager.keyDefaultAddress,
+                        "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}");
+                    widget.myAddressController.addressListData.refresh();
+                    widget.homeController.getDefaultAddress();
                   });
                 },
               ),

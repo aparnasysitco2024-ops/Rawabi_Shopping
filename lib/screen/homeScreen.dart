@@ -11,6 +11,9 @@ import 'package:rawabi/widget/gridAdsWidget.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
 
+import '../utils/app_utils.dart';
+import 'myAddressesScreen.dart';
+
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -19,6 +22,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    homeController.getDefaultAddress();
     homeController.getHomeData();
     return Scaffold(
       backgroundColor: Colors.white,
@@ -164,8 +168,8 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  const ReusableText(
-                    title: "deliver to: al wakra, doha, qatar",
+                  ReusableText(
+                    title: "deliver to: ${homeController.defaultAddress.value}",
                     size: 12,
                     weight: FontWeight.bold,
                     color: Colors.black,
@@ -176,10 +180,13 @@ class HomeScreen extends StatelessWidget {
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(3))),
-                    child: ReusableText(
-                      title: "Change".tr,
-                      size: 9,
-                      color: blue,
+                    child: InkWell(
+                      onTap: () => AppUtils.navigateToPage(MyAddressesScreen()),
+                      child: ReusableText(
+                        title: "Change".tr,
+                        size: 9,
+                        color: blue,
+                      ),
                     ),
                   )
                 ]),

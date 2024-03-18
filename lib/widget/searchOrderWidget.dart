@@ -10,13 +10,13 @@ class SearchOrdersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 230,
+      width: 200,
       height: 42,
       alignment: Alignment.center,
       decoration: const BoxDecoration(
         color: silver,
         borderRadius: BorderRadius.all(Radius.circular(4))),
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+      padding: const EdgeInsets.only(right: 10),
       child:  TextField(
         controller: controller,
         decoration: InputDecoration(
