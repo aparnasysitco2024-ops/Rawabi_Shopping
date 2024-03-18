@@ -58,7 +58,12 @@ class CartItemDetails extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () {
-                  cartController.removeCartItem(products.cartId);
+                  if (products.quantity == "1") {
+                    cartController.removeCartItem(products.cartId);
+                  } else {
+                    cartController.updateQty(products.cartId,
+                        int.parse(products.quantity.toString()) - 1);
+                  }
                 },
                 child: const SizedBox(
                   width: 25,

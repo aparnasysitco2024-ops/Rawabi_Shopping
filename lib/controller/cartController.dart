@@ -9,6 +9,7 @@ import '../model/cartListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
+import '../utils/storage_manager.dart';
 
 class CartController extends GetxController {
   var loading = false.obs;
@@ -83,11 +84,35 @@ class CartController extends GetxController {
     loading.value = false;
   }
 
+  Future<void> updateQty(var id, var qty) async {
+    try {
+      loading.value = true;
+      var request = {"id": id, "qty": qty};
+      var response = await BaseClient().post(update_qty, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartList();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
   Future<void> checkoutCart() async {
     try {
       loading.value = true;
       var request = {
-        "address_id": "4",
+        "address_id":
+            await StorageManager.readData(StorageManager.keyDefaultAddressId),
         "subtotal": subTotal.value,
         "discount": "0",
         "payable": grandTotal.value,
@@ -127,7 +152,7 @@ class CartController extends GetxController {
       loading.value = false;
       if (response != null) {
         var responseData =
-        BaseResponse.fromJson(json.decode(response.toString()));
+            BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
         } else {

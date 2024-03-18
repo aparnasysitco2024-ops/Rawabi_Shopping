@@ -57,7 +57,8 @@ class CartScreen extends StatelessWidget {
                       width: 5,
                     ),
                     ReusableText(
-                      title: "deliver to: ${homeController.defaultAddress.value}",
+                      title:
+                          "deliver to: ${homeController.defaultAddress.value}",
                       size: 12,
                       weight: FontWeight.bold,
                       color: Colors.black,
@@ -564,8 +565,14 @@ class CartScreen extends StatelessWidget {
                                               title: "Place order".tr,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
-                                              onPressed: () =>
-                                                  cartController.checkoutCart(),
+                                              onPressed: () {
+                                                homeController.defaultAddressId
+                                                        .isEmpty
+                                                    ? AppUtils.navigateToPage(
+                                                        MyAddressesScreen())
+                                                    : cartController
+                                                        .checkoutCart();
+                                              },
                                             ),
                                           ),
                                         ),
