@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
-
-import '../../controller/cartController.dart';
-import '../../model/cartListResponse.dart';
 
 class OrderItemTile extends StatelessWidget {
 
