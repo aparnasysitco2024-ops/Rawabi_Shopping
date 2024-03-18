@@ -20,7 +20,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
     return Scaffold(
         backgroundColor: silver,
         body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,8 +65,8 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: Row(
                         children: [
-                          SearchOrdersWidget(),
-                          Spacer(),
+                          const SearchOrdersWidget(),
+                          const Spacer(),
                           Container(
                               width: 140,
                               height: 42,
@@ -102,7 +102,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                       thickness: 1,
                       color: lightGreyColor,
                     ),
-                    Container(
+                    SizedBox(
                       height: 33,
                       child: Align(
                         alignment: Alignment.bottomCenter,
@@ -147,7 +147,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
               Expanded(
 
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
                   child: TabBarView(
                     controller: _tabController,
                     children: [

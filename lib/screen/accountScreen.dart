@@ -36,11 +36,11 @@ class AccountScreen extends StatelessWidget {
                       end: Alignment.bottomCenter,
                       colors: [blue, lightBlue, pink]),
                 ),
-                child:  Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap:(){
+                      onTap: () {
                         AppUtils.navigateToPage(const MyOrdersScreen());
                       },
                       child: const SquareCard(
@@ -50,7 +50,7 @@ class AccountScreen extends StatelessWidget {
                     Container(
                       height: 83,
                       width: 83,
-                      padding: const EdgeInsets.only(top: 5,bottom: 5),
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: white,
@@ -67,8 +67,13 @@ class AccountScreen extends StatelessWidget {
                             width: 28,
                             height: 28,
                           ),
-                          const SizedBox(height: 10,),
-                          ReusableText(title: "Ahlan Rewards".tr, size: 10, weight: FontWeight.w500),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ReusableText(
+                              title: "Ahlan Rewards".tr,
+                              size: 10,
+                              weight: FontWeight.w500),
                         ],
                       ),
                     ),
@@ -106,7 +111,7 @@ class AccountScreen extends StatelessWidget {
                           gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
-                              colors: [primaryColor,Colors.transparent, pink]),
+                              colors: [primaryColor, Colors.transparent, pink]),
                         ),
                       ),
                     ),
@@ -143,13 +148,12 @@ class AccountScreen extends StatelessWidget {
                         Container(
                           height: 22,
                           width: 48,
-                          margin:
-                          const EdgeInsets.only(right: 16),
+                          margin: const EdgeInsets.only(right: 16),
                           padding: const EdgeInsets.all(4),
                           decoration: const BoxDecoration(
                               color: primaryColor,
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(3))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
                           child: Center(
                             child: ReusableText(
                               title: "View".tr,
@@ -167,46 +171,96 @@ class AccountScreen extends StatelessWidget {
             ),
             Container(
               color: white,
-              padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
               width: double.maxFinite,
-              child:  Column(
+              child: Column(
                 children: [
-                  ProfileTile(image: "assets/icons/eReceipt.svg", title: "E-Receipt"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/love.svg", title: "Wishlist"),
-                  Divider(thickness: 1,),
+                  const ProfileTile(
+                      image: "assets/icons/eReceipt.svg", title: "E-Receipt"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/love.svg", title: "Wishlist"),
+                  const Divider(
+                    thickness: 1,
+                  ),
                   InkWell(
-                    onTap: (){
-                      AppUtils.navigateToPage( MyAddressesScreen());
-                    },
-                      child: ProfileTile(image: "assets/icons/location.svg", title: "Address")),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/globe.svg", title: "Language"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/user.svg", title: "My Profile"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/gift-card.svg", title: "Gift Cards"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/notification2.svg", title: "Notifications"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/My-shops.svg", title: "Our Store"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/returns.svg", title: "My Returns"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/feedback.svg", title: "Feedback"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/Help.svg", title: "Help"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/information.svg", title: "About Us"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/contract.svg", title: "Terms & Conditions"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/turn-back.svg", title: "Return Policy"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/verified2.svg", title: "Service & Warranty"),
-                  Divider(thickness: 1,),
-                  ProfileTile(image: "assets/icons/exit.svg", title: "Sign Out"),
-
+                      onTap: () {
+                        AppUtils.navigateToPage(MyAddressesScreen());
+                      },
+                      child: const ProfileTile(
+                          image: "assets/icons/location.svg",
+                          title: "Address")),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/globe.svg", title: "Language"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/user.svg", title: "My Profile"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/gift-card.svg", title: "Gift Cards"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/notification2.svg",
+                      title: "Notifications"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/My-shops.svg", title: "Our Store"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/returns.svg", title: "My Returns"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/feedback.svg", title: "Feedback"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/Help.svg", title: "Help"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/information.svg", title: "About Us"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/contract.svg",
+                      title: "Terms & Conditions"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/turn-back.svg",
+                      title: "Return Policy"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/verified2.svg",
+                      title: "Service & Warranty"),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const ProfileTile(
+                      image: "assets/icons/exit.svg", title: "Sign Out"),
                 ],
               ),
             )
