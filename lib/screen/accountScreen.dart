@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rawabi/screen/myAddressesScreen.dart';
+import 'package:rawabi/screen/myOrdersScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:get/get.dart';
@@ -38,9 +39,14 @@ class AccountScreen extends StatelessWidget {
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const SquareCard(
-                        image: "assets/icons/checklist.svg",
-                        title: "My Orders"),
+                    GestureDetector(
+                      onTap:(){
+                        AppUtils.navigateToPage(const MyOrdersScreen());
+                      },
+                      child: const SquareCard(
+                          image: "assets/icons/checklist.svg",
+                          title: "My Orders"),
+                    ),
                     Container(
                       height: 83,
                       width: 83,
