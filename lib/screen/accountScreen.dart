@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/screen/deliveryModeScreen.dart';
 import 'package:rawabi/screen/myAddressesScreen.dart';
-import 'package:rawabi/screen/myOrdersScreen.dart';
+import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
+
 import '../widget/commonwidget/reusable_text.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -41,7 +42,7 @@ class AccountScreen extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      AppUtils.navigateToPage(const MyOrdersScreen());
+                      AppUtils.navigateToPage(const MyOrdersTabScreen());
                     },
                     child: const SquareCard(
                         image: "assets/icons/checklist.svg",

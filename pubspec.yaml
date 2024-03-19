@@ -43,8 +43,8 @@ dependencies:
   flutter_html: ^3.0.0-beta.2
   intl_phone_field: ^3.1.0
   fdottedline_nullsafety: ^2.0.1
-
   google_maps_flutter: ^2.5.3
+  geolocator: ^7.6.2
 
 dev_dependencies:
   flutter_test:

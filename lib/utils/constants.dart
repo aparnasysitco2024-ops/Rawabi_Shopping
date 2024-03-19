@@ -14,7 +14,7 @@ const update_qty = '${baseURL}update_qty';
 const checkout = '${baseURL}checkout';
 const addressList = '${baseURL}addressList';
 const deleteaddress = '${baseURL}deleteaddress';
-
+const myorders = '${baseURL}myorders';
 
 //keys
 const token = "Rawabi_jc";

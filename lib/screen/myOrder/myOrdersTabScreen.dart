@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/widget/orderItemTile.dart';
+import 'package:rawabi/screen/myOrder/myOrderScreen.dart';
 import 'package:rawabi/widget/searchOrderWidget.dart';
-import '../utils/colors.dart';
-import '../widget/commonwidget/reusable_text.dart';
 
-class MyOrdersScreen extends StatefulWidget {
-  const MyOrdersScreen({super.key});
+import '../../utils/colors.dart';
+import '../../widget/commonwidget/reusable_text.dart';
+
+class MyOrdersTabScreen extends StatefulWidget {
+  const MyOrdersTabScreen({super.key});
 
   @override
-  State<MyOrdersScreen> createState() => _MyOrdersScreenState();
+  State<MyOrdersTabScreen> createState() => _MyOrdersTabScreenState();
 }
 
-class _MyOrdersScreenState extends State<MyOrdersScreen>
+class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,10 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
         backgroundColor: silver,
         body: SingleChildScrollView(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Container(
                 padding: const EdgeInsets.all(0),
                 color: white,
@@ -42,7 +43,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                       height: 40,
                       width: double.maxFinite,
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(top: 5,bottom: 5),
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Stack(
                         children: [
                           Center(
@@ -57,21 +58,20 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                             left: 20,
                             top: 0,
                             child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(
-                              Icons.arrow_back_ios,
-                              color: blackLight,
-                              size: 24,
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios,
+                                color: blackLight,
+                                size: 24,
+                              ),
                             ),
-                          ),)
+                          )
                         ],
                       ),
                     ),
-
                     const SearchOrdersWidget(),
-
                     const Divider(
                       thickness: 1,
                       color: lightGreyColor,
@@ -131,54 +131,22 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                 ),
               ),
               Expanded(
-
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      ListView.separated(
-                        padding: const EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 10,
-                        itemBuilder: (context, index) =>  OrderItemTile(),
-                        separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(height: 5,)
-                      ),
-                      ListView.separated(
-                        padding: const EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 8,
-                        itemBuilder: (context, index) =>  OrderItemTile(),
-                        separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(height: 5,)
-                      ),
-                      ListView.separated(
-                        padding: const EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 5,
-                        itemBuilder: (context, index) =>  OrderItemTile(),
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: 5,)
-                      ),
-                      ListView.separated(
-                        padding: const EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 2,
-                        itemBuilder: (context, index) =>  OrderItemTile(),
-                        separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(height: 5,)
-                      ),
+                      MyOrderScreen(),
+                      MyOrderScreen(),
+                      MyOrderScreen(),
+                      MyOrderScreen(),
                     ],
                   ),
                 ),
               )
-                        ],
-                      ),
-            )));
+            ],
+          ),
+        )));
   }
 }

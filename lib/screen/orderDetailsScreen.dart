@@ -4,11 +4,15 @@ import 'package:rawabi/screen/trackOrderScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/orderDetailsTile.dart';
 import 'package:rawabi/widget/searchOrderWidget.dart';
+import '../model/myOrderResponse.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
+// ignore: must_be_immutable
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key});
+  MyOrder myOrder;
+
+  OrderDetailsScreen({super.key, required this.myOrder});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class OrderDetailsScreen extends StatelessWidget {
                         height: 40,
                         width: double.maxFinite,
                         alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(top: 5,bottom: 5),
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
                         child: Stack(
                           children: [
                             Center(
@@ -61,7 +65,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                   color: blackLight,
                                   size: 24,
                                 ),
-                              ),)
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -85,10 +90,11 @@ class OrderDetailsScreen extends StatelessWidget {
                             ListView.separated(
                                 padding: const EdgeInsets.all(0),
                                 shrinkWrap: true,
-                                // physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 2,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: myOrder.items!.length,
                                 itemBuilder: (context, index) =>
-                                    OrderDetailsTile(),
+                                    OrderDetailsTile(
+                                        items: myOrder.items![index]),
                                 separatorBuilder:
                                     (BuildContext context, int index) =>
                                         const Divider(
@@ -108,19 +114,20 @@ class OrderDetailsScreen extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   GestureDetector(
-                                    onTap: (){
-                                      AppUtils.navigateToPage(const TrackOrderScreen());
+                                    onTap: () {
+                                      AppUtils.navigateToPage(
+                                          const TrackOrderScreen());
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
                                       height: 30,
                                       width: 125,
-                                      padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 2),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 2),
                                       decoration: const BoxDecoration(
                                           color: pink,
-
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(100))),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(100))),
                                       child: const ReusableText(
                                         title: "Track Your Order",
                                         color: primaryColor,

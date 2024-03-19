@@ -4,18 +4,24 @@ import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-class OrderItemTile extends StatelessWidget {
+import '../model/myOrderResponse.dart';
 
-  OrderItemTile({super.key, });
+// ignore: must_be_immutable
+class OrderItemTile extends StatelessWidget {
+  MyOrder myOrder;
+
+  OrderItemTile({super.key, required this.myOrder});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        AppUtils.navigateToPage(const OrderDetailsScreen());
+      onTap: () {
+        AppUtils.navigateToPage(OrderDetailsScreen(
+          myOrder: myOrder,
+        ));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 7,vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 1),
         //alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -25,26 +31,38 @@ class OrderItemTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-                width: 60,
-                child: Image.asset("assets/images/ajmi.png")),
-            const SizedBox(
-              width: 5,
-            ),
-            const Expanded(
+            // SizedBox(
+            //     width: 60,
+            //     child: Image.asset("assets/images/ajmi.png")),
+            // const SizedBox(
+            //   width: 5,
+            // ),
+            Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReusableText(
-                    title: "Ajmi Special Pathiri Podi 1kg",
+                    title: "Order #${myOrder.refno}",
                     size: 10,
                     weight: FontWeight.w600,
                     color: darkGrey,
                   ),
                   ReusableText(
-                    title: "Arriving Today",
+                    title: myOrder.status,
                     color: blue,
+                    size: 10,
+                    weight: FontWeight.w400,
+                  ),
+                  ReusableText(
+                    title: myOrder.date,
+                    color: darkGrey,
+                    size: 10,
+                    weight: FontWeight.w400,
+                  ),
+                  ReusableText(
+                    title: "Amount: QAR ${myOrder.payable}",
+                    color: darkGrey,
                     size: 10,
                     weight: FontWeight.w400,
                   ),
@@ -52,12 +70,11 @@ class OrderItemTile extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Icon(
+            const Icon(
               Icons.arrow_forward_ios,
               color: Color(0xFFB0B0B0),
               size: 18,
             ),
-
           ],
         ),
       ),

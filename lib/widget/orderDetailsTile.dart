@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-class OrderDetailsTile extends StatelessWidget {
+import '../model/myOrderResponse.dart';
 
-  OrderDetailsTile({super.key, });
+// ignore: must_be_immutable
+class OrderDetailsTile extends StatelessWidget {
+  Items items;
+  OrderDetailsTile({super.key,required this.items });
 
   @override
   Widget build(BuildContext context) {
@@ -25,29 +29,27 @@ class OrderDetailsTile extends StatelessWidget {
             onChanged: (bool? value) {
             },
           ),
-          SizedBox(
-              width: 60,
-              child: Image.asset("assets/images/ajmi.png")),
+          SizedBox(width:60,child: ReusableNetworkImage(image: "",height: 60.0,)),
           const SizedBox(
             width: 5,
           ),
-          const Expanded(
+           Expanded(
             flex: 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ReusableText(
-                  title: "Ajmi Special Pathiri Podi 1kg",
+                  title: items.itemName,
                   size: 10,
                   weight: FontWeight.w600,
                   color: darkGrey,
                 ),
-                ReusableText(
-                  title: "Order #23243",
-                  size: 10,
-                  weight: FontWeight.w600,
-                  color: darkGrey,
-                ),
+                // ReusableText(
+                //   title: "Order #23243",
+                //   size: 10,
+                //   weight: FontWeight.w600,
+                //   color: darkGrey,
+                // ),
                 Row(
                   children: [
                     CircleAvatar(
@@ -70,7 +72,7 @@ class OrderDetailsTile extends StatelessWidget {
                   ],
                 ),
                 ReusableText(
-                  title: "QAR 10.50",
+                  title: "QAR ${items.itemPrice}",
                   size: 10,
                   weight: FontWeight.w600,
                 ),

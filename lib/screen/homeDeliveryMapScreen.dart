@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -17,11 +18,34 @@ class HomeDeliveryMapScreen extends StatefulWidget {
 class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  late Position _currentPosition;
+  late CameraPosition _kGooglePlex;
+  double lat = 25.2854;
+  double lng = 51.5310;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(25.2823338, 51.520612),
-    zoom: 18,
-  );
+  @override
+  void initState() {
+    super.initState();
+    _kGooglePlex = CameraPosition(
+      target: LatLng(lat, lng),
+      zoom: 18,
+    );
+    _getCurrentLocation();
+  }
+
+  _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _currentPosition = position;
+      _kGooglePlex = CameraPosition(
+        target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
+        zoom: 18,
+      );
+      print(
+          "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +53,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
       body: Stack(
         children: [
           GoogleMap(
+            myLocationEnabled: true,
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
@@ -109,6 +134,10 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                       ],
                     ),
                   ),
+                  // _currentPosition != null
+                  //     ? ReusableText(title:
+                  //     "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}")
+                  //     : CircularProgressIndicator(),
                   SizedBox(
                     height: 40,
                     child: ReusableButton1(
