@@ -38,29 +38,38 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                       thickness: 1,
                       color: lightGreyColor,
                     ),
-                    SizedBox(
-                      height: 45,
-                      child: ListTile(
-                        dense: true,
-                        visualDensity: const VisualDensity(vertical: -3),
-                        leading: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: blackLight,
-                            size: 24,
+                    Container(
+                      height: 40,
+                      width: double.maxFinite,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(top: 5,bottom: 5),
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: ReusableText(
+                              title: "My Orders".tr,
+                              size: 18,
+                              weight: FontWeight.bold,
+                              textAlign: TextAlign.left,
+                            ),
                           ),
-                        ),
-                        title: ReusableText(
-                          title: "My Orders".tr,
-                          size: 18,
-                          weight: FontWeight.bold,
-                          textAlign: TextAlign.center,
-                        ),
+                          Positioned(
+                            left: 20,
+                            top: 0,
+                            child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(
+                              Icons.arrow_back_ios,
+                              color: blackLight,
+                              size: 24,
+                            ),
+                          ),)
+                        ],
                       ),
                     ),
+
                     const SearchOrdersWidget(),
 
                     const Divider(
@@ -78,29 +87,41 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                           labelColor: primaryColor,
                           controller: _tabController,
                           tabs: [
-                            ReusableText(
-                              title: "Orders".tr,
-                              size: 14,
-                              weight: FontWeight.w600,
-                              textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: ReusableText(
+                                title: "Orders".tr,
+                                size: 14,
+                                weight: FontWeight.w600,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            ReusableText(
-                              title: "Delivered".tr,
-                              size: 14,
-                              weight: FontWeight.w600,
-                              textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: ReusableText(
+                                title: "Delivered".tr,
+                                size: 14,
+                                weight: FontWeight.w600,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            ReusableText(
-                              title: "Cancelled".tr,
-                              size: 14,
-                              weight: FontWeight.w600,
-                              textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: ReusableText(
+                                title: "Cancelled".tr,
+                                size: 14,
+                                weight: FontWeight.w600,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            ReusableText(
-                              title: "Return".tr,
-                              size: 14,
-                              weight: FontWeight.w600,
-                              textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: ReusableText(
+                                title: "Return".tr,
+                                size: 14,
+                                weight: FontWeight.w600,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),

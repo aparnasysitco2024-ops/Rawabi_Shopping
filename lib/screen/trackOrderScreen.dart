@@ -18,7 +18,7 @@ class TrackOrderScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 120,
+                height: 110,
                 color: white,
                 width: double.maxFinite,
                 padding: const EdgeInsets.only(bottom: 10),
@@ -31,27 +31,35 @@ class TrackOrderScreen extends StatelessWidget {
                       thickness: 1,
                       color: lightGreyColor,
                     ),
-                    SizedBox(
-                      height: 50,
-                      child: ListTile(
-                        dense: true,
-                        visualDensity: const VisualDensity(vertical: -3),
-                        leading: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: blackLight,
-                            size: 24,
+                    Container(
+                      height: 40,
+                      width: double.maxFinite,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(top: 5,bottom: 5),
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: ReusableText(
+                              title: "Track Order".tr,
+                              size: 18,
+                              weight: FontWeight.bold,
+                              textAlign: TextAlign.left,
+                            ),
                           ),
-                        ),
-                        title: ReusableText(
-                          title: "Track Order".tr,
-                          size: 18,
-                          weight: FontWeight.w700,
-                          textAlign: TextAlign.center,
-                        ),
+                          Positioned(
+                            left: 20,
+                            top: 0,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios,
+                                color: blackLight,
+                                size: 24,
+                              ),
+                            ),)
+                        ],
                       ),
                     ),
                   ],

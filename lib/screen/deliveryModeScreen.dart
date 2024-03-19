@@ -75,17 +75,23 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                         labelColor: primaryColor,
                         controller: _tabController,
                         tabs: [
-                          ReusableText(
-                            title: "Home Delivery".tr,
-                            size: 14,
-                            weight: FontWeight.w600,
-                            textAlign: TextAlign.center,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: ReusableText(
+                              title: "Home Delivery".tr,
+                              size: 14,
+                              weight: FontWeight.w600,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          ReusableText(
-                            title: "Store Pickup".tr,
-                            size: 14,
-                            weight: FontWeight.w600,
-                            textAlign: TextAlign.center,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: ReusableText(
+                              title: "Store Pickup".tr,
+                              size: 14,
+                              weight: FontWeight.w600,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
 
                         ],
