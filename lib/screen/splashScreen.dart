@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/utils/app_utils.dart';
 
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
@@ -20,12 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 1), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) =>  LoginScreen(),
-        ),
-      );
+      AppUtils.navigateToPageReplace(LoginScreen());
     });
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/homeDeliveryMapScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/storeTile.dart';
-import '../widget/commonwidget/reusable_button.dart';
+
 import '../widget/commonwidget/reusable_text.dart';
 
 class DeliveryModeScreen extends StatefulWidget {
@@ -101,101 +101,103 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
             child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _tabController,
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage("assets/images/map.png"),
-                        ),
-                      ),
-                      child: SafeArea(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              height: 210,
-                              width: double.maxFinite,
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                              alignment: Alignment.bottomLeft,
-                              decoration: BoxDecoration(
-                                color: white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:18.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SvgPicture.asset(
-                                          "assets/icons/location.svg",
-                                          fit: BoxFit.contain,
-                                          width: 25,
-                                          height: 25,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        const Flexible(
-                                          child: Text(
-                                            'Al Wakra, Doha,\n Qatar.',
-                                            softWrap: true,
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: "OpenSans",
-                                              color: blackLight,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  ReusableButton(borderRadius:4.0,onTap: () {}, title: "Confirm Location"),
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                    Container(
-                      width: 380,
-                      height: 45,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      margin: const EdgeInsets.all(10) ,
-                      padding: const EdgeInsets.only(right: 10),
-                      child:  TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: white,
-                          hintText: "Search Location".tr,
-                          contentPadding: const EdgeInsets.only(left: 10),
-                          prefixIcon: const Icon(Icons.search,color: blackLight,),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    )
-                  ]
-                ),
+                const HomeDeliveryMapScreen(),
+                // Stack(
+                //   children: [
+                //     Container(
+                //       height: MediaQuery.of(context).size.height,
+                //       width: MediaQuery.of(context).size.width,
+                //       decoration: const BoxDecoration(
+                //         image: DecorationImage(
+                //           fit: BoxFit.cover,
+                //           image: AssetImage("assets/images/map.png"),
+                //         ),
+                //       ),
+                //       child: SafeArea(
+                //           child: Align(
+                //             alignment: Alignment.bottomCenter,
+                //             child: Container(
+                //               height: 210,
+                //               width: double.maxFinite,
+                //               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                //               alignment: Alignment.bottomLeft,
+                //               decoration: BoxDecoration(
+                //                 color: white,
+                //                 borderRadius: BorderRadius.circular(20),
+                //               ),
+                //               child: Column(
+                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //                 children: [
+                //
+                //                   Padding(
+                //                     padding: const EdgeInsets.only(top:18.0),
+                //                     child: Row(
+                //                       crossAxisAlignment: CrossAxisAlignment.start,
+                //                       children: [
+                //                         SvgPicture.asset(
+                //                           "assets/icons/location.svg",
+                //                           fit: BoxFit.contain,
+                //                           width: 25,
+                //                           height: 25,
+                //                         ),
+                //                         const SizedBox(
+                //                           width: 10,
+                //                         ),
+                //                         const Flexible(
+                //                           child: Text(
+                //                             'Al Wakra, Doha,\n Qatar.',
+                //                             softWrap: true,
+                //                             maxLines: 2,
+                //                             style: TextStyle(
+                //                               fontSize: 18,
+                //                               fontWeight: FontWeight.w600,
+                //                               fontFamily: "OpenSans",
+                //                               color: blackLight,
+                //                             ),
+                //                           ),
+                //                         ),
+                //                       ],
+                //                     ),
+                //                   ),
+                //
+                //                   ReusableButton(borderRadius:4.0,onTap: () {}, title: "Confirm Location"),
+                //                 ],
+                //               ),
+                //             ),
+                //           )),
+                //     ),
+                //     Container(
+                //       width: 380,
+                //       height: 45,
+                //       alignment: Alignment.center,
+                //       decoration: const BoxDecoration(
+                //           color: white,
+                //           borderRadius: BorderRadius.all(Radius.circular(4))),
+                //       margin: const EdgeInsets.all(10) ,
+                //       padding: const EdgeInsets.only(right: 10),
+                //       child:  TextField(
+                //         decoration: InputDecoration(
+                //           filled: true,
+                //           fillColor: white,
+                //           hintText: "Search Location".tr,
+                //           contentPadding: const EdgeInsets.only(left: 10),
+                //           prefixIcon: const Icon(Icons.search,color: blackLight,),
+                //           border: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(4),
+                //             borderSide: BorderSide.none,
+                //           ),
+                //           focusedBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(4),
+                //             borderSide: BorderSide.none,
+                //           ),
+                //         ),
+                //       ),
+                //     )
+                //   ]
+                // ),
                 ListView.separated(
                     padding: const EdgeInsets.all(0),
                     shrinkWrap: true,
