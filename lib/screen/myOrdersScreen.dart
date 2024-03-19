@@ -61,43 +61,8 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                      child: Row(
-                        children: [
-                          const SearchOrdersWidget(),
-                          const Spacer(),
-                          Container(
-                              width: 140,
-                              height: 42,
-                              alignment: Alignment.center,
-                              decoration: const BoxDecoration(
-                                  color: silver,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4))),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    child: ReusableText(
-                                      title: "Last 3 months".tr,
-                                      size: 14,
-                                      weight: FontWeight.w400,
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: grey,
-                                    size: 20,
-                                  ),
-                                ],
-                              )),
-                        ],
-                      ),
-                    ),
+                    const SearchOrdersWidget(),
+
                     const Divider(
                       thickness: 1,
                       color: lightGreyColor,

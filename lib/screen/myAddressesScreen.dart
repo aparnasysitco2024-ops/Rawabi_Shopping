@@ -124,7 +124,7 @@ class MyAddressesScreen extends StatelessWidget {
                               left: 18, top: 10, right: 18, bottom: 33),
                           child: ReusableButton1(
                             onPressed: () {
-                              AppUtils.navigateToPage(AddNewAddressesScreen());
+                              AppUtils.navigateToPage(const AddNewAddressesScreen());
                             },
                             title: "Add New Address",
                             fontSize: 14,

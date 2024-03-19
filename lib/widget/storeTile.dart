@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-class ProfileTile extends StatelessWidget {
-  final String image;
+class StoreTile extends StatelessWidget {
   final String title;
-  const ProfileTile({super.key, required this.image, required this.title});
+  const StoreTile({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 52,
       width: double.maxFinite,
-      padding: const EdgeInsets.only(top: 17,bottom: 15),
+      decoration: BoxDecoration(
+        color: white,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 14,vertical: 2),
+      padding:const EdgeInsets.symmetric(horizontal: 10,vertical: 5) ,
       child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset(
-            image,
-            fit: BoxFit.fill,
-            width: 20,
-            height: 20,
-          ),
-          const SizedBox(width: 15,),
-          ReusableText(title: title.tr, size: 16, weight: FontWeight.w600),
+          ReusableText(title: title.tr, size: 12, weight: FontWeight.w600),
           const Spacer(),
           const Padding(
             padding: EdgeInsets.only(right: 8.0),
