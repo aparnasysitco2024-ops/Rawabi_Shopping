@@ -1,8 +1,7 @@
+import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/widget/orderDetailsTile.dart';
-import 'package:rawabi/widget/searchOrderWidget.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
@@ -59,7 +58,8 @@ class TrackOrderScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 8.0),
                 child: Column(
                   children: [
                     Container(
@@ -73,9 +73,9 @@ class TrackOrderScreen extends StatelessWidget {
                             colors: [blue, lightBlue, pink]),
                       ),
                       child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/Clock.svg",
-                          height: 35,
+                        Image.asset(
+                          "assets/icons/clock.png",
+                          height: 30,
                         ),
                         const SizedBox(
                           width: 5,
@@ -84,13 +84,13 @@ class TrackOrderScreen extends StatelessWidget {
                           title: "Deliver today at 5.00 pm",
                           size: 10,
                           weight: FontWeight.w600,
-                          color: Colors.black,
+                          color: white,
                         ),
                         const Spacer(),
                         Container(
                           padding: const EdgeInsets.all(4),
                           decoration: const BoxDecoration(
-                              color: Colors.white,
+                              color: white,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3))),
                           child: InkWell(
@@ -104,14 +104,17 @@ class TrackOrderScreen extends StatelessWidget {
                         )
                       ]),
                     ),
-                    const SizedBox(height: 6,),
+                    const SizedBox(
+                      height: 6,
+                    ),
                     Container(
                       height: 85,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -125,7 +128,9 @@ class TrackOrderScreen extends StatelessWidget {
                                 weight: FontWeight.w600,
                               ),
                               ReusableText(
-                                title: "Ilyas Doodler, A 38, A wakra Shopping Complex, Al wakra, Doha,Qatar.".tr,
+                                title:
+                                    "Ilyas Doodler, A 38, A wakra Shopping Complex, Al wakra, Doha,Qatar."
+                                        .tr,
                                 size: 12,
                                 weight: FontWeight.w400,
                               ),
@@ -140,7 +145,9 @@ class TrackOrderScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 6,),
+                    const SizedBox(
+                      height: 6,
+                    ),
                     Container(
                       alignment: Alignment.center,
                       height: 64,
@@ -148,7 +155,8 @@ class TrackOrderScreen extends StatelessWidget {
                         color: white,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -170,19 +178,17 @@ class TrackOrderScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           GestureDetector(
-                            onTap: (){
-
-                            },
+                            onTap: () {},
                             child: Container(
                               alignment: Alignment.center,
                               height: 30,
                               width: 125,
-                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 2),
                               decoration: const BoxDecoration(
                                   color: pink,
-
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(100))),
+                                      BorderRadius.all(Radius.circular(100))),
                               child: const ReusableText(
                                 title: "Track Your Order",
                                 color: primaryColor,
@@ -194,16 +200,247 @@ class TrackOrderScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 6,),
+                    const SizedBox(
+                      height: 6,
+                    ),
                     Container(
                       height: 285,
+                      width: double.maxFinite,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-
-                    )
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  FDottedLine(
+                                      color: pink,
+                                      strokeWidth: 0.0,
+                                      dottedLength: 8.0,
+                                      space: 3.0,
+                                      corner: FDottedLineCorner.all(75.0),
+                                      child: Container(
+                                        width: 38,
+                                        height: 38,
+                                        alignment: Alignment.center,
+                                        color: pink,
+                                        child: CircleAvatar(
+                                          radius: 15,
+                                          backgroundColor: lightPink,
+                                          child: SvgPicture.asset("assets/icons/Tick.svg"),
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title: "Order placed",
+                                        size: 10,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      ReusableText(
+                                        title: "2:30 Pm - 27-Dec-2023",
+                                        size: 10,
+                                        color: blue,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 19.0, vertical: 5),
+                                child: FDottedLine(
+                                  color: blackLight,
+                                  height: 26.0,
+                                  width: 0,
+                                  strokeWidth: 2.0,
+                                  dottedLength: 3.0,
+                                  space: 2.0,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  FDottedLine(
+                                      color: pink,
+                                      strokeWidth: 0.0,
+                                      dottedLength: 8.0,
+                                      space: 3.0,
+                                      corner: FDottedLineCorner.all(75.0),
+                                      child: Container(
+                                        width: 38,
+                                        height: 38,
+                                        alignment: Alignment.center,
+                                        color: pink,
+                                        child: CircleAvatar(
+                                          radius: 15,
+                                          backgroundColor: lightPink,
+                                          child: SvgPicture.asset("assets/icons/Tick.svg"),
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title: "Item Processed",
+                                        size: 10,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      ReusableText(
+                                        title: "Bagged from Shop at 2:45 Pm",
+                                        size: 10,
+                                        color: blue,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 19.0, vertical: 5),
+                                child: FDottedLine(
+                                  color: blackLight,
+                                  height: 26.0,
+                                  width: 0,
+                                  strokeWidth: 2.0,
+                                  dottedLength: 3.0,
+                                  space: 2.0,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  FDottedLine(
+                                      color: pink,
+                                      strokeWidth: 0.0,
+                                      dottedLength: 8.0,
+                                      space: 3.0,
+                                      corner: FDottedLineCorner.all(75.0),
+                                      child: Container(
+                                        width: 38,
+                                        height: 38,
+                                        alignment: Alignment.center,
+                                        color: pink,
+                                        child: CircleAvatar(
+                                          radius: 15,
+                                          backgroundColor: primaryColor,
+                                          child: SvgPicture.asset("assets/icons/Tick.svg",color: white,),
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title: "Delivering",
+                                        size: 10,
+                                        color: primaryColor,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      ReusableText(
+                                        title: "Your delivery is on the way",
+                                        size: 10,
+                                        color: blackLight,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 19.0, vertical: 5),
+                                child: FDottedLine(
+                                  color: blackLight,
+                                  height: 26.0,
+                                  width: 0,
+                                  strokeWidth: 2.0,
+                                  dottedLength: 3.0,
+                                  space: 2.0,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  FDottedLine(
+                                      color: blackLight,
+                                      strokeWidth: 2.0,
+                                      dottedLength: 3.0,
+                                      space: 3.0,
+                                      corner: FDottedLineCorner.all(75.0),
+                                      child: Container(
+                                        width: 38,
+                                        height: 38,
+                                        alignment: Alignment.center,
+                                      )),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title: "Item Delivered",
+                                        size: 10,
+                                        color: primaryColor,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      ReusableText(
+                                        title: "Expected at 3:00 Pm Today",
+                                        size: 10,
+                                        color: blackLight,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 30,
+                              width: 125,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 2),
+                              decoration: const BoxDecoration(
+                                  color: skyBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100))),
+                              child: const ReusableText(
+                                title: "Cancel Order",
+                                color: blackLight,
+                                size: 12,
+                                weight: FontWeight.w600,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

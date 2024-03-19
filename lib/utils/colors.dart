@@ -10,6 +10,7 @@ const silver=Color(0xFFf0f0f0);
 const blue=Color(0xFF2EA5D6);
 const lightBlue=Color(0xFF9bafda);
 const pink=Color(0xFFFFBBE6);
+const lightPink=Color(0xFFFAD3EB);
 const skyBlue =Color(0x3329AAE2);
 const white = Color(0xFFFFFFFF);
 const lightGreyColor = Color(0xFFF3F3F3);
