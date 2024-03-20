@@ -14,7 +14,7 @@ class MyOrdersController extends GetxController {
 
   MyOrdersController();
 
-  var myOrderList = <MyOrder>[].obs;
+  var myOrderList = <Orders>[].obs;
 
   @override
   onInit() async {
@@ -33,7 +33,7 @@ class MyOrdersController extends GetxController {
         var responseData =
             MyOrderResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          myOrderList.addAll(responseData.myOrder as Iterable<MyOrder>);
+          myOrderList.addAll(responseData.res!.orders as Iterable<Orders>);
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

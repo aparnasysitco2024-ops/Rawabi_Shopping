@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -20,8 +21,11 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
       Completer<GoogleMapController>();
   late Position _currentPosition;
   late CameraPosition _kGooglePlex;
+  late Position position;
   double lat = 25.2854;
   double lng = 51.5310;
+  String address = "";
+  late Placemark place;
 
   @override
   void initState() {
@@ -34,16 +38,36 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
   }
 
   _getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
+    position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+    // setState(() {
+    _currentPosition = position;
+    _kGooglePlex = CameraPosition(
+      target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
+      zoom: 18,
+    );
+    _getAddressFromLatLng(position);
+    _goToThePlace();
+    print(
+        "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
+    // });
+  }
+
+  Future<void> _goToThePlace() async {
+    final GoogleMapController controller = await _controller.future;
+    await controller
+        .animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
+  }
+
+  Future<void> _getAddressFromLatLng(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    place = placemarks.length > 1 ? placemarks[1] : placemarks[0];
     setState(() {
-      _currentPosition = position;
-      _kGooglePlex = CameraPosition(
-        target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
-        zoom: 18,
-      );
-      print(
-          "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
+      address = "${place.subLocality!}, ${place.locality}";
+      // _currentAddress =
+      // '${place.street}, ${place.subLocality},
+      // ${place.subAdministrativeArea}, ${place.postalCode}';
     });
   }
 
@@ -118,12 +142,12 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Flexible(
+                        Flexible(
                           child: Text(
-                            'Al Wakra, Doha,\n Qatar.',
+                            address,
                             softWrap: true,
                             maxLines: 2,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               fontFamily: "OpenSans",

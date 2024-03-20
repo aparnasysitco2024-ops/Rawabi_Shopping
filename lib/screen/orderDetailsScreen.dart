@@ -10,7 +10,7 @@ import '../widget/commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class OrderDetailsScreen extends StatelessWidget {
-  MyOrder myOrder;
+  Orders myOrder;
 
   OrderDetailsScreen({super.key, required this.myOrder});
 

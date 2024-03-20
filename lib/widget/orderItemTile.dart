@@ -8,7 +8,7 @@ import '../model/myOrderResponse.dart';
 
 // ignore: must_be_immutable
 class OrderItemTile extends StatelessWidget {
-  MyOrder myOrder;
+  Orders myOrder;
 
   OrderItemTile({super.key, required this.myOrder});
 

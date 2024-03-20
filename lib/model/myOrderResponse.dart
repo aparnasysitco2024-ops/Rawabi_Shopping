@@ -1,33 +1,52 @@
 class MyOrderResponse {
   String? code;
   String? message;
-  List<MyOrder>? myOrder;
+  Res? res;
 
-  MyOrderResponse({this.code, this.message, this.myOrder});
+  MyOrderResponse({this.code, this.message, this.res});
 
   MyOrderResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    if (json['res'] != null) {
-      myOrder = <MyOrder>[];
-      json['res'].forEach((v) {
-        myOrder!.add(MyOrder.fromJson(v));
-      });
-    }
+    res = json['res'] != null ? Res.fromJson(json['res']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['code'] = code;
     data['message'] = message;
-    if (myOrder != null) {
-      data['res'] = myOrder!.map((v) => v.toJson()).toList();
+    if (res != null) {
+      data['res'] = res!.toJson();
     }
     return data;
   }
 }
 
-class MyOrder {
+class Res {
+  List<Orders>? orders;
+
+  Res({this.orders});
+
+  Res.fromJson(Map<String, dynamic> json) {
+    if (json['orders'] != null) {
+      orders = <Orders>[];
+      json['orders'].forEach((v) {
+        orders!.add(Orders.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (orders != null) {
+      data['orders'] = orders!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Orders {
+  String? orderid;
   String? refno;
   String? status;
   String? date;
@@ -46,8 +65,9 @@ class MyOrder {
   String? payable;
   List<Items>? items;
 
-  MyOrder(
-      {this.refno,
+  Orders(
+      {this.orderid,
+        this.refno,
         this.status,
         this.date,
         this.addressId,
@@ -65,7 +85,8 @@ class MyOrder {
         this.payable,
         this.items});
 
-  MyOrder.fromJson(Map<String, dynamic> json) {
+  Orders.fromJson(Map<String, dynamic> json) {
+    orderid = json['orderid'];
     refno = json['refno'];
     status = json['status'];
     date = json['date'];
@@ -92,6 +113,7 @@ class MyOrder {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['orderid'] = orderid;
     data['refno'] = refno;
     data['status'] = status;
     data['date'] = date;
@@ -117,14 +139,21 @@ class MyOrder {
 
 class Items {
   String? itemName;
+  String? itemImage;
   String? itemPrice;
   String? itemQty;
   String? subtotal;
 
-  Items({this.itemName, this.itemPrice, this.itemQty, this.subtotal});
+  Items(
+      {this.itemName,
+        this.itemImage,
+        this.itemPrice,
+        this.itemQty,
+        this.subtotal});
 
   Items.fromJson(Map<String, dynamic> json) {
     itemName = json['item_name'];
+    itemImage = json['item_image'];
     itemPrice = json['item_price'];
     itemQty = json['item_qty'];
     subtotal = json['subtotal'];
@@ -133,6 +162,7 @@ class Items {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['item_name'] = itemName;
+    data['item_image'] = itemImage;
     data['item_price'] = itemPrice;
     data['item_qty'] = itemQty;
     data['subtotal'] = subtotal;

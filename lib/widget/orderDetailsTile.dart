@@ -25,11 +25,11 @@ class OrderDetailsTile extends StatelessWidget {
           Checkbox(
             checkColor: white,
             activeColor: primaryColor,
-            value: true,
+            value: false,
             onChanged: (bool? value) {
             },
           ),
-          SizedBox(width:60,child: ReusableNetworkImage(image: "",height: 60.0,)),
+          SizedBox(width:60,child: ReusableNetworkImage(image: items.itemImage.toString(),height: 60.0,)),
           const SizedBox(
             width: 5,
           ),
@@ -50,7 +50,7 @@ class OrderDetailsTile extends StatelessWidget {
                 //   weight: FontWeight.w600,
                 //   color: darkGrey,
                 // ),
-                Row(
+                const Row(
                   children: [
                     CircleAvatar(
                       backgroundColor: blue,
