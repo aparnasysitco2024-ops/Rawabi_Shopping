@@ -147,7 +147,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 height: 2,
               ),
               Expanded(
-                flex: 12,
+                flex: 18,
                 child: Container(
                   color: silver,
                   child: Expanded(
