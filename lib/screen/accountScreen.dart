@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/deliveryModeScreen.dart';
+import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/myAddressesScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
@@ -190,8 +191,13 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/love.svg", title: "Wishlist"),
+                        InkWell(
+                          onTap: () {
+                            AppUtils.navigateToPage(const FiltersScreen());
+                          },
+                          child: const ProfileTile(
+                              image: "assets/icons/love.svg", title: "Wishlist"),
+                        ),
                         const Divider(
                           thickness: 1,
                         ),

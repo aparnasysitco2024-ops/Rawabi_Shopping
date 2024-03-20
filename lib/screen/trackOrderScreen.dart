@@ -2,6 +2,7 @@ import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/widget/commonwidget/svg_icon.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
@@ -122,7 +123,7 @@ class TrackOrderScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -346,10 +347,11 @@ class TrackOrderScreen extends StatelessWidget {
                                         height: 38,
                                         alignment: Alignment.center,
                                         color: pink,
-                                        child: CircleAvatar(
+                                        child: const CircleAvatar(
                                           radius: 15,
                                           backgroundColor: primaryColor,
-                                          child: SvgPicture.asset("assets/icons/Tick.svg",color: white,),
+                                          child:
+                                          SvgIcon(image: "assets/icons/Tick.svg",color: white,),
                                         ),
                                       )),
                                   const SizedBox(
