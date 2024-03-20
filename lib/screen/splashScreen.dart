@@ -7,7 +7,7 @@ import 'package:rawabi/utils/app_utils.dart';
 
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
-import 'loginScreen.dart';
+import 'bottomNavBar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 1), () {
-      AppUtils.navigateToPageReplace(LoginScreen());
+      // AppUtils.navigateToPageReplace(LoginScreen());
+      AppUtils.navigateToPageReplace(const BottomNavBar());
     });
   }
 

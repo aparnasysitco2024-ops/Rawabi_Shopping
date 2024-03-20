@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
@@ -19,11 +20,13 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final homeController = Get.put(HomeController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
     homeController.getDefaultAddress();
     homeController.getHomeData();
+    cartController.getCartList();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => Column(

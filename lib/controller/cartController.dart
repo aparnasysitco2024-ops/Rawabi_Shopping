@@ -15,7 +15,8 @@ class CartController extends GetxController {
   var loading = false.obs;
   var isContactless = false.obs;
   var groupValue = "Cash".obs;
-  List<Products>? products;
+  // List<Products>? cartProducts;
+  var cartProducts = <Products>[].obs;
   String masterCard = "Master Card";
   String visa = "Visa";
   String cash = "Cash";
@@ -37,13 +38,15 @@ class CartController extends GetxController {
       var response = await BaseClient().get(cartList);
       loading.value = false;
       subTotal.value = 0.00;
+      cartProducts.clear();
       if (response != null) {
         var responseData =
             CartListResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          products = responseData.products;
+          cartProducts.addAll(responseData.products as Iterable<Products>);
+          // cartProducts = responseData.products;
 
-          products?.forEach((element) {
+          cartProducts.forEach((element) {
             subTotal.value =
                 subTotal.value + double.parse(element.subtotal.toString());
           });
@@ -56,7 +59,8 @@ class CartController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      CommonUtils.showErrorDialog(error.toString());
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }
@@ -162,7 +166,8 @@ class CartController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      CommonUtils.showErrorDialog(error.toString());
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

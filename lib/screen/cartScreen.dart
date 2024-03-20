@@ -90,8 +90,7 @@ class CartScreen extends StatelessWidget {
                           ),
                         ),
                       )
-                    : cartController.products != null &&
-                            cartController.products!.isNotEmpty
+                    : cartController.cartProducts.isNotEmpty
                         ? Expanded(
                             child: SingleChildScrollView(
                               child: Column(
@@ -122,7 +121,7 @@ class CartScreen extends StatelessWidget {
                                               horizontal: 10.0, vertical: 2),
                                           child: ReusableText(
                                             title: cartController
-                                                    .products!.length
+                                                    .cartProducts.length
                                                     .toString() +
                                                 " items".tr,
                                             size: 10,
@@ -142,12 +141,12 @@ class CartScreen extends StatelessWidget {
                                           padding: const EdgeInsets.all(0),
                                           shrinkWrap: true,
                                           // physics: const NeverScrollableScrollPhysics(),
-                                          itemCount:
-                                              cartController.products!.length,
+                                          itemCount: cartController
+                                              .cartProducts.length,
                                           itemBuilder: (context, index) =>
                                               CartItemDetails(
                                                 products: cartController
-                                                    .products![index],
+                                                    .cartProducts[index],
                                               ))),
                                   Container(
                                     height: 76,

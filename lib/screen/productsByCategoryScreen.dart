@@ -22,7 +22,7 @@ class ProductsByCategory extends StatelessWidget {
     productController.getProductsByCat(catID!);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Obx(() => ListView(padding: const EdgeInsets.all(0), children: [
+      body: Obx(() => Column( children: [
             const SizedBox(
               height: 60,
             ),

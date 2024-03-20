@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:rawabi/model/baseResponse.dart';
 
 import '../model/homeResponse.dart';
 import '../utils/commonUtils.dart';
@@ -65,38 +64,12 @@ class HomeController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
+      error.printError();
       isHomeLoaded = false;
-      CommonUtils.showErrorDialog(error.toString());
+      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }
 
-  Future<void> addToCart(
-      String itemID, String storeID, String? itemPrice, String itemQty) async {
-    try {
-      loading.value = true;
-      var request = {
-        "item_id": itemID,
-        "store_id": storeID,
-        "item_price": itemPrice,
-        "item_qty": itemQty
-      };
-      var response = await BaseClient().post(addtocart, request);
-      loading.value = false;
-      if (response != null) {
-        var responseData =
-            BaseResponse.fromJson(json.decode(response.toString()));
-        if (responseData.code == "200") {
-          CommonUtils().messageBox(responseData.message.toString());
-        } else {
-          CommonUtils.showErrorDialog(responseData.message);
-        }
-      } else {
-        CommonUtils.showErrorDialog(response.message);
-      }
-    } catch (error) {
-      CommonUtils.showErrorDialog(error.toString());
-    }
-    loading.value = false;
-  }
+
 }

@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
@@ -19,6 +19,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   final productDetailsController = Get.put(ProductDetailsController());
   final homeController = Get.put(HomeController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -302,15 +303,17 @@ class ProductDetailsScreen extends StatelessWidget {
                           ReusableButton1(
                             title: "Add to Cart".tr,
                             onPressed: () {
-                              homeController.addToCart(
+                              cartController.addToCart(
                                   productID,
                                   productDetailsController
-                                      .productDetails!.storeId.toString(),
+                                      .productDetails!.storeId
+                                      .toString(),
                                   productDetailsController
                                       .productDetails!.offerPrice,
                                   "1");
                             },
-                          ),const SizedBox(
+                          ),
+                          const SizedBox(
                             height: 20,
                           ),
                         ],

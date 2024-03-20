@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/cartScreen.dart';
+import 'package:rawabi/screen/categoryScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 
 import '../widget/commonwidget/reusable_text.dart';
@@ -20,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List _pages = [
     HomeScreen(),
-    HomeScreen(),
+    CategoryScreen(),
     HomeScreen(),
     CartScreen(),
     const AccountScreen()

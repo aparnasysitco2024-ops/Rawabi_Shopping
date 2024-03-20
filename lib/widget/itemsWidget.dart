@@ -5,10 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button.dart';
-import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-import '../controller/homeController.dart';
+import '../controller/cartController.dart';
 import '../model/products.dart';
 import '../screen/productDetailsScreen.dart';
 import '../utils/app_utils.dart';
@@ -17,15 +16,24 @@ class ItemsWidget extends StatefulWidget {
   String? title;
   List<Products>? products;
   bool hideViewAll;
-  final homeController = Get.put(HomeController());
+  // final homeController = Get.put(HomeController());
+  final cartController = Get.put(CartController());
 
   ItemsWidget({super.key, this.title, this.products, this.hideViewAll = false});
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
+
+
 }
 
 class _ItemsWidgetState extends State<ItemsWidget> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,7 +122,6 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                             Row(
                               children: [
                                 SizedBox(
-                                  width: 80,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -139,22 +146,93 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                   ),
                                 ),
                                 const Spacer(),
-                                SizedBox(
-                                  width: 55.0,
-                                  height: 25,
-                                  child: ReusableButton1(
-                                    fontSize: 11.0,
-                                    onPressed: () {
-                                      widget.homeController.addToCart(
-                                          widget.products![index].productId
-                                              .toString(),
-                                          widget.products![index].storeId
-                                              .toString(),
-                                          widget.products![index].offerPrice
-                                              .toString(),
-                                          "1");
-                                    },
-                                    title: "Add".tr,
+                                // SizedBox(
+                                //   width: 55.0,
+                                //   height: 25,
+                                //   child: ReusableButton1(
+                                //     fontSize: 11.0,
+                                //     onPressed: () {
+                                //       widget.homeController.addToCart(
+                                //           widget.products![index].productId
+                                //               .toString(),
+                                //           widget.products![index].storeId
+                                //               .toString(),
+                                //           widget.products![index].offerPrice
+                                //               .toString(),
+                                //           "1");
+                                //     },
+                                //     title: "Add".tr,
+                                //   ),
+                                // ),
+                                Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                      color: pink,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          // if (products.quantity == "1") {
+                                          //   cartController.removeCartItem(products.cartId);
+                                          // } else {
+                                          //   cartController.updateQty(products.cartId,
+                                          //       int.parse(products.quantity.toString()) - 1);
+                                          // }
+                                        },
+                                        child: const SizedBox(
+                                          width: 20,
+                                          child: CircleAvatar(
+                                            backgroundColor: silver,
+                                            radius: 15,
+                                            child: ClipOval(
+                                                child: Icon(
+                                                    size: 15,
+                                                    Icons.remove_outlined)),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      ReusableText(
+                                        title: widget.products![index].qty
+                                            .toString(),
+                                        size: 12,
+                                        weight: FontWeight.bold,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          widget.cartController.addToCart(
+                                              widget.products![index].productId
+                                                  .toString(),
+                                              widget.products![index].storeId
+                                                  .toString(),
+                                              widget.products![index].offerPrice
+                                                  .toString(),
+                                              "1");
+                                          setState(() {
+                                            widget.products![index].qty =
+                                            (widget.products![index].qty! +
+                                                1);
+                                          });
+
+                                        },
+                                        child: const SizedBox(
+                                          width: 20,
+                                          child: CircleAvatar(
+                                            backgroundColor: primaryColor,
+                                            radius: 15,
+                                            child: ClipOval(
+                                                child:
+                                                    Icon(size: 15, Icons.add)),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 )
                               ],

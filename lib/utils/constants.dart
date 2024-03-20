@@ -15,6 +15,8 @@ const checkout = '${baseURL}checkout';
 const addressList = '${baseURL}addressList';
 const deleteaddress = '${baseURL}deleteaddress';
 const myorders = '${baseURL}myorders';
+const categoryUrl = '${baseURL}category';
+
 
 //keys
 const token = "Rawabi_jc";
