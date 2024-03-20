@@ -416,35 +416,38 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    height: 80,
-                    color: white,
-                    padding: const EdgeInsets.only(
-                        left: 18, top: 10, right: 18, bottom: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ReusableButton1(
-                          onPressed: () {},
-                          backgroundColor: white,
-                          txtColor: blackLight,
-                          size: Size(160, 44),
-                          title: "Clear",
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          isOutlineButton: true,
-                        ),
-                        ReusableButton1(
-                          onPressed: () {},
-                          size: Size(200, 44),
-                          title: "Apply",
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    )),
+              Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      height: 80,
+                      color: white,
+                      padding: const EdgeInsets.only(
+                          left: 18, top: 10, right: 18, bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ReusableButton1(
+                            onPressed: () {},
+                            backgroundColor: white,
+                            txtColor: blackLight,
+                            size: Size(160, 44),
+                            title: "Clear",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            isOutlineButton: true,
+                          ),
+                          ReusableButton1(
+                            onPressed: () {},
+                            size: Size(200, 44),
+                            title: "Apply",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      )),
+                ),
               )
             ],
           ),
