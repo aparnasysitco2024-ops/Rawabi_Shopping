@@ -416,19 +416,19 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      height: 80,
-                      color: white,
-                      padding: const EdgeInsets.only(
-                          left: 18, top: 10, right: 18, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ReusableButton1(
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    height: 80,
+                    color: white,
+                    padding: const EdgeInsets.only(
+                        left: 18, top: 10, right: 18, bottom: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: ReusableButton1(
                             onPressed: () {},
                             backgroundColor: white,
                             txtColor: blackLight,
@@ -438,16 +438,20 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             fontWeight: FontWeight.bold,
                             isOutlineButton: true,
                           ),
-                          ReusableButton1(
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          flex: 3,
+                          child: ReusableButton1(
                             onPressed: () {},
                             size: Size(200, 44),
                             title: "Apply",
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      )),
-                ),
+                        ),
+                      ],
+                    )),
               )
             ],
           ),
