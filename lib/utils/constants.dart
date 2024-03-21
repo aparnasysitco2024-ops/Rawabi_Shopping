@@ -16,6 +16,7 @@ const addressList = '${baseURL}addressList';
 const deleteaddress = '${baseURL}deleteaddress';
 const myorders = '${baseURL}myorders';
 const categoryUrl = '${baseURL}category';
+const subcategoryUrl = '${baseURL}subcategory';
 
 
 //keys

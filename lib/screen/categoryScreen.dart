@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/productsByCategoryScreen.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/categoryController.dart';
 import '../widget/categoryItemTile.dart';
+import '../widget/subCategoryItemTile.dart';
 
 // ignore: must_be_immutable
 class CategoryScreen extends StatelessWidget {
@@ -52,38 +56,263 @@ class CategoryScreen extends StatelessWidget {
                   SvgPicture.asset("assets/icons/scan.svg")
                 ]),
               ),
-              Expanded(
-                child: Container(
-                  color: silver,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 5,
+              !categoryController.loading.value
+                  ? Expanded(
+                      child: Container(
+                        color: silver,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  margin: const EdgeInsets.all(10),
+                                  //Main category
+                                  child: MainCategory()),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
                         ),
-                        //Category
-                        ListView.builder(
-                            padding: const EdgeInsets.only(
-                                left: 10, top: 10, right: 10),
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: categoryController.categoryList.length,
-                            itemBuilder: (_, index) {
-                              return CategoryItemTile(
-                                  category:
-                                      categoryController.categoryList[index]);
-                            }),
-                        const SizedBox(
-                          height: 10,
+                      ),
+                    )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height - 280,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           )),
     );
+  }
+}
+
+class MainCategory extends StatelessWidget {
+  final categoryController = Get.put(CategoryController());
+
+  MainCategory({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => ExpandedTileList.builder(
+          padding: const EdgeInsets.all(0),
+          itemCount: categoryController.categoryList.length,
+          maxOpened: 1,
+          itemBuilder: (context, index, controller) {
+            return ExpandedTile(
+              theme: const ExpandedTileThemeData(
+                headerColor: Colors.white,
+                // headerRadius: 8,
+                headerPadding: EdgeInsets.all(5),
+                leadingPadding: EdgeInsets.all(0),
+                // headerSplashColor: lightPink,
+                // contentBackgroundColor: Colors.white,
+                contentPadding: EdgeInsets.all(0),
+                // contentRadius: 8
+              ),
+              controller: index == 2
+                  ? controller.copyWith(isExpanded: true)
+                  : controller,
+              title: CategoryItemTile(
+                  category: categoryController.categoryList[index]),
+              content: categoryController.subCategoryList.isNotEmpty
+                  ? SubCategory()
+                  : const SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+              onTap: () {
+                if (controller.isExpanded) {
+                  categoryController.getSubCategory(
+                      categoryController.categoryList[index].catId.toString(),
+                      0);
+                }
+              },
+            );
+          },
+        ));
+  }
+}
+
+class SubCategory extends StatelessWidget {
+  final categoryController = Get.put(CategoryController());
+
+  SubCategory({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => ExpandedTileList.builder(
+          padding: const EdgeInsets.all(0),
+          itemCount: categoryController.subCategoryList.length,
+          maxOpened: 1,
+          itemBuilder: (context, index, controller) {
+            return ExpandedTile(
+              theme: const ExpandedTileThemeData(
+                headerColor: Colors.white,
+                // headerRadius: 8,
+                headerPadding: EdgeInsets.all(5),
+                leadingPadding: EdgeInsets.all(0),
+                // headerSplashColor: lightPink,
+                // contentBackgroundColor: Colors.white,
+                contentPadding: EdgeInsets.all(0),
+                // contentRadius: 8
+              ),
+              controller: index == 2
+                  ? controller.copyWith(isExpanded: true)
+                  : controller,
+              title: SubCategoryItemTile(
+                  subCategory: categoryController.subCategoryList[index]),
+              content:
+                  categoryController.subCategoryList[index].subCategory == 0
+                      ? const SizedBox()
+                      : categoryController.subSubCategoryList.isNotEmpty
+                          ? SubSubCategory()
+                          : const SizedBox(
+                              height: 100,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+              onTap: () {
+                if (categoryController.subCategoryList[index].subCategory ==
+                    1) {
+                  if (controller.isExpanded) {
+                    categoryController.getSubCategory(
+                        categoryController.subCategoryList[index].catId
+                            .toString(),
+                        1);
+                  }
+                } else {
+                  AppUtils.navigateToPage(ProductsByCategory(
+                      catID: categoryController.subCategoryList[index].catId));
+                }
+              },
+            );
+          },
+        ));
+  }
+}
+
+class SubSubCategory extends StatelessWidget {
+  final categoryController = Get.put(CategoryController());
+
+  SubSubCategory({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => ExpandedTileList.builder(
+          padding: const EdgeInsets.all(0),
+          itemCount: categoryController.subSubCategoryList.length,
+          maxOpened: 1,
+          itemBuilder: (context, index, controller) {
+            return ExpandedTile(
+              theme: const ExpandedTileThemeData(
+                headerColor: Colors.white,
+                // headerRadius: 8,
+                headerPadding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                leadingPadding: EdgeInsets.all(0),
+                // headerSplashColor: lightPink,
+                // contentBackgroundColor: Colors.white,
+                contentPadding: EdgeInsets.all(0),
+                // contentRadius: 8
+              ),
+              controller: index == 2
+                  ? controller.copyWith(isExpanded: true)
+                  : controller,
+              title: SubCategoryItemTile(
+                  subCategory: categoryController.subSubCategoryList[index]),
+              content:
+                  categoryController.subSubCategoryList[index].subCategory == 0
+                      ? const SizedBox()
+                      : categoryController.subSubSubCategoryList.isNotEmpty
+                          ? SubSubSubCategory()
+                          : const SizedBox(
+                              height: 100,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+              onTap: () {
+                if (categoryController.subSubCategoryList[index].subCategory ==
+                    1) {
+                  if (controller.isExpanded) {
+                    categoryController.getSubCategory(
+                        categoryController.subSubCategoryList[index].catId
+                            .toString(),
+                        2);
+                  }
+                } else {
+                  AppUtils.navigateToPage(ProductsByCategory(
+                      catID:
+                          categoryController.subSubCategoryList[index].catId));
+                }
+              },
+            );
+          },
+        ));
+  }
+}
+
+class SubSubSubCategory extends StatelessWidget {
+  final categoryController = Get.put(CategoryController());
+
+  SubSubSubCategory({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => ExpandedTileList.builder(
+          padding: const EdgeInsets.all(0),
+          itemCount: categoryController.subSubSubCategoryList.length,
+          maxOpened: 1,
+          itemBuilder: (context, index, controller) {
+            return ExpandedTile(
+              theme: const ExpandedTileThemeData(
+                headerColor: Colors.white,
+                // headerRadius: 8,
+                headerPadding: EdgeInsets.only(left: 40, top: 5, bottom: 5),
+                leadingPadding: EdgeInsets.all(0),
+                // headerSplashColor: lightPink,
+                // contentBackgroundColor: Colors.white,
+                contentPadding: EdgeInsets.all(0),
+                // contentRadius: 8
+              ),
+              controller: index == 2
+                  ? controller.copyWith(isExpanded: true)
+                  : controller,
+              title: SubCategoryItemTile(
+                  subCategory: categoryController.subSubSubCategoryList[index]),
+              content: categoryController.subSubSubCategoryList.isNotEmpty
+                  ? const SizedBox()
+                  : const SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+              onTap: () {
+                // if (controller.isExpanded) {
+                AppUtils.navigateToPage(ProductsByCategory(
+                    catID:
+                        categoryController.subSubSubCategoryList[index].catId));
+                // }
+              },
+            );
+          },
+        ));
   }
 }

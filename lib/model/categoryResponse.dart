@@ -50,26 +50,21 @@ class Category {
   String? catName;
   String? catBanner;
   String? catIcon;
-  List<SubCategory>? subCategory;
+  int? subCategory;
 
   Category(
       {this.catId,
-        this.catName,
-        this.catBanner,
-        this.catIcon,
-        this.subCategory});
+      this.catName,
+      this.catBanner,
+      this.catIcon,
+      this.subCategory});
 
   Category.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
-    catName = json['cat_name'];
+    catName = json['cat_name'] ?? "";
     catBanner = json['cat_banner'];
     catIcon = json['cat_icon'];
-    if (json['sub_category'] != null) {
-      subCategory = <SubCategory>[];
-      json['sub_category'].forEach((v) {
-        subCategory!.add(SubCategory.fromJson(v));
-      });
-    }
+    subCategory = json['subcategory'];
   }
 
   Map<String, dynamic> toJson() {
@@ -78,9 +73,7 @@ class Category {
     data['cat_name'] = catName;
     data['cat_banner'] = catBanner;
     data['cat_icon'] = catIcon;
-    if (subCategory != null) {
-      data['sub_category'] = subCategory!.map((v) => v.toJson()).toList();
-    }
+    data['subcategory'] = subCategory;
     return data;
   }
 }
