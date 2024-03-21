@@ -4,6 +4,8 @@ import 'package:rawabi/screen/deliveryModeScreen.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/myAddressesScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
+import 'package:rawabi/screen/myProfileScreen.dart';
+import 'package:rawabi/screen/notificationsScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
@@ -216,8 +218,13 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/user.svg", title: "My Profile"),
+                        InkWell(
+                          onTap: () {
+                            AppUtils.navigateToPage(const MyProfileScreen());
+                          },
+                          child: const ProfileTile(
+                              image: "assets/icons/user.svg", title: "My Profile"),
+                        ),
                         const Divider(
                           thickness: 1,
                         ),
@@ -226,9 +233,14 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/notification2.svg",
-                            title: "Notifications"),
+                        InkWell(
+                          onTap: () {
+                            AppUtils.navigateToPage( NotificationsScreen());
+                          },
+                          child: const ProfileTile(
+                              image: "assets/icons/notification2.svg",
+                              title: "Notifications"),
+                        ),
                         const Divider(
                           thickness: 1,
                         ),

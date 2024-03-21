@@ -6,7 +6,9 @@ import 'commonwidget/reusable_text.dart';
 
 class SearchOrdersWidget extends StatelessWidget {
   final TextEditingController ? controller;
-  const SearchOrdersWidget({super.key, this.controller});
+
+  final String? hintText;
+  const SearchOrdersWidget({super.key, this.controller,this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +17,9 @@ class SearchOrdersWidget extends StatelessWidget {
       child: Row(
         children: [
         Expanded(
-          flex: 4,
+          flex: 5,
           child: Container(
-          width: 240,
+          width: 220,
           height: 42,
           alignment: Alignment.centerLeft,
           decoration: const BoxDecoration(
@@ -28,16 +30,16 @@ class SearchOrdersWidget extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               filled: true,
-              fillColor: lightGreyColor,
-              hintText: "Search Orders".tr,
+              fillColor: silver,
+              hintText: hintText,
               contentPadding: const EdgeInsets.only(left: 10),
               prefixIcon: const Icon(Icons.search,color: blackLight,),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: BorderSide.none,
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: BorderSide.none,
               ),
             ),
@@ -46,9 +48,9 @@ class SearchOrdersWidget extends StatelessWidget {
         ),
           const SizedBox(width: 10,),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
-                width: 130,
+                width: 140,
                 height: 42,
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(

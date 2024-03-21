@@ -11,6 +11,7 @@ class ReusableTextFormBox extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final fillColor;
+  final Color? borderColor;
 
   const ReusableTextFormBox({
     Key? key,
@@ -23,6 +24,7 @@ class ReusableTextFormBox extends StatelessWidget {
     this.obscureText = false,
     this.enabled = true,
     this.prefixIcon,
+    this.borderColor,
   }) : super(key: key);
 
   @override
@@ -57,7 +59,7 @@ class ReusableTextFormBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             // borderSide: BorderSide.none,
             borderSide:
-            BorderSide(color: Colors.blue.withOpacity(0.5), width: 1.0),
+            BorderSide(color: borderColor??Colors.blue.withOpacity(0.5), width: 1.0),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -69,7 +71,7 @@ class ReusableTextFormBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             // borderSide: BorderSide.none,
             borderSide:
-            BorderSide(color: Colors.blue.withOpacity(0.5), width: 1.0),
+            BorderSide(color: borderColor??Colors.blue.withOpacity(0.5), width: 1.0),
           ),
         ),
         // validations

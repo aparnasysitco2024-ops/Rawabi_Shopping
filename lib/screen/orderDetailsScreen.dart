@@ -70,7 +70,7 @@ class OrderDetailsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SearchOrdersWidget(),
+                      const SearchOrdersWidget(hintText: "Search Orders",),
                     ],
                   ),
                 ),
