@@ -6,6 +6,7 @@ import 'package:rawabi/screen/myAddressesScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
 import 'package:rawabi/screen/notificationsScreen.dart';
+import 'package:rawabi/screen/wishlistScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
@@ -195,7 +196,7 @@ class AccountScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            AppUtils.navigateToPage(const FiltersScreen());
+                            AppUtils.navigateToPage(const WishlistScreen());
                           },
                           child: const ProfileTile(
                               image: "assets/icons/love.svg", title: "Wishlist"),
@@ -259,8 +260,13 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/Help.svg", title: "Help"),
+                        InkWell(
+                          onTap: () {
+                            AppUtils.navigateToPage(const FiltersScreen());
+                          },
+                          child: const ProfileTile(
+                              image: "assets/icons/Help.svg", title: "Help"),
+                        ),
                         const Divider(
                           thickness: 1,
                         ),
