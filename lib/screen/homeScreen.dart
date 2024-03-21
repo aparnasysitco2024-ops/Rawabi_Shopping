@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/screen/deliveryModeScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
@@ -13,7 +14,6 @@ import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
 
 import '../utils/app_utils.dart';
-import 'myAddressesScreen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -24,15 +24,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     homeController.getDefaultAddress();
     homeController.getHomeData();
     cartController.getCartList();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => Column(
             children: [
               const SizedBox(
-                height: 50,
+                height: 45,
               ),
               Row(
                 children: [
@@ -172,7 +174,7 @@ class HomeScreen extends StatelessWidget {
                     width: 5,
                   ),
                   ReusableText(
-                    title: "deliver to: ${homeController.defaultAddress.value}",
+                    title: homeController.storeAddress.value,
                     size: 12,
                     weight: FontWeight.bold,
                     color: Colors.black,
@@ -184,7 +186,7 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(3))),
                     child: InkWell(
-                      onTap: () => AppUtils.navigateToPage(MyAddressesScreen()),
+                      onTap: () => AppUtils.navigateToPage(const DeliveryModeScreen()),
                       child: ReusableText(
                         title: "Change".tr,
                         size: 9,

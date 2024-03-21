@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:rawabi/utils/app_utils.dart';
 
 import '../utils/colors.dart';
+import '../utils/storage_manager.dart';
 import '../widget/commonwidget/reusable_text.dart';
 import 'bottomNavBar.dart';
+import 'deliveryModeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,8 +22,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () async {
       // AppUtils.navigateToPageReplace(LoginScreen());
+      String storeAddress = await StorageManager.readData(StorageManager.keyStoreAddress);
+      if (storeAddress.isEmpty) {
+        AppUtils.navigateToPage(DeliveryModeScreen());
+      }else
       AppUtils.navigateToPageReplace(const BottomNavBar());
     });
   }

@@ -26,11 +26,14 @@ class HomeController extends GetxController {
 
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
+  var storeAddress = "".obs;
 
   var isHomeLoaded = false;
   var loading = false.obs;
 
   Future<void> getDefaultAddress() async {
+    storeAddress.value =
+    await StorageManager.readData(StorageManager.keyStoreAddress);
     defaultAddressId.value =
         await StorageManager.readData(StorageManager.keyDefaultAddressId);
     defaultAddress.value =

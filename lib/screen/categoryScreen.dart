@@ -26,7 +26,7 @@ class CategoryScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -34,7 +34,7 @@ class CategoryScreen extends StatelessWidget {
                     title: "Categories".tr, size: 18, weight: FontWeight.bold),
               ),
               Container(
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
                 height: 42,
                 width: double.infinity,
                 padding: const EdgeInsets.only(left: 10, right: 10),

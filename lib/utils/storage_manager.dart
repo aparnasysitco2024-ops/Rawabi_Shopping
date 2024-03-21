@@ -14,6 +14,7 @@ class StorageManager {
   static String keyFirebaseToken = "keyFirebaseToken";
   static String keyFirebaseTokenSend = "keyFirebaseTokenSend";
   static String keyGuestID = "keyGuestID";
+  static String keyStoreAddress = "keyStoreAddress";
   static String keyDefaultAddressId = "keyDefaultAddressId";
   static String keyDefaultAddress = "keyDefaultAddress";
 

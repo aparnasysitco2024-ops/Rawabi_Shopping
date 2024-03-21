@@ -5,7 +5,6 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/storeTile.dart';
 
 import '../widget/commonwidget/reusable_text.dart';
-import '../widget/commonwidget/svg_icon.dart';
 
 class DeliveryModeScreen extends StatefulWidget {
   const DeliveryModeScreen({super.key});
@@ -135,7 +134,7 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                   physics: const NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: [
-                    const HomeDeliveryMapScreen(),
+                     const HomeDeliveryMapScreen(),
                     ListView.separated(
                         padding: const EdgeInsets.all(0),
                         shrinkWrap: true,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/deliveryModeScreen.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/myAddressesScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
@@ -186,7 +185,7 @@ class AccountScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            AppUtils.navigateToPage(const DeliveryModeScreen());
+                            // AppUtils.navigateToPage(const DeliveryModeScreen());
                           },
                           child: const ProfileTile(
                               image: "assets/icons/eReceipt.svg", title: "E-Receipt"),

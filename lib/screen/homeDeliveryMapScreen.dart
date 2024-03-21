@@ -6,8 +6,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rawabi/screen/bottomNavBar.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+
+import '../controller/homeController.dart';
 
 class HomeDeliveryMapScreen extends StatefulWidget {
   const HomeDeliveryMapScreen({super.key});
@@ -26,6 +31,8 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
   double lng = 51.5310;
   String address = "";
   late Placemark place;
+  late CameraPosition selectedPosition;
+  final homeController = Get.put(HomeController());
 
   @override
   void initState() {
@@ -46,7 +53,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
       target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
       zoom: 18,
     );
-    _getAddressFromLatLng(position);
+    _getAddressFromLatLng(_kGooglePlex);
     _goToThePlace();
     print(
         "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
@@ -87,7 +94,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-   return _getCurrentLocation();
+    return _getCurrentLocation();
     // return await Geolocator.getCurrentPosition();
   }
 
@@ -97,12 +104,13 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
         .animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
   }
 
-  Future<void> _getAddressFromLatLng(Position position) async {
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+  Future<void> _getAddressFromLatLng(CameraPosition position) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.target.latitude, position.target.longitude);
     place = placemarks.length > 1 ? placemarks[1] : placemarks[0];
     setState(() {
       address = "${place.subLocality!}, ${place.locality}";
+      print(address);
       // _currentAddress =
       // '${place.street}, ${place.subLocality},
       // ${place.subAdministrativeArea}, ${place.postalCode}';
@@ -114,13 +122,23 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          GoogleMap(
-            myLocationEnabled: true,
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
+          Padding(
+            padding: const EdgeInsets.only(bottom: 145),
+            child: GoogleMap(
+              myLocationEnabled: true,
+              zoomControlsEnabled: false,
+              mapType: MapType.normal,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+              onCameraMove: (position) {
+                selectedPosition = position;
+              },
+              onCameraIdle: () {
+                _getAddressFromLatLng(selectedPosition);
+              },
+            ),
           ),
           Container(
             width: 380,
@@ -149,6 +167,16 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   borderRadius: BorderRadius.circular(4),
                   borderSide: BorderSide.none,
                 ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 185),
+              child: SvgPicture.asset(
+                "assets/icons/marker.svg",
+                height: 35,
               ),
             ),
           ),
@@ -204,7 +232,15 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                     height: 40,
                     child: ReusableButton1(
                       title: "Confirm Location",
-                      onPressed: () {},
+                      onPressed: () {
+                        if (address.isNotEmpty) {
+                          homeController.storeAddress.value = address;
+                          StorageManager.saveData(
+                              StorageManager.keyStoreAddress, address);
+                          AppUtils.navigateToPageRemoveUntil(
+                              const BottomNavBar());
+                        }
+                      },
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
