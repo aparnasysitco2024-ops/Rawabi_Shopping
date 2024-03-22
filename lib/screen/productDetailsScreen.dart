@@ -311,6 +311,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   productDetailsController
                                       .productDetails!.offerPrice,
                                   "1");
+                              //cartController.itemCount++;
                             },
                           ),
                           const SizedBox(

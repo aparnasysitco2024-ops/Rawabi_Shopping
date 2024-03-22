@@ -24,6 +24,7 @@ class CartController extends GetxController {
   var delivery = 0.00.obs;
   var bagFee = 0.00.obs;
   var grandTotal = 0.00.obs;
+  var itemCount = 0.obs;
 
   CartController();
 
