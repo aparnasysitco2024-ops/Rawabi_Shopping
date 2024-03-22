@@ -187,9 +187,9 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
               width: double.maxFinite,
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
               alignment: Alignment.bottomLeft,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(12),topRight: Radius.circular(12)),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
