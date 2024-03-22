@@ -194,8 +194,13 @@ class SubCategory extends StatelessWidget {
                         1);
                   }
                 } else {
-                  AppUtils.navigateToPage(ProductsByCategory(
-                      catID: categoryController.subCategoryList[index].catId));
+                  Navigator.pushNamed(
+                    context,
+                    '/ProductsByCategory',
+                    arguments: categoryController.subCategoryList[index].catId,
+                  );
+                  /*AppUtils.navigateToPage(ProductsByCategory(
+                      catID: categoryController.subCategoryList[index].catId));*/
                 }
               },
             );
@@ -255,10 +260,15 @@ class SubSubCategory extends StatelessWidget {
                         2);
                   }
                 } else {
-                  AppUtils.navigateToPage(ProductsByCategory(
+                  Navigator.pushNamed(
+                    context,
+                    '/ProductsByCategory',
+                    arguments: categoryController.subCategoryList[index].catId,
+                  );
+                  /*AppUtils.navigateToPage(ProductsByCategory(
                       catID:
                           categoryController.subSubCategoryList[index].catId));
-                }
+                */}
               },
             );
           },
@@ -305,11 +315,16 @@ class SubSubSubCategory extends StatelessWidget {
                       ),
                     ),
               onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/ProductsByCategory',
+                  arguments: categoryController.subCategoryList[index].catId,
+                );
                 // if (controller.isExpanded) {
-                AppUtils.navigateToPage(ProductsByCategory(
+                /*AppUtils.navigateToPage(ProductsByCategory(
                     catID:
                         categoryController.subSubSubCategoryList[index].catId));
-                // }
+                */// }
               },
             );
           },

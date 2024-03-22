@@ -9,17 +9,24 @@ import '../controller/homeController.dart';
 import '../widget/itemsWidget.dart';
 
 // ignore: must_be_immutable
-class ProductsByCategory extends StatelessWidget {
-  String? catID;
+class ProductsByCategory extends StatefulWidget {
+  //String? catID;
 
-  ProductsByCategory({super.key, required this.catID});
+  ProductsByCategory({super.key,/* required this.catID*/});
 
+  @override
+  State<ProductsByCategory> createState() => _ProductsByCategoryState();
+}
+
+class _ProductsByCategoryState extends State<ProductsByCategory> {
   final homeController = Get.put(HomeController());
+
   final productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
-    productController.getProductsByCat(catID!);
+    final catID = ModalRoute.of(context)?.settings.arguments;
+    productController.getProductsByCat(catID.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => Column( children: [
@@ -34,8 +41,9 @@ class ProductsByCategory extends StatelessWidget {
                 InkWell(
                   child: SvgPicture.asset("assets/icons/back.svg"),
                   onTap: () {
-                    Get.back();
-                    Get.delete<ProductController>();
+                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                    /*Get.back();
+                    Get.delete<ProductController>();*/
                   },
                 ),
                 const SizedBox(

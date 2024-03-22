@@ -15,9 +15,15 @@ class MainCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        AppUtils.navigateToPage(ProductsByCategory(
+        Navigator.pushNamed(
+          context,
+          '/ProductsByCategory',
+          arguments: category.catId,
+        );
+
+        /*AppUtils.navigateToPage(ProductsByCategory(
           catID: category.catId,
-        ));
+        ));*/
       },
       child: Column(
         children: [
