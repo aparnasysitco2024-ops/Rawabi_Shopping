@@ -71,6 +71,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: Scaffold(
           body: _pages[_currentIndex],
           bottomNavigationBar: Container(
+            height: 90,
             decoration: const BoxDecoration(
                 boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
             child: BottomAppBar(
@@ -81,7 +82,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               child: Container(
                 width: double.maxFinite,
                 // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10,top: 10),
-                padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
@@ -100,7 +101,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             child: Column(
                               children: [
                                 SvgIcon(
-                                  image: "assets/icons/blue_home.svg",
+                                  image: "assets/icons/homeIcon.svg",
                                   height: 20,
                                   color: _currentIndex == 0
                                       ? primaryColor
@@ -168,67 +169,82 @@ class _BottomNavBarState extends State<BottomNavBar> {
                               ],
                             ),
                           )),
-                      badges.Badge(
-                        position:
-                            badges.BadgePosition.topEnd(top: -10, end: -12),
-                        showBadge: true,
-                        ignorePointer: false,
-                        onTap: () {
-                          setState(() {
-                            _currentIndex = 3;
-                          });
-                        },
-                        badgeContent: Obx(
-                          () => Text(
-                            cartController.itemCount.value.toString(),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: white,
-                            ),
-                          ),
-                        ),
-                        badgeAnimation: const badges.BadgeAnimation.scale(
-                          animationDuration: Duration(seconds: 1),
-                          colorChangeAnimationDuration: Duration(seconds: 1),
-                          loopAnimation: false,
-                          curve: Curves.fastOutSlowIn,
-                          colorChangeAnimationCurve: Curves.easeInCubic,
-                        ),
-                        badgeStyle: badges.BadgeStyle(
-                          shape: badges.BadgeShape.circle,
-                          badgeColor: primaryColor,
-                          padding: const EdgeInsets.all(8),
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 2),
-                          elevation: 0,
-                        ),
-                        child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                _currentIndex = 3;
-                              });
-                            },
-                            child: SizedBox(
-                              child: Column(
-                                children: [
-                                  SvgIcon(
-                                    image: "assets/icons/cart.svg",
-                                    height: 20,
-                                    color: _currentIndex == 3
-                                        ? primaryColor
-                                        : Colors.black,
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _currentIndex = 3;
+                                });
+                              },
+                              child: SizedBox(
+                                child: Column(
+                                  children: [
+                                    SvgIcon(
+                                      image: "assets/icons/cart.svg",
+                                      height: 20,
+                                      color: _currentIndex == 3
+                                          ? primaryColor
+                                          : Colors.black,
+                                    ),
+                                    ReusableText(
+                                      title: "Cart".tr,
+                                      color: _currentIndex == 3
+                                          ? primaryColor
+                                          : Colors.black,
+                                      size: 12,
+                                    )
+                                  ],
+                                ),
+                              )),
+                          cartController.totalItemCount == 0
+                              ? const SizedBox()
+                              : Positioned(
+                                  top: -15,
+                                  right: -15,
+                                  child: badges.Badge(
+                                    position: badges.BadgePosition.topEnd(
+                                        top: -10, end: -12),
+                                    showBadge: true,
+                                    ignorePointer: false,
+                                    onTap: () {
+                                      setState(() {
+                                        _currentIndex = 3;
+                                      });
+                                    },
+                                    badgeContent: Obx(
+                                      () => Text(
+                                        cartController.totalItemCount.value
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ),
+                                    badgeAnimation:
+                                        const badges.BadgeAnimation.scale(
+                                      animationDuration: Duration(seconds: 1),
+                                      colorChangeAnimationDuration:
+                                          Duration(seconds: 1),
+                                      loopAnimation: false,
+                                      curve: Curves.fastOutSlowIn,
+                                      colorChangeAnimationCurve:
+                                          Curves.easeInCubic,
+                                    ),
+                                    badgeStyle: badges.BadgeStyle(
+                                      shape: badges.BadgeShape.circle,
+                                      badgeColor: primaryColor,
+                                      padding: const EdgeInsets.all(8),
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2),
+                                      elevation: 0,
+                                    ),
                                   ),
-                                  ReusableText(
-                                    title: "Cart".tr,
-                                    color: _currentIndex == 3
-                                        ? primaryColor
-                                        : Colors.black,
-                                    size: 12,
-                                  )
-                                ],
-                              ),
-                            )),
+                                ),
+                        ],
                       ),
                       InkWell(
                           onTap: () {
