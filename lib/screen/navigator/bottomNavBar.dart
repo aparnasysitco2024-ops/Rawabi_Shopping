@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/cartScreen.dart';
@@ -16,15 +15,15 @@ import '../../controller/cartController.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/svg_icon.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
-
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  int _currentIndex = 0;
+class BottomNavBar extends StatelessWidget {
+//   const BottomNavBar({super.key});
+//
+//   @override
+//   State<BottomNavBar> createState() => _BottomNavBarState();
+// }
+//
+// class _BottomNavBarState extends State<BottomNavBar> {
+  var _currentIndex = 0.obs;
   final cartController = Get.put(CartController());
   final List _pages = [
     /*HomeScreen(),*/
@@ -37,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   Future<bool> _showBackDialog() async {
     return (await showDialog(
-          context: context,
+          context: Get.context!,
           builder: (context) => AlertDialog(
             title: Text("Rawabi".tr),
             content: const Text('Wish to exit from App ? '),
@@ -71,10 +70,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
           navigator.pop();
         }
       },
-      child: Scaffold(
-          body: _pages[_currentIndex],
+      child: Obx(() => Scaffold(
+          body: _pages[_currentIndex.value],
           bottomNavigationBar: Container(
-            height: Platform.isIOS ? 95:65,
+            height: Platform.isIOS ? 95 : 65,
             decoration: const BoxDecoration(
                 boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
             child: BottomAppBar(
@@ -94,9 +93,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     children: [
                       InkWell(
                           onTap: () {
-                            setState(() {
-                              _currentIndex = 0;
-                            });
+                            // setState(() {
+                            _currentIndex.value = 0;
+                            // });
                           },
                           child: SizedBox(
                             child: Column(
@@ -120,9 +119,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           )),
                       InkWell(
                           onTap: () {
-                            setState(() {
-                              _currentIndex = 1;
-                            });
+                            // setState(() {
+                            _currentIndex.value = 1;
+                            // });
                           },
                           child: SizedBox(
                             child: Column(
@@ -146,9 +145,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           )),
                       InkWell(
                           onTap: () {
-                            setState(() {
-                              _currentIndex = 2;
-                            });
+                            // setState(() {
+                            _currentIndex.value = 2;
+                            // });
                           },
                           child: SizedBox(
                             child: Column(
@@ -175,9 +174,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         children: [
                           InkWell(
                               onTap: () {
-                                setState(() {
-                                  _currentIndex = 3;
-                                });
+                                // setState(() {
+                                _currentIndex.value = 3;
+                                // });
                               },
                               child: SizedBox(
                                 child: Column(
@@ -202,56 +201,56 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           cartController.totalItemCount == 0
                               ? const SizedBox()
                               : Positioned(
-                                  top: -15,
-                                  right: -15,
-                                  child: badges.Badge(
-                                    position: badges.BadgePosition.topEnd(
-                                        top: -10, end: -12),
-                                    showBadge: true,
-                                    ignorePointer: false,
-                                    onTap: () {
-                                      setState(() {
-                                        _currentIndex = 3;
-                                      });
-                                    },
-                                    badgeContent: Obx(
-                                      () => Text(
-                                        cartController.totalItemCount.value
-                                            .toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: white,
-                                        ),
-                                      ),
-                                    ),
-                                    badgeAnimation:
-                                        const badges.BadgeAnimation.scale(
-                                      animationDuration: Duration(seconds: 1),
-                                      colorChangeAnimationDuration:
-                                          Duration(seconds: 1),
-                                      loopAnimation: false,
-                                      curve: Curves.fastOutSlowIn,
-                                      colorChangeAnimationCurve:
-                                          Curves.easeInCubic,
-                                    ),
-                                    badgeStyle: badges.BadgeStyle(
-                                      shape: badges.BadgeShape.circle,
-                                      badgeColor: primaryColor,
-                                      padding: const EdgeInsets.all(8),
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                          color: Colors.white, width: 2),
-                                      elevation: 0,
-                                    ),
+                            top: -15,
+                            right: -15,
+                            child: badges.Badge(
+                              position: badges.BadgePosition.topEnd(
+                                  top: -10, end: -12),
+                              showBadge: true,
+                              ignorePointer: false,
+                              onTap: () {
+                                // setState(() {
+                                _currentIndex.value = 3;
+                                // });
+                              },
+                              badgeContent: Obx(
+                                    () => Text(
+                                  cartController.totalItemCount.value
+                                      .toString(),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: white,
                                   ),
                                 ),
+                              ),
+                              badgeAnimation:
+                              const badges.BadgeAnimation.scale(
+                                animationDuration: Duration(seconds: 1),
+                                colorChangeAnimationDuration:
+                                Duration(seconds: 1),
+                                loopAnimation: false,
+                                curve: Curves.fastOutSlowIn,
+                                colorChangeAnimationCurve:
+                                Curves.easeInCubic,
+                              ),
+                              badgeStyle: badges.BadgeStyle(
+                                shape: badges.BadgeShape.circle,
+                                badgeColor: primaryColor,
+                                padding: const EdgeInsets.all(8),
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 2),
+                                elevation: 0,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       InkWell(
                           onTap: () {
-                            setState(() {
-                              _currentIndex = 4;
-                            });
+                            // setState(() {
+                            _currentIndex.value = 4;
+                            // });
                           },
                           child: SizedBox(
                             child: Column(
@@ -278,7 +277,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
             ),
-          )),
+          ))),
     );
   }
 }

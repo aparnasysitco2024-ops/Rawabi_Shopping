@@ -18,6 +18,7 @@ class WishlistGridItem extends StatelessWidget {
       color: white,
       padding: const EdgeInsets.all(8),
       child: Column(
+
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

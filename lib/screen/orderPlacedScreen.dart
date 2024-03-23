@@ -53,7 +53,7 @@ class OrderPlacedScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   title: "Continue shopping".tr,
                   onPressed: () =>
-                      AppUtils.navigateToPageRemoveUntil(const BottomNavBar()),
+                      AppUtils.navigateToPageRemoveUntil( BottomNavBar()),
                 ),
                 const SizedBox(
                   height: 10,

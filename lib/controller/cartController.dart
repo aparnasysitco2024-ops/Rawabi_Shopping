@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:rawabi/model/baseResponse.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
+
 import '../model/cartListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
@@ -13,6 +15,7 @@ class CartController extends GetxController {
   var loading = false.obs;
   var isContactless = false.obs;
   var groupValue = "Cash".obs;
+
   // List<Products>? cartProducts;
   var cartProducts = <Products>[].obs;
   String masterCard = "Master Card";
@@ -22,14 +25,14 @@ class CartController extends GetxController {
   var delivery = 0.00.obs;
   var bagFee = 0.00.obs;
   var grandTotal = 0.00.obs;
-  var totalItemCount = 2.obs;
+  var totalItemCount = 0.obs;
 
   CartController();
 
-  @override
-  onInit() async {
-    super.onInit();
-  }
+  // @override
+  // onInit() async {
+  //   super.onInit();
+  // }
 
   Future<void> getCartList() async {
     try {
@@ -44,11 +47,12 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           cartProducts.addAll(responseData.products as Iterable<Products>);
           // cartProducts = responseData.products;
+          totalItemCount.value = cartProducts.length;
 
-          cartProducts.forEach((element) {
+          for (var element in cartProducts) {
             subTotal.value =
                 subTotal.value + double.parse(element.subtotal.toString());
-          });
+          }
 
           grandTotal.value = subTotal.value + delivery.value + bagFee.value;
         } else {

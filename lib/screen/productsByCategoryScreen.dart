@@ -6,15 +6,18 @@ import 'package:get/get.dart';
 import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
+import 'package:rawabi/widget/productItem.dart';
 
 import '../controller/homeController.dart';
-import '../widget/itemsWidget.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
   //String? catID;
 
-  ProductsByCategory({super.key,/* required this.catID*/});
+  ProductsByCategory({
+    super.key,
+    /* required this.catID*/
+  });
 
   @override
   State<ProductsByCategory> createState() => _ProductsByCategoryState();
@@ -41,14 +44,22 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final catID = ModalRoute.of(context)?.settings.arguments;
-    productController.getProductsByCat(catID.toString());
+    // final catID = ModalRoute.of(context)?.settings.arguments;
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
+    final catID = arguments['catId'] ?? "0";
+    final subCatID = arguments['subCatID'] ?? "0";
+    final subSubCatID = arguments['subSubCatID'] ?? "0";
+    final subSubSubCatID = arguments['subSubSubCatID'] ?? "0";
+
+    productController.getProductsByCat(
+        catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Obx(() => Column( children: [
+      body: Obx(() => Column(children: [
             const SizedBox(
               height: 60,
             ),
@@ -79,7 +90,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     child: Row(children: [
                       // SvgPicture.asset("assets/icons/search.svg"),
                       ReusableText(
-                        title: _scanBarcode==""?productController.catName.value:_scanBarcode,
+                        title: _scanBarcode == ""
+                            ? productController.catName.value
+                            : _scanBarcode,
                       ),
                       const Spacer(),
                       InkWell(
@@ -206,20 +219,47 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              color: silver,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ItemsWidget(
-                      title: productController.catName.value,
-                      products: productController.productList,
-                      hideViewAll: true,
-                    )
-                  ],
-                ),
+            Flexible(
+              child: Container(
+                color: silver,
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: GridView.builder(
+                    padding: const EdgeInsets.only(top: 15),
+                    shrinkWrap: true,
+                    itemCount: productController.productList.length,
+                    // physics: const BouncingScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 12,
+                            mainAxisExtent: 330,
+                            crossAxisSpacing: 12,
+                            childAspectRatio: 0.5),
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                          onTap: () async {},
+                          child: ProductItem(
+                            products: productController.productList[index],
+                          ));
+                    }),
               ),
             ),
+            // Container(
+            //   color: silver,
+            //   child:
+            //   SingleChildScrollView(
+            //     child:
+            //     Column(
+            //       children: [
+            //         ItemsWidget(
+            //           title: productController.catName.value,
+            //           products: productController.productList,
+            //           hideViewAll: true,
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ])),
     );
   }

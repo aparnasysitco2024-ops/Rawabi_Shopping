@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (storeAddress.isEmpty) {
         AppUtils.navigateToPage(DeliveryModeScreen());
       }else
-      AppUtils.navigateToPageReplace(const BottomNavBar());
+      AppUtils.navigateToPageReplace( BottomNavBar());
     });
   }
 

@@ -238,7 +238,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                           StorageManager.saveData(
                               StorageManager.keyStoreAddress, address);
                           AppUtils.navigateToPageRemoveUntil(
-                              const BottomNavBar());
+                               BottomNavBar());
                         }
                       },
                       fontSize: 14,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -12,31 +10,35 @@ import '../widget/categoryItemTile.dart';
 import '../widget/subCategoryItemTile.dart';
 
 // ignore: must_be_immutable
-class CategoryScreen extends StatefulWidget {
+class CategoryScreen extends StatelessWidget {
   CategoryScreen({super.key});
 
-  @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
-}
-
-class _CategoryScreenState extends State<CategoryScreen> {
+//   @override
+//   State<CategoryScreen> createState() => _CategoryScreenState();
+// }
+//
+// class _CategoryScreenState extends State<CategoryScreen> {
   final categoryController = Get.put(CategoryController());
   String _scanBarcode = '';
+  String catID = "0", subCatID = "0", subSubCatID = "0", subSubSubCatID = "0";
 
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-    if (!mounted) return;
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
-  }
+  // String , String subSubSubCatID
+
+  // Future<void> scanBarcodeNormal() async {
+  //   String barcodeScanRes;
+  //   try {
+  //     barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+  //         '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+  //     print(barcodeScanRes);
+  //   } on PlatformException {
+  //     barcodeScanRes = 'Failed to get platform version.';
+  //   }
+  //   if (!mounted) return;
+  //   setState(() {
+  //     _scanBarcode = barcodeScanRes;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     categoryController.getCategory();
@@ -54,7 +56,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     title: "Categories".tr, size: 18, weight: FontWeight.bold),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                 height: 42,
                 width: double.infinity,
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -67,9 +69,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     width: 15,
                   ),
                   ReusableText(
-                    title: _scanBarcode==""?
-                        "What are you looking for?".tr
-                    :_scanBarcode,
+                    title: _scanBarcode == ""
+                        ? "What are you looking for?".tr
+                        : _scanBarcode,
                     color: darkGrey,
                     size: 14,
                     weight: FontWeight.w600,
@@ -77,7 +79,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   const Spacer(),
                   InkWell(
                       onTap: () async {
-                        await scanBarcodeNormal();
+                        // await scanBarcodeNormal();
                         print("scancode:$_scanBarcode");
                       },
                       child: SvgPicture.asset("assets/icons/scan.svg"))
@@ -148,7 +150,9 @@ class MainCategory extends StatelessWidget {
               title: CategoryItemTile(
                   category: categoryController.categoryList[index]),
               content: categoryController.subCategoryList.isNotEmpty
-                  ? SubCategory()
+                  ? SubCategory(
+                      catId: categoryController.categoryList[index].catId,
+                    )
                   : const SizedBox(
                       height: 100,
                       child: Center(
@@ -172,8 +176,9 @@ class MainCategory extends StatelessWidget {
 
 class SubCategory extends StatelessWidget {
   final categoryController = Get.put(CategoryController());
+  final catId;
 
-  SubCategory({super.key});
+  SubCategory({super.key, this.catId});
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +207,11 @@ class SubCategory extends StatelessWidget {
                   categoryController.subCategoryList[index].subCategory == 0
                       ? const SizedBox()
                       : categoryController.subSubCategoryList.isNotEmpty
-                          ? SubSubCategory()
+                          ? SubSubCategory(
+                              catId: catId,
+                              subCatID: categoryController
+                                  .subCategoryList[index].catId
+                                  .toString())
                           : const SizedBox(
                               height: 100,
                               child: Center(
@@ -221,11 +230,13 @@ class SubCategory extends StatelessWidget {
                         1);
                   }
                 } else {
-                  Navigator.pushNamed(
-                    context,
-                    '/ProductsByCategory',
-                    arguments: categoryController.subCategoryList[index].catId,
-                  );
+                  navigation(
+                      context,
+                      catId,
+                      categoryController.subCategoryList[index].catId
+                          .toString(),
+                      "0",
+                      "0");
                   /*AppUtils.navigateToPage(ProductsByCategory(
                       catID: categoryController.subCategoryList[index].catId));*/
                 }
@@ -238,8 +249,9 @@ class SubCategory extends StatelessWidget {
 
 class SubSubCategory extends StatelessWidget {
   final categoryController = Get.put(CategoryController());
+  final catId, subCatID;
 
-  SubSubCategory({super.key});
+  SubSubCategory({super.key, this.catId, this.subCatID});
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +280,12 @@ class SubSubCategory extends StatelessWidget {
                   categoryController.subSubCategoryList[index].subCategory == 0
                       ? const SizedBox()
                       : categoryController.subSubSubCategoryList.isNotEmpty
-                          ? SubSubSubCategory()
+                          ? SubSubSubCategory(
+                              catId: catId,
+                              subCatID: subCatID,
+                              subSubCatId: categoryController
+                                  .subSubCategoryList[index].catId,
+                            )
                           : const SizedBox(
                               height: 100,
                               child: Center(
@@ -287,15 +304,18 @@ class SubSubCategory extends StatelessWidget {
                         2);
                   }
                 } else {
-                  Navigator.pushNamed(
-                    context,
-                    '/ProductsByCategory',
-                    arguments: categoryController.subSubCategoryList[index].catId,
-                  );
+                  navigation(
+                      context,
+                      catId,
+                      subCatID,
+                      categoryController.subSubCategoryList[index].catId
+                          .toString(),
+                      "0");
                   /*AppUtils.navigateToPage(ProductsByCategory(
                       catID:
                           categoryController.subSubCategoryList[index].catId));
-                */}
+                */
+                }
               },
             );
           },
@@ -305,8 +325,9 @@ class SubSubCategory extends StatelessWidget {
 
 class SubSubSubCategory extends StatelessWidget {
   final categoryController = Get.put(CategoryController());
+  final catId, subCatID, subSubCatId;
 
-  SubSubSubCategory({super.key});
+  SubSubSubCategory({super.key, this.catId, this.subCatID, this.subSubCatId});
 
   @override
   Widget build(BuildContext context) {
@@ -342,19 +363,36 @@ class SubSubSubCategory extends StatelessWidget {
                       ),
                     ),
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/ProductsByCategory',
-                  arguments: categoryController.subSubSubCategoryList[index].catId,
-                );
+                navigation(
+                    context,
+                    catId,
+                    subCatID,
+                    subSubCatId,
+                    categoryController.subSubSubCategoryList[index].catId
+                        .toString());
+
                 // if (controller.isExpanded) {
                 /*AppUtils.navigateToPage(ProductsByCategory(
                     catID:
                         categoryController.subSubSubCategoryList[index].catId));
-                */// }
+                */ // }
               },
             );
           },
         ));
   }
+}
+
+void navigation(BuildContext context, String catId, String subCatId,
+    String subSubCatId, String subSubSubCatId) {
+  Navigator.pushNamed(
+    context,
+    '/ProductsByCategory',
+    arguments: {
+      'catId': catId,
+      'subCatId': subCatId,
+      'subSubCatId': subSubCatId,
+      'subSubSubCatId': subSubSubCatId
+    },
+  );
 }

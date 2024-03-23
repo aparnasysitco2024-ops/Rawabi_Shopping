@@ -18,10 +18,16 @@ class ProductController extends GetxController {
   final homeController = Get.put(HomeController());
   final cartController = Get.put(CartController());
 
-  Future<void> getProductsByCat(String catID) async {
+  Future<void> getProductsByCat(String catID, String subCatID,
+      String subSubCatID, String subSubSubCatID) async {
     try {
       if (!isLoaded) loading.value = true;
-      var request = {"catid": catID, "subcatid": "0", "sub-subcatid": "0"};
+      var request = {
+        "catid": catID,
+        "subcatid": subCatID,
+        "sub-subcatid": subSubCatID,
+        "sub-sub-subcatid": subSubSubCatID
+      };
       var response = await BaseClient().post(products, request);
       loading.value = false;
       if (response != null) {

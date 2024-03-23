@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                                 width: 70.0,
                                 onTap: () {
                                   AppUtils.navigateToPageReplace(
-                                      const BottomNavBar());
+                                       BottomNavBar());
                                 },
                                 title: "Skip".tr),
                           ),

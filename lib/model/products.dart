@@ -39,7 +39,7 @@ class Products {
     catIcon = json['cat_icon'];
     sellingPrice = json['selling_price'];
     offerPrice = json['offer_price'];
-    storeId = json['store_id'];
+    storeId = json['store_id'].toString();
     sellerId = json['seller_id'];
     productId = json['product_id'];
     productName = json['product_name'];

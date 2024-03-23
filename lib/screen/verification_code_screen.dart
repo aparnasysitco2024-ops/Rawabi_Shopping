@@ -45,7 +45,7 @@ class VerificationCode extends StatelessWidget {
           var responseData =
               BaseResponse.fromJson(json.decode(response.toString()));
           if (responseData.code == "200") {
-           AppUtils.navigateToPageReplace(const BottomNavBar());
+           AppUtils.navigateToPageReplace( BottomNavBar());
           } else {
             CommonUtils.showErrorDialog(responseData.message);
           }

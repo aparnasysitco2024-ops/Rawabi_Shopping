@@ -16,7 +16,6 @@ class ItemsWidget extends StatefulWidget {
   String? title;
   List<Products>? products;
   bool hideViewAll;
-  // final homeController = Get.put(HomeController());
   final cartController = Get.put(CartController());
 
   ItemsWidget({super.key, this.title, this.products, this.hideViewAll = false});
@@ -103,8 +102,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                 SvgPicture.asset("assets/icons/heart.svg")
                               ],
                             ),
+                            const SizedBox(height: 5,),
                             SizedBox(
-                              height: 130,
+                              height: 120,
                               child: FadeInImage.assetNetwork(
                                   placeholder: 'assets/images/logo.png',
                                   image: widget.products![index].productImage

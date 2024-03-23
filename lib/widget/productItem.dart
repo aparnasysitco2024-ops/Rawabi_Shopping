@@ -1,0 +1,197 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:rawabi/model/products.dart';
+import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
+import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+
+import '../controller/cartController.dart';
+import '../utils/colors.dart';
+import 'commonwidget/reusable_text.dart';
+
+class ProductItem extends StatefulWidget {
+  final Products products;
+  final cartController = Get.put(CartController());
+
+  ProductItem({super.key, required this.products});
+
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: Colors.white),
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 20,
+                width: 70,
+                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                decoration: const BoxDecoration(
+                    color: lightPink,
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                child: const ReusableText(
+                  title: "Best seller",
+                  color: primaryColor,
+                  size: 12,
+                  weight: FontWeight.w600,
+                ),
+              ),
+              SvgPicture.asset(
+                "assets/icons/heart.svg",
+                fit: BoxFit.fill,
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ReusableNetworkImage(
+            image: widget.products.productImage.toString(),
+            height: 130,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/fastdelivery.svg",
+                  fit: BoxFit.fill,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                ReusableText(
+                  title: widget.products.productName,
+                  maxLine: 2,
+                  size: 14,
+                  weight: FontWeight.w600,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                // const ReusableText(
+                //   title: "30 gm",
+                //   size: 10,
+                //   weight: FontWeight.w400,
+                // ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.products.sellingPrice.toString(),
+                          style: const TextStyle(
+                              fontSize: 10,
+                              fontFamily: "OpenSans",
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                        ReusableText(
+                          title: widget.products.offerPrice,
+                          size: 12,
+                          weight: FontWeight.w700,
+                        ),
+                      ],
+                    ),
+                    widget.products.qty == 0
+                        ? ReusableButton1(
+                            onPressed: () {
+                              widget.cartController.addToCart(
+                                  widget.products.productId.toString(),
+                                  widget.products.storeId.toString(),
+                                  widget.products.offerPrice.toString(),
+                                  "1");
+                              setState(() {
+                                widget.products.qty =
+                                    (widget.products.qty! + 1);
+                              });
+                            },
+                            title: "Add",
+                            size: const Size(70, 27),
+                          )
+                        : Container(
+                      margin: const EdgeInsets.only(bottom: 11),
+                            height: 30,
+                            width: 70,
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                color: pink,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    // if (products.quantity == "1") {
+                                    //   cartController.removeCartItem(products.cartId);
+                                    // } else {
+                                    //   cartController.updateQty(products.cartId,
+                                    //       int.parse(products.quantity.toString()) - 1);
+                                    // }
+                                  },
+                                  child: SvgPicture.asset(
+                                      "assets/icons/minus_item.svg",height: 20,),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                ReusableText(
+                                  title: widget.products.qty.toString(),
+                                  size: 12,
+                                  color: silver,
+                                  weight: FontWeight.bold,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    widget.cartController.addToCart(
+                                        widget.products.productId.toString(),
+                                        widget.products.storeId.toString(),
+                                        widget.products.offerPrice.toString(),
+                                        "1");
+                                    setState(() {
+                                      widget.products.qty =
+                                          (widget.products.qty! + 1);
+                                    });
+                                  },
+                                  child: SvgPicture.asset(
+                                      "assets/icons/plus_item.svg",height: 20,),
+                                ),
+                              ],
+                            ),
+                          )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

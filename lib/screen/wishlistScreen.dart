@@ -36,7 +36,7 @@ class WishlistScreen extends StatelessWidget {
                       height: 40,
                       width: double.maxFinite,
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(top: 5,bottom: 5),
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Stack(
                         children: [
                           Center(
@@ -59,7 +59,8 @@ class WishlistScreen extends StatelessWidget {
                                 color: blackLight,
                                 size: 24,
                               ),
-                            ),)
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -67,28 +68,34 @@ class WishlistScreen extends StatelessWidget {
                 ),
               ),
               Flexible(
-
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: GridView.builder(
                       shrinkWrap: true,
-                      itemCount: 4,
+                      itemCount: 6,
                       physics: const BouncingScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                          childAspectRatio: 0.5),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 12,
+                              childAspectRatio: 0.5),
                       itemBuilder: (_, index) {
                         return InkWell(
-                            onTap: () async {
-
-                            },
-                            child: WishlistGridItem(title: index==0?"Best seller":index==1?"35% off":null,
-                              image: index==0 ? "assets/images/pasta.png"
-                                  : index==1? "assets/images/pizza.png"
-                                  :index==2? "assets/images/ajmiPathiri.png"
-                                  :"assets/images/bakingsoda.png",
+                            onTap: () async {},
+                            child: WishlistGridItem(
+                              title: index == 0
+                                  ? "Best seller"
+                                  : index == 1
+                                      ? "35% off"
+                                      : null,
+                              image: index == 0
+                                  ? "assets/images/pasta.png"
+                                  : index == 1
+                                      ? "assets/images/pizza.png"
+                                      : index == 2
+                                          ? "assets/images/ajmiPathiri.png"
+                                          : "assets/images/bakingsoda.png",
                             ));
                       }),
                 ),
