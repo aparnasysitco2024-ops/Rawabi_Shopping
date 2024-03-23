@@ -1,16 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:rawabi/screen/categoryScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
-import 'homeScreen.dart';
 
-class HomeNavigator extends StatefulWidget {
-  const HomeNavigator({super.key});
+class CategoryNavigator extends StatefulWidget {
+  const CategoryNavigator({super.key});
 
   @override
-  State<HomeNavigator> createState() => _HomeNavigatorState();
+  State<CategoryNavigator> createState() => _CategoryNavigatorState();
 }
 
-class _HomeNavigatorState extends State<HomeNavigator> {
+class _CategoryNavigatorState extends State<CategoryNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -20,7 +20,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return   HomeScreen();
+                  return   CategoryScreen();
                 case '/ProductsByCategory':
                   return  ProductsByCategory();
               }

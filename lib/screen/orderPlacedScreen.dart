@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/bottomNavBar.dart';
+import 'package:rawabi/screen/navigator/bottomNavBar.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';

@@ -1,16 +1,17 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/cartScreen.dart';
-import 'package:rawabi/screen/categoryScreen.dart';
-import 'package:rawabi/screen/homeNavigator.dart';
+import 'package:rawabi/screen/navigator/categoryNavigator.dart';
+import 'package:rawabi/screen/navigator/homeNavigator.dart';
 import 'package:rawabi/screen/offresScreen.dart';
 import 'package:rawabi/utils/colors.dart';
-import '../controller/cartController.dart';
-import '../widget/commonwidget/reusable_text.dart';
-import '../widget/commonwidget/svg_icon.dart';
-import 'package:badges/badges.dart' as badges;
+
+import '../../controller/cartController.dart';
+import '../../widget/commonwidget/reusable_text.dart';
+import '../../widget/commonwidget/svg_icon.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -25,7 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List _pages = [
     /*HomeScreen(),*/
     const HomeNavigator(),
-    CategoryScreen(),
+    const CategoryNavigator(),
     OffersScreen(),
     CartScreen(),
     const AccountScreen()

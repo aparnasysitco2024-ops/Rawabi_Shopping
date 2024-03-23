@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/loginController.dart';
-import 'package:rawabi/screen/bottomNavBar.dart';
+import 'package:rawabi/screen/navigator/bottomNavBar.dart';
 import 'package:rawabi/utils/commonUtils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 

@@ -8,7 +8,7 @@ import 'package:rawabi/utils/app_utils.dart';
 import '../utils/colors.dart';
 import '../utils/storage_manager.dart';
 import '../widget/commonwidget/reusable_text.dart';
-import 'bottomNavBar.dart';
+import 'navigator/bottomNavBar.dart';
 import 'deliveryModeScreen.dart';
 
 class SplashScreen extends StatefulWidget {

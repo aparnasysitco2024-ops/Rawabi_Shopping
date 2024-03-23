@@ -290,7 +290,7 @@ class SubSubCategory extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     '/ProductsByCategory',
-                    arguments: categoryController.subCategoryList[index].catId,
+                    arguments: categoryController.subSubCategoryList[index].catId,
                   );
                   /*AppUtils.navigateToPage(ProductsByCategory(
                       catID:
@@ -345,7 +345,7 @@ class SubSubSubCategory extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   '/ProductsByCategory',
-                  arguments: categoryController.subCategoryList[index].catId,
+                  arguments: categoryController.subSubSubCategoryList[index].catId,
                 );
                 // if (controller.isExpanded) {
                 /*AppUtils.navigateToPage(ProductsByCategory(

@@ -6,7 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rawabi/screen/bottomNavBar.dart';
+import 'package:rawabi/screen/navigator/bottomNavBar.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';

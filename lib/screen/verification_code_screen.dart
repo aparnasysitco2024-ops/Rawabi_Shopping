@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/baseResponse.dart';
-import 'package:rawabi/screen/bottomNavBar.dart';
+import 'package:rawabi/screen/navigator/bottomNavBar.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/constants.dart';
