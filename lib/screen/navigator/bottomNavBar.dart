@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 
 import 'package:badges/badges.dart' as badges;
@@ -33,6 +35,8 @@ class BottomNavBar extends StatelessWidget {
     CartScreen(),
     const AccountScreen()
   ];
+
+  BottomNavBar({super.key});
 
   Future<bool> _showBackDialog() async {
     return (await showDialog(
