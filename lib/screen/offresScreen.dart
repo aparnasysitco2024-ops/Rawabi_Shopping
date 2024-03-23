@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -7,11 +9,31 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import '../controller/categoryController.dart';
 
 // ignore: must_be_immutable
-class OffersScreen extends StatelessWidget {
+class OffersScreen extends StatefulWidget {
   OffersScreen({super.key});
 
-  final categoryController = Get.put(CategoryController());
+  @override
+  State<OffersScreen> createState() => _OffersScreenState();
+}
 
+class _OffersScreenState extends State<OffersScreen> {
+  final categoryController = Get.put(CategoryController());
+  String _scanBarcode = '';
+
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     categoryController.getCategory();
@@ -42,13 +64,20 @@ class OffersScreen extends StatelessWidget {
                 width: 15,
               ),
               ReusableText(
-                title: "What are you looking for?".tr,
+                title: _scanBarcode==""?
+                "What are you looking for?".tr
+                    :_scanBarcode,
                 color: darkGrey,
                 size: 14,
                 weight: FontWeight.w600,
               ),
               const Spacer(),
-              SvgPicture.asset("assets/icons/scan.svg")
+              InkWell(
+                  onTap: () async {
+                    await scanBarcodeNormal();
+                    print("scancode:$_scanBarcode");
+                  },
+                  child: SvgPicture.asset("assets/icons/scan.svg"))
             ]),
           ),
           Flexible(

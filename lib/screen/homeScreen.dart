@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -16,15 +18,37 @@ import 'package:rawabi/widget/mainCategoryItem.dart';
 import '../utils/app_utils.dart';
 
 // ignore: must_be_immutable
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final homeController = Get.put(HomeController());
+
   final cartController = Get.put(CartController());
+
+  String _scanBarcode = '';
+
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
     homeController.getDefaultAddress();
     homeController.getHomeData();
     cartController.getCartList();
@@ -52,8 +76,16 @@ class HomeScreen extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(7))),
                       child: Row(children: [
                         SvgPicture.asset("assets/icons/search.svg"),
+                            ReusableText(
+                                title: _scanBarcode,
+                              ),
                         const Spacer(),
-                        SvgPicture.asset("assets/icons/scan.svg")
+                        InkWell(
+                            onTap: () async {
+                              await scanBarcodeNormal();
+                              print("scancode:$_scanBarcode");
+                            },
+                            child: SvgPicture.asset("assets/icons/scan.svg"))
                       ]),
                     ),
                   ),
@@ -186,7 +218,8 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(3))),
                     child: InkWell(
-                      onTap: () => AppUtils.navigateToPage(const DeliveryModeScreen()),
+                      onTap: () =>
+                          AppUtils.navigateToPage(const DeliveryModeScreen()),
                       child: ReusableText(
                         title: "Change".tr,
                         size: 9,
@@ -357,5 +390,9 @@ class HomeScreen extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  String startBarcodeScanStream() {
+    return "hello";
   }
 }

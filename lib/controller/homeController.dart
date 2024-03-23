@@ -17,6 +17,7 @@ class HomeController extends GetxController {
   var categoryList = <Category>[].obs;
   var bannerList = <Slider>[].obs;
   var itemGroupList = <ItemGroup>[].obs;
+  var barcodeScannerText="".obs;
 
   var bannerList2 = [
     'assets/images/apple.png',

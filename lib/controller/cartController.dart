@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:rawabi/model/baseResponse.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
-
 import '../model/cartListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
