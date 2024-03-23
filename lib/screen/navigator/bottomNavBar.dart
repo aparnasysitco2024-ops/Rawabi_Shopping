@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/cartScreen.dart';
@@ -71,18 +74,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: Scaffold(
           body: _pages[_currentIndex],
           bottomNavigationBar: Container(
-            height: 90,
+            height: Platform.isIOS ? 95:65,
             decoration: const BoxDecoration(
                 boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
             child: BottomAppBar(
-              height: 71,
               color: white,
               surfaceTintColor: white,
               shape: const CircularNotchedRectangle(),
               child: Container(
                 width: double.maxFinite,
-                // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10,top: 10),
-                padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
