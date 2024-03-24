@@ -40,13 +40,12 @@ class ProductController extends GetxController {
           if (responseData.res?.products != null) {
             productList.addAll(responseData.res?.products as List<Products>);
 
-            cartController.cartProducts.indexWhere((cartElement) {
+            cartController.cartProducts.forEach((cartElement) {
               productList.forEach((element) {
                 if (element.productId == cartElement.productId) {
                   element.qty = int.parse(cartElement.quantity.toString());
                 }
               });
-              return true;
             });
           }
 

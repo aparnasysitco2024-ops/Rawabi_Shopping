@@ -20,7 +20,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return   HomeScreen();
+                  return   const HomeScreen();
                 case '/ProductsByCategory':
                   return  ProductsByCategory();
               }

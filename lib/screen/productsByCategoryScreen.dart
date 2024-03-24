@@ -12,11 +12,9 @@ import '../controller/homeController.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
-  //String? catID;
 
-  ProductsByCategory({
+  const ProductsByCategory({
     super.key,
-    /* required this.catID*/
   });
 
   @override
@@ -51,9 +49,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         <String, dynamic>{}) as Map;
 
     final catID = arguments['catId'] ?? "0";
-    final subCatID = arguments['subCatID'] ?? "0";
-    final subSubCatID = arguments['subSubCatID'] ?? "0";
-    final subSubSubCatID = arguments['subSubSubCatID'] ?? "0";
+    final subCatID = arguments['subCatId'] ?? "0";
+    final subSubCatID = arguments['subSubCatId'] ?? "0";
+    final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
 
     productController.getProductsByCat(
         catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
@@ -72,6 +70,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   child: SvgPicture.asset("assets/icons/back.svg"),
                   onTap: () {
                     Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                    Get.delete<ProductController>();
                     /*Get.back();
                     Get.delete<ProductController>();*/
                   },
@@ -221,6 +220,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
             ),
             Flexible(
               child: Container(
+                height: double.infinity,
                 color: silver,
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: GridView.builder(
@@ -232,7 +232,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 12,
-                            mainAxisExtent: 330,
+                            mainAxisExtent: 315,
                             crossAxisSpacing: 12,
                             childAspectRatio: 0.5),
                     itemBuilder: (_, index) {

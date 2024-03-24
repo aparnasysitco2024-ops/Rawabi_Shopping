@@ -46,8 +46,7 @@ class _ProductItemState extends State<ProductItem> {
                 child: const ReusableText(
                   title: "Best seller",
                   color: primaryColor,
-                  size: 12,
-                  weight: FontWeight.w600,
+                  size: 10,
                 ),
               ),
               SvgPicture.asset(
@@ -83,9 +82,10 @@ class _ProductItemState extends State<ProductItem> {
                 ReusableText(
                   title: widget.products.productName,
                   maxLine: 2,
-                  size: 14,
+                  size: 10,
                   weight: FontWeight.w600,
                 ),
+
                 const SizedBox(
                   height: 5,
                 ),
@@ -101,17 +101,16 @@ class _ProductItemState extends State<ProductItem> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.products.sellingPrice.toString(),
-                          style: const TextStyle(
-                              fontSize: 10,
-                              fontFamily: "OpenSans",
-                              decoration: TextDecoration.lineThrough),
+                        ReusableText(
+                          title: widget.products.sellingPrice.toString(),
+                          size: 8,
+                          strike: true,
+                          color: grey1,
                         ),
                         ReusableText(
                           title: widget.products.offerPrice,
                           size: 12,
-                          weight: FontWeight.w700,
+                          weight: FontWeight.bold,
                         ),
                       ],
                     ),
@@ -130,9 +129,11 @@ class _ProductItemState extends State<ProductItem> {
                             },
                             title: "Add",
                             size: const Size(70, 27),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
                           )
                         : Container(
-                      margin: const EdgeInsets.only(bottom: 11),
+                            margin: const EdgeInsets.only(bottom: 5,top: 5),
                             height: 30,
                             width: 70,
                             padding: const EdgeInsets.all(2),
@@ -145,15 +146,21 @@ class _ProductItemState extends State<ProductItem> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    // if (products.quantity == "1") {
-                                    //   cartController.removeCartItem(products.cartId);
-                                    // } else {
-                                    //   cartController.updateQty(products.cartId,
-                                    //       int.parse(products.quantity.toString()) - 1);
-                                    // }
+                                    if (widget.products.qty == "1") {
+                                      widget.cartController.removeCartItem(
+                                          widget.products.productId);
+                                    } else {
+                                      widget.cartController.updateQty(
+                                          widget.products.productId,
+                                          int.parse(widget.products.qty
+                                                  .toString()) -
+                                              1);
+                                    }
                                   },
                                   child: SvgPicture.asset(
-                                      "assets/icons/minus_item.svg",height: 20,),
+                                    "assets/icons/minus_item.svg",
+                                    height: 20,
+                                  ),
                                 ),
                                 const SizedBox(
                                   width: 5,
@@ -180,7 +187,9 @@ class _ProductItemState extends State<ProductItem> {
                                     });
                                   },
                                   child: SvgPicture.asset(
-                                      "assets/icons/plus_item.svg",height: 20,),
+                                    "assets/icons/plus_item.svg",
+                                    height: 20,
+                                  ),
                                 ),
                               ],
                             ),

@@ -140,7 +140,7 @@ class CartScreen extends StatelessWidget {
                                       child: ListView.builder(
                                           padding: const EdgeInsets.all(0),
                                           shrinkWrap: true,
-                                          // physics: const NeverScrollableScrollPhysics(),
+                                          physics: const NeverScrollableScrollPhysics(),
                                           itemCount: cartController
                                               .cartProducts.length,
                                           itemBuilder: (context, index) =>

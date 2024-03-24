@@ -15,7 +15,12 @@ class MainCategoryItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           '/ProductsByCategory',
-          arguments: category.catId,
+          arguments: {
+            'catId': category.catId,
+            'subCatId': "0",
+            'subSubCatId': "0",
+            'subSubSubCatId': "0"
+          },
         );
 
         /*AppUtils.navigateToPage(ProductsByCategory(
