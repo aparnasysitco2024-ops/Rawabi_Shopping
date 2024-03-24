@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
-import 'package:rawabi/screen/myAddressesScreen.dart';
+import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
 import 'package:rawabi/screen/notificationsScreen.dart';

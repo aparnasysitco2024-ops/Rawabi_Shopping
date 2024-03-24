@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
-import 'package:rawabi/screen/deliveryModeScreen.dart';
+import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';

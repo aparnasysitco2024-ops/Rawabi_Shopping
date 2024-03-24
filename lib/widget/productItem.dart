@@ -49,23 +49,32 @@ class _ProductItemState extends State<ProductItem> {
                   size: 10,
                 ),
               ),
-              SvgPicture.asset(
-                "assets/icons/heart.svg",
-                fit: BoxFit.fill,
-                colorFilter:
-                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+              InkWell(
+                onTap: () {
+                  
+                  setState(() {
+
+                  });
+
+                },
+                child: SvgPicture.asset(
+                  "assets/icons/heart.svg",
+                  fit: BoxFit.fill,
+                  colorFilter:
+                      const ColorFilter.mode(silver, BlendMode.srcIn),
+                ),
               )
             ],
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           ReusableNetworkImage(
             image: widget.products.productImage.toString(),
             height: 130,
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           Flexible(
             child: Column(
@@ -136,7 +145,7 @@ class _ProductItemState extends State<ProductItem> {
                             margin: const EdgeInsets.only(bottom: 5,top: 5),
                             height: 30,
                             width: 70,
-                            padding: const EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(1),
                             decoration: BoxDecoration(
                                 color: pink,
                                 borderRadius: BorderRadius.circular(5)),
@@ -155,6 +164,10 @@ class _ProductItemState extends State<ProductItem> {
                                           int.parse(widget.products.qty
                                                   .toString()) -
                                               1);
+                                      setState(() {
+                                        widget.products.qty =
+                                        (widget.products.qty! - 1);
+                                      });
                                     }
                                   },
                                   child: SvgPicture.asset(

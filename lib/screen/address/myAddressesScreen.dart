@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/addNewAddressScreen.dart';
+import 'package:rawabi/screen/address/addNewAddressScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 
-import '../controller/myAddressController.dart';
-import '../widget/addressTile.dart';
-import '../widget/commonwidget/reusable_button1.dart';
-import '../widget/commonwidget/reusable_text.dart';
+import '../../controller/myAddressController.dart';
+import '../../widget/addressTile.dart';
+import '../../widget/commonwidget/reusable_button1.dart';
+import '../../widget/commonwidget/reusable_text.dart';
 
 class MyAddressesScreen extends StatelessWidget {
   MyAddressesScreen({super.key});
@@ -29,7 +29,7 @@ class MyAddressesScreen extends StatelessWidget {
                   Container(
                     color: white,
                     width: double.maxFinite,
-                    padding: const EdgeInsets.only(top: 5,bottom: 5),
+                    padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Column(
                       children: [
                         const SizedBox(
@@ -43,7 +43,7 @@ class MyAddressesScreen extends StatelessWidget {
                           height: 40,
                           width: double.maxFinite,
                           alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 5,bottom: 5),
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
                           child: Stack(
                             children: [
                               Center(
@@ -66,11 +66,11 @@ class MyAddressesScreen extends StatelessWidget {
                                     color: blackLight,
                                     size: 24,
                                   ),
-                                ),)
+                                ),
+                              )
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -130,7 +130,7 @@ class MyAddressesScreen extends StatelessWidget {
                               left: 18, top: 10, right: 18, bottom: 33),
                           child: ReusableButton1(
                             onPressed: () {
-                              AppUtils.navigateToPage(const AddNewAddressesScreen());
+                              AppUtils.navigateToPage(AddNewAddressesScreen());
                             },
                             title: "Add New Address",
                             fontSize: 14,

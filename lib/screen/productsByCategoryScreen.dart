@@ -12,7 +12,6 @@ import '../controller/homeController.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
-
   const ProductsByCategory({
     super.key,
   });
@@ -97,7 +96,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       InkWell(
                           onTap: () async {
                             await scanBarcodeNormal();
-                            print("scancode:$_scanBarcode");
                           },
                           child: SvgPicture.asset("assets/icons/scan.svg"))
                     ]),
@@ -218,48 +216,61 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
             const SizedBox(
               height: 10,
             ),
-            Flexible(
-              child: Container(
-                height: double.infinity,
-                color: silver,
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: GridView.builder(
-                    padding: const EdgeInsets.only(top: 15),
-                    shrinkWrap: true,
-                    itemCount: productController.productList.length,
-                    // physics: const BouncingScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 12,
-                            mainAxisExtent: 315,
-                            crossAxisSpacing: 12,
-                            childAspectRatio: 0.5),
-                    itemBuilder: (_, index) {
-                      return InkWell(
-                          onTap: () async {},
-                          child: ProductItem(
-                            products: productController.productList[index],
-                          ));
-                    }),
-              ),
-            ),
-            // Container(
-            //   color: silver,
-            //   child:
-            //   SingleChildScrollView(
-            //     child:
-            //     Column(
-            //       children: [
-            //         ItemsWidget(
-            //           title: productController.catName.value,
-            //           products: productController.productList,
-            //           hideViewAll: true,
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            productController.loading.value
+                ? const Flexible(
+                    child: SizedBox(
+                      height: double.infinity,
+                      width: double.infinity,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+                  )
+                : productController.productList.isNotEmpty
+                    ? Flexible(
+                        child: Container(
+                          height: double.infinity,
+                          color: silver,
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: GridView.builder(
+                              padding: const EdgeInsets.only(top: 15),
+                              shrinkWrap: true,
+                              itemCount: productController.productList.length,
+                              // physics: const BouncingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 12,
+                                      mainAxisExtent: 295,
+                                      crossAxisSpacing: 12,
+                                      childAspectRatio: 0.5),
+                              itemBuilder: (_, index) {
+                                return InkWell(
+                                    onTap: () async {},
+                                    child: ProductItem(
+                                      products:
+                                          productController.productList[index],
+                                    ));
+                              }),
+                        ),
+                      )
+                    : Flexible(
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset("assets/icons/logo.svg"),
+                                const ReusableText(
+                                  title: "No Item Found!!",
+                                )
+                              ]),
+                        ),
+                      ),
           ])),
     );
   }

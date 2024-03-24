@@ -5,6 +5,7 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 class StoreTile extends StatelessWidget {
   final String title;
+
   const StoreTile({super.key, required this.title});
 
   @override
@@ -16,8 +17,8 @@ class StoreTile extends StatelessWidget {
         color: white,
         borderRadius: BorderRadius.circular(4),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 14,vertical: 2),
-      padding:const EdgeInsets.symmetric(horizontal: 10,vertical: 5) ,
+      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

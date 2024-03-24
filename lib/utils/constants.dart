@@ -13,10 +13,12 @@ const deletecart = '${baseURL}deletecart';
 const update_qty = '${baseURL}update_qty';
 const checkout = '${baseURL}checkout';
 const addressList = '${baseURL}addressList';
+const addaddressUrl = '${baseURL}addaddress';
 const deleteaddress = '${baseURL}deleteaddress';
 const myorders = '${baseURL}myorders';
 const categoryUrl = '${baseURL}category';
 const subcategoryUrl = '${baseURL}subcategory';
+const storeListUrl = '${baseURL}storeList';
 
 
 //keys

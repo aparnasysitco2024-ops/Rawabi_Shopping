@@ -37,7 +37,6 @@ class BaseClient {
       var response = await _ioClient
           .get(uri, headers: await getHeader())
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
-
       log(response.body);
       if ((response.body.contains('"messageCode": 401') ||
           response.body.contains('"Status": 401'))) {
@@ -65,7 +64,6 @@ class BaseClient {
           .post(uri, headers: await getHeader(), body: payload)
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
       log(response.body);
-      print('${response.statusCode}');
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(

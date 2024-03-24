@@ -12,7 +12,7 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
-import '../controller/homeController.dart';
+import '../../controller/homeController.dart';
 
 class HomeDeliveryMapScreen extends StatefulWidget {
   const HomeDeliveryMapScreen({super.key});

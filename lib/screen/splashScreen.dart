@@ -9,7 +9,7 @@ import '../utils/colors.dart';
 import '../utils/storage_manager.dart';
 import '../widget/commonwidget/reusable_text.dart';
 import 'navigator/bottomNavBar.dart';
-import 'deliveryModeScreen.dart';
+import 'deliverymode/deliveryModeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/homeDeliveryMapScreen.dart';
+import 'package:rawabi/screen/deliverymode/homeDeliveryMapScreen.dart';
+import 'package:rawabi/screen/deliverymode/storePickupScreen.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/widget/storeTile.dart';
 
-import '../widget/commonwidget/reusable_text.dart';
+import '../../widget/commonwidget/reusable_text.dart';
 
 class DeliveryModeScreen extends StatefulWidget {
   const DeliveryModeScreen({super.key});
@@ -86,12 +86,12 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                           Padding(
                             padding: const EdgeInsets.only(bottom: 5.0),
                             child: Row(
-
                               children: [
-                                Image.asset('assets/icons/fastdelivery.png', width: 18, height: 18),
+                                Image.asset('assets/icons/fastdelivery.png',
+                                    width: 18, height: 18),
                                 const SizedBox(width: 8),
                                 Text(
-                                   "Home Delivery".tr,
+                                  "Home Delivery".tr,
                                   style: const TextStyle(
                                     fontFamily: "OpenSans",
                                     fontSize: 14,
@@ -106,7 +106,8 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                             padding: const EdgeInsets.only(bottom: 5.0),
                             child: Row(
                               children: [
-                                Image.asset('assets/icons/store.png', width: 18, height: 18),
+                                Image.asset('assets/icons/store.png',
+                                    width: 18, height: 18),
                                 const SizedBox(width: 8),
                                 Text(
                                   "Store Pickup".tr,
@@ -134,18 +135,8 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                   physics: const NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: [
-                     const HomeDeliveryMapScreen(),
-                    ListView.separated(
-                        padding: const EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 8,
-                        itemBuilder: (context, index) => const StoreTile(
-                            title: "Rawabi Al khor, T tower Building"),
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(
-                              height: 5,
-                            )),
+                    const HomeDeliveryMapScreen(),
+                    StorePickupScreen()
                   ],
                 ),
               ),

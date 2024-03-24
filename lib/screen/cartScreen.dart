@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/myAddressesScreen.dart';
+import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 

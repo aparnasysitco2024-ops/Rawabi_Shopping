@@ -77,7 +77,7 @@ class BottomNavBar extends StatelessWidget {
       child: Obx(() => Scaffold(
           body: _pages[_currentIndex.value],
           bottomNavigationBar: Container(
-            height: Platform.isIOS ? 95 : 65,
+            height: Platform.isIOS ? 100 : 70,
             decoration: const BoxDecoration(
                 boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
             child: BottomAppBar(
@@ -86,7 +86,7 @@ class BottomNavBar extends StatelessWidget {
               shape: const CircularNotchedRectangle(),
               child: Container(
                 width: double.maxFinite,
-                padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
@@ -222,7 +222,7 @@ class BottomNavBar extends StatelessWidget {
                                   cartController.totalItemCount.value
                                       .toString(),
                                   style: const TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     color: white,
                                   ),
                                 ),
