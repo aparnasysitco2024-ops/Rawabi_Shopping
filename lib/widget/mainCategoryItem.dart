@@ -65,6 +65,7 @@ class MainCategoryItem extends StatelessWidget {
           ReusableText(
             title: category.catName,
             size: 11,
+            maxLine: 2,
             textAlign: TextAlign.center,
           )
         ],

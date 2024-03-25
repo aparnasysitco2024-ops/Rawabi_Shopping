@@ -18,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    searchController.searchString.value="";
+    // searchController.searchString.value="";
     return Scaffold(
         backgroundColor: silver,
         body: Obx(() => Column(children: [
@@ -74,8 +74,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: silver,
-                                    hintText:
-                                        searchController.searchString.value,
+                                    // hintText:
+                                    //     searchController.searchString.value,
                                     contentPadding:
                                         const EdgeInsets.only(left: 10),
                                     prefixIcon: const Icon(

@@ -57,7 +57,7 @@ class ProductDetails {
     productName = json['product_name'];
     sellingPrice = json['selling_price'];
     offerPrice = json['offer_price'];
-    storeId = json['store_id'];
+    storeId = json['store_id'].toString();
     sellerId = json['seller_id'];
     shortDesc = json['short_desc'];
     detailedDesc = json['detailed_desc'];
