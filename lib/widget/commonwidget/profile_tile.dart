@@ -11,9 +11,9 @@ class ProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52,
+      height: 54,
       width: double.maxFinite,
-      padding: const EdgeInsets.only(top: 17,bottom: 15),
+      padding: const EdgeInsets.only(top: 15,bottom: 15),
       child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
