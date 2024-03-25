@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
+import 'package:rawabi/screen/searchScreen.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/utils/constants.dart';
 import 'package:rawabi/widget/adsWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
@@ -74,19 +76,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: const BoxDecoration(
                           color: silver,
                           borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset("assets/icons/search.svg"),
-                            ReusableText(
-                                title: _scanBarcode,
-                              ),
-                        const Spacer(),
-                        InkWell(
-                            onTap: () async {
-                              await scanBarcodeNormal();
-                              print("scancode:$_scanBarcode");
-                            },
-                            child: SvgPicture.asset("assets/icons/scan.svg"))
-                      ]),
+                      child: InkWell(
+                        onTap: () async {
+                          AppUtils.navigateToPage(SearchScreen());
+                        },
+                        child: Row(children: [
+                          SvgPicture.asset("assets/icons/search.svg"),
+                              const ReusableText(
+                                  title: "Search",
+                                ),
+                          const Spacer(),
+                          SvgPicture.asset("assets/icons/scan.svg")
+                        ]),
+                      ),
                     ),
                   ),
                   const SizedBox(

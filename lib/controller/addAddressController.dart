@@ -16,7 +16,7 @@ class AddAddressController extends GetxController {
   AddAddressController();
 
   final myAddressController = Get.put(MyAddressController());
-
+  final formKey = GlobalKey<FormState>();
   var addressNameController = TextEditingController();
   var mobileController = TextEditingController();
   var zoneController = TextEditingController();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:rawabi/utils/colors.dart';
 
@@ -12,7 +13,7 @@ class AddNewAddressesScreen extends StatelessWidget {
   AddNewAddressesScreen({super.key});
 
   final addAddressController = Get.put(AddAddressController());
-
+  var _country = countries.firstWhere((element) => element.code == "QA");
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +91,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: Form(
+                              key: addAddressController.formKey,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -103,6 +105,12 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: "Address Name".tr,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter Address Name';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -110,14 +118,20 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   IntlPhoneField(
                                     controller:
                                         addAddressController.mobileController,
-                                    onChanged: (phone) {
-                                      // mobile = phone.completeNumber.split("+").last;
-                                      //mobile = phone.number;
+                                    validator: (value) {
+                                      if (value == null ) {
+                                        return 'Please enter Address';
+                                      }
+                                      return null;
                                     },
+                                    onCountryChanged: (country) =>
+                                        _country = country,
+                                    //autovalidateMode: AutovalidateMode.onUserInteraction,
                                     //controller: mobileController,
                                     initialCountryCode: "QA",
-                                    disableLengthCheck: true,
+                                    disableLengthCheck: false,
                                     showDropdownIcon: true,
+                                    keyboardType: const TextInputType.numberWithOptions(),
                                     dropdownIconPosition: IconPosition.trailing,
                                     decoration: const InputDecoration(
                                       fillColor: lightGreyColor,
@@ -144,6 +158,12 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: "Zone".tr,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter zone';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -157,6 +177,12 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: "Building Number".tr,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter Building Number';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -169,6 +195,12 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: "Apartment/Building/Block".tr,
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return 'Please enter Apartment/Building/Block';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -194,6 +226,12 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: "Address ".tr,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter Address';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -244,13 +282,20 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 45,
                                     child: ReusableButton1(
-                                      title: "Add Address".tr,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      onPressed: () {
-                                        addAddressController.saveAddressList();
-                                      },
-                                    ),
+                                        title: "Add Address".tr,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        onPressed: () {
+                                          if(addAddressController.mobileController==null){
+
+                                          }
+                                          if (addAddressController
+                                              .formKey.currentState!
+                                              .validate() ) {
+                                            addAddressController
+                                                .saveAddressList();
+                                          }
+                                        }),
                                   ),
                                 ],
                               ),

@@ -19,7 +19,7 @@ const myorders = '${baseURL}myorders';
 const categoryUrl = '${baseURL}category';
 const subcategoryUrl = '${baseURL}subcategory';
 const storeListUrl = '${baseURL}storeList';
-
-
+const searchWord = '${baseURL}search';
+const searchBarcode= '${baseURL}barcode_Search';
 //keys
 const token = "Rawabi_jc";
