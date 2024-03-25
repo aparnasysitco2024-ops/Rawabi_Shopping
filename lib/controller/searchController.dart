@@ -19,9 +19,11 @@ class SearchResutController extends GetxController {
 
 
   SearchResutController();
+
   @override
   onInit() async {
     super.onInit();
+
   }
 
   Future<void> scanBarcodeNormal() async {

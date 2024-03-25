@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
 import 'package:rawabi/screen/searchScreen.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -31,8 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final homeController = Get.put(HomeController());
 
   final cartController = Get.put(CartController());
+  final searchController = Get.put(SearchResutController());
 
-  String _scanBarcode = '';
+  /*String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
@@ -48,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _scanBarcode = barcodeScanRes;
     });
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     homeController.getDefaultAddress();
@@ -78,10 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(7))),
                       child: InkWell(
                         onTap: () async {
-                          AppUtils.navigateToPage(SearchScreen());
+
+                          AppUtils.navigateToPage(const SearchScreen());
                         },
                         child: Row(children: [
                           SvgPicture.asset("assets/icons/search.svg"),
+                          const SizedBox(
+                            width: 5,
+                          ),
                               const ReusableText(
                                   title: "Search",
                                 ),

@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/searchController.dart';
-
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
 import '../widget/productItem.dart';
@@ -20,6 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    searchController.searchString.value="";
     return Scaffold(
         backgroundColor: silver,
         body: Obx(() => Column(children: [
@@ -93,11 +92,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ),
                                   ),
                                   onSubmitted: (value) {
-                                    print("searching for$value");
-                                    searchController.searchType.value = "word";
-                                    searchController.searchString.value = value;
-                                    searchController.getProductsByWordSearch();
-                                    setState(() {});
+                                    if(value.isNotEmpty){
+                                      //print("searching for $value");
+                                      searchController.searchType.value = "word";
+                                      searchController.searchString.value = value;
+                                      searchController.getProductsByWordSearch();
+                                      setState(() {});
+                                    }
+
                                   },
                                   onTap: (){
                                     setState(() {
@@ -112,8 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     searchController.searchType.value =
                                         "barcode";
                                     searchController.scanBarcodeNormal();
-                                    print(
-                                        "searching for ${searchController.searchString}");
+                                  //  print("searching for ${searchController.searchString}");
                                     searchController.getProductsByBarcodeSearch();
                                     setState(() {});
                                   },

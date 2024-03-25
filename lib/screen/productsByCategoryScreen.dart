@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/productsController.dart';
+import 'package:rawabi/screen/searchScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
-
 import '../controller/homeController.dart';
+import '../controller/searchController.dart';
+import '../utils/app_utils.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
@@ -22,9 +22,9 @@ class ProductsByCategory extends StatefulWidget {
 
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final homeController = Get.put(HomeController());
-
+  var searchController = Get.put(SearchResutController());
   final productController = Get.put(ProductController());
-  String _scanBarcode = '';
+ /* String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
@@ -39,7 +39,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -85,20 +85,20 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     decoration: const BoxDecoration(
                         color: silver,
                         borderRadius: BorderRadius.all(Radius.circular(7))),
-                    child: Row(children: [
-                      // SvgPicture.asset("assets/icons/search.svg"),
-                      ReusableText(
-                        title: _scanBarcode == ""
-                            ? productController.catName.value
-                            : _scanBarcode,
-                      ),
-                      const Spacer(),
-                      InkWell(
-                          onTap: () async {
-                            await scanBarcodeNormal();
-                          },
-                          child: SvgPicture.asset("assets/icons/scan.svg"))
-                    ]),
+                    child: InkWell(
+                      onTap: () async {
+                        AppUtils.navigateToPage(const SearchScreen());
+                      },
+                      child: Row(
+                          children: [
+                        SvgPicture.asset("assets/icons/search.svg"),
+                        ReusableText(
+                          title: productController.catName.value,
+                        ),
+                        const Spacer(),
+                        SvgPicture.asset("assets/icons/scan.svg")
+                      ]),
+                    ),
                   ),
                 ),
                 const SizedBox(
