@@ -140,7 +140,8 @@ class CartScreen extends StatelessWidget {
                                       child: ListView.builder(
                                           padding: const EdgeInsets.all(0),
                                           shrinkWrap: true,
-                                          physics: const NeverScrollableScrollPhysics(),
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
                                           itemCount: cartController
                                               .cartProducts.length,
                                           itemBuilder: (context, index) =>
@@ -219,7 +220,6 @@ class CartScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    height: 250,
                                     width: double.maxFinite,
                                     color: white,
                                     padding: const EdgeInsets.symmetric(
@@ -236,66 +236,66 @@ class CartScreen extends StatelessWidget {
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        Row(
-                                          children: [
-                                            const RoundCard(
-                                                image:
-                                                    'assets/icons/mastercard.svg'),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            const ReusableText(
-                                              title: "Card ending in 6785",
-                                              weight: FontWeight.w400,
-                                            ),
-                                            const Spacer(),
-                                            Radio(
-                                                value:
-                                                    cartController.masterCard,
-                                                groupValue: cartController
-                                                    .groupValue.value,
-                                                activeColor: MaterialStateColor
-                                                    .resolveWith((states) =>
-                                                        primaryColor),
-                                                onChanged: (v) {
-                                                  cartController
-                                                      .groupValue.value = v!;
-                                                })
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            const RoundCard(
-                                              image:
-                                                  'assets/icons/visacard.svg',
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            const ReusableText(
-                                              title: "Card ending in 2314",
-                                              weight: FontWeight.w400,
-                                            ),
-                                            const Spacer(),
-                                            Radio(
-                                                value: cartController.visa,
-                                                groupValue: cartController
-                                                    .groupValue.value,
-                                                activeColor: MaterialStateColor
-                                                    .resolveWith((states) =>
-                                                        primaryColor),
-                                                onChanged: (v) {
-                                                  cartController
-                                                      .groupValue.value = v!;
-                                                })
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     const RoundCard(
+                                        //         image:
+                                        //             'assets/icons/mastercard.svg'),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     const ReusableText(
+                                        //       title: "Card ending in 6785",
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     Radio(
+                                        //         value:
+                                        //             cartController.masterCard,
+                                        //         groupValue: cartController
+                                        //             .groupValue.value,
+                                        //         activeColor: MaterialStateColor
+                                        //             .resolveWith((states) =>
+                                        //                 primaryColor),
+                                        //         onChanged: (v) {
+                                        //           cartController
+                                        //               .groupValue.value = v!;
+                                        //         })
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        // Row(
+                                        //   children: [
+                                        //     const RoundCard(
+                                        //       image:
+                                        //           'assets/icons/visacard.svg',
+                                        //     ),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     const ReusableText(
+                                        //       title: "Card ending in 2314",
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     Radio(
+                                        //         value: cartController.visa,
+                                        //         groupValue: cartController
+                                        //             .groupValue.value,
+                                        //         activeColor: MaterialStateColor
+                                        //             .resolveWith((states) =>
+                                        //                 primaryColor),
+                                        //         onChanged: (v) {
+                                        //           cartController
+                                        //               .groupValue.value = v!;
+                                        //         })
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
                                         Row(
                                           children: [
                                             const RoundCard(
@@ -360,6 +360,7 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                     width: double.maxFinite,
                                   ),
+                                  const SizedBox(height: 5,),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 18, vertical: 6),
@@ -404,6 +405,7 @@ class CartScreen extends StatelessWidget {
                                           )
                                         ]),
                                   ),
+                                  const SizedBox(height: 5,),
                                   Container(
                                     color: silver,
                                     height: 5,
