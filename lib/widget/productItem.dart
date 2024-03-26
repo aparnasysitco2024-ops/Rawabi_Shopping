@@ -6,8 +6,6 @@ import 'package:rawabi/model/products.dart';
 import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import '../controller/cartController.dart';
-import '../screen/productDetailsScreen.dart';
-import '../utils/app_utils.dart';
 import '../utils/colors.dart';
 import 'commonwidget/reusable_text.dart';
 

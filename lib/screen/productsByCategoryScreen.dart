@@ -3,13 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/screen/search/searchWordScreen.dart';
-
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 import '../controller/homeController.dart';
 import '../controller/searchController.dart';
-import '../utils/app_utils.dart';
+
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {

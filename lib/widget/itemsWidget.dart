@@ -6,11 +6,8 @@ import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
-
 import '../controller/cartController.dart';
 import '../model/products.dart';
-import '../screen/productDetailsScreen.dart';
-import '../utils/app_utils.dart';
 
 class ItemsWidget extends StatefulWidget {
   String? title;

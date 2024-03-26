@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:rawabi/screen/search/SearchResultScreen.dart';
-
 import '../../controller/searchController.dart';
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
