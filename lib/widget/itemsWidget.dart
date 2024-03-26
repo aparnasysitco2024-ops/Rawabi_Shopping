@@ -193,7 +193,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                         width: 5,
                                       ),
                                       ReusableText(
-                                        title: widget.products![index].qty
+                                        title: widget.products![index].cartCount
                                             .toString(),
                                         size: 12,
                                         weight: FontWeight.bold,
@@ -212,8 +212,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                                   .toString(),
                                               "1");
                                           setState(() {
-                                            widget.products![index].qty =
-                                            (widget.products![index].qty! +
+                                            widget.products![index].cartCount =
+                                            (widget.products![index].cartCount! +
                                                 1);
                                           });
 

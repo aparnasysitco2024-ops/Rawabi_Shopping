@@ -132,7 +132,7 @@ class _ProductItemState extends State<ProductItem> {
                           ),
                         ],
                       ),
-                      widget.products.qty == 0
+                      widget.products.cartCount == 0
                           ? ReusableButton1(
                               onPressed: () {
                                 widget.cartController.addToCart(
@@ -141,8 +141,8 @@ class _ProductItemState extends State<ProductItem> {
                                     widget.products.offerPrice.toString(),
                                     "1");
                                 setState(() {
-                                  widget.products.qty =
-                                      (widget.products.qty! + 1);
+                                  widget.products.cartCount =
+                                      (widget.products.cartCount! + 1);
                                 });
                               },
                               title: "Add",
@@ -164,18 +164,18 @@ class _ProductItemState extends State<ProductItem> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      if (widget.products.qty == "1") {
+                                      if (widget.products.cartCount == "1") {
                                         widget.cartController.removeCartItem(
                                             widget.products.productId);
                                       } else {
                                         widget.cartController.updateQty(
                                             widget.products.productId,
-                                            int.parse(widget.products.qty
+                                            int.parse(widget.products.cartCount
                                                     .toString()) -
                                                 1);
                                         setState(() {
-                                          widget.products.qty =
-                                          (widget.products.qty! - 1);
+                                          widget.products.cartCount =
+                                          (widget.products.cartCount! - 1);
                                         });
                                       }
                                     },
@@ -188,7 +188,7 @@ class _ProductItemState extends State<ProductItem> {
                                     width: 5,
                                   ),
                                   ReusableText(
-                                    title: widget.products.qty.toString(),
+                                    title: widget.products.cartCount.toString(),
                                     size: 12,
                                     color: silver,
                                     weight: FontWeight.bold,
@@ -204,8 +204,8 @@ class _ProductItemState extends State<ProductItem> {
                                           widget.products.offerPrice.toString(),
                                           "1");
                                       setState(() {
-                                        widget.products.qty =
-                                            (widget.products.qty! + 1);
+                                        widget.products.cartCount =
+                                            (widget.products.cartCount! + 1);
                                       });
                                     },
                                     child: SvgPicture.asset(

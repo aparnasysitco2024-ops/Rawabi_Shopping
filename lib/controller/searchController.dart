@@ -12,18 +12,16 @@ import '../utils/http_client/base_client.dart';
 class SearchResutController extends GetxController {
   var isLoaded = false;
   var loading = false.obs;
-  var searchType="word".obs;
-  var searchString="Search".obs;
+  var searchType = "word".obs;
+  var searchString = "Search".obs;
   var searchProductList = <Products>[].obs;
   var searchTextController = TextEditingController();
-
 
   SearchResutController();
 
   @override
   onInit() async {
     super.onInit();
-
   }
 
   Future<void> scanBarcodeNormal() async {
@@ -35,49 +33,52 @@ class SearchResutController extends GetxController {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-    searchType.value="barcode";
-    searchString.value=barcodeScanRes;
-
+    searchType.value = "barcode";
+    searchString.value = barcodeScanRes;
   }
 
   Future<void> getProductsByWordSearch(String query) async {
-    try {
-      if (!isLoaded) loading.value = true;
-      var request = {"word": query,};
-      var response = await BaseClient().post(searchWord, request);
-      //loading.value = false;
-      searchProductList.clear();
-      if (response != null) {
-        var responseData =
-        SearchResponse.fromJson(json.decode(response.toString()));
-        print(responseData.products.toString());
-        //searchProductList.clear();
+    if (query.isNotEmpty) {
+      try {
+        if (!isLoaded) loading.value = true;
+        var request = {
+          "word": query,
+        };
+        var response = await BaseClient().post(searchWord, request);
+        //loading.value = false;
+        searchProductList.clear();
+        if (response != null) {
+          var responseData =
+              SearchResponse.fromJson(json.decode(response.toString()));
+          print(responseData.products.toString());
+          //searchProductList.clear();
 
-        if (responseData.code == "200") {
-
-          if (responseData.products != null) {
-            searchProductList.addAll(responseData.products as List<Products>);
+          if (responseData.code == "200") {
+            if (responseData.products != null) {
+              searchProductList.addAll(responseData.products as List<Products>);
+            }
+            loading.value = false;
+            isLoaded = true;
+          } else {
+            isLoaded = false;
+            CommonUtils.showErrorDialog(responseData.toString());
           }
-          loading.value = false;
-          isLoaded = true;
         } else {
           isLoaded = false;
-          CommonUtils.showErrorDialog(responseData.toString());
         }
-      } else {
+      } catch (error) {
         isLoaded = false;
+        error.printError();
+        // CommonUtils.showErrorDialog(error.toString());
       }
-    } catch (error) {
-      isLoaded = false;
-      error.printError();
-      // CommonUtils.showErrorDialog(error.toString());
+      loading.value = false;
+    }else{
+      searchProductList.clear();
     }
-    loading.value = false;
   }
 
   Future<void> getProductsByBarcodeSearch() async {
     try {
-
       var request = {
         "barcode": searchString.value,
       };
@@ -87,11 +88,10 @@ class SearchResutController extends GetxController {
       loading.value = false;
       if (response != null) {
         var responseData =
-        SearchResponse.fromJson(json.decode(response.toString()));
+            SearchResponse.fromJson(json.decode(response.toString()));
         searchProductList.clear();
 
         if (responseData.code == "200") {
-
           if (responseData.products != null) {
             searchProductList.addAll(responseData.products as List<Products>);
           }
@@ -110,5 +110,4 @@ class SearchResutController extends GetxController {
     }
     loading.value = false;
   }
-
 }

@@ -105,6 +105,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
   }
 
   Future<void> _getAddressFromLatLng(CameraPosition position) async {
+    address = "";
     List<Placemark> placemarks = await placemarkFromCoordinates(
         position.target.latitude, position.target.longitude);
     place = placemarks.length > 1 ? placemarks[1] : placemarks[0];
@@ -189,7 +190,9 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
               alignment: Alignment.bottomLeft,
               decoration: const BoxDecoration(
                 color: white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(12),topRight: Radius.circular(12)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12)),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,13 +235,13 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                     height: 40,
                     child: ReusableButton1(
                       title: "Confirm Location",
+                      backgroundColor: address.isEmpty ? silver : primaryColor,
                       onPressed: () {
                         if (address.isNotEmpty) {
                           homeController.storeAddress.value = address;
                           StorageManager.saveData(
                               StorageManager.keyStoreAddress, address);
-                          AppUtils.navigateToPageRemoveUntil(
-                               BottomNavBar());
+                          AppUtils.navigateToPageRemoveUntil(BottomNavBar());
                         }
                       },
                       fontSize: 14,

@@ -39,14 +39,6 @@ class ProductController extends GetxController {
           catName.value = responseData.res!.category!.catName!;
           if (responseData.res?.products != null) {
             productList.addAll(responseData.res?.products as List<Products>);
-
-            cartController.cartProducts.forEach((cartElement) {
-              productList.forEach((element) {
-                if (element.productId == cartElement.productId) {
-                  element.qty = int.parse(cartElement.quantity.toString());
-                }
-              });
-            });
           }
 
           isLoaded = true;
