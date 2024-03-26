@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
-
 import '../controller/categoryController.dart';
 import '../controller/searchController.dart';
 
 // ignore: must_be_immutable
 class OffersScreen extends StatefulWidget {
-  OffersScreen({super.key});
+  const OffersScreen({super.key});
 
   @override
   State<OffersScreen> createState() => _OffersScreenState();

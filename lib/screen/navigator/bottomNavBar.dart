@@ -1,18 +1,14 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/cartScreen.dart';
 import 'package:rawabi/screen/navigator/categoryNavigator.dart';
 import 'package:rawabi/screen/navigator/homeNavigator.dart';
-import 'package:rawabi/screen/offresScreen.dart';
 import 'package:rawabi/utils/colors.dart';
-
 import '../../controller/cartController.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/svg_icon.dart';

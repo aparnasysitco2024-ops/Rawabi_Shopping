@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
-import 'package:rawabi/screen/productsByCategoryScreen.dart';
-import '../homeScreen.dart';
-import '../offresScreen.dart';
-import '../search/SearchResultScreen.dart';
-import '../search/barcodeResultScreen.dart';
 import '../wishlistScreen.dart';
 
 class AccountNavigator extends StatefulWidget {
