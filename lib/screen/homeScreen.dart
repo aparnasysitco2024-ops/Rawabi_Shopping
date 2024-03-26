@@ -6,7 +6,7 @@ import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
-import 'package:rawabi/screen/search/searchWordScreen.dart';
+import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
