@@ -22,23 +22,21 @@ class _HomeNavigatorState extends State<HomeNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return   const HomeScreen();
+                  return const HomeScreen();
                 case '/ProductsByCategory':
-                  return  const ProductsByCategory();
+                  return const ProductsByCategory();
                 case '/SearchResultScreen':
-                  return  const SearchResultScreen();
+                  return const SearchResultScreen();
                 case '/BarcodeResultScreen':
-                  return  const BarcodeResultScreen();
+                  return const BarcodeResultScreen();
                 case '/ProductDetailsScreen':
-                  return  ProductDetailsScreen();
+                  return ProductDetailsScreen();
               }
-              throw (e){
+              throw (e) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(e.toString())));
               };
-
-            }
-        );
+            });
       },
     );
   }

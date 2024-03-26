@@ -20,6 +20,10 @@ const categoryUrl = '${baseURL}category';
 const subcategoryUrl = '${baseURL}subcategory';
 const storeListUrl = '${baseURL}storeList';
 const searchWord = '${baseURL}search';
-const searchBarcode= '${baseURL}barcode_Search';
+const searchBarcode = '${baseURL}barcode_Search';
+const addtowishUrl = '${baseURL}addtowish';
+const wishListUrl = '${baseURL}wishList';
+const deletewishUrl = '${baseURL}deletewish';
+
 //keys
 const token = "Rawabi_jc";

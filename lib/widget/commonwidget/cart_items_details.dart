@@ -61,7 +61,7 @@ class CartItemDetails extends StatelessWidget {
                   if (products.quantity == "1") {
                     cartController.removeCartItem(products.cartId);
                   } else {
-                    cartController.updateQty(products.cartId,
+                    cartController.updateQty(products.productId,
                         int.parse(products.quantity.toString()) - 1);
                   }
                 },

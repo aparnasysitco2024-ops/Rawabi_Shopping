@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/model/products.dart';
 import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+
 import '../controller/cartController.dart';
 import '../utils/colors.dart';
 import 'commonwidget/reusable_text.dart';
@@ -22,18 +23,19 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(onTap: () {
-      Navigator.pushNamed(
-        context,
-        '/ProductDetailsScreen',
-        arguments: {
-          'productID': widget.products.productId,
-        },
-      );
-      /*AppUtils.navigateToPage(
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/ProductDetailsScreen',
+          arguments: {
+            'productID': widget.products.productId,
+          },
+        );
+        /*AppUtils.navigateToPage(
           ProductDetailsScreen(
               productID: widget.products.productId));*/
-    },
+      },
       child: Container(
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -48,7 +50,8 @@ class _ProductItemState extends State<ProductItem> {
                   alignment: Alignment.center,
                   height: 20,
                   width: 70,
-                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                   decoration: const BoxDecoration(
                       color: lightPink,
                       borderRadius: BorderRadius.all(Radius.circular(4))),
@@ -60,17 +63,22 @@ class _ProductItemState extends State<ProductItem> {
                 ),
                 InkWell(
                   onTap: () {
-
+                    widget.products.wishlist == 0
+                        ? widget.cartController
+                            .addToWishList(widget.products.productId)
+                        : widget.cartController
+                            .removeFromWishList(widget.products.productId);
                     setState(() {
-
+                      widget.products.wishlist =
+                          widget.products.wishlist == 0 ? 1 : 0;
                     });
-
                   },
                   child: SvgPicture.asset(
                     "assets/icons/heart.svg",
                     fit: BoxFit.fill,
-                    colorFilter:
-                        const ColorFilter.mode(silver, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        widget.products.wishlist == 0 ? silver : primaryColor,
+                        BlendMode.srcIn),
                   ),
                 )
               ],
@@ -151,7 +159,7 @@ class _ProductItemState extends State<ProductItem> {
                               fontWeight: FontWeight.bold,
                             )
                           : Container(
-                              margin: const EdgeInsets.only(bottom: 5,top: 5),
+                              margin: const EdgeInsets.only(bottom: 5, top: 5),
                               height: 30,
                               width: 70,
                               padding: const EdgeInsets.all(1),
@@ -175,7 +183,7 @@ class _ProductItemState extends State<ProductItem> {
                                                 1);
                                         setState(() {
                                           widget.products.cartCount =
-                                          (widget.products.cartCount! - 1);
+                                              (widget.products.cartCount! - 1);
                                         });
                                       }
                                     },

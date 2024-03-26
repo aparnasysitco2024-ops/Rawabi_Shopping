@@ -97,7 +97,8 @@ class AccountScreen extends StatelessWidget {
                   Container(
                     height: 96,
                     color: white,
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                     child: Stack(
                       children: [
                         Container(
@@ -119,7 +120,11 @@ class AccountScreen extends StatelessWidget {
                                 gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
-                                    colors: [primaryColor, Colors.transparent, pink]),
+                                    colors: [
+                                      primaryColor,
+                                      Colors.transparent,
+                                      pink
+                                    ]),
                               ),
                             ),
                           ),
@@ -138,7 +143,8 @@ class AccountScreen extends StatelessWidget {
                                 height: 52,
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ReusableText(
@@ -161,7 +167,7 @@ class AccountScreen extends StatelessWidget {
                                 decoration: const BoxDecoration(
                                     color: primaryColor,
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(3))),
+                                        BorderRadius.all(Radius.circular(3))),
                                 child: Center(
                                   child: ReusableText(
                                     title: "View".tr,
@@ -179,7 +185,8 @@ class AccountScreen extends StatelessWidget {
                   ),
                   Container(
                     color: white,
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                     width: double.maxFinite,
                     child: Column(
                       children: [
@@ -188,17 +195,19 @@ class AccountScreen extends StatelessWidget {
                             // AppUtils.navigateToPage(const DeliveryModeScreen());
                           },
                           child: const ProfileTile(
-                              image: "assets/icons/eReceipt.svg", title: "E-Receipt"),
+                              image: "assets/icons/eReceipt.svg",
+                              title: "E-Receipt"),
                         ),
                         const Divider(
                           thickness: 1,
                         ),
                         InkWell(
                           onTap: () {
-                            AppUtils.navigateToPage(const WishlistScreen());
+                            AppUtils.navigateToPage(WishlistScreen());
                           },
                           child: const ProfileTile(
-                              image: "assets/icons/love.svg", title: "Wishlist"),
+                              image: "assets/icons/love.svg",
+                              title: "Wishlist"),
                         ),
                         const Divider(
                           thickness: 1,
@@ -223,19 +232,21 @@ class AccountScreen extends StatelessWidget {
                             AppUtils.navigateToPage(const MyProfileScreen());
                           },
                           child: const ProfileTile(
-                              image: "assets/icons/user.svg", title: "My Profile"),
+                              image: "assets/icons/user.svg",
+                              title: "My Profile"),
                         ),
                         const Divider(
                           thickness: 1,
                         ),
                         const ProfileTile(
-                            image: "assets/icons/gift-card.svg", title: "Gift Cards"),
+                            image: "assets/icons/gift-card.svg",
+                            title: "Gift Cards"),
                         const Divider(
                           thickness: 1,
                         ),
                         InkWell(
                           onTap: () {
-                            AppUtils.navigateToPage( NotificationsScreen());
+                            AppUtils.navigateToPage(NotificationsScreen());
                           },
                           child: const ProfileTile(
                               image: "assets/icons/notification2.svg",
@@ -245,17 +256,20 @@ class AccountScreen extends StatelessWidget {
                           thickness: 1,
                         ),
                         const ProfileTile(
-                            image: "assets/icons/My-shops.svg", title: "Our Store"),
+                            image: "assets/icons/My-shops.svg",
+                            title: "Our Store"),
                         const Divider(
                           thickness: 1,
                         ),
                         const ProfileTile(
-                            image: "assets/icons/returns.svg", title: "My Returns"),
+                            image: "assets/icons/returns.svg",
+                            title: "My Returns"),
                         const Divider(
                           thickness: 1,
                         ),
                         const ProfileTile(
-                            image: "assets/icons/feedback.svg", title: "Feedback"),
+                            image: "assets/icons/feedback.svg",
+                            title: "Feedback"),
                         const Divider(
                           thickness: 1,
                         ),
@@ -270,7 +284,8 @@ class AccountScreen extends StatelessWidget {
                           thickness: 1,
                         ),
                         const ProfileTile(
-                            image: "assets/icons/information.svg", title: "About Us"),
+                            image: "assets/icons/information.svg",
+                            title: "About Us"),
                         const Divider(
                           thickness: 1,
                         ),
@@ -294,16 +309,13 @@ class AccountScreen extends StatelessWidget {
                         ),
                         const ProfileTile(
                             image: "assets/icons/exit.svg", title: "Sign Out"),
-
                       ],
                     ),
                   ),
-
                 ],
               ),
             ),
           ),
-
         ],
       ),
     );

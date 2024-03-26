@@ -19,12 +19,9 @@ class ItemsWidget extends StatefulWidget {
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
-
-
 }
 
 class _ItemsWidgetState extends State<ItemsWidget> {
-
   @override
   void initState() {
     super.initState();
@@ -75,180 +72,184 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                   itemCount: widget.products?.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => GestureDetector(
-                        child: Container(
-                          width: 155,
-                          margin: const EdgeInsets.only(left: 10, bottom: 5),
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5)),
-                              border: Border.all(color: silver)),
-                          child: Column(children: [
-                            Row(
-                              children: [
-                                ReusableButton(
-                                  onTap: () {},
-                                  title: "35% OFF",
-                                  width: 70.0,
-                                  borderRadius: 5.0,
-                                  padding: 5.0,
-                                  textSize: 12.0,
-                                  buttonColor: pink,
-                                ),
-                                const Spacer(),
-                                SvgPicture.asset("assets/icons/heart.svg")
-                              ],
-                            ),
-                            const SizedBox(height: 5,),
-                            SizedBox(
-                              height: 120,
-                              child: FadeInImage.assetNetwork(
-                                  placeholder: 'assets/images/logo.png',
-                                  image: widget.products![index].productImage
-                                      .toString()),
-                            ),
-                            SizedBox(
-                              height: 40,
-                              child: ReusableText(
-                                title: widget.products![index].productName,
-                                maxLine: 2,
-                                size: 12,
-                                textAlign: TextAlign.center,
+                      child: Container(
+                        width: 155,
+                        margin: const EdgeInsets.only(left: 10, bottom: 5),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            border: Border.all(color: silver)),
+                        child: Column(children: [
+                          Row(
+                            children: [
+                              ReusableButton(
+                                onTap: () {},
+                                title: "35% OFF",
+                                width: 70.0,
+                                borderRadius: 5.0,
+                                padding: 5.0,
+                                textSize: 12.0,
+                                buttonColor: pink,
                               ),
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ReusableText(
-                                        title:
-                                            "QAR ${widget.products![index].sellingPrice}",
-                                        maxLine: 1,
-                                        size: 10,
-                                        textAlign: TextAlign.center,
-                                        strike: true,
-                                      ),
-                                      ReusableText(
-                                        title:
-                                            "QAR ${widget.products![index].offerPrice}",
-                                        maxLine: 1,
-                                        weight: FontWeight.bold,
-                                        size: 11,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const Spacer(),
-                                // SizedBox(
-                                //   width: 55.0,
-                                //   height: 25,
-                                //   child: ReusableButton1(
-                                //     fontSize: 11.0,
-                                //     onPressed: () {
-                                //       widget.homeController.addToCart(
-                                //           widget.products![index].productId
-                                //               .toString(),
-                                //           widget.products![index].storeId
-                                //               .toString(),
-                                //           widget.products![index].offerPrice
-                                //               .toString(),
-                                //           "1");
-                                //     },
-                                //     title: "Add".tr,
-                                //   ),
-                                // ),
-                                Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                      color: pink,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          // if (products.quantity == "1") {
-                                          //   cartController.removeCartItem(products.cartId);
-                                          // } else {
-                                          //   cartController.updateQty(products.cartId,
-                                          //       int.parse(products.quantity.toString()) - 1);
-                                          // }
-                                        },
-                                        child: const SizedBox(
-                                          width: 20,
-                                          child: CircleAvatar(
-                                            backgroundColor: silver,
-                                            radius: 15,
-                                            child: ClipOval(
-                                                child: Icon(
-                                                    size: 15,
-                                                    Icons.remove_outlined)),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      ReusableText(
-                                        title: widget.products![index].cartCount
-                                            .toString(),
-                                        size: 12,
-                                        weight: FontWeight.bold,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          widget.cartController.addToCart(
-                                              widget.products![index].productId
-                                                  .toString(),
-                                              widget.products![index].storeId
-                                                  .toString(),
-                                              widget.products![index].offerPrice
-                                                  .toString(),
-                                              "1");
-                                          setState(() {
-                                            widget.products![index].cartCount =
-                                            (widget.products![index].cartCount! +
-                                                1);
-                                          });
+                              const Spacer(),
+                              InkWell(
+                                  onTap: () {
 
-                                        },
-                                        child: const SizedBox(
-                                          width: 20,
-                                          child: CircleAvatar(
-                                            backgroundColor: primaryColor,
-                                            radius: 15,
-                                            child: ClipOval(
-                                                child:
-                                                    Icon(size: 15, Icons.add)),
-                                          ),
+                                  },
+                                  child: SvgPicture.asset(
+                                      "assets/icons/heart.svg"))
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            height: 120,
+                            child: FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/logo.png',
+                                image: widget.products![index].productImage
+                                    .toString()),
+                          ),
+                          SizedBox(
+                            height: 40,
+                            child: ReusableText(
+                              title: widget.products![index].productName,
+                              maxLine: 2,
+                              size: 12,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ReusableText(
+                                      title:
+                                          "QAR ${widget.products![index].sellingPrice}",
+                                      maxLine: 1,
+                                      size: 10,
+                                      textAlign: TextAlign.center,
+                                      strike: true,
+                                    ),
+                                    ReusableText(
+                                      title:
+                                          "QAR ${widget.products![index].offerPrice}",
+                                      maxLine: 1,
+                                      weight: FontWeight.bold,
+                                      size: 11,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              // SizedBox(
+                              //   width: 55.0,
+                              //   height: 25,
+                              //   child: ReusableButton1(
+                              //     fontSize: 11.0,
+                              //     onPressed: () {
+                              //       widget.homeController.addToCart(
+                              //           widget.products![index].productId
+                              //               .toString(),
+                              //           widget.products![index].storeId
+                              //               .toString(),
+                              //           widget.products![index].offerPrice
+                              //               .toString(),
+                              //           "1");
+                              //     },
+                              //     title: "Add".tr,
+                              //   ),
+                              // ),
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    color: pink,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        // if (products.quantity == "1") {
+                                        //   cartController.removeCartItem(products.cartId);
+                                        // } else {
+                                        //   cartController.updateQty(products.cartId,
+                                        //       int.parse(products.quantity.toString()) - 1);
+                                        // }
+                                      },
+                                      child: const SizedBox(
+                                        width: 20,
+                                        child: CircleAvatar(
+                                          backgroundColor: silver,
+                                          radius: 15,
+                                          child: ClipOval(
+                                              child: Icon(
+                                                  size: 15,
+                                                  Icons.remove_outlined)),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          ]),
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            '/ProductDetailsScreen',
-                            arguments: {
-                              'productID': widget.products![index].productId,
-                            },
-                          );
-                          /*AppUtils.navigateToPage(
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    ReusableText(
+                                      title: widget.products![index].cartCount
+                                          .toString(),
+                                      size: 12,
+                                      weight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        widget.cartController.addToCart(
+                                            widget.products![index].productId
+                                                .toString(),
+                                            widget.products![index].storeId
+                                                .toString(),
+                                            widget.products![index].offerPrice
+                                                .toString(),
+                                            "1");
+                                        setState(() {
+                                          widget.products![index].cartCount =
+                                              (widget.products![index]
+                                                      .cartCount! +
+                                                  1);
+                                        });
+                                      },
+                                      child: const SizedBox(
+                                        width: 20,
+                                        child: CircleAvatar(
+                                          backgroundColor: primaryColor,
+                                          radius: 15,
+                                          child: ClipOval(
+                                              child: Icon(size: 15, Icons.add)),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )
+                        ]),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/ProductDetailsScreen',
+                          arguments: {
+                            'productID': widget.products![index].productId,
+                          },
+                        );
+                        /*AppUtils.navigateToPage(
                             ProductDetailsScreen(
                                 productID: widget.products![index].productId));*/
-                        }
-                      )))
+                      })))
         ],
       ),
     );

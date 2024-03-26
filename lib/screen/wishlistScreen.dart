@@ -1,17 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/widget/wishlistGridItem.dart';
+import 'package:rawabi/controller/wishlistController.dart';
+import 'package:rawabi/widget/productItem.dart';
 
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
 class WishlistScreen extends StatelessWidget {
-  const WishlistScreen({super.key});
+  WishlistScreen({super.key});
+
+  final wishListController = Get.put(WishListController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    wishListController.getWishList();
+    return Obx(() => Scaffold(
         backgroundColor: silver,
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -26,11 +30,7 @@ class WishlistScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 40,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: lightGreyColor,
+                      height: 55,
                     ),
                     Container(
                       height: 40,
@@ -67,41 +67,61 @@ class WishlistScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              wishListController.loading.value
+                  ? const Flexible(
+                child: SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: primaryColor,
+                    ),
+                  ),
+                ),
+              )
+                  : wishListController.productList.isNotEmpty
+                  ? Flexible(
+                child: Container(
+                  height: double.infinity,
+                  color: silver,
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: GridView.builder(
+                      padding: const EdgeInsets.only(top: 15),
                       shrinkWrap: true,
-                      itemCount: 6,
-                      physics: const BouncingScrollPhysics(),
+                      itemCount: wishListController.productList.length,
+                      // physics: const BouncingScrollPhysics(),
                       gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 12,
-                              crossAxisSpacing: 12,
-                              childAspectRatio: 0.5),
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          mainAxisExtent: 295,
+                          crossAxisSpacing: 12,
+                          childAspectRatio: 0.5),
                       itemBuilder: (_, index) {
-                        return InkWell(
-                            onTap: () async {},
-                            child: WishlistGridItem(
-                              title: index == 0
-                                  ? "Best seller"
-                                  : index == 1
-                                      ? "35% off"
-                                      : null,
-                              image: index == 0
-                                  ? "assets/images/pasta.png"
-                                  : index == 1
-                                      ? "assets/images/pizza.png"
-                                      : index == 2
-                                          ? "assets/images/ajmiPathiri.png"
-                                          : "assets/images/bakingsoda.png",
-                            ));
+                        return ProductItem(
+                          products:
+                          wishListController.productList[index],
+                        );
                       }),
+                ),
+              )
+                  : Flexible(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset("assets/icons/logo.svg"),
+                        const ReusableText(
+                          title: "No Item Found!!",
+                        )
+                      ]),
                 ),
               ),
             ],
           ),
-        ));
+        )));
   }
 }

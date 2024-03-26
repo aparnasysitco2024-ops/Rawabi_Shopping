@@ -6,9 +6,9 @@ import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
+
 import '../controller/homeController.dart';
 import '../controller/searchController.dart';
-
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
@@ -24,7 +24,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   final homeController = Get.put(HomeController());
   var searchController = Get.put(SearchResutController());
   final productController = Get.put(ProductController());
- /* String _scanBarcode = '';
+
+  /* String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
@@ -86,18 +87,20 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         color: silver,
                         borderRadius: BorderRadius.all(Radius.circular(7))),
                     child: InkWell(
-                      onTap: (){
+                      onTap: () {
                         showSearch(
                           context: context,
                           delegate: MySearchDelegate(),
-                        );},
+                        );
+                      },
                       /*onTap: () async {
                         AppUtils.navigateToPage(const SearchScreen());
                       },*/
-                      child: Row(
-                          children: [
+                      child: Row(children: [
                         SvgPicture.asset("assets/icons/search.svg"),
-                        const SizedBox(width: 5,),
+                        const SizedBox(
+                          width: 5,
+                        ),
                         ReusableText(
                           title: productController.catName.value,
                         ),

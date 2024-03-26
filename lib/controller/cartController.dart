@@ -173,4 +173,48 @@ class CartController extends GetxController {
     }
     loading.value = false;
   }
+
+  Future<void> addToWishList(var id) async {
+    try {
+      loading.value = true;
+      var request = {"item_id": id};
+      var response = await BaseClient().post(addtowishUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> removeFromWishList(var id) async {
+    try {
+      loading.value = true;
+      var request = {"id": id};
+      var response = await BaseClient().post(deletewishUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
 }
