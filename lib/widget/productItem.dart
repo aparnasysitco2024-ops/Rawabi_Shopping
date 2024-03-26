@@ -25,9 +25,16 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(onTap: () {
-      AppUtils.navigateToPage(
+      Navigator.pushNamed(
+        context,
+        '/ProductDetailsScreen',
+        arguments: {
+          'productID': widget.products.productId,
+        },
+      );
+      /*AppUtils.navigateToPage(
           ProductDetailsScreen(
-              productID: widget.products.productId));
+              productID: widget.products.productId));*/
     },
       child: Container(
         decoration: const BoxDecoration(

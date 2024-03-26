@@ -239,9 +239,18 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                             )
                           ]),
                         ),
-                        onTap: () => AppUtils.navigateToPage(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/ProductDetailsScreen',
+                            arguments: {
+                              'productID': widget.products![index].productId,
+                            },
+                          );
+                          /*AppUtils.navigateToPage(
                             ProductDetailsScreen(
-                                productID: widget.products![index].productId)),
+                                productID: widget.products![index].productId));*/
+                        }
                       )))
         ],
       ),

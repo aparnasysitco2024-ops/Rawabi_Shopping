@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/search/searchWordScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/categoryController.dart';
+import '../controller/searchController.dart';
 import '../widget/categoryItemTile.dart';
 import '../widget/subCategoryItemTile.dart';
 
@@ -19,25 +21,8 @@ class CategoryScreen extends StatelessWidget {
 //
 // class _CategoryScreenState extends State<CategoryScreen> {
   final categoryController = Get.put(CategoryController());
-  String _scanBarcode = '';
   String catID = "0", subCatID = "0", subSubCatID = "0", subSubSubCatID = "0";
-
-  // String , String subSubSubCatID
-
-  // Future<void> scanBarcodeNormal() async {
-  //   String barcodeScanRes;
-  //   try {
-  //     barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-  //         '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-  //     print(barcodeScanRes);
-  //   } on PlatformException {
-  //     barcodeScanRes = 'Failed to get platform version.';
-  //   }
-  //   if (!mounted) return;
-  //   setState(() {
-  //     _scanBarcode = barcodeScanRes;
-  //   });
-  // }
+  final searchController = Get.put(SearchResutController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,23 +49,38 @@ class CategoryScreen extends StatelessWidget {
                     color: silver,
                     borderRadius: BorderRadius.all(Radius.circular(7))),
                 child: Row(children: [
-                  SvgPicture.asset("assets/icons/search.svg"),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  ReusableText(
-                    title: _scanBarcode == ""
-                        ? "What are you looking for?".tr
-                        : _scanBarcode,
-                    color: darkGrey,
-                    size: 14,
-                    weight: FontWeight.w600,
+                  InkWell(
+                    onTap: (){
+                      showSearch(
+                        context: context,
+                        delegate: MySearchDelegate(),
+                      );},
+                    /*onTap: () async {
+                            searchController.searchType.value = "word";
+                            AppUtils.navigateToPage( MySearchDelegate());
+                          },*/
+                    child: Row(
+                      children: [
+                        SvgPicture.asset("assets/icons/search.svg"),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const ReusableText(
+                          title: "What are you looking for?",
+                        ),
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   InkWell(
                       onTap: () async {
-                        // await scanBarcodeNormal();
-                        print("scancode:$_scanBarcode");
+                        searchController.searchType.value = "barcode";
+                        searchController.scanBarcodeNormal();
+                        searchController.getProductsByBarcodeSearch();
+                        Navigator.pushNamed(
+                          context,
+                          '/BarcodeResultScreen',
+                        );
                       },
                       child: SvgPicture.asset("assets/icons/scan.svg"))
                 ]),

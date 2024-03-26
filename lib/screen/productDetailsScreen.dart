@@ -13,9 +13,8 @@ import '../widget/commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class ProductDetailsScreen extends StatelessWidget {
-  var productID;
 
-  ProductDetailsScreen({super.key, required this.productID});
+  ProductDetailsScreen({super.key});
 
   final productDetailsController = Get.put(ProductDetailsController());
   final homeController = Get.put(HomeController());
@@ -23,9 +22,16 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
+    final productID = arguments['productID'] ?? "0";
+
+
     productDetailsController.getProductDetails(productID);
     return Scaffold(
       backgroundColor: Colors.white,
+
       body: Obx(() => Column(children: [
             const SizedBox(
               height: 60,
@@ -41,7 +47,8 @@ class ProductDetailsScreen extends StatelessWidget {
                 InkWell(
                   child: SvgPicture.asset("assets/icons/back.svg"),
                   onTap: () {
-                    Get.back();
+                    Navigator.of(context).pop(context);
+                    /*Navigator.of(context).popUntil(ModalRoute.withName('/'));*/
                     Get.delete<ProductDetailsController>();
                   },
                 ),

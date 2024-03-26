@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:rawabi/screen/categoryScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
 
+import '../productDetailsScreen.dart';
+import '../search/SearchResultScreen.dart';
+import '../search/barcodeResultScreen.dart';
+
 class CategoryNavigator extends StatefulWidget {
   const CategoryNavigator({super.key});
 
@@ -22,7 +26,13 @@ class _CategoryNavigatorState extends State<CategoryNavigator> {
                 case '/':
                   return   CategoryScreen();
                 case '/ProductsByCategory':
-                  return  ProductsByCategory();
+                  return  const ProductsByCategory();
+                case '/ProductDetailsScreen':
+                  return  ProductDetailsScreen();
+                case '/SearchResultScreen':
+                  return  const SearchResultScreen();
+                case '/BarcodeResultScreen':
+                  return  const BarcodeResultScreen();
               }
               throw (e){
                 ScaffoldMessenger.of(context)

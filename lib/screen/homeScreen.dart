@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,17 +6,16 @@ import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
-import 'package:rawabi/screen/searchScreen.dart';
+import 'package:rawabi/screen/search/searchWordScreen.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/utils/constants.dart';
 import 'package:rawabi/widget/adsWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/gridAdsWidget.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
-
 import '../utils/app_utils.dart';
+
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
@@ -34,23 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final cartController = Get.put(CartController());
   final searchController = Get.put(SearchResutController());
 
-  /*String _scanBarcode = '';
-
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-    if (!mounted) return;
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
-  }
-*/
   @override
   Widget build(BuildContext context) {
     homeController.getDefaultAddress();
@@ -78,23 +58,43 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: const BoxDecoration(
                           color: silver,
                           borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: InkWell(
-                        onTap: () async {
-
-                          AppUtils.navigateToPage(const SearchScreen());
-                        },
-                        child: Row(children: [
-                          SvgPicture.asset("assets/icons/search.svg"),
-                          const SizedBox(
-                            width: 5,
-                          ),
+                      child: Row(children: [
+                        InkWell(
+                          onTap: (){
+                            showSearch(
+                              context: context,
+                              delegate: MySearchDelegate(),
+                            );},
+                          /*onTap: () async {
+                            searchController.searchType.value = "word";
+                            AppUtils.navigateToPage( MySearchDelegate());
+                          },*/
+                          child: Row(
+                            children: [
+                              SvgPicture.asset("assets/icons/search.svg"),
+                              const SizedBox(
+                                width: 5,
+                              ),
                               const ReusableText(
-                                  title: "Search",
-                                ),
-                          const Spacer(),
-                          SvgPicture.asset("assets/icons/scan.svg")
-                        ]),
-                      ),
+                                title: "Search",
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        InkWell(
+                            onTap: () async {
+                              searchController.searchType.value = "barcode";
+                              searchController.scanBarcodeNormal();
+                              searchController.getProductsByBarcodeSearch();
+                              Navigator.pushNamed(
+                                context,
+                                '/BarcodeResultScreen',
+                              );
+                             // AppUtils.navigateToPage(const BarcodeResultScreen());
+                            },
+                            child: SvgPicture.asset("assets/icons/scan.svg"))
+                      ]),
                     ),
                   ),
                   const SizedBox(
@@ -398,9 +398,5 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           )),
     );
-  }
-
-  String startBarcodeScanStream() {
-    return "hello";
   }
 }

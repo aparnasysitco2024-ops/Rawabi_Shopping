@@ -40,26 +40,25 @@ class SearchResutController extends GetxController {
 
   }
 
-  Future<void> getProductsByWordSearch() async {
+  Future<void> getProductsByWordSearch(String query) async {
     try {
-      var request;
-      var response;
-
       if (!isLoaded) loading.value = true;
-      request = {"word": searchString.value,};
-      response = await BaseClient().post(searchWord, request);
-      loading.value = false;
+      var request = {"word": query,};
+      var response = await BaseClient().post(searchWord, request);
+      //loading.value = false;
+      searchProductList.clear();
       if (response != null) {
         var responseData =
         SearchResponse.fromJson(json.decode(response.toString()));
         print(responseData.products.toString());
-        searchProductList.clear();
+        //searchProductList.clear();
 
         if (responseData.code == "200") {
 
           if (responseData.products != null) {
             searchProductList.addAll(responseData.products as List<Products>);
           }
+          loading.value = false;
           isLoaded = true;
         } else {
           isLoaded = false;

@@ -75,6 +75,7 @@ class BottomNavBar extends StatelessWidget {
         }
       },
       child: Obx(() => Scaffold(
+
           body: _pages[_currentIndex.value],
           bottomNavigationBar: Container(
             height: Platform.isIOS ? 100 : 70,
@@ -205,49 +206,49 @@ class BottomNavBar extends StatelessWidget {
                           cartController.totalItemCount == 0
                               ? const SizedBox()
                               : Positioned(
-                            top: -15,
-                            right: -15,
-                            child: badges.Badge(
-                              position: badges.BadgePosition.topEnd(
-                                  top: -10, end: -12),
-                              showBadge: true,
-                              ignorePointer: false,
-                              onTap: () {
-                                // setState(() {
-                                _currentIndex.value = 3;
-                                // });
-                              },
-                              badgeContent: Obx(
-                                    () => Text(
-                                  cartController.totalItemCount.value
-                                      .toString(),
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    color: white,
+                                  top: -15,
+                                  right: -15,
+                                  child: badges.Badge(
+                                    position: badges.BadgePosition.topEnd(
+                                        top: -10, end: -12),
+                                    showBadge: true,
+                                    ignorePointer: false,
+                                    onTap: () {
+                                      // setState(() {
+                                      _currentIndex.value = 3;
+                                      // });
+                                    },
+                                    badgeContent: Obx(
+                                      () => Text(
+                                        cartController.totalItemCount.value
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ),
+                                    badgeAnimation:
+                                        const badges.BadgeAnimation.scale(
+                                      animationDuration: Duration(seconds: 1),
+                                      colorChangeAnimationDuration:
+                                          Duration(seconds: 1),
+                                      loopAnimation: false,
+                                      curve: Curves.fastOutSlowIn,
+                                      colorChangeAnimationCurve:
+                                          Curves.easeInCubic,
+                                    ),
+                                    badgeStyle: badges.BadgeStyle(
+                                      shape: badges.BadgeShape.circle,
+                                      badgeColor: primaryColor,
+                                      padding: const EdgeInsets.all(8),
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2),
+                                      elevation: 0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              badgeAnimation:
-                              const badges.BadgeAnimation.scale(
-                                animationDuration: Duration(seconds: 1),
-                                colorChangeAnimationDuration:
-                                Duration(seconds: 1),
-                                loopAnimation: false,
-                                curve: Curves.fastOutSlowIn,
-                                colorChangeAnimationCurve:
-                                Curves.easeInCubic,
-                              ),
-                              badgeStyle: badges.BadgeStyle(
-                                shape: badges.BadgeShape.circle,
-                                badgeColor: primaryColor,
-                                padding: const EdgeInsets.all(8),
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2),
-                                elevation: 0,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                       InkWell(

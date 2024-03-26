@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/productsController.dart';
-import 'package:rawabi/screen/searchScreen.dart';
+import 'package:rawabi/screen/search/searchWordScreen.dart';
+
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
@@ -86,12 +87,18 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         color: silver,
                         borderRadius: BorderRadius.all(Radius.circular(7))),
                     child: InkWell(
-                      onTap: () async {
+                      onTap: (){
+                        showSearch(
+                          context: context,
+                          delegate: MySearchDelegate(),
+                        );},
+                      /*onTap: () async {
                         AppUtils.navigateToPage(const SearchScreen());
-                      },
+                      },*/
                       child: Row(
                           children: [
                         SvgPicture.asset("assets/icons/search.svg"),
+                        const SizedBox(width: 5,),
                         ReusableText(
                           title: productController.catName.value,
                         ),
