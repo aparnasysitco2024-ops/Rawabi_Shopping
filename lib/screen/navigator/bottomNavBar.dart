@@ -16,6 +16,8 @@ import 'package:rawabi/utils/colors.dart';
 import '../../controller/cartController.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/svg_icon.dart';
+import 'accountNavigator.dart';
+import 'offerNavigator.dart';
 
 class BottomNavBar extends StatelessWidget {
 //   const BottomNavBar({super.key});
@@ -31,9 +33,9 @@ class BottomNavBar extends StatelessWidget {
     /*HomeScreen(),*/
     const HomeNavigator(),
     const CategoryNavigator(),
-    OffersScreen(),
+    const OfferNavigator(),
     CartScreen(),
-    const AccountScreen()
+     const AccountNavigator()
   ];
 
   BottomNavBar({super.key});

@@ -5,12 +5,10 @@ import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
 import 'package:rawabi/screen/notificationsScreen.dart';
-import 'package:rawabi/screen/wishlistScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
-
 import '../widget/commonwidget/reusable_text.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -203,8 +201,12 @@ class AccountScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            AppUtils.navigateToPage(WishlistScreen());
+                            Navigator.pushNamed(
+                              context,
+                              '/WishlistScreen');
+                            //AppUtils.navigateToPage(WishlistScreen());
                           },
+
                           child: const ProfileTile(
                               image: "assets/icons/love.svg",
                               title: "Wishlist"),

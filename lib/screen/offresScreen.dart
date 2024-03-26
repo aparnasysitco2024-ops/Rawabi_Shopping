@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/categoryController.dart';
+import '../controller/searchController.dart';
 
 // ignore: must_be_immutable
 class OffersScreen extends StatefulWidget {
@@ -18,7 +20,8 @@ class OffersScreen extends StatefulWidget {
 
 class _OffersScreenState extends State<OffersScreen> {
   final categoryController = Get.put(CategoryController());
-  String _scanBarcode = '';
+  final searchController = Get.put(SearchResutController());
+  /*String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
@@ -33,7 +36,7 @@ class _OffersScreenState extends State<OffersScreen> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     categoryController.getCategory();
@@ -59,23 +62,39 @@ class _OffersScreenState extends State<OffersScreen> {
                 color: silver,
                 borderRadius: BorderRadius.all(Radius.circular(7))),
             child: Row(children: [
-              SvgPicture.asset("assets/icons/search.svg"),
-              const SizedBox(
-                width: 15,
-              ),
-              ReusableText(
-                title: _scanBarcode==""?
-                "What are you looking for?".tr
-                    :_scanBarcode,
-                color: darkGrey,
-                size: 14,
-                weight: FontWeight.w600,
+              InkWell(
+                onTap: (){
+                  showSearch(
+                    context: context,
+                    delegate: MySearchDelegate(),
+                  );},
+                /*onTap: () async {
+                            searchController.searchType.value = "word";
+                            AppUtils.navigateToPage( MySearchDelegate());
+                          },*/
+                child: Row(
+                  children: [
+                    SvgPicture.asset("assets/icons/search.svg"),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const ReusableText(
+                      title: "Search",
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               InkWell(
                   onTap: () async {
-                    await scanBarcodeNormal();
-                    print("scancode:$_scanBarcode");
+                    searchController.searchType.value = "barcode";
+                    searchController.scanBarcodeNormal();
+                    searchController.getProductsByBarcodeSearch();
+                    Navigator.pushNamed(
+                      context,
+                      '/BarcodeResultScreen',
+                    );
+                    // AppUtils.navigateToPage(const BarcodeResultScreen());
                   },
                   child: SvgPicture.asset("assets/icons/scan.svg"))
             ]),
