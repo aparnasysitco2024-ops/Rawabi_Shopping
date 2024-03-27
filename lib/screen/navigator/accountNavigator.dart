@@ -3,6 +3,7 @@ import 'package:rawabi/screen/accountScreen.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import '../wishlistScreen.dart';
 
+GlobalKey<NavigatorState> accountNavigatorKey = GlobalKey<NavigatorState>();
 class AccountNavigator extends StatefulWidget {
   const AccountNavigator({super.key});
 
@@ -14,6 +15,7 @@ class _AccountNavigatorState extends State<AccountNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
+      key: accountNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,

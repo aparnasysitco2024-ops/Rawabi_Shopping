@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/splashScreen.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
           home:  const SplashScreen(),
           builder: (context, child) {
             return MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
                 child: child!);
           },
           // translations: LocalizationService(),
@@ -44,5 +43,8 @@ class MyApp extends StatelessWidget {
         ));
   }
 }
+
+
+
 
 

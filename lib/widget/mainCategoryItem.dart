@@ -5,8 +5,8 @@ import 'commonwidget/reusable_text.dart';
 // ignore: must_be_immutable
 class MainCategoryItem extends StatelessWidget {
   Category category;
-   MainCategoryItem({super.key,required this.category});
 
+  MainCategoryItem({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +40,21 @@ class MainCategoryItem extends StatelessWidget {
                         Color(0x339EB9E0),
                         Color(0x33F1C4DE)
                       ]),
-                  borderRadius:
-                  BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10)),
               height: 90,
               width: double.infinity,
               child: Container(
                 padding: const EdgeInsets.all(15),
                 decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white),
+                    shape: BoxShape.circle, color: Colors.white),
                 child: FadeInImage.assetNetwork(
                     fit: BoxFit.cover,
-                    placeholder:
-                    'assets/images/logo.png',
-                    image: category.catIcon
-                        .toString()),
+                    placeholder: 'assets/images/logo.png',
+                    image: category.catIcon.toString()),
               )
 
-            // Image.network(homeController.categoryList[index].catIcon.toString()),
-          ),
+              // Image.network(homeController.categoryList[index].catIcon.toString()),
+              ),
           const SizedBox(
             height: 5,
           ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
+
 import '../homeScreen.dart';
 import '../search/SearchResultScreen.dart';
 import '../search/barcodeResultScreen.dart';
+
+GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 
 class HomeNavigator extends StatefulWidget {
   const HomeNavigator({super.key});
@@ -16,6 +19,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
+      key: homeNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,

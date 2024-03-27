@@ -1,48 +1,46 @@
-
 import 'package:flutter/material.dart';
-import 'package:rawabi/screen/categoryScreen.dart';
+import 'package:rawabi/screen/cartScreen.dart';
+import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
 
-import '../productDetailsScreen.dart';
 import '../search/SearchResultScreen.dart';
 import '../search/barcodeResultScreen.dart';
 
-GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>();
-class CategoryNavigator extends StatefulWidget {
-  const CategoryNavigator({super.key});
+GlobalKey<NavigatorState> cartNavigatorKey = GlobalKey<NavigatorState>();
+
+class CartNavigator extends StatefulWidget {
+  const CartNavigator({super.key});
 
   @override
-  State<CategoryNavigator> createState() => _CategoryNavigatorState();
+  State<CartNavigator> createState() => _CartNavigatorState();
 }
 
-class _CategoryNavigatorState extends State<CategoryNavigator> {
+class _CartNavigatorState extends State<CartNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: exploreNavigatorKey,
+      key: cartNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return   CategoryScreen();
+                  return CartScreen();
                 case '/ProductsByCategory':
-                  return  const ProductsByCategory();
-                case '/ProductDetailsScreen':
-                  return  ProductDetailsScreen();
+                  return const ProductsByCategory();
                 case '/SearchResultScreen':
-                  return  const SearchResultScreen();
+                  return const SearchResultScreen();
                 case '/BarcodeResultScreen':
-                  return  const BarcodeResultScreen();
+                  return const BarcodeResultScreen();
+                case '/ProductDetailsScreen':
+                  return ProductDetailsScreen();
               }
-              throw (e){
+              throw (e) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(e.toString())));
               };
-
-            }
-        );
+            });
       },
     );
   }

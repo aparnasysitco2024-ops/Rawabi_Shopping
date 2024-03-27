@@ -1,19 +1,23 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
+
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/cartScreen.dart';
 import 'package:rawabi/screen/navigator/categoryNavigator.dart';
-import 'package:rawabi/screen/navigator/homeNavigator.dart';
 import 'package:rawabi/utils/colors.dart';
+
 import '../../controller/cartController.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/svg_icon.dart';
 import 'accountNavigator.dart';
+import 'cartNavigator.dart';
+import 'homeNavigator.dart';
 import 'offerNavigator.dart';
+
+
 
 class BottomNavBar extends StatelessWidget {
 //   const BottomNavBar({super.key});
@@ -23,18 +27,41 @@ class BottomNavBar extends StatelessWidget {
 // }
 //
 // class _BottomNavBarState extends State<BottomNavBar> {
-  var _currentIndex = 0.obs;
+  final _currentIndex = 0.obs;
   final cartController = Get.put(CartController());
   final List _pages = [
     /*HomeScreen(),*/
     const HomeNavigator(),
     const CategoryNavigator(),
     const OfferNavigator(),
-    CartScreen(),
-     const AccountNavigator()
+    const CartNavigator(),
+    const AccountNavigator()
   ];
 
   BottomNavBar({super.key});
+
+  final List<GlobalKey<NavigatorState>> _navigatorKeys = [
+    homeNavigatorKey,
+    exploreNavigatorKey,
+    offerNavigatorKey,
+    cartNavigatorKey,
+    accountNavigatorKey
+  ];
+
+  _systemBackButtonPressed(bool didPop) {
+    if (_navigatorKeys[_currentIndex.value].currentState!.canPop()) {
+      _navigatorKeys[_currentIndex.value]
+          .currentState
+          ?.pop(_navigatorKeys[_currentIndex.value].currentContext);
+    } else {
+      // SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
+      if (_currentIndex.value != 0) {
+        _currentIndex.value = 0;
+      } else {
+        _showBackDialog();
+      }
+    }
+  }
 
   Future<bool> _showBackDialog() async {
     return (await showDialog(
@@ -62,18 +89,18 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) async {
-        if (didPop) {
-          return;
-        }
-        final NavigatorState navigator = Navigator.of(context);
-        final bool shouldPop = await _showBackDialog();
-        if (shouldPop) {
-          navigator.pop();
-        }
-      },
+      onPopInvoked: _systemBackButtonPressed,
+      //     (bool didPop) async {
+      //   if (didPop) {
+      //     return;
+      //   }
+      //   // final NavigatorState navigator = Navigator.of(context);
+      //   // final bool shouldPop = await _showBackDialog();
+      //   // if (shouldPop) {
+      //   //   navigator.pop();
+      //   // }
+      // },
       child: Obx(() => Scaffold(
-
           body: _pages[_currentIndex.value],
           bottomNavigationBar: Container(
             height: Platform.isIOS ? 100 : 70,

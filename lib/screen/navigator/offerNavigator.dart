@@ -5,6 +5,8 @@ import '../offresScreen.dart';
 import '../search/SearchResultScreen.dart';
 import '../search/barcodeResultScreen.dart';
 
+GlobalKey<NavigatorState> offerNavigatorKey = GlobalKey<NavigatorState>();
+
 class OfferNavigator extends StatefulWidget {
   const OfferNavigator({super.key});
 
@@ -16,13 +18,14 @@ class _OfferNavigatorState extends State<OfferNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
+      key: offerNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return  OffersScreen();
+                  return OffersScreen();
                 case '/ProductsByCategory':
                   return const ProductsByCategory();
                 case '/SearchResultScreen':
