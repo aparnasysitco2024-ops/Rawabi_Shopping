@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 
 import '../constants.dart';
 import 'app_exception.dart';
@@ -18,9 +19,10 @@ class BaseClient {
   Future<Map<String, String>> getHeader() async {
     Map<String, String> header = {
       "Token": token,
-      // "Userid": await StorageManager.getUserID(),
-      "Userid": "9",
-      "Guestid": "0",
+      "Userid": await StorageManager.getUserID(),
+      // "Userid": "9",
+      "Guestid": await StorageManager.getGuestID(),
+      "Storeid": await StorageManager.readData(StorageManager.keyStoreID),
 
       // "Guestid": await StorageManager.readData(StorageManager.keyGuestID),
       "Lang": Get.locale?.languageCode == 'ar' ? "ar" : "English",

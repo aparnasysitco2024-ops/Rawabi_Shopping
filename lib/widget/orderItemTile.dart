@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rawabi/screen/orderDetailsScreen.dart';
+import 'package:rawabi/screen/myOrder/orderDetailsScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';

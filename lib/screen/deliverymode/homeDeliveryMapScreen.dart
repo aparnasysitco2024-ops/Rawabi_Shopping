@@ -6,13 +6,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rawabi/screen/navigator/bottomNavBar.dart';
-import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../../controller/homeController.dart';
+import '../../utils/app_utils.dart';
+import '../navigator/bottomNavBar.dart';
 
 class HomeDeliveryMapScreen extends StatefulWidget {
   const HomeDeliveryMapScreen({super.key});
@@ -32,16 +32,22 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
   String address = "";
   late Placemark place;
   late CameraPosition selectedPosition;
-  final homeController = Get.put(HomeController());
+  late List<Placemark> placeMarks;
 
   @override
   void initState() {
     super.initState();
+    _getLastLocation();
     _kGooglePlex = CameraPosition(
       target: LatLng(lat, lng),
       zoom: 18,
     );
     _determinePosition();
+  }
+
+  Future<void> _getLastLocation() async {
+    lat = await StorageManager.readDataDouble(StorageManager.keyStoreLat);
+    lng = await StorageManager.readDataDouble(StorageManager.keyStoreLng);
   }
 
   _getCurrentLocation() async {
@@ -106,11 +112,14 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
 
   Future<void> _getAddressFromLatLng(CameraPosition position) async {
     address = "";
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.target.latitude, position.target.longitude);
-    place = placemarks.length > 1 ? placemarks[1] : placemarks[0];
+    lat = position.target.latitude;
+    lng = position.target.longitude;
+
+    placeMarks = await placemarkFromCoordinates(lat, lng);
+    place = placeMarks.length > 1 ? placeMarks[1] : placeMarks[0];
     setState(() {
       address = "${place.subLocality!}, ${place.locality}";
+
       print(address);
       // _currentAddress =
       // '${place.street}, ${place.subLocality},
@@ -238,10 +247,24 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                       backgroundColor: address.isEmpty ? silver : primaryColor,
                       onPressed: () {
                         if (address.isNotEmpty) {
-                          homeController.storeAddress.value = address;
+                          StorageManager.saveData(
+                              StorageManager.keyStoreLat, lat);
+                          StorageManager.saveData(
+                              StorageManager.keyStoreLng, lng);
+
+                          StorageManager.saveData(
+                              StorageManager.keyStoreID, "0");
                           StorageManager.saveData(
                               StorageManager.keyStoreAddress, address);
-                          AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+
+                          if (Get.isRegistered<HomeController>()) {
+                            final homeController = Get.put(HomeController());
+                            homeController.storeAddress.value = address;
+                            homeController.getHomeData();
+                            Navigator.pop(context);
+                          } else {
+                            AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+                          }
                         }
                       },
                       fontSize: 14,

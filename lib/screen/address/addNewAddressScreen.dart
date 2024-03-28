@@ -9,6 +9,7 @@ import '../../widget/commonwidget/reusable_button1.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/reusable_textformfield.dart';
 
+// ignore: must_be_immutable
 class AddNewAddressesScreen extends StatelessWidget {
   AddNewAddressesScreen({super.key});
 
@@ -34,10 +35,10 @@ class AddNewAddressesScreen extends StatelessWidget {
                       const SizedBox(
                         height: 50,
                       ),
-                      const Divider(
-                        thickness: 1,
-                        color: lightGreyColor,
-                      ),
+                      // const Divider(
+                      //   thickness: 1,
+                      //   color: lightGreyColor,
+                      // ),
                       Container(
                         height: 40,
                         width: double.maxFinite,
@@ -286,9 +287,6 @@ class AddNewAddressesScreen extends StatelessWidget {
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         onPressed: () {
-                                          if(addAddressController.mobileController==null){
-
-                                          }
                                           if (addAddressController
                                               .formKey.currentState!
                                               .validate() ) {

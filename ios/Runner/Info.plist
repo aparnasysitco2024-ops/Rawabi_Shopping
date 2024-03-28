@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Rawabi</string>
+	<string>Rawabi Shopping</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>rawabi</string>
+	<string>Rawabi Shopping</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -27,9 +27,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Rawabi app needs to access your current location to show courts closest to you</string>
+	<string>Rawabi Shopping app needs to access your current location to show courts closest to you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Rawabi app needs to access your current location to show courts closest to you</string>
+	<string>Rawabi Shopping app needs to access your current location to show courts closest to you</string>
+	<key>NSCameraUsageDescription</key>
+        <string>Rawabi Shopping app needs access to the camera to upload the selected photos and scan QR code</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

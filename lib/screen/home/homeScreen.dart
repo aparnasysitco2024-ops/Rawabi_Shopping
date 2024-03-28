@@ -14,8 +14,7 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/gridAdsWidget.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
-import '../utils/app_utils.dart';
-
+import '../../utils/app_utils.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
@@ -60,11 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(7))),
                       child: Row(children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             showSearch(
                               context: context,
                               delegate: MySearchDelegate(),
-                            );},
+                            );
+                          },
                           /*onTap: () async {
                             searchController.searchType.value = "word";
                             AppUtils.navigateToPage( MySearchDelegate());
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 '/BarcodeResultScreen',
                               );
-                             // AppUtils.navigateToPage(const BarcodeResultScreen());
+                              // AppUtils.navigateToPage(const BarcodeResultScreen());
                             },
                             child: SvgPicture.asset("assets/icons/scan.svg"))
                       ]),

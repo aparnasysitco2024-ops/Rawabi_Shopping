@@ -9,6 +9,11 @@ import '../utils/http_client/base_client.dart';
 import '../utils/storage_manager.dart';
 
 class HomeController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   var grpTypeImage = "1";
   var grpTypeCategory = "2";
   var grpTypeProduct = "3";
@@ -17,7 +22,7 @@ class HomeController extends GetxController {
   var categoryList = <Category>[].obs;
   var bannerList = <Slider>[].obs;
   var itemGroupList = <ItemGroup>[].obs;
-  var barcodeScannerText="".obs;
+  var barcodeScannerText = "".obs;
 
   var bannerList2 = [
     'assets/images/apple.png',
@@ -28,17 +33,22 @@ class HomeController extends GetxController {
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
   var storeAddress = "".obs;
+  var userID = "0".obs;
 
   var isHomeLoaded = false;
   var loading = false.obs;
 
+
+
   Future<void> getDefaultAddress() async {
     storeAddress.value =
-    await StorageManager.readData(StorageManager.keyStoreAddress);
+        await StorageManager.readData(StorageManager.keyStoreAddress);
     defaultAddressId.value =
         await StorageManager.readData(StorageManager.keyDefaultAddressId);
     defaultAddress.value =
         await StorageManager.readData(StorageManager.keyDefaultAddress);
+
+    userID.value = await StorageManager.getUserID();
   }
 
   Future<void> getHomeData() async {
@@ -74,6 +84,4 @@ class HomeController extends GetxController {
     }
     loading.value = false;
   }
-
-
 }

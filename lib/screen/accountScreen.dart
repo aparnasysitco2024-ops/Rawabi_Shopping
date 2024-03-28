@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
+import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
 import 'package:rawabi/screen/notificationsScreen.dart';
+import 'package:rawabi/screen/splashScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
+
 import '../widget/commonwidget/reusable_text.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -201,12 +204,9 @@ class AccountScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/WishlistScreen');
+                            Navigator.pushNamed(context, '/WishlistScreen');
                             //AppUtils.navigateToPage(WishlistScreen());
                           },
-
                           child: const ProfileTile(
                               image: "assets/icons/love.svg",
                               title: "Wishlist"),
@@ -309,8 +309,37 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/exit.svg", title: "Sign Out"),
+                        InkWell(
+                          onTap: () async {
+                            await showDialog(
+                              context: Get.context!,
+                              builder: (context) => AlertDialog(
+                                title: Text("Rawabi Shopping".tr),
+                                content: const Text(
+                                    'Are you sure you would like to Sign out ?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(false);
+                                    },
+                                    child: Text('No'.tr),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      StorageManager.saveData(StorageManager.keyIsLogin, false);
+                                      AppUtils.navigateToPageRemoveUntil(
+                                          const SplashScreen());
+                                    }, // <-- SEE HERE
+                                    child: Text('Yes'.tr),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: const ProfileTile(
+                              image: "assets/icons/exit.svg",
+                              title: "Sign Out"),
+                        ),
                       ],
                     ),
                   ),

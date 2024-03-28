@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
 
-import '../homeScreen.dart';
+import '../home/categoryFromHomeScreen.dart';
+import '../home/homeScreen.dart';
+import '../home/productsFromHomeScreen.dart';
 import '../search/SearchResultScreen.dart';
 import '../search/barcodeResultScreen.dart';
 
@@ -35,6 +37,10 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   return const BarcodeResultScreen();
                 case '/ProductDetailsScreen':
                   return ProductDetailsScreen();
+                case '/ProductsFromHomeScreen':
+                  return ProductsFromHomeScreen();
+                case '/CategoryFromHomeScreen':
+                  return CategoryFromHomeScreen();
               }
               throw (e) {
                 ScaffoldMessenger.of(context)

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
+import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
@@ -39,48 +40,51 @@ class CartScreen extends StatelessWidget {
                   child: ReusableText(
                       title: "Cart".tr, size: 18, weight: FontWeight.bold),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [blue, lightBlue, pink]),
-                  ),
-                  child: Row(children: [
-                    SvgPicture.asset(
-                      "assets/icons/location.svg",
-                      height: 15,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    ReusableText(
-                      title:
-                          "deliver to: ${homeController.defaultAddress.value}",
-                      size: 12,
-                      weight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(3))),
-                      child: InkWell(
-                        onTap: () =>
-                            AppUtils.navigateToPage(MyAddressesScreen()),
-                        child: ReusableText(
-                          title: "Change".tr,
-                          size: 8,
-                          color: blue,
+                cartController.cartProducts.isNotEmpty
+                    ? Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        height: 30,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [blue, lightBlue, pink]),
                         ),
-                      ),
-                    )
-                  ]),
-                ),
+                        child: Row(children: [
+                          SvgPicture.asset(
+                            "assets/icons/location.svg",
+                            height: 15,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          ReusableText(
+                            title:
+                                "deliver to: ${homeController.defaultAddress.value}",
+                            size: 12,
+                            weight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3))),
+                            child: InkWell(
+                              onTap: () =>
+                                  AppUtils.navigateToPage(MyAddressesScreen()),
+                              child: ReusableText(
+                                title: "Change".tr,
+                                size: 8,
+                                color: blue,
+                              ),
+                            ),
+                          )
+                        ]),
+                      )
+                    : SizedBox(),
                 cartController.loading.value
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height - 280,
@@ -360,7 +364,9 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                     width: double.maxFinite,
                                   ),
-                                  const SizedBox(height: 5,),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 18, vertical: 6),
@@ -405,7 +411,9 @@ class CartScreen extends StatelessWidget {
                                           )
                                         ]),
                                   ),
-                                  const SizedBox(height: 5,),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Container(
                                     color: silver,
                                     height: 5,
@@ -567,12 +575,20 @@ class CartScreen extends StatelessWidget {
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
                                               onPressed: () {
-                                                homeController.defaultAddressId
-                                                        .isEmpty
-                                                    ? AppUtils.navigateToPage(
-                                                        MyAddressesScreen())
-                                                    : cartController
-                                                        .checkoutCart();
+                                                if (homeController
+                                                        .userID.value ==
+                                                    "0") {
+                                                  AppUtils.navigateToPage(
+                                                      LoginScreen());
+                                                } else {
+                                                  homeController
+                                                          .defaultAddressId
+                                                          .isEmpty
+                                                      ? AppUtils.navigateToPage(
+                                                          MyAddressesScreen())
+                                                      : cartController
+                                                          .checkoutCart();
+                                                }
                                               },
                                             ),
                                           ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/trackOrderScreen.dart';
+import 'package:rawabi/screen/myOrder/trackOrderScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/orderDetailsTile.dart';
 import 'package:rawabi/widget/searchOrderWidget.dart';
-import '../model/myOrderResponse.dart';
-import '../utils/colors.dart';
-import '../widget/commonwidget/reusable_text.dart';
+import '../../model/myOrderResponse.dart';
+import '../../utils/colors.dart';
+import '../../widget/commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class OrderDetailsScreen extends StatelessWidget {
@@ -34,12 +34,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 50,
                       ),
-                      const Divider(
-                        thickness: 1,
-                        color: lightGreyColor,
-                      ),
                       Container(
-                        height: 40,
                         width: double.maxFinite,
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(top: 5, bottom: 5),

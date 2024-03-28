@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
-import 'package:rawabi/widget/productItem.dart';
 
-import '../controller/homeController.dart';
-import '../controller/searchController.dart';
+import '../../controller/homeController.dart';
+import '../../widget/mainCategoryItem.dart';
 
 // ignore: must_be_immutable
-class ProductsByCategory extends StatefulWidget {
-  const ProductsByCategory({
+class CategoryFromHomeScreen extends StatefulWidget {
+  const CategoryFromHomeScreen({
     super.key,
   });
 
   @override
-  State<ProductsByCategory> createState() => _ProductsByCategoryState();
+  State<CategoryFromHomeScreen> createState() => _CategoryFromHomeScreenState();
 }
 
-class _ProductsByCategoryState extends State<ProductsByCategory> {
+class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
   final homeController = Get.put(HomeController());
-  var searchController = Get.put(SearchResutController());
-  final productController = Get.put(ProductController());
 
   /* String _scanBarcode = '';
 
@@ -48,18 +44,14 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
-    final catID = arguments['catId'] ?? "0";
-    final subCatID = arguments['subCatId'] ?? "0";
-    final subSubCatID = arguments['subSubCatId'] ?? "0";
-    final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
+    final category = arguments['category'];
+    final title = arguments['title'];
 
-    productController.getProductsByCat(
-        catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
         // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        Get.delete<ProductController>();
+        // Get.delete<ProductController>();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -76,7 +68,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     child: SvgPicture.asset("assets/icons/back.svg"),
                     onTap: () {
                       Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                      Get.delete<ProductController>();
+                      // Get.delete<ProductController>();
                       /*Get.back();
                       Get.delete<ProductController>();*/
                     },
@@ -108,7 +100,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             width: 5,
                           ),
                           ReusableText(
-                            title: productController.catName.value,
+                            title: title,
                           ),
                           const Spacer(),
                           SvgPicture.asset("assets/icons/scan.svg")
@@ -231,45 +223,29 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               const SizedBox(
                 height: 10,
               ),
-              productController.loading.value
-                  ? const Flexible(
-                      child: SizedBox(
-                        height: double.infinity,
-                        width: double.infinity,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        ),
-                      ),
-                    )
-                  : productController.productList.isNotEmpty
+               category.isNotEmpty
                       ? Flexible(
                           child: Container(
                             height: double.infinity,
                             color: silver,
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: GridView.builder(
-                                padding: const EdgeInsets.only(top: 15),
-                                shrinkWrap: true,
-                                itemCount: productController.productList.length,
-                                // physics: const BouncingScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 12,
-                                        mainAxisExtent: 295,
-                                        crossAxisSpacing: 12,
-                                        childAspectRatio: 0.5),
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                      onTap: () async {},
-                                      child: ProductItem(
-                                        products: productController
-                                            .productList[index],
-                                      ));
-                                }),
+                            child:  GridView.builder(
+                          padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+                   scrollDirection: Axis.vertical,
+                   shrinkWrap: true,
+                   physics: const ClampingScrollPhysics(),
+                   itemCount: category.length,
+                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                       crossAxisSpacing: 15,
+                       mainAxisSpacing: 5,
+                       mainAxisExtent: 130,
+                       crossAxisCount: 4),
+                   itemBuilder: (_, index) {
+                     return MainCategoryItem(
+                       category: category![index],
+                     );
+                   }),
                           ),
                         )
                       : Flexible(

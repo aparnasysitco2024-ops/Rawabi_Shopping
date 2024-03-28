@@ -15,113 +15,118 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     wishListController.getWishList();
-    return Obx(() => Scaffold(
-        backgroundColor: silver,
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: 110,
-                color: white,
-                width: double.maxFinite,
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 55,
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.maxFinite,
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(top: 5, bottom: 5),
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: ReusableText(
-                              title: "Wishlist".tr,
-                              size: 18,
-                              weight: FontWeight.bold,
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Positioned(
-                            left: 20,
-                            top: 0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(
-                                Icons.arrow_back_ios,
-                                color: blackLight,
-                                size: 24,
+    return PopScope(
+      onPopInvoked: (didPop) => Get.delete<WishListController>(),
+      child: Obx(() => Scaffold(
+          backgroundColor: silver,
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  color: white,
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 45,
+                      ),
+                      Container(
+                        height: 40,
+                        width: double.maxFinite,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: ReusableText(
+                                title: "Wishlist".tr,
+                                size: 18,
+                                weight: FontWeight.bold,
+                                textAlign: TextAlign.left,
                               ),
                             ),
-                          )
-                        ],
+                            Positioned(
+                              left: 20,
+                              top: 0,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  // Get.delete<WishListController>();
+                                },
+                                child: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: blackLight,
+                                  size: 24,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              wishListController.loading.value
-                  ? const Flexible(
-                child: SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: primaryColor,
-                    ),
+                    ],
                   ),
                 ),
-              )
-                  : wishListController.productList.isNotEmpty
-                  ? Flexible(
-                child: Container(
-                  height: double.infinity,
-                  color: silver,
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: GridView.builder(
-                      padding: const EdgeInsets.only(top: 15),
-                      shrinkWrap: true,
-                      itemCount: wishListController.productList.length,
-                      // physics: const BouncingScrollPhysics(),
-                      gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          mainAxisExtent: 295,
-                          crossAxisSpacing: 12,
-                          childAspectRatio: 0.5),
-                      itemBuilder: (_, index) {
-                        return ProductItem(
-                          products:
-                          wishListController.productList[index],
-                        );
-                      }),
-                ),
-              )
-                  : Flexible(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset("assets/icons/logo.svg"),
-                        const ReusableText(
-                          title: "No Item Found!!",
-                        )
-                      ]),
-                ),
-              ),
-            ],
-          ),
-        )));
+                wishListController.loading.value
+                    ? const Flexible(
+                        child: SizedBox(
+                          height: double.infinity,
+                          width: double.infinity,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    : wishListController.productList.isNotEmpty
+                        ? Flexible(
+                            child: Container(
+                              height: double.infinity,
+                              color: silver,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: GridView.builder(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      wishListController.productList.length,
+                                  // physics: const BouncingScrollPhysics(),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 12,
+                                          mainAxisExtent: 295,
+                                          crossAxisSpacing: 12,
+                                          childAspectRatio: 0.5),
+                                  itemBuilder: (_, index) {
+                                    return ProductItem(
+                                      products:
+                                          wishListController.productList[index],
+                                    );
+                                  }),
+                            ),
+                          )
+                        : Flexible(
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset("assets/icons/logo.svg"),
+                                    const ReusableText(
+                                      title: "No Item Found!!",
+                                    )
+                                  ]),
+                            ),
+                          ),
+              ],
+            ),
+          ))),
+    );
   }
 }

@@ -35,12 +35,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                     const SizedBox(
                       height: 50,
                     ),
-                    const Divider(
-                      thickness: 1,
-                      color: lightGreyColor,
-                    ),
                     Container(
-                      height: 40,
                       width: double.maxFinite,
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(top: 5, bottom: 5),

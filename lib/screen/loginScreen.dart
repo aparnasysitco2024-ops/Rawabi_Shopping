@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/loginController.dart';
-import 'package:rawabi/screen/navigator/bottomNavBar.dart';
 import 'package:rawabi/utils/commonUtils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button.dart';
 
-import '../utils/app_utils.dart';
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_textformfieldbox.dart';
 
@@ -50,8 +48,9 @@ class LoginScreen extends StatelessWidget {
                                 textColor: Colors.black,
                                 width: 70.0,
                                 onTap: () {
-                                  AppUtils.navigateToPageReplace(
-                                       BottomNavBar());
+                                  // AppUtils.navigateToPageReplace(
+                                  //      BottomNavBar());
+                                  Navigator.pop(context);
                                 },
                                 title: "Skip".tr),
                           ),

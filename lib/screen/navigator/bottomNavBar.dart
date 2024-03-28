@@ -67,7 +67,7 @@ class BottomNavBar extends StatelessWidget {
     return (await showDialog(
           context: Get.context!,
           builder: (context) => AlertDialog(
-            title: Text("Rawabi".tr),
+            title: Text("Rawabi Shopping".tr),
             content: const Text('Wish to exit from App ? '),
             actions: <Widget>[
               TextButton(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../controller/homeController.dart';
 import '../../controller/storePickupController.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/colors.dart';
+import '../../utils/storage_manager.dart';
 import '../../widget/storeTile.dart';
+import '../navigator/bottomNavBar.dart';
 
 class StorePickupScreen extends StatelessWidget {
   StorePickupScreen({super.key});
@@ -29,7 +32,22 @@ class StorePickupScreen extends StatelessWidget {
             // physics: const NeverScrollableScrollPhysics(),
             itemCount: storePickupController.storeList.length,
             itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    StorageManager.saveData(
+                        StorageManager.keyStoreID, storePickupController.storeList[index].storeId);
+                    StorageManager.saveData(
+                        StorageManager.keyStoreAddress, storePickupController.storeList[index].storeName);
+
+                    if (Get.isRegistered<HomeController>()) {
+                      final homeController = Get.put(HomeController());
+                      homeController.storeAddress.value = storePickupController.storeList[index].storeName.toString();
+                      homeController.getHomeData();
+                      Navigator.pop(context);
+
+                    } else {
+                      AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+                    }
+                  },
                   child: StoreTile(
                       title: storePickupController.storeList[index].storeName
                           .toString()),

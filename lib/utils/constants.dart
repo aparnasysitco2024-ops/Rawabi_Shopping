@@ -1,6 +1,8 @@
 const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/';
 
 //APis
+
+const guestUrl = '${baseURL}guest';
 const home = '${baseURL}home_api';
 const check_user = '${baseURL}check_user';
 const signup = '${baseURL}signup';

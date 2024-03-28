@@ -35,10 +35,10 @@ class MyAddressesScreen extends StatelessWidget {
                         const SizedBox(
                           height: 50,
                         ),
-                        const Divider(
-                          thickness: 1,
-                          color: lightGreyColor,
-                        ),
+                        // const Divider(
+                        //   thickness: 1,
+                        //   color: lightGreyColor,
+                        // ),
                         Container(
                           height: 40,
                           width: double.maxFinite,

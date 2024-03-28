@@ -37,6 +37,7 @@ class _ProductItemState extends State<ProductItem> {
               productID: widget.products.productId));*/
       },
       child: Container(
+        width: 150,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             color: Colors.white),
@@ -61,6 +62,7 @@ class _ProductItemState extends State<ProductItem> {
                     size: 10,
                   ),
                 ),
+                Spacer(),
                 InkWell(
                   onTap: () {
                     widget.products.wishlist == 0
@@ -172,7 +174,7 @@ class _ProductItemState extends State<ProductItem> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      if (widget.products.cartCount == "1") {
+                                      if (widget.products.cartCount == 1) {
                                         widget.cartController.removeCartItem(
                                             widget.products.productId);
                                       } else {

@@ -2,12 +2,16 @@ class CartListResponse {
   String? code;
   String? message;
   List<Products>? products;
+  String? deliveryFee;
+  String? bagFee;
 
   CartListResponse({this.code, this.message, this.products});
 
   CartListResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
+    deliveryFee = json['delivery_fee'];
+    bagFee = json['bag_fee'];
     if (json['res'] != null) {
       products = <Products>[];
       json['res'].forEach((v) {
@@ -20,6 +24,8 @@ class CartListResponse {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['code'] = code;
     data['message'] = message;
+    data['delivery_fee'] = deliveryFee;
+    data['bag_fee'] = bagFee;
     if (products != null) {
       data['res'] = products!.map((v) => v.toJson()).toList();
     }

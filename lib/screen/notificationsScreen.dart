@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/trackOrderScreen.dart';
-import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/notificationTile.dart';
-import 'package:rawabi/widget/orderDetailsTile.dart';
 import 'package:rawabi/widget/searchOrderWidget.dart';
-import '../model/myOrderResponse.dart';
+
 import '../utils/colors.dart';
 import '../widget/commonwidget/reusable_text.dart';
 

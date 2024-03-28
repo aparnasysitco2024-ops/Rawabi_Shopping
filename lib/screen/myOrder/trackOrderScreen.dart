@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/svg_icon.dart';
-import '../utils/colors.dart';
-import '../widget/commonwidget/reusable_text.dart';
+import '../../utils/colors.dart';
+import '../../widget/commonwidget/reusable_text.dart';
 
 class TrackOrderScreen extends StatelessWidget {
   const TrackOrderScreen({super.key});
@@ -19,21 +19,15 @@ class TrackOrderScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 110,
                 color: white,
                 width: double.maxFinite,
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 40,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: lightGreyColor,
+                      height: 50,
                     ),
                     Container(
-                      height: 40,
                       width: double.maxFinite,
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(top: 5,bottom: 5),

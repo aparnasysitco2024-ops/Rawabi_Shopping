@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
-import '../controller/homeController.dart';
-import '../controller/searchController.dart';
+import '../../controller/homeController.dart';
 
 // ignore: must_be_immutable
-class ProductsByCategory extends StatefulWidget {
-  const ProductsByCategory({
+class ProductsFromHomeScreen extends StatefulWidget {
+  const ProductsFromHomeScreen({
     super.key,
   });
 
   @override
-  State<ProductsByCategory> createState() => _ProductsByCategoryState();
+  State<ProductsFromHomeScreen> createState() => _ProductsFromHomeScreenState();
 }
 
-class _ProductsByCategoryState extends State<ProductsByCategory> {
+class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
   final homeController = Get.put(HomeController());
-  var searchController = Get.put(SearchResutController());
-  final productController = Get.put(ProductController());
 
   /* String _scanBarcode = '';
 
@@ -48,18 +44,14 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
-    final catID = arguments['catId'] ?? "0";
-    final subCatID = arguments['subCatId'] ?? "0";
-    final subSubCatID = arguments['subSubCatId'] ?? "0";
-    final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
+    final products = arguments['products'];
+    final title = arguments['title'];
 
-    productController.getProductsByCat(
-        catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
         // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        Get.delete<ProductController>();
+        // Get.delete<ProductController>();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -76,7 +68,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     child: SvgPicture.asset("assets/icons/back.svg"),
                     onTap: () {
                       Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                      Get.delete<ProductController>();
+                      // Get.delete<ProductController>();
                       /*Get.back();
                       Get.delete<ProductController>();*/
                     },
@@ -108,7 +100,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             width: 5,
                           ),
                           ReusableText(
-                            title: productController.catName.value,
+                            title: title,
                           ),
                           const Spacer(),
                           SvgPicture.asset("assets/icons/scan.svg")
@@ -231,19 +223,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               const SizedBox(
                 height: 10,
               ),
-              productController.loading.value
-                  ? const Flexible(
-                      child: SizedBox(
-                        height: double.infinity,
-                        width: double.infinity,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        ),
-                      ),
-                    )
-                  : productController.productList.isNotEmpty
+               products.isNotEmpty
                       ? Flexible(
                           child: Container(
                             height: double.infinity,
@@ -253,7 +233,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             child: GridView.builder(
                                 padding: const EdgeInsets.only(top: 15),
                                 shrinkWrap: true,
-                                itemCount: productController.productList.length,
+                                itemCount: products.length,
                                 // physics: const BouncingScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
@@ -266,8 +246,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                   return InkWell(
                                       onTap: () async {},
                                       child: ProductItem(
-                                        products: productController
-                                            .productList[index],
+                                        products: products[index],
                                       ));
                                 }),
                           ),
