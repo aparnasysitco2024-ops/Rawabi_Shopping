@@ -253,13 +253,15 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                               StorageManager.keyStoreLng, lng);
 
                           StorageManager.saveData(
-                              StorageManager.keyStoreID, "0");
+                              StorageManager.keyStoreID, "10");
                           StorageManager.saveData(
                               StorageManager.keyStoreAddress, address);
+                          StorageManager.saveData(StorageManager.keyIsPickup, false);
 
                           if (Get.isRegistered<HomeController>()) {
                             final homeController = Get.put(HomeController());
                             homeController.storeAddress.value = address;
+                            homeController.isPickup.value = false;
                             homeController.getHomeData();
                             Navigator.pop(context);
                           } else {

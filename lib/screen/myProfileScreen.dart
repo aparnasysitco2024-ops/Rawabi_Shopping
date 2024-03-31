@@ -32,10 +32,6 @@ class MyProfileScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  const Divider(
-                    thickness: 1,
-                    color: lightGreyColor,
-                  ),
                   Container(
                     height: 40,
                     width: double.maxFinite,
@@ -86,9 +82,8 @@ class MyProfileScreen extends StatelessWidget {
                   children: [
                     const ReusableBorderContainer(
                       borderColor: silver,
-                      height: 46,
                       child: ReusableTextForm(
-                        hintText: "Ilyas",
+                        hintText: "Name",
                       ),
                     ),
                     const SizedBox(
@@ -98,7 +93,7 @@ class MyProfileScreen extends StatelessWidget {
                       borderColor: silver,
                       height: 46,
                       child: ReusableTextForm(
-                        hintText: "Doodler",
+                        hintText: "",
                       ),
                     ),
                     const SizedBox(
@@ -108,94 +103,47 @@ class MyProfileScreen extends StatelessWidget {
                       height: 50,
                       width: double.maxFinite,
                       child: Stack(children: [
-                        Expanded(
-                          child: IntlPhoneField(
-                            onChanged: (phone) {
-                              // mobile = phone.completeNumber.split("+").last;
-                              //mobile = phone.number;
-                            },
-                            //controller: mobileController,
-                            initialCountryCode: "QA",
-                            disableLengthCheck: true,
-                            showDropdownIcon: true,
-                            dropdownIconPosition: IconPosition.trailing,
-                            decoration:  InputDecoration(
-                              fillColor: white,
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 5),
-                              hintText: '564266125',
-                              border: const OutlineInputBorder(
+                        IntlPhoneField(
+                          onChanged: (phone) {
+                            // mobile = phone.completeNumber.split("+").last;
+                            //mobile = phone.number;
+                          },
+                          //controller: mobileController,
+                          initialCountryCode: "QA",
+                          disableLengthCheck: true,
+                          showDropdownIcon: true,
+                          dropdownIconPosition: IconPosition.trailing,
+                          decoration:  InputDecoration(
+                            fillColor: white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            hintText: '564266125',
+                            border: const OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(6)),
-                                  borderSide: BorderSide(color: lightGreyColor)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                    borderSide:
-                                    const BorderSide(color: silver)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                    borderSide: const BorderSide(
-                                        color: silver, width: 1)),
-                            ),
-
+                                borderSide: BorderSide(color: lightGreyColor)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide:
+                                const BorderSide(color: silver)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: const BorderSide(
+                                    color: silver, width: 1)),
                           ),
 
-                          /*InternationalPhoneNumberInput(
-                            onInputChanged: (PhoneNumber number) {
-                              print(number.phoneNumber);
-                            },
-                            onInputValidated: (bool value) {
-                              print(value);
-                            },
-                            selectorConfig: const SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                              useBottomSheetSafeArea: true,
-                            ),
-                            ignoreBlank: false,
-                            autoValidateMode: AutovalidateMode.disabled,
-                            selectorTextStyle: TextStyle(color: grey),
-
-                            initialValue: PhoneNumber(
-                                phoneNumber: "564266125", isoCode: "QA"),
-                            hintText: '564266125',
-                            textStyle: const TextStyle(
-                              fontSize: 18,
-                              color: grey,
-                            ),
-                            //textFieldController: controller,
-                            formatInput: true,
-                            keyboardType: TextInputType.numberWithOptions(
-                                signed: true, decimal: true),
-                            inputBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                borderSide: const BorderSide(color: silver)),
-                            inputDecoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                    borderSide:
-                                        const BorderSide(color: silver)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                    borderSide: const BorderSide(
-                                        color: silver, width: 1))),
-                            onSaved: (PhoneNumber number) {
-                              print('On Saved: $number');
-                            },
-                          ),*/
                         ),
-                        Expanded(
-                          child: Positioned(
-                            right: 15,
-                            top: 10,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: ReusableText(
-                                title: "Verify".tr,
-                                color: blue,
-                                size: 16,
-                                weight: FontWeight.w400,
-                              ),
+                        Positioned(
+                          right: 15,
+                          top: 10,
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: ReusableText(
+                              title: "Verify".tr,
+                              color: blue,
+                              size: 16,
+                              weight: FontWeight.w400,
                             ),
                           ),
                         )

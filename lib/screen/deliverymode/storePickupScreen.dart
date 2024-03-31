@@ -33,17 +33,20 @@ class StorePickupScreen extends StatelessWidget {
             itemCount: storePickupController.storeList.length,
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    StorageManager.saveData(
-                        StorageManager.keyStoreID, storePickupController.storeList[index].storeId);
-                    StorageManager.saveData(
-                        StorageManager.keyStoreAddress, storePickupController.storeList[index].storeName);
+                    StorageManager.saveData(StorageManager.keyStoreID,
+                        storePickupController.storeList[index].storeId);
+                    StorageManager.saveData(StorageManager.keyStoreAddress,
+                        storePickupController.storeList[index].storeName);
+                    StorageManager.saveData(StorageManager.keyIsPickup, true);
 
                     if (Get.isRegistered<HomeController>()) {
                       final homeController = Get.put(HomeController());
-                      homeController.storeAddress.value = storePickupController.storeList[index].storeName.toString();
+                      homeController.storeAddress.value = storePickupController
+                          .storeList[index].storeName
+                          .toString();
+                      homeController.isPickup.value = true;
                       homeController.getHomeData();
                       Navigator.pop(context);
-
                     } else {
                       AppUtils.navigateToPageRemoveUntil(BottomNavBar());
                     }

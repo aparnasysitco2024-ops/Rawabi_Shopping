@@ -55,7 +55,6 @@ class BaseClient {
   }
 
   Future<dynamic> post(String url_, dynamic payloadObj) async {
-    // log('header=$header');
     log('$url_ payloadObj= $payloadObj');
     var uri = Uri.parse(url_);
     var payload = json.encode(payloadObj);

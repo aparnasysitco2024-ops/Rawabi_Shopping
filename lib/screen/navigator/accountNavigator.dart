@@ -4,6 +4,7 @@ import 'package:rawabi/screen/productDetailsScreen.dart';
 import '../wishlistScreen.dart';
 
 GlobalKey<NavigatorState> accountNavigatorKey = GlobalKey<NavigatorState>();
+
 class AccountNavigator extends StatefulWidget {
   const AccountNavigator({super.key});
 
@@ -22,9 +23,9 @@ class _AccountNavigatorState extends State<AccountNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return  const AccountScreen();
+                  return AccountScreen();
                 case '/WishlistScreen':
-                  return  WishlistScreen();
+                  return WishlistScreen();
                 case '/ProductDetailsScreen':
                   return ProductDetailsScreen();
               }

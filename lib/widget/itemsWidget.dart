@@ -7,6 +7,7 @@ import 'package:rawabi/widget/productItem.dart';
 
 import '../controller/cartController.dart';
 import '../model/products.dart';
+import '../utils/constants.dart';
 
 class ItemsWidget extends StatefulWidget {
   String? title;
@@ -77,14 +78,18 @@ class _ItemsWidgetState extends State<ItemsWidget> {
             height: 10,
           ),
           SizedBox(
-              height: 295,
+              height: productItemHeight,
               child: ListView.builder(
+
                   shrinkWrap: true,
                   itemCount: widget.products?.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => GestureDetector(
-                      child: ProductItem(
-                        products: widget.products![index],
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ProductItem(
+                          products: widget.products![index],
+                        ),
                       ),
                       onTap: () {
                         Navigator.pushNamed(
@@ -95,9 +100,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                           },
                         );
                         /*AppUtils.navigateToPage(
-                            ProductDetailsScreen(
-                                productID: widget.products![index].productId));*/
-                      })))
+                              ProductDetailsScreen(
+                                  productID: widget.products![index].productId));*/
+                      })),)
         ],
       ),
     );

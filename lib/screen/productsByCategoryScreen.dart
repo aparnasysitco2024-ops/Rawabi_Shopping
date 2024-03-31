@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/productsController.dart';
+import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../controller/homeController.dart';
 import '../controller/searchController.dart';
+import '../utils/constants.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
@@ -133,46 +136,49 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5, right: 0),
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [blue, lightBlue, pink]),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/express.svg",
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: ReusableText(
-                            title: "Express delivery".tr,
-                            maxLine: 1,
-                            size: 11,
-                            weight: FontWeight.bold,
-                            color: Colors.white,
+                  homeController.isPickup.value
+                      ? Spacer()
+                      : Flexible(
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 5, right: 0),
+                            height: 40,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [blue, lightBlue, pink]),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(7))),
+                            child: Row(children: [
+                              SvgPicture.asset(
+                                "assets/icons/express.svg",
+                                height: 15,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: ReusableText(
+                                  title: "Express delivery".tr,
+                                  maxLine: 1,
+                                  size: 11,
+                                  weight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Transform.scale(
+                                scale: 0.7,
+                                child: Switch(
+                                  activeColor: primaryColor,
+                                  value: homeController.isExpress.value,
+                                  onChanged: (value) {
+                                    homeController.isExpress.value = value;
+                                  },
+                                ),
+                              )
+                            ]),
                           ),
                         ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Switch(
-                            activeColor: primaryColor,
-                            value: homeController.isExpress.value,
-                            onChanged: (value) {
-                              homeController.isExpress.value = value;
-                            },
-                          ),
-                        )
-                      ]),
-                    ),
-                  ),
                   const SizedBox(
                     width: 15,
                   ),
@@ -183,20 +189,25 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   const SizedBox(
                     width: 15,
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/filter.svg",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Filter",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
+                  InkWell(
+                    onTap: () {
+                     AppUtils.navigateToPage(FiltersScreen());
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/filter.svg",
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const ReusableText(
+                          title: "Filter",
+                          size: 12,
+                          weight: FontWeight.w800,
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
@@ -249,9 +260,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             height: double.infinity,
                             color: silver,
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: GridView.builder(
-                                padding: const EdgeInsets.only(top: 15),
+                                padding: const EdgeInsets.only(top: 10),
                                 shrinkWrap: true,
                                 itemCount: productController.productList.length,
                                 // physics: const BouncingScrollPhysics(),
@@ -259,7 +270,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         mainAxisSpacing: 12,
-                                        mainAxisExtent: 295,
+                                        mainAxisExtent: productItemHeight,
                                         crossAxisSpacing: 12,
                                         childAspectRatio: 0.5),
                                 itemBuilder: (_, index) {

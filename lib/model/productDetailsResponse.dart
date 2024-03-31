@@ -36,6 +36,8 @@ class ProductDetails {
   String? storeStock;
   List<Features>? features;
   String? productImage;
+  int? cartCount;
+  int? wishlist;
 
   ProductDetails(
       {this.productId,
@@ -50,7 +52,9 @@ class ProductDetails {
         this.stock,
         this.storeStock,
         this.features,
-        this.productImage});
+        this.productImage,
+        this.cartCount,
+        this.wishlist});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -71,6 +75,8 @@ class ProductDetails {
       });
     }
     productImage = json['product_image'];
+    cartCount = json['cart_count']??0;
+    wishlist = json['wishlist']??0;
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +96,8 @@ class ProductDetails {
       data['features'] = features!.map((v) => v.toJson()).toList();
     }
     data['product_image'] = productImage;
+    data['cart_count'] = cartCount;
+    data['wishlist']=wishlist;
     return data;
   }
 }

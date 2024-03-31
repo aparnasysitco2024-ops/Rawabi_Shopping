@@ -4,20 +4,27 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
-import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
+import 'package:rawabi/widget/heartIcon.dart';
 
 import '../controller/productsDetailsController.dart';
 import '../utils/colors.dart';
-import '../widget/commonwidget/networkImageWidget.dart';
-import '../widget/commonwidget/reusable_text.dart';
+import '../widget/commonWidget/networkImageWidget.dart';
+import '../widget/commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
-class ProductDetailsScreen extends StatelessWidget {
-
+class ProductDetailsScreen extends StatefulWidget {
   ProductDetailsScreen({super.key});
 
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final productDetailsController = Get.put(ProductDetailsController());
+
   final homeController = Get.put(HomeController());
+
   final cartController = Get.put(CartController());
 
   @override
@@ -27,24 +34,18 @@ class ProductDetailsScreen extends StatelessWidget {
 
     final productID = arguments['productID'] ?? "0";
 
-
     productDetailsController.getProductDetails(productID);
     return PopScope(
       canPop: true,
       onPopInvoked: (bool didPop) async {
-        Navigator.pop(context);
         Get.delete<ProductDetailsController>();
+        // Navigator.pop(context);
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-
-        body: Obx(() => Column(
-            children: [
+        body: Obx(() => Column(children: [
               const SizedBox(
                 height: 60,
-              ),
-              const SizedBox(
-                height: 10,
               ),
               Row(
                 children: [
@@ -56,147 +57,58 @@ class ProductDetailsScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pop(context);
                       /*Navigator.of(context).popUntil(ModalRoute.withName('/'));*/
-                      Get.delete<ProductDetailsController>();
+                      // Get.delete<ProductDetailsController>();
                     },
                   ),
                   const SizedBox(
                     width: 10,
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5, right: 0),
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [blue, lightBlue, pink]),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/express.svg",
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: ReusableText(
-                            title: "Express delivery".tr,
-                            maxLine: 1,
-                            size: 11,
-                            weight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Switch(
-                            activeColor: primaryColor,
-                            value: homeController.isExpress.value,
-                            onChanged: (value) {
-                              homeController.isExpress.value = value;
-                            },
-                          ),
-                        )
-                      ]),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/filter.svg",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Filter",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/sort.svg",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Sort",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 20,
                   ),
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                height: 40,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [blue, lightBlue, pink]),
-                ),
-                child: Row(children: [
-                  SvgPicture.asset(
-                    "assets/icons/location.svg",
-                    height: 15,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const ReusableText(
-                    title: "deliver to: al wakra, doha, qatar",
-                    size: 12,
-                    weight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(3))),
-                    child: ReusableText(
-                      title: "Change".tr,
-                      size: 10,
-                      color: blue,
-                    ),
-                  )
-                ]),
-              ),
+              homeController.defaultAddress.value.isNotEmpty
+                  ? Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [blue, lightBlue, pink]),
+                      ),
+                      child: Row(children: [
+                        SvgPicture.asset(
+                          "assets/icons/location.svg",
+                          height: 15,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        ReusableText(
+                          title: "deliver to: " +
+                              homeController.defaultAddress.value,
+                          size: 12,
+                          weight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
+                          child: ReusableText(
+                            title: "Change".tr,
+                            size: 10,
+                            color: blue,
+                          ),
+                        )
+                      ]),
+                    )
+                  : SizedBox(),
               Expanded(
                   child: SingleChildScrollView(
                 child: productDetailsController.loading.value
@@ -236,9 +148,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 30,
                                     ),
-                                    SvgPicture.asset(
-                                      "assets/icons/heart.svg",
-                                      height: 18,
+                                    HeartIcon(
+                                      productId: productDetailsController
+                                          .productDetails!.productId,
+                                      wishlist: productDetailsController
+                                          .productDetails!.wishlist,
                                     ),
                                     const SizedBox(
                                       height: 15,
@@ -264,11 +178,11 @@ class ProductDetailsScreen extends StatelessWidget {
                               size: 18.0,
                               weight: FontWeight.w600,
                             ),
-                            const ReusableText(
-                              title: "Pack size - 1kg",
-                              size: 14.0,
-                              weight: FontWeight.w600,
-                            ),
+                            // const ReusableText(
+                            //   title: "Pack size - 1kg",
+                            //   size: 14.0,
+                            //   weight: FontWeight.w600,
+                            // ),
                             ReusableText(
                               title:
                                   "QAR ${productDetailsController.productDetails!.offerPrice}",
@@ -280,54 +194,56 @@ class ProductDetailsScreen extends StatelessWidget {
                               thickness: 3,
                               height: 20,
                             ),
-                            const ReusableText(
-                              title: "Overview",
-                              size: 14.0,
-                              weight: FontWeight.w600,
-                            ),
-                            const Divider(
-                              color: grey,
-                              thickness: .5,
-                              height: 20,
-                            ),
-                            Html(
-                                data: productDetailsController
-                                    .productDetails!.shortDesc),
-                            const Divider(
-                              color: lightGreyColor,
-                              thickness: 3,
-                              height: 20,
-                            ),
-                            const ReusableText(
-                              title: "Details",
-                              size: 14.0,
-                              weight: FontWeight.w600,
-                            ),
-                            const Divider(
-                              color: grey,
-                              thickness: .5,
-                              height: 20,
-                            ),
-                            Html(
-                                data: productDetailsController
-                                    .productDetails!.detailedDesc),
+                            productDetailsController
+                                    .productDetails!.shortDesc!.isNotEmpty
+                                ? Column(
+                                    children: [
+                                      const ReusableText(
+                                        title: "Overview",
+                                        size: 14.0,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      const Divider(
+                                        color: grey,
+                                        thickness: .5,
+                                        height: 20,
+                                      ),
+                                      Html(
+                                          data: productDetailsController
+                                              .productDetails!.shortDesc),
+                                      const Divider(
+                                        color: lightGreyColor,
+                                        thickness: 3,
+                                        height: 20,
+                                      ),
+                                    ],
+                                  )
+                                : SizedBox(),
+                            productDetailsController
+                                    .productDetails!.detailedDesc!.isNotEmpty
+                                ? Column(
+                                    children: [
+                                      const ReusableText(
+                                        title: "Details",
+                                        size: 14.0,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      const Divider(
+                                        color: grey,
+                                        thickness: .5,
+                                        height: 20,
+                                      ),
+                                      Html(
+                                          data: productDetailsController
+                                              .productDetails!.detailedDesc),
+                                    ],
+                                  )
+                                : SizedBox(),
                             const SizedBox(
                               height: 10,
                             ),
-                            ReusableButton1(
-                              title: "Add to Cart".tr,
-                              onPressed: () {
-                                cartController.addToCart(
-                                    productID,
-                                    productDetailsController
-                                        .productDetails!.storeId
-                                        .toString(),
-                                    productDetailsController
-                                        .productDetails!.offerPrice,
-                                    "1");
-                                //cartController.itemCount++;
-                              },
-                            ),
+                            AddButton(),
+
                             const SizedBox(
                               height: 20,
                             ),
@@ -337,6 +253,128 @@ class ProductDetailsScreen extends StatelessWidget {
               ))
             ])),
       ),
+    );
+  }
+}
+
+class AddButton extends StatefulWidget {
+  const AddButton({super.key});
+
+  @override
+  State<AddButton> createState() => _AddButtonState();
+}
+
+class _AddButtonState extends State<AddButton> {
+  final productDetailsController = Get.put(ProductDetailsController());
+  final cartController = Get.put(CartController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        productDetailsController.productDetails!.cartCount != 0
+            ? Container(
+                margin: const EdgeInsets.only(bottom: 5, top: 5),
+                height: 40,
+                width: 70,
+                padding: const EdgeInsets.all(1),
+                decoration: BoxDecoration(
+                    color: pink, borderRadius: BorderRadius.circular(5)),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        // if (productDetailsController
+                        //         .productDetails!.cartCount ==
+                        //     1) {
+                        //   cartController.removeCartItem(productDetailsController
+                        //       .productDetails!.productId);
+                        // } else {
+                        cartController.updateQty(
+                            productDetailsController.productDetails!.productId,
+                            int.parse(productDetailsController
+                                    .productDetails!.cartCount
+                                    .toString()) -
+                                1);
+                        setState(() {
+                          productDetailsController.productDetails!.cartCount =
+                              (productDetailsController
+                                      .productDetails!.cartCount! -
+                                  1);
+                        });
+                        // }
+                      },
+                      child: SvgPicture.asset(
+                        "assets/icons/minus_item.svg",
+                        height: 20,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    ReusableText(
+                      title: productDetailsController.productDetails!.cartCount
+                          .toString(),
+                      size: 12,
+                      color: silver,
+                      weight: FontWeight.bold,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        cartController.addToCart(
+                            productDetailsController.productDetails!.productId
+                                .toString(),
+                            productDetailsController.productDetails!.storeId
+                                .toString(),
+                            productDetailsController.productDetails!.offerPrice
+                                .toString(),
+                            "1");
+                        setState(() {
+                          productDetailsController.productDetails!.cartCount =
+                              (productDetailsController
+                                      .productDetails!.cartCount! +
+                                  1);
+                        });
+                      },
+                      child: SvgPicture.asset(
+                        "assets/icons/plus_item.svg",
+                        height: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : SizedBox(),
+        SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: SizedBox(
+            height: 40,
+            child: ReusableButton1(
+              title: "Add to Cart".tr,
+              onPressed: () {
+                cartController.addToCart(
+                    productDetailsController.productDetails!.productId
+                        .toString(),
+                    productDetailsController.productDetails!.storeId.toString(),
+                    productDetailsController.productDetails!.offerPrice,
+                    "1");
+                setState(() {
+                  productDetailsController.productDetails!.cartCount =
+                      (productDetailsController.productDetails!.cartCount! + 1);
+                });
+                //cartController.itemCount++;
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

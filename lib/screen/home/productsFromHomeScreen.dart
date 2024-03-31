@@ -7,6 +7,7 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../../controller/homeController.dart';
+import '../../utils/constants.dart';
 
 // ignore: must_be_immutable
 class ProductsFromHomeScreen extends StatefulWidget {
@@ -239,7 +240,7 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         mainAxisSpacing: 12,
-                                        mainAxisExtent: 295,
+                                        mainAxisExtent: productItemHeight,
                                         crossAxisSpacing: 12,
                                         childAspectRatio: 0.5),
                                 itemBuilder: (_, index) {

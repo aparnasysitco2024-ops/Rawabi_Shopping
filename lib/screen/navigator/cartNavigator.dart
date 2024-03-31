@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rawabi/screen/cartScreen.dart';
+import 'package:rawabi/screen/cart/cartScreen.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
 

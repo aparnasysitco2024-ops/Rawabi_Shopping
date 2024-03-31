@@ -8,12 +8,12 @@ import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
-import '../controller/cartController.dart';
-import '../controller/homeController.dart';
-import '../utils/colors.dart';
-import '../widget/commonwidget/cart_items_details.dart';
-import '../widget/commonwidget/reusable_text.dart';
-import '../widget/commonwidget/round_card.dart';
+import '../../controller/cartController.dart';
+import '../../controller/homeController.dart';
+import '../../utils/colors.dart';
+import '../../widget/commonwidget/cart_items_details.dart';
+import '../../widget/commonwidget/reusable_text.dart';
+import '../../widget/commonwidget/round_card.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -40,7 +40,8 @@ class CartScreen extends StatelessWidget {
                   child: ReusableText(
                       title: "Cart".tr, size: 18, weight: FontWeight.bold),
                 ),
-                cartController.cartProducts.isNotEmpty
+                cartController.cartProducts.isNotEmpty &&
+                        !homeController.isPickup.value
                     ? Container(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         height: 30,
@@ -153,76 +154,92 @@ class CartScreen extends StatelessWidget {
                                                 products: cartController
                                                     .cartProducts[index],
                                               ))),
-                                  Container(
-                                    height: 76,
-                                    width: double.maxFinite,
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [blue, lightBlue, pink]),
-                                    ),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0, vertical: 10),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: primaryColor,
-                                                child: ClipOval(
-                                                  child: SvgPicture.asset(
-                                                    "assets/icons/blue_home.svg",
-                                                    height: 30,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  ReusableText(
-                                                    title:
-                                                        "Contactless Delivery"
-                                                            .tr,
-                                                    size: 12,
-                                                    weight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                  ),
-                                                  ReusableText(
-                                                    title:
-                                                        "We will ring the bell and leave the delivery on \n your doorstep"
-                                                            .tr,
-                                                    size: 10,
-                                                    weight: FontWeight.w600,
-                                                    color: Colors.black,
-                                                  ),
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Transform.scale(
-                                                scale: 0.7,
-                                                child: Switch(
-                                                  activeColor: primaryColor,
-                                                  value: cartController
-                                                      .isContactless.value,
-                                                  onChanged: (value) {
-                                                    cartController.isContactless
-                                                        .value = value;
-                                                  },
-                                                ),
-                                              )
-                                            ]),
-                                      ),
-                                    ),
-                                  ),
+                                  homeController.isPickup.value
+                                      ? SizedBox()
+                                      : Container(
+                                          height: 76,
+                                          width: double.maxFinite,
+                                          decoration: const BoxDecoration(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                                colors: [
+                                                  blue,
+                                                  lightBlue,
+                                                  pink
+                                                ]),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0,
+                                                      vertical: 10),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      backgroundColor:
+                                                          primaryColor,
+                                                      child: ClipOval(
+                                                        child: SvgPicture.asset(
+                                                          "assets/icons/blue_home.svg",
+                                                          height: 30,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        ReusableText(
+                                                          title:
+                                                              "Contactless Delivery"
+                                                                  .tr,
+                                                          size: 12,
+                                                          weight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                        ReusableText(
+                                                          title:
+                                                              "We will ring the bell and leave the delivery on \n your doorstep"
+                                                                  .tr,
+                                                          size: 10,
+                                                          weight:
+                                                              FontWeight.w600,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    Transform.scale(
+                                                      scale: 0.7,
+                                                      child: Switch(
+                                                        activeColor:
+                                                            primaryColor,
+                                                        value: cartController
+                                                            .isContactless
+                                                            .value,
+                                                        onChanged: (value) {
+                                                          cartController
+                                                              .isContactless
+                                                              .value = value;
+                                                        },
+                                                      ),
+                                                    )
+                                                  ]),
+                                            ),
+                                          ),
+                                        ),
                                   Container(
                                     width: double.maxFinite,
                                     color: white,
@@ -238,7 +255,7 @@ class CartScreen extends StatelessWidget {
                                           weight: FontWeight.bold,
                                         ),
                                         const SizedBox(
-                                          height: 5,
+                                          height: 10,
                                         ),
                                         // Row(
                                         //   children: [
@@ -431,7 +448,6 @@ class CartScreen extends StatelessWidget {
                                   ),
                                   Container(
                                     width: double.maxFinite,
-                                    height: 145,
                                     padding: const EdgeInsets.only(
                                         left: 18,
                                         right: 18,
@@ -461,24 +477,26 @@ class CartScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            const ReusableText(
-                                              title: "Delivery",
-                                              size: 12,
-                                              weight: FontWeight.w600,
-                                              color: Colors.black,
-                                            ),
-                                            const Spacer(),
-                                            ReusableText(
-                                              title:
-                                                  "QAR- ${cartController.delivery.value}",
-                                              size: 10,
-                                              weight: FontWeight.w600,
-                                              color: Colors.black,
-                                            ),
-                                          ],
-                                        ),
+                                        homeController.isPickup.value
+                                            ? SizedBox()
+                                            : Row(
+                                                children: [
+                                                  const ReusableText(
+                                                    title: "Delivery",
+                                                    size: 12,
+                                                    weight: FontWeight.w600,
+                                                    color: Colors.black,
+                                                  ),
+                                                  const Spacer(),
+                                                  ReusableText(
+                                                    title:
+                                                        "QAR- ${cartController.delivery.value}",
+                                                    size: 10,
+                                                    weight: FontWeight.w600,
+                                                    color: Colors.black,
+                                                  ),
+                                                ],
+                                              ),
                                         Row(
                                           children: [
                                             const ReusableText(
@@ -581,9 +599,11 @@ class CartScreen extends StatelessWidget {
                                                   AppUtils.navigateToPage(
                                                       LoginScreen());
                                                 } else {
-                                                  homeController
-                                                          .defaultAddressId
-                                                          .isEmpty
+                                                  !homeController
+                                                              .isPickup.value &&
+                                                          homeController
+                                                              .defaultAddressId
+                                                              .isEmpty
                                                       ? AppUtils.navigateToPage(
                                                           MyAddressesScreen())
                                                       : cartController

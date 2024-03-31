@@ -52,7 +52,7 @@ class ReusableTextForm extends StatelessWidget {
             fontFamily:
                 Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',
           ),
-          contentPadding: contentPadding??const EdgeInsets.all(20),
+          contentPadding: contentPadding??const EdgeInsets.all(10),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius??30),
             borderSide: BorderSide.none,

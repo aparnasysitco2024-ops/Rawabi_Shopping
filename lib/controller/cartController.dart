@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/model/baseResponse.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
@@ -29,11 +30,12 @@ class CartController extends GetxController {
 
   CartController();
 
+  final homeController = Get.put(HomeController());
+
   // @override
   // onInit() async {
   //   super.onInit();
   // }
-
 
   Future<void> getCartList() async {
     try {
@@ -49,7 +51,10 @@ class CartController extends GetxController {
           cartProducts.addAll(responseData.products as Iterable<Products>);
           // cartProducts = responseData.products;
           totalItemCount.value = cartProducts.length;
-          delivery.value = double.parse(responseData.deliveryFee.toString());
+
+          delivery.value = homeController.isPickup.value
+              ? 0.0
+              : double.parse(responseData.deliveryFee.toString());
           bagFee.value = double.parse(responseData.bagFee.toString());
 
           for (var element in cartProducts) {
@@ -126,7 +131,7 @@ class CartController extends GetxController {
         "subtotal": subTotal.value,
         "discount": "0",
         "payable": grandTotal.value,
-        "managed_by": "2"
+        "order_type": homeController.isPickup.value ? "pickup" : "delivery"
       };
       var response = await BaseClient().post(checkout, request);
       loading.value = false;
@@ -143,6 +148,7 @@ class CartController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
+      print(error.toString());
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
@@ -210,10 +216,9 @@ class CartController extends GetxController {
         var responseData =
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          if(Get.isRegistered<WishListController>()){
-            final wishListController =Get.put(WishListController());
+          if (Get.isRegistered<WishListController>()) {
+            final wishListController = Get.put(WishListController());
             wishListController.getWishList();
-
           }
         } else {
           CommonUtils.showErrorDialog(responseData.message);

@@ -37,10 +37,9 @@ class HomeController extends GetxController {
 
   var isHomeLoaded = false;
   var loading = false.obs;
+  var isPickup = false.obs;
 
-
-
-  Future<void> getDefaultAddress() async {
+  Future<void> getStorageData() async {
     storeAddress.value =
         await StorageManager.readData(StorageManager.keyStoreAddress);
     defaultAddressId.value =
@@ -49,6 +48,8 @@ class HomeController extends GetxController {
         await StorageManager.readData(StorageManager.keyDefaultAddress);
 
     userID.value = await StorageManager.getUserID();
+    isPickup.value =
+        await StorageManager.readDataBool(StorageManager.keyIsPickup);
   }
 
   Future<void> getHomeData() async {

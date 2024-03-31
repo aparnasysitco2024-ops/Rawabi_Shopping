@@ -70,7 +70,7 @@ class _AddressTileState extends State<AddressTile> {
                     StorageManager.saveData(StorageManager.keyDefaultAddress,
                         "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}");
                     widget.myAddressController.addressListData.refresh();
-                    widget.homeController.getDefaultAddress();
+                    widget.homeController.getStorageData();
                   });
                 },
               ),

@@ -6,6 +6,7 @@ import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
+import 'package:rawabi/screen/pdfViewScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsWidget.dart';
@@ -14,6 +15,7 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/gridAdsWidget.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
+
 import '../../utils/app_utils.dart';
 
 // ignore: must_be_immutable
@@ -32,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    homeController.getDefaultAddress();
+    homeController.getStorageData();
     homeController.getHomeData();
     cartController.getCartList();
 
@@ -112,86 +114,97 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5, right: 0),
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [blue, lightBlue, pink]),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/express.svg",
-                          height: 15,
-                        ),
+
+              homeController.isPickup.value
+                  ? SizedBox()
+                  : Column(
+                      children: [
                         const SizedBox(
-                          width: 5,
+                          height: 10,
                         ),
-                        Expanded(
-                          child: ReusableText(
-                            title: "Express delivery".tr,
-                            maxLine: 1,
-                            size: 11,
-                            weight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Flexible(
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.only(left: 5, right: 0),
+                                height: 40,
+                                decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [blue, lightBlue, pink]),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(7))),
+                                child: Row(children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/express.svg",
+                                    height: 15,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    child: ReusableText(
+                                      title: "Express delivery".tr,
+                                      maxLine: 1,
+                                      size: 11,
+                                      weight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Transform.scale(
+                                    scale: 0.7,
+                                    child: Switch(
+                                      activeColor: primaryColor,
+                                      value: homeController.isExpress.value,
+                                      onChanged: (value) {
+                                        homeController.isExpress.value = value;
+                                      },
+                                    ),
+                                  )
+                                ]),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.only(left: 5, right: 0),
+                                height: 40,
+                                decoration: const BoxDecoration(
+                                    color: silver,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(7))),
+                                child: Row(children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/calendar.svg",
+                                    height: 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  ReusableText(
+                                    title: "Scheduled delivery".tr,
+                                    size: 11,
+                                    weight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ]),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ],
                         ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Switch(
-                            activeColor: primaryColor,
-                            value: homeController.isExpress.value,
-                            onChanged: (value) {
-                              homeController.isExpress.value = value;
-                            },
-                          ),
-                        )
-                      ]),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5, right: 0),
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          color: silver,
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/calendar.svg",
-                          height: 20,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ReusableText(
-                          title: "Scheduled delivery".tr,
-                          size: 11,
-                          weight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ]),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
               const SizedBox(
                 height: 10,
               ),
@@ -307,9 +320,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Image.asset('assets/images/ads2.png')),
+                        InkWell(
+                          onTap: () => AppUtils.navigateToPage(PdfViewScreen()),
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Image.asset('assets/images/ads2.png')),
+                        ),
                         const SizedBox(
                           height: 10,
                         ),

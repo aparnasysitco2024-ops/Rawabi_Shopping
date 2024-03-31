@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,30 +39,32 @@ class _ProductItemState extends State<ProductItem> {
       },
       child: Container(
         width: 150,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: Colors.white),
+            color: Colors.white,border: Border.all(color: silver)),
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 20,
-                  width: 70,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-                  decoration: const BoxDecoration(
-                      color: lightPink,
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
-                  child: const ReusableText(
-                    title: "Best seller",
-                    color: primaryColor,
-                    size: 10,
-                  ),
-                ),
+                widget.products.best_seller == "1"
+                    ? Container(
+                        alignment: Alignment.center,
+                        height: 20,
+                        width: 70,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 3, vertical: 2),
+                        decoration: const BoxDecoration(
+                            color: lightPink,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: const ReusableText(
+                          title: "Best seller",
+                          color: primaryColor,
+                          size: 10,
+                        ),
+                      )
+                    : SizedBox(),
                 Spacer(),
                 InkWell(
                   onTap: () {
@@ -100,10 +103,11 @@ class _ProductItemState extends State<ProductItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset(
-                    "assets/icons/fastdelivery.svg",
-                    fit: BoxFit.fill,
-                  ),
+
+                  // SvgPicture.asset(
+                  //   "assets/icons/fastdelivery.svg",
+                  //   fit: BoxFit.fill,
+                  // ),
                   const SizedBox(
                     height: 5,
                   ),
@@ -174,20 +178,20 @@ class _ProductItemState extends State<ProductItem> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      if (widget.products.cartCount == 1) {
-                                        widget.cartController.removeCartItem(
-                                            widget.products.productId);
-                                      } else {
-                                        widget.cartController.updateQty(
-                                            widget.products.productId,
-                                            int.parse(widget.products.cartCount
-                                                    .toString()) -
-                                                1);
-                                        setState(() {
-                                          widget.products.cartCount =
-                                              (widget.products.cartCount! - 1);
-                                        });
-                                      }
+                                      // if (widget.products.cartCount == 1) {
+                                      //   widget.cartController.removeCartItem(
+                                      //       widget.products.productId);
+                                      // } else {
+                                      widget.cartController.updateQty(
+                                          widget.products.productId,
+                                          int.parse(widget.products.cartCount
+                                                  .toString()) -
+                                              1);
+                                      setState(() {
+                                        widget.products.cartCount =
+                                            (widget.products.cartCount! - 1);
+                                      });
+                                      // }
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/minus_item.svg",

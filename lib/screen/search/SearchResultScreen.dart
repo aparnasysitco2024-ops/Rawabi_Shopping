@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/searchController.dart';
 import '../../utils/colors.dart';
+import '../../utils/constants.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/productItem.dart';
 
@@ -154,7 +155,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     mainAxisSpacing: 12,
-                                    mainAxisExtent: 295,
+                                    mainAxisExtent: productItemHeight,
                                     crossAxisSpacing: 12,
                                     childAspectRatio: 0.5),
                             itemBuilder: (_, index) {

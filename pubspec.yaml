@@ -43,13 +43,14 @@ dependencies:
   flutter_html: ^3.0.0-beta.2
   intl_phone_field: ^3.1.0
   fdottedline_nullsafety: ^2.0.1
-  google_maps_flutter: ^2.5.3
+  google_maps_flutter: ^2.6.0
   geolocator: ^11.0.0
   geocoding: ^3.0.0
   flutter_expanded_tile: ^0.3.7
   flutter_barcode_scanner: ^2.0.0
   badges: ^3.1.2
   flutter_launcher_icons: ^0.13.1
+  syncfusion_flutter_pdfviewer: ^24.2.8
 
 
 dev_dependencies:

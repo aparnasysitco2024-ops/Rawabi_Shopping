@@ -29,3 +29,4 @@ const deletewishUrl = '${baseURL}deletewish';
 
 //keys
 const token = "Rawabi_jc";
+const productItemHeight = 270.0;

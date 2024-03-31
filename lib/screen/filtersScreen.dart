@@ -351,7 +351,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
                                           child: const ReusableTextForm(
                                             contentPadding: EdgeInsets.all(5),
-                                            hintText: "AED 0",
+                                            hintText: "QAR 0",
                                             borderRadius: 6.0,
                                             fillColor: silver,
                                           ),
@@ -362,7 +362,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                           width: 130,
                                           child:  const ReusableTextForm(
                                             contentPadding: EdgeInsets.all(5),
-                                            hintText: "AED 200",
+                                            hintText: "QAR 200",
                                             borderRadius: 6.0,
                                             fillColor: silver,
                                           ),

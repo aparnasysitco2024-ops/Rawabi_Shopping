@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
+import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
 import 'package:rawabi/screen/notificationsScreen.dart';
@@ -15,7 +17,9 @@ import 'package:rawabi/widget/commonwidget/square_card.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
+  AccountScreen({super.key});
+
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -191,17 +195,23 @@ class AccountScreen extends StatelessWidget {
                     width: double.maxFinite,
                     child: Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            // AppUtils.navigateToPage(const DeliveryModeScreen());
-                          },
-                          child: const ProfileTile(
-                              image: "assets/icons/eReceipt.svg",
-                              title: "E-Receipt"),
-                        ),
-                        const Divider(
-                          thickness: 1,
-                        ),
+                        homeController.userID == '0'
+                            ? SizedBox()
+                            : Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      // AppUtils.navigateToPage(const DeliveryModeScreen());
+                                    },
+                                    child: const ProfileTile(
+                                        image: "assets/icons/eReceipt.svg",
+                                        title: "E-Receipt"),
+                                  ),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, '/WishlistScreen');
@@ -214,38 +224,52 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        InkWell(
-                            onTap: () {
-                              AppUtils.navigateToPage(MyAddressesScreen());
-                            },
-                            child: const ProfileTile(
-                                image: "assets/icons/location.svg",
-                                title: "Address")),
-                        const Divider(
-                          thickness: 1,
-                        ),
+                        homeController.userID == '0'
+                            ? SizedBox()
+                            : Column(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        AppUtils.navigateToPage(
+                                            MyAddressesScreen());
+                                      },
+                                      child: const ProfileTile(
+                                          image: "assets/icons/location.svg",
+                                          title: "Address")),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
                         const ProfileTile(
                             image: "assets/icons/globe.svg", title: "Language"),
                         const Divider(
                           thickness: 1,
                         ),
-                        InkWell(
-                          onTap: () {
-                            AppUtils.navigateToPage(const MyProfileScreen());
-                          },
-                          child: const ProfileTile(
-                              image: "assets/icons/user.svg",
-                              title: "My Profile"),
-                        ),
-                        const Divider(
-                          thickness: 1,
-                        ),
-                        const ProfileTile(
-                            image: "assets/icons/gift-card.svg",
-                            title: "Gift Cards"),
-                        const Divider(
-                          thickness: 1,
-                        ),
+                        homeController.userID == '0'
+                            ? SizedBox()
+                            : Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      AppUtils.navigateToPage(
+                                          const MyProfileScreen());
+                                    },
+                                    child: const ProfileTile(
+                                        image: "assets/icons/user.svg",
+                                        title: "My Profile"),
+                                  ),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                  const ProfileTile(
+                                      image: "assets/icons/gift-card.svg",
+                                      title: "Gift Cards"),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
                         InkWell(
                           onTap: () {
                             AppUtils.navigateToPage(NotificationsScreen());
@@ -263,12 +287,18 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/returns.svg",
-                            title: "My Returns"),
-                        const Divider(
-                          thickness: 1,
-                        ),
+                        homeController.userID == '0'
+                            ? SizedBox()
+                            : Column(
+                                children: [
+                                  const ProfileTile(
+                                      image: "assets/icons/returns.svg",
+                                      title: "My Returns"),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
                         const ProfileTile(
                             image: "assets/icons/feedback.svg",
                             title: "Feedback"),
@@ -309,37 +339,47 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        InkWell(
-                          onTap: () async {
-                            await showDialog(
-                              context: Get.context!,
-                              builder: (context) => AlertDialog(
-                                title: Text("Rawabi Shopping".tr),
-                                content: const Text(
-                                    'Are you sure you would like to Sign out ?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(false);
-                                    },
-                                    child: Text('No'.tr),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      StorageManager.saveData(StorageManager.keyIsLogin, false);
-                                      AppUtils.navigateToPageRemoveUntil(
-                                          const SplashScreen());
-                                    }, // <-- SEE HERE
-                                    child: Text('Yes'.tr),
-                                  ),
-                                ],
+                        homeController.userID == '0'
+                            ? InkWell(
+                                onTap: () {
+                                  AppUtils.navigateToPage(LoginScreen());
+                                },
+                                child: const ProfileTile(
+                                    image: "assets/icons/signin.svg",
+                                    title: "Sign In"),
+                              )
+                            : InkWell(
+                                onTap: () async {
+                                  await showDialog(
+                                    context: Get.context!,
+                                    builder: (context) => AlertDialog(
+                                      title: Text("Rawabi Shopping".tr),
+                                      content: const Text(
+                                          'Are you sure you would like to Sign out ?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: Text('No'.tr),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            StorageManager.clearData();
+                                            Get.deleteAll();
+                                            AppUtils.navigateToPageRemoveUntil(
+                                                const SplashScreen());
+                                          }, // <-- SEE HERE
+                                          child: Text('Yes'.tr),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                child: const ProfileTile(
+                                    image: "assets/icons/exit.svg",
+                                    title: "Sign Out"),
                               ),
-                            );
-                          },
-                          child: const ProfileTile(
-                              image: "assets/icons/exit.svg",
-                              title: "Sign Out"),
-                        ),
                       ],
                     ),
                   ),

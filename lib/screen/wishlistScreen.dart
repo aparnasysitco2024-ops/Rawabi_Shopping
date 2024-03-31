@@ -5,6 +5,7 @@ import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../utils/colors.dart';
+import '../utils/constants.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -98,7 +99,7 @@ class WishlistScreen extends StatelessWidget {
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
                                           mainAxisSpacing: 12,
-                                          mainAxisExtent: 295,
+                                          mainAxisExtent: productItemHeight,
                                           crossAxisSpacing: 12,
                                           childAspectRatio: 0.5),
                                   itemBuilder: (_, index) {
