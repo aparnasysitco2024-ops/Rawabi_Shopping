@@ -6,7 +6,7 @@ import 'package:rawabi/screen/signupScreen.dart';
 import 'package:rawabi/screen/verification_code_screen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 
-import '../model/loginResponse.dart';
+import '../model/response/loginResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';

@@ -4,7 +4,7 @@ import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
-import '../model/myOrderResponse.dart';
+import '../model/response/myorder/myOrderResponse.dart';
 
 // ignore: must_be_immutable
 class OrderItemTile extends StatelessWidget {

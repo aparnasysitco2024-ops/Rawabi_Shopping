@@ -6,7 +6,7 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../controller/cartController.dart';
-import '../model/products.dart';
+import '../model/response/products.dart';
 import '../utils/constants.dart';
 
 class ItemsWidget extends StatefulWidget {

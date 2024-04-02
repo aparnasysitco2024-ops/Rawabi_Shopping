@@ -18,6 +18,8 @@ const addressList = '${baseURL}addressList';
 const addaddressUrl = '${baseURL}addaddress';
 const deleteaddress = '${baseURL}deleteaddress';
 const myorders = '${baseURL}myorders';
+const orderDetailUrl = '${baseURL}order_detail';
+
 const categoryUrl = '${baseURL}category';
 const subcategoryUrl = '${baseURL}subcategory';
 const storeListUrl = '${baseURL}storeList';
@@ -26,6 +28,8 @@ const searchBarcode = '${baseURL}barcode_Search';
 const addtowishUrl = '${baseURL}addtowish';
 const wishListUrl = '${baseURL}wishList';
 const deletewishUrl = '${baseURL}deletewish';
+const myProfileUrl = '${baseURL}myprofile';
+
 
 //keys
 const token = "Rawabi_jc";

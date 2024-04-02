@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 
-import '../model/homeResponse.dart';
+import '../model/response/homeResponse.dart';
+import '../model/response/myProfileResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
@@ -23,6 +24,7 @@ class HomeController extends GetxController {
   var bannerList = <Slider>[].obs;
   var itemGroupList = <ItemGroup>[].obs;
   var barcodeScannerText = "".obs;
+  MyProfile myProfile = MyProfile();
 
   var bannerList2 = [
     'assets/images/apple.png',
@@ -81,6 +83,30 @@ class HomeController extends GetxController {
     } catch (error) {
       error.printError();
       isHomeLoaded = false;
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> getMyProfile() async {
+    try {
+      loading.value = true;
+      var response = await BaseClient().get(myProfileUrl);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            MyProfileResponse.fromJson(json.decode(response.toString()));
+
+        if (responseData.code == "200") {
+          myProfile = responseData.res!;
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      error.printError();
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;

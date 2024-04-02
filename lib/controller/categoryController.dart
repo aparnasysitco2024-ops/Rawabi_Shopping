@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:rawabi/model/categoryResponse.dart';
+import 'package:rawabi/model/response/categoryResponse.dart';
 
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';

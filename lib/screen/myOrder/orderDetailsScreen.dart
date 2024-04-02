@@ -4,7 +4,8 @@ import 'package:rawabi/screen/myOrder/trackOrderScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/orderDetailsTile.dart';
 
-import '../../model/myOrderResponse.dart';
+import '../../controller/myOrderDetailsController.dart';
+import '../../model/response/myorder/myOrderResponse.dart';
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 
@@ -12,10 +13,13 @@ import '../../widget/commonwidget/reusable_text.dart';
 class OrderDetailsScreen extends StatelessWidget {
   Orders myOrder;
 
+  final myOrderDetailController = Get.put(MyOrderDetailController());
+
   OrderDetailsScreen({super.key, required this.myOrder});
 
   @override
   Widget build(BuildContext context) {
+    myOrderDetailController.getMyOrderDetail(myOrder.orderid.toString());
     return Scaffold(
         backgroundColor: silver,
         body: SizedBox(
@@ -68,77 +72,79 @@ class OrderDetailsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18.0, vertical: 8),
-                    child: SingleChildScrollView(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 0),
-                        color: white,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        child: Column(
-                          children: [
-                            ListView.separated(
-                                padding: const EdgeInsets.all(0),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: myOrder.items!.length,
-                                itemBuilder: (context, index) =>
-                                    OrderDetailsTile(
-                                        items: myOrder.items![index]),
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const Divider(
-                                          thickness: 1,
-                                        )),
-                            const Divider(
-                              thickness: 1,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  const ReusableText(
-                                    title: "Cancel Order",
-                                    size: 12,
-                                    weight: FontWeight.w600,
-                                  ),
-                                  const Spacer(),
-                                  GestureDetector(
-                                    onTap: () {
-                                      AppUtils.navigateToPage(
-                                          const TrackOrderScreen());
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 30,
-                                      width: 125,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 3, vertical: 2),
-                                      decoration: const BoxDecoration(
-                                          color: pink,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(100))),
-                                      child: const ReusableText(
-                                        title: "Track Your Order",
-                                        color: primaryColor,
-                                        size: 12,
-                                        weight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+               Obx(() =>  Expanded(
+                 child: Padding(
+                   padding: const EdgeInsets.symmetric(
+                       horizontal: 18.0, vertical: 8),
+                   child: SingleChildScrollView(
+                     child: Container(
+                       margin: const EdgeInsets.symmetric(
+                           horizontal: 4, vertical: 0),
+                       color: white,
+                       padding: const EdgeInsets.symmetric(
+                           horizontal: 5, vertical: 5),
+                       child: Column(
+                         children: [
+                           ListView.separated(
+                               padding: const EdgeInsets.all(0),
+                               shrinkWrap: true,
+                               physics: const NeverScrollableScrollPhysics(),
+                               itemCount:
+                               myOrderDetailController.myOrderList.length,
+                               itemBuilder: (context, index) =>
+                                   OrderDetailsTile(
+                                       items: myOrderDetailController
+                                           .myOrderList[index]),
+                               separatorBuilder:
+                                   (BuildContext context, int index) =>
+                               const Divider(
+                                 thickness: 1,
+                               )),
+                           const Divider(
+                             thickness: 1,
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.all(8.0),
+                             child: Row(
+                               children: [
+                                 const ReusableText(
+                                   title: "Cancel Order",
+                                   size: 12,
+                                   weight: FontWeight.w600,
+                                 ),
+                                 const Spacer(),
+                                 GestureDetector(
+                                   onTap: () {
+                                     AppUtils.navigateToPage(
+                                         const TrackOrderScreen());
+                                   },
+                                   child: Container(
+                                     alignment: Alignment.center,
+                                     height: 30,
+                                     width: 125,
+                                     padding: const EdgeInsets.symmetric(
+                                         horizontal: 3, vertical: 2),
+                                     decoration: const BoxDecoration(
+                                         color: pink,
+                                         borderRadius: BorderRadius.all(
+                                             Radius.circular(100))),
+                                     child: const ReusableText(
+                                       title: "Track Your Order",
+                                       color: primaryColor,
+                                       size: 12,
+                                       weight: FontWeight.w600,
+                                     ),
+                                   ),
+                                 )
+                               ],
+                             ),
+                           )
+                         ],
+                       ),
+                     ),
+                   ),
+                 ),
+               ))
               ],
             ),
           ),

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/model/baseResponse.dart';
+import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/request/addAddressRequest.dart';
 
 import '../utils/commonUtils.dart';

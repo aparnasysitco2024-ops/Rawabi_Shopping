@@ -4,7 +4,7 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../../controller/cartController.dart';
-import '../../model/cartListResponse.dart';
+import '../../model/response/cartListResponse.dart';
 
 class CartItemDetails extends StatelessWidget {
   final Products products;

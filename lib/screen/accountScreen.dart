@@ -253,7 +253,7 @@ class AccountScreen extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       AppUtils.navigateToPage(
-                                          const MyProfileScreen());
+                                           MyProfileScreen());
                                     },
                                     child: const ProfileTile(
                                         image: "assets/icons/user.svg",

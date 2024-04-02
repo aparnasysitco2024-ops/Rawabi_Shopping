@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/model/guestLoginResponse.dart';
+import 'package:rawabi/model/response/guestLoginResponse.dart';
 import 'package:rawabi/screen/deliverymode/homeDeliveryMapScreen.dart';
 import 'package:rawabi/screen/deliverymode/storePickupScreen.dart';
 import 'package:rawabi/utils/colors.dart';

@@ -1,4 +1,4 @@
-import 'package:rawabi/model/products.dart';
+import 'package:rawabi/model/response/products.dart';
 
 class HomeResponse {
   String? code;

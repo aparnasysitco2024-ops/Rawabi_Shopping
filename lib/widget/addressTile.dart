@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/model/addressListResponse.dart';
+import 'package:rawabi/model/response/addressListResponse.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 

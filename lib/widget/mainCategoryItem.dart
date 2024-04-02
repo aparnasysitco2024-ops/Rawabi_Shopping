@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../model/homeResponse.dart';
+import '../model/response/homeResponse.dart';
 import 'commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:rawabi/model/baseResponse.dart';
+import 'package:rawabi/model/response/baseResponse.dart';
 
-import '../model/addressListResponse.dart';
+import '../model/response/addressListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';

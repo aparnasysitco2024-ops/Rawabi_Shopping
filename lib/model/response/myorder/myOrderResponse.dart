@@ -1,3 +1,5 @@
+import 'items.dart';
+
 class MyOrderResponse {
   String? code;
   String? message;
@@ -137,35 +139,3 @@ class Orders {
   }
 }
 
-class Items {
-  String? itemName;
-  String? itemImage;
-  String? itemPrice;
-  String? itemQty;
-  String? subtotal;
-
-  Items(
-      {this.itemName,
-        this.itemImage,
-        this.itemPrice,
-        this.itemQty,
-        this.subtotal});
-
-  Items.fromJson(Map<String, dynamic> json) {
-    itemName = json['item_name'];
-    itemImage = json['item_image'];
-    itemPrice = json['item_price'];
-    itemQty = json['item_qty'];
-    subtotal = json['subtotal'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['item_name'] = itemName;
-    data['item_image'] = itemImage;
-    data['item_price'] = itemPrice;
-    data['item_qty'] = itemQty;
-    data['subtotal'] = subtotal;
-    return data;
-  }
-}

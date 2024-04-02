@@ -1,5 +1,5 @@
 
-import 'products.dart';
+import '../response/products.dart';
 
 class WishListResponse {
   String? code;

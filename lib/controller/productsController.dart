@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 
-import '../model/products.dart';
-import '../model/productsResponse.dart';
+import '../model/response/products.dart';
+import '../model/response/productsResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';

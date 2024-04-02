@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
 
-import '../model/homeResponse.dart';
+import '../model/response/homeResponse.dart';
 
 class CategoryWidget extends StatefulWidget {
   String? title;

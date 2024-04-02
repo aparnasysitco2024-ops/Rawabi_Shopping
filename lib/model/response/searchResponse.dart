@@ -1,6 +1,6 @@
 
 
-import 'products.dart';
+import '../response/products.dart';
 
 class SearchResponse {
   String? code;

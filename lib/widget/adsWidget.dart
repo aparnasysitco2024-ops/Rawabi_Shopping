@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/homeController.dart';
-import '../model/homeResponse.dart';
+import '../model/response/homeResponse.dart';
 
 class AdsWidget extends StatefulWidget {
   String? title;

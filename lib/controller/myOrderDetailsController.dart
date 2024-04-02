@@ -2,35 +2,36 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 
-import '../model/response/products.dart';
-import '../model/response/wishListResponse.dart';
+import '../model/response/myorder/items.dart';
+import '../model/response/myorder/orderDetailResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 
-class WishListController extends GetxController {
+class MyOrderDetailController extends GetxController {
   var loading = false.obs;
 
-  WishListController();
+  MyOrderDetailController();
 
-  var productList = <Products>[].obs;
+  var myOrderList = <Items>[].obs;
 
   @override
   onInit() async {
     super.onInit();
   }
 
-  Future<void> getWishList() async {
+  Future<void> getMyOrderDetail(String id) async {
     try {
       loading.value = true;
-      var response = await BaseClient().get(wishListUrl);
+      var request = {"id": id};
+      var response = await BaseClient().post(orderDetailUrl, request);
       loading.value = false;
       if (response != null) {
-        productList.clear();
+        myOrderList.clear();
         var responseData =
-        WishListResponse.fromJson(json.decode(response.toString()));
+            OrderDetailResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          productList.addAll(responseData.res as Iterable<Products>);
+          myOrderList.addAll(responseData.res?.first.items! as Iterable<Items>);
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
