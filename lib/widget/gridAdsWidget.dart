@@ -2,14 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../controller/homeController.dart';
+import '../model/response/homeResponse.dart';
+import 'commonWidget/networkImageWidget.dart';
 
 class GridAdsWidget extends StatefulWidget {
+  ItemGroup? itemGroup;
   final homeController = Get.put(HomeController());
 
-  GridAdsWidget({super.key});
+  GridAdsWidget({super.key, required this.itemGroup});
 
   @override
   State<GridAdsWidget> createState() => _GridAdsWidgetState();
@@ -18,71 +20,56 @@ class GridAdsWidget extends StatefulWidget {
 class _GridAdsWidgetState extends State<GridAdsWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          width: 10,
-        ),
-        Column(
-          children: [
-            SizedBox(
-                height: 250,
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Image.asset(
-                  'assets/images/outdoor.png',
-                  fit: BoxFit.fill,
-                )),
-            const SizedBox(
-              height: 5,
-            ),
-            const ReusableText(
-              title: "Outdoor Camping Products",
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-          ],
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Flexible(
-            child: Column(
-          children: [
-            SizedBox(
-                height: 111,
-                child: Image.asset(
-                  'assets/images/sofa.png',
-                  fit: BoxFit.fill,
-                )),
-            const SizedBox(
-              height: 5,
-            ),
-            const ReusableText(
-              title: "Sofas",
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            SizedBox(
-                height: 111,
-                child: Image.asset(
-                  'assets/images/chair.png',
-                  fit: BoxFit.fill,
-                )),
-            const SizedBox(
-              height: 5,
-            ),
-            const ReusableText(
-              title: "Outdoor Furnitures",
-            ),
-          ],
-        )),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
-    );
+    int? itemLength = widget.itemGroup?.grpImages?.length;
+    return itemLength! > 2
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                      height: 250,
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: NetworkImageWidget(
+                        image: widget.itemGroup!.grpImages![0].image.toString(),
+                        fit: BoxFit.fill,
+                      )),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Flexible(
+                  child: Column(
+                children: [
+                  SizedBox(
+                      height: 123,
+                      child: NetworkImageWidget(
+                        image: widget.itemGroup!.grpImages![1].image.toString(),
+                        fit: BoxFit.fill,
+                      )),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                      height: 123,
+                      child: NetworkImageWidget(
+                        image: widget.itemGroup!.grpImages![2].image.toString(),
+                        fit: BoxFit.fill,
+                      )),
+                ],
+              )),
+              const SizedBox(
+                width: 10,
+              ),
+            ],
+          )
+        : SizedBox();
   }
 }

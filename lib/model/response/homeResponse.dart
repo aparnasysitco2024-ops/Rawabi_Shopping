@@ -109,13 +109,15 @@ class Slider {
   String? linkType;
   String? bannerPoint;
   String? bannerImage;
+  String? banner_type;
 
   Slider(
       {this.bannerId,
-        this.bannerName,
-        this.linkType,
-        this.bannerPoint,
-        this.bannerImage});
+      this.bannerName,
+      this.linkType,
+      this.bannerPoint,
+      this.bannerImage,
+      this.banner_type});
 
   Slider.fromJson(Map<String, dynamic> json) {
     bannerId = json['banner_id'];
@@ -123,6 +125,7 @@ class Slider {
     linkType = json['link_type'];
     bannerPoint = json['banner_point'];
     bannerImage = json['banner_image'];
+    banner_type = json['banner_type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -132,6 +135,7 @@ class Slider {
     data['link_type'] = linkType;
     data['banner_point'] = bannerPoint;
     data['banner_image'] = bannerImage;
+    data['banner_type'] = banner_type;
     return data;
   }
 }
@@ -150,15 +154,15 @@ class ItemGroup {
 
   ItemGroup(
       {this.grpId,
-        this.grpName,
-        this.grpType,
-        this.grpDesign,
-        this.grpStartDate,
-        this.grpEndDate,
-        this.grpItems,
-        this.grpCategory,
-        this.grpImage,
-        this.grpImages});
+      this.grpName,
+      this.grpType,
+      this.grpDesign,
+      this.grpStartDate,
+      this.grpEndDate,
+      this.grpItems,
+      this.grpCategory,
+      this.grpImage,
+      this.grpImages});
 
   ItemGroup.fromJson(Map<String, dynamic> json) {
     grpId = json['grp_id'];
@@ -209,7 +213,6 @@ class ItemGroup {
     return data;
   }
 }
-
 
 class GrpImages {
   String? image;

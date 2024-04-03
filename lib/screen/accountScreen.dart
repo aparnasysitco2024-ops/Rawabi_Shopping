@@ -8,6 +8,7 @@ import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
 import 'package:rawabi/screen/notificationsScreen.dart';
 import 'package:rawabi/screen/splashScreen.dart';
+import 'package:rawabi/screen/webViewScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
@@ -253,7 +254,7 @@ class AccountScreen extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       AppUtils.navigateToPage(
-                                           MyProfileScreen());
+                                          MyProfileScreen());
                                     },
                                     child: const ProfileTile(
                                         image: "assets/icons/user.svg",
@@ -309,31 +310,54 @@ class AccountScreen extends StatelessWidget {
                           onTap: () {
                             AppUtils.navigateToPage(const FiltersScreen());
                           },
-                          child: const ProfileTile(
-                              image: "assets/icons/Help.svg", title: "Help"),
+                          child: ProfileTile(
+                              onPressed: () => AppUtils.navigateToPage(
+                                  WebViewScreen(
+                                      url:
+                                          "https://dev.rawabihypermarket.com/b2c/other/faq.php",
+                                      title: "Help")),
+                              image: "assets/icons/Help.svg",
+                              title: "Help"),
                         ),
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
+                        ProfileTile(
+                            onPressed: () => AppUtils.navigateToPage(WebViewScreen(
+                                url:
+                                    "https://dev.rawabihypermarket.com/b2c/other/about.php",
+                                title: "About Us")),
                             image: "assets/icons/information.svg",
                             title: "About Us"),
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
-                            image: "assets/icons/contract.svg",
-                            title: "Terms & Conditions"),
+                        ProfileTile(
+                          onPressed: () => AppUtils.navigateToPage(WebViewScreen(
+                              url:
+                                  "https://dev.rawabihypermarket.com/b2c/other/terms.php",
+                              title: "Terms & Conditions")),
+                          image: "assets/icons/contract.svg",
+                          title: "Terms & Conditions",
+                        ),
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
+                        ProfileTile(
+                            onPressed: () => AppUtils.navigateToPage(WebViewScreen(
+                                url:
+                                    "https://dev.rawabihypermarket.com/b2c/other/return.php",
+                                title: "Return Policy")),
                             image: "assets/icons/turn-back.svg",
                             title: "Return Policy"),
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
+                        ProfileTile(
+                            onPressed: () => AppUtils.navigateToPage(WebViewScreen(
+                                url:
+                                    "https://dev.rawabihypermarket.com/b2c/other/service.php",
+                                title: "Service & Warranty")),
                             image: "assets/icons/verified2.svg",
                             title: "Service & Warranty"),
                         const Divider(

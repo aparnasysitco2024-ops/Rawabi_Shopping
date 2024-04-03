@@ -21,16 +21,12 @@ class HomeController extends GetxController {
 
   var isExpress = true.obs;
   var categoryList = <Category>[].obs;
-  var bannerList = <Slider>[].obs;
+  var bannerListTop = <Slider>[].obs;
+  var bannerListTop2 = <Slider>[].obs;
   var itemGroupList = <ItemGroup>[].obs;
   var barcodeScannerText = "".obs;
   MyProfile myProfile = MyProfile();
 
-  var bannerList2 = [
-    'assets/images/apple.png',
-    'assets/images/banner.png',
-    'assets/images/banner.png'
-  ].obs;
 
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
@@ -63,12 +59,22 @@ class HomeController extends GetxController {
         var responseData =
             HomeResponse.fromJson(json.decode(response.toString()));
         categoryList.clear();
-        bannerList.clear();
+        bannerListTop.clear();
+        bannerListTop2.clear();
         itemGroupList.clear();
 
         if (responseData.code == "200") {
           categoryList.addAll(responseData.res!.category as List<Category>);
-          bannerList.addAll(responseData.res!.slider as List<Slider>);
+
+          responseData.res!.slider!.forEach((element) {
+            if(element.banner_type=="Top")
+            bannerListTop.add(element);
+            else if(element.banner_type=="Below Slider")
+              bannerListTop2.add(element);
+          });
+
+
+
           itemGroupList.addAll(responseData.res!.itemGroup as List<ItemGroup>);
 
           isHomeLoaded = true;

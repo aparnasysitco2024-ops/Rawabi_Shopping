@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
-import 'package:rawabi/widget/mainCategoryItem.dart';
 
 import '../model/response/homeResponse.dart';
+import 'categoryGroupItem.dart';
 
 class CategoryWidget extends StatefulWidget {
   String? title;
@@ -20,6 +20,7 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
+    List pages = ['Home', 'About', 'Careers', 'Contact Us', 'Blog', 'Disclaimer'];
     return Container(
       margin: const EdgeInsets.all(0),
       color: Colors.white,
@@ -28,6 +29,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         bottom: 5,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -64,22 +66,34 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           const SizedBox(
             height: 10,
           ),
-          GridView.builder(
-              padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: widget.itemGroup!.grpCategory!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 5,
-                  mainAxisExtent: 130,
-                  crossAxisCount: 4),
-              itemBuilder: (_, index) {
-                return MainCategoryItem(
-                  category: widget.itemGroup!.grpCategory![index],
-                );
-              })
+          Container(
+            height: 135,
+            child: ListView.builder(
+                padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.itemGroup!.grpCategory!.length,
+                itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: CategoryGroupItem(
+                              category: widget.itemGroup!.grpCategory![index],
+                            ),
+                          );
+                }),
+          ),
+          // Expanded(
+          //   child: ListView.builder(
+          //       padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+          //       scrollDirection: Axis.horizontal,
+          //       shrinkWrap: true,
+          //       itemCount: widget.itemGroup!.grpCategory!.length,
+          //       itemBuilder: (_, index) {
+          //         return CategoryGroupItem(
+          //           category: widget.itemGroup!.grpCategory![index],
+          //         );
+          //       }),
+          // )
         ],
       ),
     );

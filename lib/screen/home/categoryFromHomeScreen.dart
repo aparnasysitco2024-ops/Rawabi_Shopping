@@ -6,7 +6,7 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../../controller/homeController.dart';
-import '../../widget/mainCategoryItem.dart';
+import '../../widget/categoryGroupItem.dart';
 
 // ignore: must_be_immutable
 class CategoryFromHomeScreen extends StatefulWidget {
@@ -55,215 +55,112 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Obx(() => Column(children: [
+        body: Column(children: [
+          const SizedBox(
+            height: 60,
+          ),
+          Row(
+            children: [
               const SizedBox(
-                height: 60,
+                width: 20,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  InkWell(
-                    child: SvgPicture.asset("assets/icons/back.svg"),
-                    onTap: () {
-                      Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                      // Get.delete<ProductController>();
-                      /*Get.back();
+              InkWell(
+                child: SvgPicture.asset("assets/icons/back.svg"),
+                onTap: () {
+                  Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                  // Get.delete<ProductController>();
+                  /*Get.back();
                       Get.delete<ProductController>();*/
+                },
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  height: 50,
+                  decoration: const BoxDecoration(
+                      color: silver,
+                      borderRadius: BorderRadius.all(Radius.circular(7))),
+                  child: InkWell(
+                    onTap: () {
+                      showSearch(
+                        context: context,
+                        delegate: MySearchDelegate(),
+                      );
                     },
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Flexible(
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      height: 50,
-                      decoration: const BoxDecoration(
-                          color: silver,
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: InkWell(
-                        onTap: () {
-                          showSearch(
-                            context: context,
-                            delegate: MySearchDelegate(),
-                          );
-                        },
-                        /*onTap: () async {
+                    /*onTap: () async {
                           AppUtils.navigateToPage(const SearchScreen());
                         },*/
-                        child: Row(children: [
-                          SvgPicture.asset("assets/icons/search.svg"),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          ReusableText(
-                            title: title,
-                          ),
-                          const Spacer(),
-                          SvgPicture.asset("assets/icons/scan.svg")
-                        ]),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  SvgPicture.asset("assets/icons/notification.svg"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5, right: 0),
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [blue, lightBlue, pink]),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/express.svg",
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: ReusableText(
-                            title: "Express delivery".tr,
-                            maxLine: 1,
-                            size: 11,
-                            weight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Switch(
-                            activeColor: primaryColor,
-                            value: homeController.isExpress.value,
-                            onChanged: (value) {
-                              homeController.isExpress.value = value;
-                            },
-                          ),
-                        )
-                      ]),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/filter.svg",
-                      ),
+                    child: Row(children: [
+                      SvgPicture.asset("assets/icons/search.svg"),
                       const SizedBox(
                         width: 5,
                       ),
-                      const ReusableText(
-                        title: "Filter",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/sort.svg",
+                      ReusableText(
+                        title: title,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Sort",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
+                      const Spacer(),
+                      SvgPicture.asset("assets/icons/scan.svg")
+                    ]),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                ],
+                ),
               ),
               const SizedBox(
-                height: 10,
+                width: 10,
               ),
-               category.isNotEmpty
-                      ? Flexible(
-                          child: Container(
-                            height: double.infinity,
-                            color: silver,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child:  GridView.builder(
-                          padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                   scrollDirection: Axis.vertical,
-                   shrinkWrap: true,
-                   physics: const ClampingScrollPhysics(),
-                   itemCount: category.length,
-                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                       crossAxisSpacing: 15,
-                       mainAxisSpacing: 5,
-                       mainAxisExtent: 130,
-                       crossAxisCount: 4),
-                   itemBuilder: (_, index) {
-                     return MainCategoryItem(
-                       category: category![index],
-                     );
-                   }),
-                          ),
-                        )
-                      : Flexible(
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset("assets/icons/logo.svg"),
-                                  const ReusableText(
-                                    title: "No Item Found!!",
-                                  )
-                                ]),
-                          ),
-                        ),
-            ])),
+              SvgPicture.asset("assets/icons/notification.svg"),
+              const SizedBox(
+                width: 10,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          category.isNotEmpty
+              ? Flexible(
+            child: Container(
+              height: double.infinity,
+              color: silver,
+              padding:
+              const EdgeInsets.symmetric(horizontal: 15.0),
+              child:  GridView.builder(
+                  padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: category.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 5,
+                      mainAxisExtent: 130,
+                      crossAxisCount: 4),
+                  itemBuilder: (_, index) {
+                    return CategoryGroupItem(
+                      category: category![index],
+                    );
+                  }),
+            ),
+          )
+              : Flexible(
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset("assets/icons/logo.svg"),
+                    const ReusableText(
+                      title: "No Item Found!!",
+                    )
+                  ]),
+            ),
+          ),
+        ]),
       ),
     );
   }

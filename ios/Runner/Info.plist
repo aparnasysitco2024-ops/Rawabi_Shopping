@@ -57,5 +57,25 @@
     <false/>
     <key>io.flutter.embedded_views_preview</key>
     <true/>
+    <key>NSPrivacyAccessedAPITypes</key>
+    	<array>
+    		<dict>
+    			<key>NSPrivacyAccessedAPIType</key>
+    			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+    		</dict>
+    		<dict>
+    			<key>NSPrivacyAccessedAPIType</key>
+    			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+    		</dict>
+    		<dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            </dict>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+            </dict>
+
+    	</array>
 </dict>
 </plist>
