@@ -94,7 +94,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 120,
+                  height: 100,
                   color: white,
                   width: double.maxFinite,
                   child: Column(
@@ -102,10 +102,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     children: [
                       const SizedBox(
                         height: 50,
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: lightGreyColor,
                       ),
                       Container(
                         height: 40,

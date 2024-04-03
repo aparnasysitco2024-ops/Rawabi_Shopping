@@ -16,6 +16,7 @@ import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
 
 import '../widget/commonwidget/reusable_text.dart';
+import 'home/pdfViewScreen.dart';
 
 class AccountScreen extends StatelessWidget {
   AccountScreen({super.key});
@@ -139,53 +140,58 @@ class AccountScreen extends StatelessWidget {
                           left: 24,
                           top: 14,
                           right: 24,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                "assets/images/promotion.png",
-                                fit: BoxFit.fill,
-                                width: 72,
-                                height: 52,
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ReusableText(
-                                      title: "our latest deals here".tr,
-                                      size: 14,
-                                      color: white,
-                                      weight: FontWeight.bold),
-                                  ReusableText(
-                                      title: "20 - 28 dec".tr,
+                          child: InkWell(onTap:() =>
+                              AppUtils.navigateToPage(PdfViewScreen()),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  "assets/images/promotion.png",
+                                  fit: BoxFit.fill,
+                                  width: 72,
+                                  height: 52,
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    ReusableText(
+                                        title: "our latest deals here".tr,
+                                        size: 14,
+                                        color: white,
+                                        weight: FontWeight.bold),
+                                    ReusableText(
+                                        title: "20 - 28 dec".tr,
+                                        size: 10,
+                                        color: white,
+                                        weight: FontWeight.w600),
+                                  ],
+                                ),
+                                Container(
+                                  height: 22,
+                                  width: 48,
+                                  margin: const EdgeInsets.only(right: 16),
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: const BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(3))),
+                                  child: Center(
+                                    child: ReusableText(
+                                      title: "View".tr,
                                       size: 10,
                                       color: white,
-                                      weight: FontWeight.w600),
-                                ],
-                              ),
-                              Container(
-                                height: 22,
-                                width: 48,
-                                margin: const EdgeInsets.only(right: 16),
-                                padding: const EdgeInsets.all(4),
-                                decoration: const BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(3))),
-                                child: Center(
-                                  child: ReusableText(
-                                    title: "View".tr,
-                                    size: 10,
-                                    color: white,
-                                    weight: FontWeight.w600,
+                                      weight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

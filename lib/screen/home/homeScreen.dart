@@ -248,189 +248,212 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ]),
               ),
-              homeController.loading.value?
-              Flexible(
-                child: SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
-              ):
-              Expanded(
-                child: Container(
-                  color: silver,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 5,
+              homeController.loading.value
+                  ? Flexible(
+                      child: SizedBox(
+                        height: double.infinity,
+                        width: double.infinity,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
                         ),
-                        //Top banner
-                        homeController.bannerListTop.isNotEmpty
-                            ? FlutterCarousel(
-                                options: CarouselOptions(
-                                  initialPage: 1,
-                                  autoPlay: true,
-                                  enableInfiniteScroll: true,
-                                  enlargeCenterPage: true,
-                                  viewportFraction: 0.8,
-                                  height: 170.0,
-                                  showIndicator: false,
-                                  slideIndicator:
-                                      const CircularSlideIndicator(),
-                                ),
-                                items: homeController.bannerListTop.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 5, top: 5, bottom: 5),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: FadeInImage.assetNetwork(
-                                                fit: BoxFit.fill,
-                                                placeholder:
-                                                    'assets/images/logo.png',
-                                                image:
-                                                    i.bannerImage.toString()),
-                                          ));
-                                      // return FadeInImage.assetNetwork(
-                                      //     placeholder: 'assets/images/logo.png',
-                                      //     image: i.bannerImage.toString());
-                                    },
-                                  );
-                                }).toList(),
-                              )
-                            : const SizedBox(),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        //top ads
-                        homeController.bannerListTop2.isNotEmpty
-                            ? FlutterCarousel(
-                                options: CarouselOptions(
-                                  initialPage: 0,
-                                  enableInfiniteScroll: true,
-                                  viewportFraction: 1,
-                                  showIndicator: false,
-                                  height: 60.0,
-                                ),
-                                items: homeController.bannerListTop2.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 5,
-                                              top: 5,
-                                              bottom: 5,
-                                              left: 5),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: FadeInImage.assetNetwork(
-                                                fit: BoxFit.fill,
-                                                placeholder:
-                                                    'assets/images/logo.png',
-                                                image:
-                                                    i.bannerImage.toString()),
-                                          ));
-                                      // return FadeInImage.assetNetwork(
-                                      //     placeholder: 'assets/images/logo.png',
-                                      //     image: i.bannerImage.toString());
-                                    },
-                                  );
-                                }).toList(),
-                              )
-                            : const SizedBox(),
-
-                        //Category
-                        GridView.builder(
-                            padding: const EdgeInsets.only(
-                                left: 10, top: 10, right: 10),
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: homeController.categoryList.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 15,
-                                    mainAxisSpacing: 5,
-                                    mainAxisExtent: 130,
-                                    crossAxisCount: 4),
-                            itemBuilder: (_, index) {
-                              return MainCategoryItem(
-                                  category: homeController.categoryList[index]);
-                            }),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        //Flayer
-                        InkWell(
-                          onTap: () => AppUtils.navigateToPage(PdfViewScreen()),
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Image.asset('assets/images/ads2.png')),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-                        //Item group
-                        ListView.builder(
-                          padding: const EdgeInsets.only(top: 0.0),
-                          itemCount: homeController.itemGroupList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => homeController
-                                      .itemGroupList[index].grpType ==
-                                  homeController.grpTypeProduct
-                              ? ItemsWidget(
-                                  title: homeController
-                                      .itemGroupList[index].grpName,
-                                  products: homeController
-                                      .itemGroupList[index].grpItems,
-                                )
-                              : homeController.itemGroupList[index].grpType ==
-                                      homeController.grpTypeImage
-                                  ? AdsImageWidget(
-                                      grpDesign: homeController
-                                          .itemGroupList[index].grpDesign
-                                          .toString(),
-                                      title: homeController
-                                          .itemGroupList[index].grpName,
-                                      itemGroup:
-                                          homeController.itemGroupList[index],
+                      ),
+                    )
+                  : Expanded(
+                      child: Container(
+                        color: silver,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              //Top banner
+                              homeController.bannerListTop.isNotEmpty
+                                  ? FlutterCarousel(
+                                      options: CarouselOptions(
+                                        initialPage: 1,
+                                        autoPlay: true,
+                                        enableInfiniteScroll: true,
+                                        enlargeCenterPage: true,
+                                        viewportFraction: 0.8,
+                                        height: 170.0,
+                                        showIndicator: false,
+                                        slideIndicator:
+                                            const CircularSlideIndicator(),
+                                      ),
+                                      items:
+                                          homeController.bannerListTop.map((i) {
+                                        return Builder(
+                                          builder: (BuildContext context) {
+                                            return InkWell(
+                                              onTap: () {
+                                                if (i.linkType == "category") {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    '/ProductsByCategory',
+                                                    arguments: {
+                                                      'catId': i.bannerPoint,
+                                                      'subCatId': "0",
+                                                      'subSubCatId': "0",
+                                                      'subSubSubCatId': "0"
+                                                    },
+                                                  );
+                                                }
+                                              },
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    child: FadeInImage.assetNetwork(
+                                                        fit: BoxFit.fill,
+                                                        placeholder:
+                                                            'assets/images/logo.png',
+                                                        image: i.bannerImage
+                                                            .toString()),
+                                                  )),
+                                            );
+                                          },
+                                        );
+                                      }).toList(),
                                     )
-                                  : CategoryWidget(
-                                      title: homeController
-                                          .itemGroupList[index].grpName,
-                                      itemGroup:
-                                          homeController.itemGroupList[index],
-                                    ),
+                                  : const SizedBox(),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              //top ads
+                              homeController.bannerListTop2.isNotEmpty
+                                  ? FlutterCarousel(
+                                      options: CarouselOptions(
+                                        initialPage: 0,
+                                        enableInfiniteScroll: true,
+                                        viewportFraction: 1,
+                                        showIndicator: false,
+                                        height: 60.0,
+                                      ),
+                                      items: homeController.bannerListTop2
+                                          .map((i) {
+                                        return Builder(
+                                          builder: (BuildContext context) {
+                                            return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 5,
+                                                    top: 5,
+                                                    bottom: 5,
+                                                    left: 5),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  child: FadeInImage.assetNetwork(
+                                                      fit: BoxFit.fill,
+                                                      placeholder:
+                                                          'assets/images/logo.png',
+                                                      image: i.bannerImage
+                                                          .toString()),
+                                                ));
+                                            // return FadeInImage.assetNetwork(
+                                            //     placeholder: 'assets/images/logo.png',
+                                            //     image: i.bannerImage.toString());
+                                          },
+                                        );
+                                      }).toList(),
+                                    )
+                                  : const SizedBox(),
+
+                              //Category
+                              GridView.builder(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, top: 10, right: 10),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  physics: const ClampingScrollPhysics(),
+                                  itemCount: homeController.categoryList.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisSpacing: 15,
+                                          mainAxisSpacing: 5,
+                                          mainAxisExtent: 130,
+                                          crossAxisCount: 4),
+                                  itemBuilder: (_, index) {
+                                    return MainCategoryItem(
+                                        category:
+                                            homeController.categoryList[index]);
+                                  }),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              //Flayer
+                              InkWell(
+                                onTap: () =>
+                                    AppUtils.navigateToPage(PdfViewScreen()),
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child:
+                                        Image.asset('assets/images/ads2.png')),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+
+                              //Item group
+                              ListView.builder(
+                                padding: const EdgeInsets.only(top: 0.0),
+                                itemCount: homeController.itemGroupList.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) => homeController
+                                            .itemGroupList[index].grpType ==
+                                        homeController.grpTypeProduct
+                                    ? ItemsWidget(
+                                        title: homeController
+                                            .itemGroupList[index].grpName,
+                                        products: homeController
+                                            .itemGroupList[index].grpItems,
+                                      )
+                                    : homeController
+                                                .itemGroupList[index].grpType ==
+                                            homeController.grpTypeImage
+                                        ? AdsImageWidget(
+                                            grpDesign: homeController
+                                                .itemGroupList[index].grpDesign
+                                                .toString(),
+                                            title: homeController
+                                                .itemGroupList[index].grpName,
+                                            itemGroup: homeController
+                                                .itemGroupList[index],
+                                          )
+                                        : CategoryWidget(
+                                            title: homeController
+                                                .itemGroupList[index].grpName,
+                                            itemGroup: homeController
+                                                .itemGroupList[index],
+                                          ),
+                              ),
+
+                              const SizedBox(
+                                height: 5,
+                              ),
+
+                              // GridAdsWidget(),
+                              //
+                              // const SizedBox(
+                              //   height: 5,
+                              // ),
+                            ],
+                          ),
                         ),
-
-                        const SizedBox(
-                          height: 5,
-                        ),
-
-
-                        // GridAdsWidget(),
-                        //
-                        // const SizedBox(
-                        //   height: 5,
-                        // ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           )),
     );
