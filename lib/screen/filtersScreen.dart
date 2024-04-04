@@ -146,269 +146,259 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 flex: 18,
                 child: Container(
                   color: silver,
-                  child: Expanded(
-                    child: Row(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                if (mounted) {
-                                  setState(() {
-                                    selectedIndex = 0;
-                                    _controller.jumpToPage(0);
-                                  });
-                                }
-                              },
-                              child: Expanded(
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 50,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                    color: selectedIndex == 0 ? white : silver,
-                                    border: Border.all(
-                                        color: lightGreyColor, width: 1),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(left: 15),
-                                    child: ReusableText(
-                                      title: "Product Type",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (mounted) {
-                                  setState(() {
-                                    selectedIndex = 1;
-                                    _controller.jumpToPage(1);
-                                  });
-                                }
-                              },
-                              child: Expanded(
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 50,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                    color: selectedIndex == 1 ? white : silver,
-                                    border: Border.all(
-                                        color: lightGreyColor, width: 1),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(left: 15),
-                                    child: ReusableText(
-                                      title: "Category",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (mounted) {
-                                  setState(() {
-                                    selectedIndex = 2;
-                                    _controller.jumpToPage(2);
-                                  });
-                                }
-                              },
-                              child: Expanded(
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 50,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                    color: selectedIndex == 2 ? white : silver,
-                                    border: Border.all(
-                                        color: lightGreyColor, width: 1),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(left: 15),
-                                    child: ReusableText(
-                                      title: "Brand",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (mounted) {
-                                  setState(() {
-                                    selectedIndex = 3;
-                                    _controller.jumpToPage(3);
-                                  });
-                                }
-                              },
-                              child: Expanded(
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 50,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                    color: selectedIndex == 3 ? white : silver,
-                                    border: Border.all(
-                                        color: lightGreyColor, width: 1),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(left: 15),
-                                    child: ReusableText(
-                                      title: "Price",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if (mounted) {
+                                setState(() {
+                                  selectedIndex = 0;
+                                  _controller.jumpToPage(0);
+                                });
+                              }
+                            },
                             child: Container(
-                          color: white,
-                          child: PageView(
-                            controller: _controller,
-                            children: [
-                              ListView.builder(
+                              alignment: Alignment.centerLeft,
+                              height: 50,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                color: selectedIndex == 0 ? white : silver,
+                                border: Border.all(
+                                    color: lightGreyColor, width: 1),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: ReusableText(
+                                  title: "Product Type",
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (mounted) {
+                                setState(() {
+                                  selectedIndex = 1;
+                                  _controller.jumpToPage(1);
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              height: 50,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                color: selectedIndex == 1 ? white : silver,
+                                border: Border.all(
+                                    color: lightGreyColor, width: 1),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: ReusableText(
+                                  title: "Category",
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (mounted) {
+                                setState(() {
+                                  selectedIndex = 2;
+                                  _controller.jumpToPage(2);
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              height: 50,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                color: selectedIndex == 2 ? white : silver,
+                                border: Border.all(
+                                    color: lightGreyColor, width: 1),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: ReusableText(
+                                  title: "Brand",
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (mounted) {
+                                setState(() {
+                                  selectedIndex = 3;
+                                  _controller.jumpToPage(3);
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              height: 50,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                color: selectedIndex == 3 ? white : silver,
+                                border: Border.all(
+                                    color: lightGreyColor, width: 1),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: ReusableText(
+                                  title: "Price",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Flexible(
+                          child: Container(
+                        color: white,
+                        child: PageView(
+                          controller: _controller,
+                          children: [
+                            ListView.builder(
+                              padding: const EdgeInsets.only(top: 0),
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: dummyProductType.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return ProductTypeFilterTile(
+                                    title: dummyProductType[index],
+                                    isChecked: dummyProductSelected[index],
+                                  );
+                                }),
+                            ListView.builder(
                                 padding: const EdgeInsets.only(top: 0),
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dummyProductType.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ProductTypeFilterTile(
-                                      title: dummyProductType[index],
-                                      isChecked: dummyProductSelected[index],
-                                    );
-                                  }),
-                              ListView.builder(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dummyCategoryType.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ProductTypeFilterTile(
-                                      title: dummyCategoryType[index],
-                                      isChecked: dummyCategorySelected[index],
-                                    );
-                                  }),
-                              ListView.builder(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dummyBrandType.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ProductTypeFilterTile(
-                                      title: dummyBrandType[index],
-                                      isChecked: dummyBrandSelected[index],
-                                    );
-                                  }),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Choose price Range".tr,
-                                          style: const TextStyle(
-                                            fontFamily: "Inter",
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-
-                                          textAlign: TextAlign.left,
-                                        ),
-                                        const ReusableButton1(
-                                          title:"Reset",
-                                          size: Size(48,22),
-                                          fontSize: 10,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-
-                                          alignment: Alignment.centerLeft,
-                                          height: 36,
-                                          width: 130,
-
-                                          child: const ReusableTextForm(
-                                            contentPadding: EdgeInsets.all(5),
-                                            hintText: "QAR 0",
-                                            borderRadius: 6.0,
-                                            fillColor: silver,
-                                          ),
-                                        ),
-                                        Container(
-                                          alignment: Alignment.centerLeft,
-                                          height: 36,
-                                          width: 130,
-                                          child:  const ReusableTextForm(
-                                            contentPadding: EdgeInsets.all(5),
-                                            hintText: "QAR 200",
-                                            borderRadius: 6.0,
-                                            fillColor: silver,
-                                          ),
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Min".tr,
-                                          style: const TextStyle(
-                                            fontFamily: "Inter",
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: dummyCategoryType.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return ProductTypeFilterTile(
+                                    title: dummyCategoryType[index],
+                                    isChecked: dummyCategorySelected[index],
+                                  );
+                                }),
+                            ListView.builder(
+                                padding: const EdgeInsets.only(top: 0),
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: dummyBrandType.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return ProductTypeFilterTile(
+                                    title: dummyBrandType[index],
+                                    isChecked: dummyBrandSelected[index],
+                                  );
+                                }),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Text(
-                                        "Max".tr,
+                                        "Choose price Range".tr,
+                                        style: const TextStyle(
+                                          fontFamily: "Inter",
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      const ReusableButton1(
+                                        title:"Reset",
+                                        size: Size(48,22),
+                                        fontSize: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+
+                                        alignment: Alignment.centerLeft,
+                                        height: 36,
+                                        width: 130,
+
+                                        child: const ReusableTextForm(
+                                          contentPadding: EdgeInsets.all(5),
+                                          hintText: "QAR 0",
+                                          borderRadius: 6.0,
+                                          fillColor: silver,
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        height: 36,
+                                        width: 130,
+                                        child:  const ReusableTextForm(
+                                          contentPadding: EdgeInsets.all(5),
+                                          hintText: "QAR 200",
+                                          borderRadius: 6.0,
+                                          fillColor: silver,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Min".tr,
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 10,
                                           fontWeight: FontWeight.w400,
                                         ),),
-                                      ],
-                                    ),
+                                    Text(
+                                      "Max".tr,
+                                      style: const TextStyle(
+                                        fontFamily: "Inter",
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                      ),),
+                                    ],
                                   ),
-                                  RangeSlider(
-                                    values: _currentRangeValues,
-                                    min: 0,
-                                    max: 1000,
-                                    divisions: 20,
-                              activeColor: primaryColor,
-                                    onChanged: (RangeValues values) {
-                                      setState(() {
-                                        _currentRangeValues = values;
-                                      });
-                                    },
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ))
-                      ],
-                    ),
+                                ),
+                                RangeSlider(
+                                  values: _currentRangeValues,
+                                  min: 0,
+                                  max: 1000,
+                                  divisions: 20,
+                            activeColor: primaryColor,
+                                  onChanged: (RangeValues values) {
+                                    setState(() {
+                                      _currentRangeValues = values;
+                                    });
+                                  },
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ))
+                    ],
                   ),
                 ),
               ),
