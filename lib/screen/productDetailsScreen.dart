@@ -185,7 +185,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             // ),
                             ReusableText(
                               title:
-                                  "QAR ${productDetailsController.productDetails!.offerPrice}",
+                                  "QAR ${productDetailsController.productDetails!.offerPrice == "0.00" ? productDetailsController.productDetails!.sellingPrice : productDetailsController.productDetails!.offerPrice}",
                               size: 18.0,
                               weight: FontWeight.w600,
                             ),
@@ -332,7 +332,14 @@ class _AddButtonState extends State<AddButton> {
                             productDetailsController.productDetails!.storeId
                                 .toString(),
                             productDetailsController.productDetails!.offerPrice
-                                .toString(),
+                                        .toString() ==
+                                    "0"
+                                ? productDetailsController
+                                    .productDetails!.sellingPrice
+                                    .toString()
+                                : productDetailsController
+                                    .productDetails!.offerPrice
+                                    .toString(),
                             "1");
                         setState(() {
                           productDetailsController.productDetails!.cartCount =
@@ -363,7 +370,10 @@ class _AddButtonState extends State<AddButton> {
                     productDetailsController.productDetails!.productId
                         .toString(),
                     productDetailsController.productDetails!.storeId.toString(),
-                    productDetailsController.productDetails!.offerPrice,
+                    productDetailsController.productDetails!.offerPrice ==
+                            "0.00"
+                        ? productDetailsController.productDetails!.sellingPrice
+                        : productDetailsController.productDetails!.offerPrice,
                     "1");
                 setState(() {
                   productDetailsController.productDetails!.cartCount =

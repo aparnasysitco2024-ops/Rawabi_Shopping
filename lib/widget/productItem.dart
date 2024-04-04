@@ -39,9 +39,10 @@ class _ProductItemState extends State<ProductItem> {
       },
       child: Container(
         width: 150,
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: Colors.white,border: Border.all(color: silver)),
+            color: Colors.white,
+            border: Border.all(color: silver)),
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
@@ -103,7 +104,6 @@ class _ProductItemState extends State<ProductItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   // SvgPicture.asset(
                   //   "assets/icons/fastdelivery.svg",
                   //   fit: BoxFit.fill,
@@ -133,14 +133,19 @@ class _ProductItemState extends State<ProductItem> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          widget.products.offerPrice == "0.00"
+                              ? SizedBox()
+                              : ReusableText(
+                                  title:
+                                      widget.products.sellingPrice.toString(),
+                                  size: 8,
+                                  strike: true,
+                                  color: grey1,
+                                ),
                           ReusableText(
-                            title: widget.products.sellingPrice.toString(),
-                            size: 8,
-                            strike: true,
-                            color: grey1,
-                          ),
-                          ReusableText(
-                            title: widget.products.offerPrice,
+                            title: widget.products.offerPrice == "0.00"
+                                ? widget.products.sellingPrice
+                                : widget.products.offerPrice,
                             size: 12,
                             weight: FontWeight.bold,
                           ),
@@ -152,7 +157,11 @@ class _ProductItemState extends State<ProductItem> {
                                 widget.cartController.addToCart(
                                     widget.products.productId.toString(),
                                     widget.products.storeId.toString(),
-                                    widget.products.offerPrice.toString(),
+                                    widget.products.offerPrice.toString() ==
+                                            "0.00"
+                                        ? widget.products.sellingPrice
+                                            .toString()
+                                        : widget.products.offerPrice.toString(),
                                     "1");
                                 setState(() {
                                   widget.products.cartCount =
@@ -215,7 +224,13 @@ class _ProductItemState extends State<ProductItem> {
                                       widget.cartController.addToCart(
                                           widget.products.productId.toString(),
                                           widget.products.storeId.toString(),
-                                          widget.products.offerPrice.toString(),
+                                          widget.products.offerPrice
+                                                      .toString() ==
+                                                  "0.00"
+                                              ? widget.products.sellingPrice
+                                                  .toString()
+                                              : widget.products.offerPrice
+                                                  .toString(),
                                           "1");
                                       setState(() {
                                         widget.products.cartCount =
