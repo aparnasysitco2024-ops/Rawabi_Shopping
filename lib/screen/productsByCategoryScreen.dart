@@ -8,6 +8,7 @@ import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
+import 'package:rawabi/widget/sort_options.dart';
 
 import '../controller/homeController.dart';
 import '../controller/searchController.dart';
@@ -191,7 +192,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   ),
                   InkWell(
                     onTap: () {
-                     AppUtils.navigateToPage(FiltersScreen());
+                      AppUtils.navigateToPage(FiltersScreen());
                     },
                     child: Row(
                       children: [
@@ -219,20 +220,29 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   const SizedBox(
                     width: 15,
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/sort.svg",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Sort",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: ((context) {
+                            return SortOptionsWidget();
+                          }));
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/sort.svg",
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const ReusableText(
+                          title: "Sort",
+                          size: 12,
+                          weight: FontWeight.w800,
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 20,

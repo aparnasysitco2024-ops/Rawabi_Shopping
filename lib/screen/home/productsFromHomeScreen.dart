@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../../controller/homeController.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/constants.dart';
+import '../../widget/sort_options.dart';
 
 // ignore: must_be_immutable
 class ProductsFromHomeScreen extends StatefulWidget {
@@ -176,20 +179,25 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                   const SizedBox(
                     width: 15,
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/filter.svg",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Filter",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
+                  InkWell(
+                    onTap: (){
+                     AppUtils.navigateToPage(FiltersScreen());
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/filter.svg",
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const ReusableText(
+                          title: "Filter",
+                          size: 12,
+                          weight: FontWeight.w800,
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
@@ -201,20 +209,29 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                   const SizedBox(
                     width: 15,
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/sort.svg",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const ReusableText(
-                        title: "Sort",
-                        size: 12,
-                        weight: FontWeight.w800,
-                      )
-                    ],
+                  InkWell(
+                    onTap: (){
+                      showModalBottomSheet(
+                          context: context,
+                          builder: ((context) {
+                            return SortOptionsWidget();
+                          }));
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/sort.svg",
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const ReusableText(
+                          title: "Sort",
+                          size: 12,
+                          weight: FontWeight.w800,
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 20,
