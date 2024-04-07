@@ -25,7 +25,7 @@ class BaseClient {
       "Storeid": await StorageManager.readData(StorageManager.keyStoreID),
 
       // "Guestid": await StorageManager.readData(StorageManager.keyGuestID),
-      "Lang": Get.locale?.languageCode == 'ar' ? "ar" : "English",
+      "Lang": await StorageManager.getLanguage(),
     };
     log('header=$header');
     return header;

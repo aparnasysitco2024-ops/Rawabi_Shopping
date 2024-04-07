@@ -15,8 +15,9 @@ import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
 
-import '../widget/commonwidget/reusable_text.dart';
-import 'home/pdfViewScreen.dart';
+import '../../widget/commonwidget/reusable_text.dart';
+import '../home/pdfViewScreen.dart';
+import 'languageScreen.dart';
 
 class AccountScreen extends StatelessWidget {
   AccountScreen({super.key});
@@ -140,11 +141,11 @@ class AccountScreen extends StatelessWidget {
                           left: 24,
                           top: 14,
                           right: 24,
-                          child: InkWell(onTap:() =>
-                              AppUtils.navigateToPage(PdfViewScreen()),
+                          child: InkWell(
+                            onTap: () =>
+                                AppUtils.navigateToPage(PdfViewScreen()),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
                                   "assets/images/promotion.png",
@@ -154,9 +155,8 @@ class AccountScreen extends StatelessWidget {
                                 ),
                                 Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ReusableText(
                                         title: "our latest deals here".tr,
@@ -177,8 +177,8 @@ class AccountScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(4),
                                   decoration: const BoxDecoration(
                                       color: primaryColor,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(3))),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(3))),
                                   child: Center(
                                     child: ReusableText(
                                       title: "View".tr,
@@ -248,8 +248,11 @@ class AccountScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                        const ProfileTile(
-                            image: "assets/icons/globe.svg", title: "Language"),
+                        ProfileTile(
+                            onPressed: () =>
+                                AppUtils.navigateToPage(LanguageScreen()),
+                            image: "assets/icons/globe.svg",
+                            title: "Language"),
                         const Divider(
                           thickness: 1,
                         ),

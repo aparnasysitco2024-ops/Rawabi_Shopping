@@ -48,7 +48,7 @@ class StorageManager {
 
   static Future<String> getLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    String obj = prefs.getString(keyLanguage) ?? setAndReturnLang("eng");
+    String obj = prefs.getString(keyLanguage) ?? setAndReturnLang("English");
     return obj;
   }
 

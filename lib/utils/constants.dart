@@ -29,8 +29,9 @@ const addtowishUrl = '${baseURL}addtowish';
 const wishListUrl = '${baseURL}wishList';
 const deletewishUrl = '${baseURL}deletewish';
 const myProfileUrl = '${baseURL}myprofile';
+const languageUrl = '${baseURL}language';
 
 
 //keys
 const token = "Rawabi_jc";
-const productItemHeight = 270.0;
+const productItemHeight = 272.0;
