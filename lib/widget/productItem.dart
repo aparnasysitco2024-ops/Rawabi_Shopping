@@ -59,8 +59,8 @@ class _ProductItemState extends State<ProductItem> {
                         decoration: const BoxDecoration(
                             color: lightPink,
                             borderRadius: BorderRadius.all(Radius.circular(4))),
-                        child: const ReusableText(
-                          title: "Best seller",
+                        child:  ReusableText(
+                          title: "Best seller".tr,
                           color: primaryColor,
                           size: 10,
                         ),
@@ -168,7 +168,7 @@ class _ProductItemState extends State<ProductItem> {
                                       (widget.products.cartCount! + 1);
                                 });
                               },
-                              title: "Add",
+                              title: "Add".tr,
                               size: const Size(70, 27),
                               fontSize: 12,
                               fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonWidget/reusable_text.dart';
 
@@ -33,7 +34,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ReusableText(
-            title: "Sort by",
+            title: "Sort by".tr,
             size: 14,
             weight: FontWeight.w600,
           ),
@@ -54,7 +55,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ReusableText(
-                  title: "Relevance",
+                  title: "Relevance".tr,
                   size: 12,
                   weight: FontWeight.w600,
                 ),
@@ -85,7 +86,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ReusableText(
-                  title: "Price(lowest first)",
+                  title: "Price(lowest first)".tr,
                   size: 12,
                   weight: FontWeight.w600,
                 ),
@@ -116,7 +117,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ReusableText(
-                  title: "Price(highest first)",
+                  title: "Price(highest first)".tr,
                   size: 12,
                   weight: FontWeight.w600,
                 ),
@@ -147,7 +148,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ReusableText(
-                  title: "Newest",
+                  title: "Newest".tr,
                   size: 12,
                   weight: FontWeight.w600,
                 ),
@@ -178,7 +179,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ReusableText(
-                  title: "Discount",
+                  title: "Discount".tr,
                   size: 12,
                   weight: FontWeight.w600,
                 ),

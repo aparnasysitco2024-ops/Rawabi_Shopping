@@ -55,9 +55,9 @@ class AccountScreen extends StatelessWidget {
                     onTap: () {
                       AppUtils.navigateToPage(const MyOrdersTabScreen());
                     },
-                    child: const SquareCard(
+                    child:  SquareCard(
                         image: "assets/icons/checklist.svg",
-                        title: "My Orders"),
+                        title: "My Orders".tr),
                   ),
                   Container(
                     height: 83,
@@ -92,10 +92,10 @@ class AccountScreen extends StatelessWidget {
                   /*SquareCard(
                       image: "assets/icons/ahlan2.svg",
                       title: "Ahlan Rewards"),*/
-                  const SquareCard(
-                      image: "assets/icons/offers.svg", title: "My Offers"),
-                  const SquareCard(
-                      image: "assets/icons/mycart.svg", title: "My Cart"),
+                   SquareCard(
+                      image: "assets/icons/offers.svg", title: "My Offers".tr),
+                   SquareCard(
+                      image: "assets/icons/mycart.svg", title: "My Cart".tr),
                 ],
               )),
           Expanded(
@@ -210,9 +210,9 @@ class AccountScreen extends StatelessWidget {
                                     onTap: () {
                                       // AppUtils.navigateToPage(const DeliveryModeScreen());
                                     },
-                                    child: const ProfileTile(
+                                    child:  ProfileTile(
                                         image: "assets/icons/eReceipt.svg",
-                                        title: "E-Receipt"),
+                                        title: "E-Receipt".tr),
                                   ),
                                   const Divider(
                                     thickness: 1,
@@ -224,9 +224,9 @@ class AccountScreen extends StatelessWidget {
                             Navigator.pushNamed(context, '/WishlistScreen');
                             //AppUtils.navigateToPage(WishlistScreen());
                           },
-                          child: const ProfileTile(
+                          child:  ProfileTile(
                               image: "assets/icons/love.svg",
-                              title: "Wishlist"),
+                              title: "Wishlist".tr),
                         ),
                         const Divider(
                           thickness: 1,
@@ -240,9 +240,9 @@ class AccountScreen extends StatelessWidget {
                                         AppUtils.navigateToPage(
                                             MyAddressesScreen());
                                       },
-                                      child: const ProfileTile(
+                                      child:  ProfileTile(
                                           image: "assets/icons/location.svg",
-                                          title: "Address")),
+                                          title: "Address".tr)),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -252,7 +252,7 @@ class AccountScreen extends StatelessWidget {
                             onPressed: () =>
                                 AppUtils.navigateToPage(LanguageScreen()),
                             image: "assets/icons/globe.svg",
-                            title: "Language"),
+                            title: "Language".tr),
                         const Divider(
                           thickness: 1,
                         ),
@@ -265,16 +265,16 @@ class AccountScreen extends StatelessWidget {
                                       AppUtils.navigateToPage(
                                           MyProfileScreen());
                                     },
-                                    child: const ProfileTile(
+                                    child:  ProfileTile(
                                         image: "assets/icons/user.svg",
-                                        title: "My Profile"),
+                                        title: "My Profile".tr),
                                   ),
                                   const Divider(
                                     thickness: 1,
                                   ),
-                                  const ProfileTile(
+                                   ProfileTile(
                                       image: "assets/icons/gift-card.svg",
-                                      title: "Gift Cards"),
+                                      title: "Gift Cards".tr),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -284,16 +284,16 @@ class AccountScreen extends StatelessWidget {
                           onTap: () {
                             AppUtils.navigateToPage(NotificationsScreen());
                           },
-                          child: const ProfileTile(
+                          child:  ProfileTile(
                               image: "assets/icons/notification2.svg",
-                              title: "Notifications"),
+                              title: "Notifications".tr),
                         ),
                         const Divider(
                           thickness: 1,
                         ),
-                        const ProfileTile(
+                         ProfileTile(
                             image: "assets/icons/My-shops.svg",
-                            title: "Our Store"),
+                            title: "Our Store".tr),
                         const Divider(
                           thickness: 1,
                         ),
@@ -301,17 +301,17 @@ class AccountScreen extends StatelessWidget {
                             ? SizedBox()
                             : Column(
                                 children: [
-                                  const ProfileTile(
+                                   ProfileTile(
                                       image: "assets/icons/returns.svg",
-                                      title: "My Returns"),
+                                      title: "My Returns".tr),
                                   const Divider(
                                     thickness: 1,
                                   ),
                                 ],
                               ),
-                        const ProfileTile(
+                         ProfileTile(
                             image: "assets/icons/feedback.svg",
-                            title: "Feedback"),
+                            title: "Feedback".tr),
                         const Divider(
                           thickness: 1,
                         ),
@@ -326,7 +326,7 @@ class AccountScreen extends StatelessWidget {
                                           "https://dev.rawabihypermarket.com/b2c/other/faq.php",
                                       title: "Help")),
                               image: "assets/icons/Help.svg",
-                              title: "Help"),
+                              title: "Help".tr),
                         ),
                         const Divider(
                           thickness: 1,
@@ -337,7 +337,7 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/about.php",
                                 title: "About Us")),
                             image: "assets/icons/information.svg",
-                            title: "About Us"),
+                            title: "About Us".tr),
                         const Divider(
                           thickness: 1,
                         ),
@@ -347,7 +347,7 @@ class AccountScreen extends StatelessWidget {
                                   "https://dev.rawabihypermarket.com/b2c/other/terms.php",
                               title: "Terms & Conditions")),
                           image: "assets/icons/contract.svg",
-                          title: "Terms & Conditions",
+                          title: "Terms & Conditions".tr,
                         ),
                         const Divider(
                           thickness: 1,
@@ -358,7 +358,7 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/return.php",
                                 title: "Return Policy")),
                             image: "assets/icons/turn-back.svg",
-                            title: "Return Policy"),
+                            title: "Return Policy".tr),
                         const Divider(
                           thickness: 1,
                         ),
@@ -368,7 +368,7 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/service.php",
                                 title: "Service & Warranty")),
                             image: "assets/icons/verified2.svg",
-                            title: "Service & Warranty"),
+                            title: "Service & Warranty".tr),
                         const Divider(
                           thickness: 1,
                         ),
@@ -377,9 +377,9 @@ class AccountScreen extends StatelessWidget {
                                 onTap: () {
                                   AppUtils.navigateToPage(LoginScreen());
                                 },
-                                child: const ProfileTile(
+                                child:  ProfileTile(
                                     image: "assets/icons/signin.svg",
-                                    title: "Sign In"),
+                                    title: "Sign In".tr),
                               )
                             : InkWell(
                                 onTap: () async {
@@ -387,8 +387,8 @@ class AccountScreen extends StatelessWidget {
                                     context: Get.context!,
                                     builder: (context) => AlertDialog(
                                       title: Text("Rawabi Shopping".tr),
-                                      content: const Text(
-                                          'Are you sure you would like to Sign out ?'),
+                                      content:  Text(
+                                          'Are you sure you would like to Sign out ?'.tr),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {
@@ -409,9 +409,9 @@ class AccountScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: const ProfileTile(
+                                child:  ProfileTile(
                                     image: "assets/icons/exit.svg",
-                                    title: "Sign Out"),
+                                    title: "Sign Out".tr),
                               ),
                       ],
                     ),

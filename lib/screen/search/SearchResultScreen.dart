@@ -21,112 +21,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   Widget build(BuildContext context) {
     // searchController.searchString.value="";
     return Obx(() => Column(children: [
-          /*Container(
-            height: 150,
-            color: white,
-            width: double.maxFinite,
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 60,
-                ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    InkWell(
-                      child: SvgPicture.asset("assets/icons/back.svg"),
-                      onTap: () {
-                        Get.back();
-                        Get.delete<SearchController>();
-                      },
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Flexible(
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        height: 50,
-                        decoration: const BoxDecoration(
-                            color: silver,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(7))),
-                        margin: const EdgeInsets.only(right: 20),
-                        child: Row(children: [
-                          Container(
-                            width: 220,
-                            height: 42,
-                            alignment: Alignment.centerLeft,
-                            decoration: const BoxDecoration(
-                                color: silver,
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(4))),
-                            padding: const EdgeInsets.only(right: 10),
-                            child: TextField(
-                              autofocus: true,
-                              controller:
-                              searchController.searchTextController,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: silver,
-                                // hintText:
-                                //     searchController.searchString.value,
-                                contentPadding:
-                                const EdgeInsets.only(left: 10),
-                                prefixIcon: const Icon(
-                                  Icons.search,
-                                  color: blackLight,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
-                                ),
-                              ),
-                              onSubmitted: (value) {
-                                if(value.isNotEmpty){
-                                  //print("searching for $value");
-                                  searchController.searchType.value = "word";
-                                  searchController.searchString.value = value;
-                                  searchController.getProductsByWordSearch();
-                                  setState(() {});
-                                }
 
-                              },
-                              onTap: (){
-                                setState(() {
-                                  searchController.searchTextController.text="";
-                                });
-                              },
-                            ),
-                          ),
-                          const Spacer(),
-                          InkWell(
-                              onTap: () {
-                                searchController.searchType.value =
-                                "barcode";
-                                searchController.scanBarcodeNormal();
-                                //  print("searching for ${searchController.searchString}");
-                                searchController.getProductsByBarcodeSearch();
-                                setState(() {});
-                              },
-                              child:
-                              SvgPicture.asset("assets/icons/scan.svg"))
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),*/
           searchController.loading.value
               ? const Flexible(
                   child: SizedBox(
@@ -177,8 +72,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SvgPicture.asset("assets/icons/logo.svg"),
-                              const ReusableText(
-                                title: "No Item Found!!",
+                               ReusableText(
+                                title: "No Item Found!!".tr,
                               )
                             ]),
                       ),

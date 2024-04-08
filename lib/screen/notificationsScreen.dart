@@ -70,7 +70,7 @@ class NotificationsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      const SearchOrdersWidget(hintText: "Search notification",),
+                       SearchOrdersWidget(hintText: "Search notification".tr,),
                     ],
                   ),
                 ),

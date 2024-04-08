@@ -114,8 +114,8 @@ class MyAddressesScreen extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset("assets/icons/logo.svg"),
-                                      const ReusableText(
-                                        title: "No address added!!",
+                                       ReusableText(
+                                        title: "No address added!!".tr,
                                       )
                                     ]),
                               ),
@@ -132,7 +132,7 @@ class MyAddressesScreen extends StatelessWidget {
                             onPressed: () {
                               AppUtils.navigateToPage(AddNewAddressesScreen());
                             },
-                            title: "Add New Address",
+                            title: "Add New Address".tr,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           )),

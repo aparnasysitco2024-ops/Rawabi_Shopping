@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/screen/myOrder/orderDetailsScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -43,7 +44,7 @@ class OrderItemTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReusableText(
-                    title: "Order #${myOrder.refno}",
+                    title: "Order #".tr+"${myOrder.refno}",
                     size: 10,
                     weight: FontWeight.w600,
                     color: darkGrey,
@@ -61,7 +62,7 @@ class OrderItemTile extends StatelessWidget {
                     weight: FontWeight.w400,
                   ),
                   ReusableText(
-                    title: "Amount: QAR ${myOrder.payable}",
+                    title: "Amount: ".tr+"QAR ${myOrder.payable}",
                     color: darkGrey,
                     size: 10,
                     weight: FontWeight.w400,

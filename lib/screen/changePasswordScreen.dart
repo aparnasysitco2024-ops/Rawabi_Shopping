@@ -103,7 +103,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             borderSide: BorderSide.none,
                           ),
-                          labelText: 'Enter Current Password',
+                          labelText: 'Enter Current Password'.tr,
                         ),
                         onChanged: (value) {},
                       ),
@@ -135,7 +135,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             borderSide: BorderSide.none,
                           ),
-                          labelText: 'Enter New Password',
+                          labelText: 'Enter New Password'.tr,
                         ),
                         onChanged: (value) {},
                       ),
@@ -152,11 +152,11 @@ class ChangePasswordScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    const ReusableText(
-                      title: "The password must be between 6 to 20 \n"
-                          "characters and must contain at least\n"
-                          "one lowercase, one uppercase, one\n"
-                          "special character, and one number.",
+                     ReusableText(
+                      title: "The password must be between 6 to 20".tr +" \n"+
+                          "characters and must contain at least".tr+"\n"+
+                          "one lowercase, one uppercase, one".tr+"\n"+
+                          "special character, and one number.".tr,
                       size: 12,
                       weight: FontWeight.w400,
                     ),
@@ -187,7 +187,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             borderSide: BorderSide.none,
                           ),
-                          labelText: 'Confirm Password',
+                          labelText: 'Confirm Password'.tr,
                         ),
                         onChanged: (value) {},
                       ),
@@ -195,8 +195,8 @@ class ChangePasswordScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    const ReusableButton1(
-                      title: "Reset",
+                     ReusableButton1(
+                      title: "Reset".tr,
                     ),
                   ],
                 ),

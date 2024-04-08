@@ -83,8 +83,8 @@ class TrackOrderScreen extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        const ReusableText(
-                          title: "Deliver today at 5.00 pm",
+                         ReusableText(
+                          title: "Deliver today at 5.00 pm".tr,
                           size: 10,
                           weight: FontWeight.w600,
                           color: white,
@@ -132,8 +132,7 @@ class TrackOrderScreen extends StatelessWidget {
                               ),
                               ReusableText(
                                 title:
-                                    "Ilyas Doodler, A 38, A wakra Shopping Complex, Al wakra, Doha,Qatar."
-                                        .tr,
+                                    "Ilyas Doodler, A 38, A wakra Shopping Complex, Al wakra, Doha,Qatar.",
                                 size: 12,
                                 weight: FontWeight.w400,
                               ),
@@ -163,12 +162,12 @@ class TrackOrderScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Column(
+                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ReusableText(
-                                title: "Total Amount",
+                                title: "Total Amount".tr,
                                 size: 12,
                                 weight: FontWeight.w400,
                               ),
@@ -192,8 +191,8 @@ class TrackOrderScreen extends StatelessWidget {
                                   color: pink,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(100))),
-                              child: const ReusableText(
-                                title: "Track Your Order",
+                              child:  ReusableText(
+                                title: "Track Your Order".tr,
                                 color: primaryColor,
                                 size: 12,
                                 weight: FontWeight.w600,
@@ -247,12 +246,12 @@ class TrackOrderScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Column(
+                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "Order placed",
+                                          title: "Order placed".tr,
                                           size: 10,
                                           weight: FontWeight.w600,
                                         ),
@@ -304,17 +303,17 @@ class TrackOrderScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Column(
+                                     Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "Item Processed",
+                                          title: "Item Processed".tr,
                                           size: 10,
                                           weight: FontWeight.w600,
                                         ),
                                         ReusableText(
-                                          title: "Bagged from Shop at 2:45 Pm",
+                                          title: "Bagged from Shop at 2:45 Pm".tr,
                                           size: 10,
                                           color: blue,
                                           weight: FontWeight.w400,
@@ -358,18 +357,18 @@ class TrackOrderScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Column(
+                                     Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "Delivering",
+                                          title: "Delivering".tr,
                                           size: 10,
                                           color: primaryColor,
                                           weight: FontWeight.w600,
                                         ),
                                         ReusableText(
-                                          title: "Your delivery is on the way",
+                                          title: "Your delivery is on the way".tr,
                                           size: 10,
                                           color: blackLight,
                                           weight: FontWeight.w400,
@@ -406,18 +405,18 @@ class TrackOrderScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Column(
+                                     Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "Item Delivered",
+                                          title: "Item Delivered".tr,
                                           size: 10,
                                           color: primaryColor,
                                           weight: FontWeight.w600,
                                         ),
                                         ReusableText(
-                                          title: "Expected at 3:00 Pm Today",
+                                          title: "Expected at 3:00 Pm Today".tr,
                                           size: 10,
                                           color: blackLight,
                                           weight: FontWeight.w400,
@@ -444,8 +443,8 @@ class TrackOrderScreen extends StatelessWidget {
                                     color: skyBlue,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(100))),
-                                child: const ReusableText(
-                                  title: "Cancel Order",
+                                child:  ReusableText(
+                                  title: "Cancel Order".tr,
                                   color: blackLight,
                                   size: 12,
                                   weight: FontWeight.w600,

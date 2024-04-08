@@ -87,7 +87,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           width: 5,
                         ),
                         ReusableText(
-                          title: "deliver to: " +
+                          title: "deliver to: ".tr +
                               homeController.defaultAddress.value,
                           size: 12,
                           weight: FontWeight.bold,
@@ -198,8 +198,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     .productDetails!.shortDesc!.isNotEmpty
                                 ? Column(
                                     children: [
-                                      const ReusableText(
-                                        title: "Overview",
+                                       ReusableText(
+                                        title: "Overview".tr,
                                         size: 14.0,
                                         weight: FontWeight.w600,
                                       ),
@@ -223,8 +223,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     .productDetails!.detailedDesc!.isNotEmpty
                                 ? Column(
                                     children: [
-                                      const ReusableText(
-                                        title: "Details",
+                                       ReusableText(
+                                        title: "Details".tr,
                                         size: 14.0,
                                         weight: FontWeight.w600,
                                       ),

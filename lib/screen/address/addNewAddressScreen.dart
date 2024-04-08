@@ -134,12 +134,12 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     showDropdownIcon: true,
                                     keyboardType: const TextInputType.numberWithOptions(),
                                     dropdownIconPosition: IconPosition.trailing,
-                                    decoration: const InputDecoration(
+                                    decoration:  InputDecoration(
                                       fillColor: lightGreyColor,
                                       filled: true,
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 5),
-                                      hintText: "Mobile Number",
+                                      hintText: "Mobile Number".tr,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6)),
@@ -161,7 +161,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     hintText: "Zone".tr,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter zone';
+                                        return 'Please enter zone'.tr;
                                       }
                                       return null;
                                     },
@@ -180,7 +180,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     hintText: "Building Number".tr,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter Building Number';
+                                        return 'Please enter Building Number'.tr;
                                       }
                                       return null;
                                     },
@@ -198,7 +198,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     hintText: "Apartment/Building/Block".tr,
                                     validator: (value) {
                                       if (value == null) {
-                                        return 'Please enter Apartment/Building/Block';
+                                        return 'Please enter Apartment/Building/Block'.tr;
                                       }
                                       return null;
                                     },
@@ -229,7 +229,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     hintText: "Address ".tr,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter Address';
+                                        return 'Please enter Address'.tr;
                                       }
                                       return null;
                                     },
@@ -245,7 +245,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     children: [
                                       Flexible(
                                         child: ListTile(
-                                          title: const Text('Work'),
+                                          title:  Text('Work'.tr),
                                           leading: Radio<int>(
                                             value: 1,
                                             activeColor: primaryColor,
@@ -261,7 +261,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                       ),
                                       Flexible(
                                         child: ListTile(
-                                          title: const Text('Home'),
+                                          title:  Text('Home'.tr),
                                           leading: Radio<int>(
                                             value: 2,
                                             activeColor: primaryColor,

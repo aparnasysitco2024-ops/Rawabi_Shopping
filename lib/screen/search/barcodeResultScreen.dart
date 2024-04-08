@@ -141,8 +141,8 @@ class _BarcodeResultScreenState extends State<BarcodeResultScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset("assets/icons/logo.svg"),
-                const ReusableText(
-                  title: "No Item Found!!",
+                 ReusableText(
+                  title: "No Item Found!!".tr,
                 )
               ]),
         ),

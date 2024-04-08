@@ -61,7 +61,7 @@ class CartScreen extends StatelessWidget {
                           ),
                           ReusableText(
                             title:
-                                "deliver to: ${homeController.defaultAddress.value}",
+                                "deliver to:".tr+"${homeController.defaultAddress.value}",
                             size: 12,
                             weight: FontWeight.bold,
                             color: Colors.black,
@@ -400,8 +400,8 @@ class CartScreen extends StatelessWidget {
                                           const SizedBox(
                                             width: 5,
                                           ),
-                                          const ReusableText(
-                                            title: "Apply Coupon",
+                                           ReusableText(
+                                            title: "Apply Coupon".tr,
                                             size: 14,
                                             weight: FontWeight.w600,
                                             color: Colors.black,
@@ -436,11 +436,11 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                     width: double.maxFinite,
                                   ),
-                                  const Padding(
+                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 6.0),
                                     child: ReusableText(
-                                      title: "Order Summary",
+                                      title: "Order Summary".tr,
                                       size: 14,
                                       weight: FontWeight.w600,
                                       color: Colors.black,
@@ -461,8 +461,8 @@ class CartScreen extends StatelessWidget {
                                       children: [
                                         Row(
                                           children: [
-                                            const ReusableText(
-                                              title: "Cart Total",
+                                             ReusableText(
+                                              title: "Cart Total".tr,
                                               size: 12,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -481,8 +481,8 @@ class CartScreen extends StatelessWidget {
                                             ? SizedBox()
                                             : Row(
                                                 children: [
-                                                  const ReusableText(
-                                                    title: "Delivery",
+                                                   ReusableText(
+                                                    title: "Delivery".tr,
                                                     size: 12,
                                                     weight: FontWeight.w600,
                                                     color: Colors.black,
@@ -499,8 +499,8 @@ class CartScreen extends StatelessWidget {
                                               ),
                                         Row(
                                           children: [
-                                            const ReusableText(
-                                              title: "Bag Fee",
+                                             ReusableText(
+                                              title: "Bag Fee".tr,
                                               size: 12,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -520,8 +520,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            const ReusableText(
-                                              title: "Grand Total",
+                                             ReusableText(
+                                              title: "Grand Total".tr,
                                               size: 12,
                                               weight: FontWeight.bold,
                                               color: Colors.black,
@@ -539,10 +539,10 @@ class CartScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const Padding(
+                                   Padding(
                                     padding: EdgeInsets.only(left: 18.0),
                                     child: ReusableText(
-                                      title: "Inclusive of all taxes",
+                                      title: "Inclusive of all taxes".tr,
                                       size: 10,
                                       weight: FontWeight.w400,
                                       color: Colors.black,
@@ -576,8 +576,8 @@ class CartScreen extends StatelessWidget {
                                               weight: FontWeight.bold,
                                               color: Colors.black,
                                             ),
-                                            const ReusableText(
-                                              title: "Total amount",
+                                             ReusableText(
+                                              title: "Total amount".tr,
                                               size: 10,
                                               weight: FontWeight.w400,
                                               color: Colors.black,
@@ -629,8 +629,8 @@ class CartScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset("assets/icons/logo.svg"),
-                                    const ReusableText(
-                                      title: "Your cart is empty!!",
+                                     ReusableText(
+                                      title: "Your cart is empty!!".tr,
                                     )
                                   ]),
                             ),

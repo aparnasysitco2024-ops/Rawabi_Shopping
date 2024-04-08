@@ -243,7 +243,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   SizedBox(
                     height: 40,
                     child: ReusableButton1(
-                      title: "Confirm Location",
+                      title: "Confirm Location".tr,
                       backgroundColor: address.isEmpty ? silver : primaryColor,
                       onPressed: () {
                         if (address.isNotEmpty) {

@@ -97,7 +97,7 @@ class MyProfileScreen extends StatelessWidget {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Name",
+                                    hintText: "Name".tr,
                                     text: homeController.myProfile.username),
                               ),
                               const SizedBox(
@@ -106,7 +106,7 @@ class MyProfileScreen extends StatelessWidget {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Email",
+                                    hintText: "Email".tr,
                                     text: homeController.myProfile.email),
                               ),
                               const SizedBox(
@@ -115,7 +115,7 @@ class MyProfileScreen extends StatelessWidget {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Mobile",
+                                    hintText: "Mobile".tr,
                                     text: homeController.myProfile.phone),
                               ),
                               // SizedBox(
@@ -184,8 +184,8 @@ class MyProfileScreen extends StatelessWidget {
               color: white,
               padding: const EdgeInsets.only(
                   left: 18, right: 18, top: 10, bottom: 20),
-              child: const ReusableButton1(
-                title: "Save and Update",
+              child:  ReusableButton1(
+                title: "Save and Update".tr,
               ),
             ),
             Container(
@@ -206,15 +206,15 @@ class MyProfileScreen extends StatelessWidget {
                       onTap: () {
                         AppUtils.navigateToPage(const ChangePasswordScreen());
                       },
-                      child: const ProfileTile(
+                      child:  ProfileTile(
                           image: "assets/icons/lock.svg",
-                          title: "Change Password")),
+                          title: "Change Password".tr)),
                   const Divider(
                     thickness: 1,
                   ),
-                  const ProfileTile(
+                   ProfileTile(
                       image: "assets/icons/delete.svg",
-                      title: "Delete Account"),
+                      title: "Delete Account".tr),
                 ],
               ),
             ),

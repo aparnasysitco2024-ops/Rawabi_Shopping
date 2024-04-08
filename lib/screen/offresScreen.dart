@@ -75,8 +75,8 @@ class _OffersScreenState extends State<OffersScreen> {
                     const SizedBox(
                       width: 5,
                     ),
-                    const ReusableText(
-                      title: "Search",
+                     ReusableText(
+                      title: "Search".tr,
                     ),
                   ],
                 ),
@@ -105,8 +105,8 @@ class _OffersScreenState extends State<OffersScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SvgPicture.asset("assets/icons/logo.svg"),
-                    const ReusableText(
-                      title: "No offer available !!",
+                     ReusableText(
+                      title: "No offer available !!".tr,
                     )
                   ]),
             ),

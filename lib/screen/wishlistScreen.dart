@@ -119,8 +119,8 @@ class WishlistScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset("assets/icons/logo.svg"),
-                                    const ReusableText(
-                                      title: "No Item Found!!",
+                                     ReusableText(
+                                      title: "No Item Found!!".tr,
                                     )
                                   ]),
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
@@ -65,7 +66,7 @@ class OrderDetailsTile extends StatelessWidget {
                       width: 2,
                     ),
                     ReusableText(
-                      title: "Out for delivery",
+                      title: "Out for delivery".tr,
                       color: blue,
                       size: 10,
                       weight: FontWeight.w400,
@@ -74,9 +75,9 @@ class OrderDetailsTile extends StatelessWidget {
                       width: 10,
                     ),
                     ReusableText(
-                      title: "Arriving in " +
+                      title: "Arriving in ".tr +
                           items.deliveryDays.toString() +
-                          " days",
+                          " days".tr,
                       size: 10,
                       weight: FontWeight.w400,
                     ),

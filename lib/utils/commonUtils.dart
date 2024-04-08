@@ -67,7 +67,7 @@ class CommonUtils{
                         onPressed: () {
                           Get.back();
                         },
-                        title: "OK",
+                        title: "OK".tr,
                       ),
                     )
                   ],

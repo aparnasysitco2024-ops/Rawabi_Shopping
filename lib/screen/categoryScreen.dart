@@ -65,8 +65,8 @@ class CategoryScreen extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        const ReusableText(
-                          title: "What are you looking for?",
+                         ReusableText(
+                          title: "What are you looking for?".tr,
                         ),
                       ],
                     ),

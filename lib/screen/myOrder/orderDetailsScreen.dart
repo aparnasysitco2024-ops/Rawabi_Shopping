@@ -107,8 +107,8 @@ class OrderDetailsScreen extends StatelessWidget {
                              padding: const EdgeInsets.all(8.0),
                              child: Row(
                                children: [
-                                 const ReusableText(
-                                   title: "Cancel Order",
+                                  ReusableText(
+                                   title: "Cancel Order".tr,
                                    size: 12,
                                    weight: FontWeight.w600,
                                  ),
@@ -128,8 +128,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                          color: pink,
                                          borderRadius: BorderRadius.all(
                                              Radius.circular(100))),
-                                     child: const ReusableText(
-                                       title: "Track Your Order",
+                                     child:  ReusableText(
+                                       title: "Track Your Order".tr,
                                        color: primaryColor,
                                        size: 12,
                                        weight: FontWeight.w600,

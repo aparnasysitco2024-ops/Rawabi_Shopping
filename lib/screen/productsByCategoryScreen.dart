@@ -202,8 +202,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         const SizedBox(
                           width: 5,
                         ),
-                        const ReusableText(
-                          title: "Filter",
+                         ReusableText(
+                          title: "Filter".tr,
                           size: 12,
                           weight: FontWeight.w800,
                         )
@@ -236,8 +236,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         const SizedBox(
                           width: 5,
                         ),
-                        const ReusableText(
-                          title: "Sort",
+                         ReusableText(
+                          title: "Sort".tr,
                           size: 12,
                           weight: FontWeight.w800,
                         )
@@ -302,8 +302,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset("assets/icons/logo.svg"),
-                                  const ReusableText(
-                                    title: "No Item Found!!",
+                                   ReusableText(
+                                    title: "No Item Found!!".tr,
                                   )
                                 ]),
                           ),

@@ -76,8 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              const ReusableText(
-                                title: "Search",
+                               ReusableText(
+                                title: "Search".tr,
                               ),
                             ],
                           ),

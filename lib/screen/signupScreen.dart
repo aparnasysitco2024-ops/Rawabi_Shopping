@@ -107,9 +107,9 @@ class SignupScreen extends StatelessWidget {
                       controller: signupController.emailController,
                       fillColor: silver,
                       keyboardType: TextInputType.emailAddress,
-                      hintText: "Enter Mobile Email".tr,
+                      hintText: "Enter Mobile or Email".tr,
                       validator: (value) {
-                        value!.isEmpty ? "Please enter Email".tr : null;
+                        value!.isEmpty ? "Please enter Mobile or Email".tr : null;
                         return null;
                       },
                     ),

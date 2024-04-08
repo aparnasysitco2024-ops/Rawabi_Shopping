@@ -66,7 +66,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                         ],
                       ),
                     ),
-                    const SearchOrdersWidget(hintText: "Search Orders",),
+                     SearchOrdersWidget(hintText: "Search Orders".tr,),
                     const Divider(
                       thickness: 1,
                       color: lightGreyColor,

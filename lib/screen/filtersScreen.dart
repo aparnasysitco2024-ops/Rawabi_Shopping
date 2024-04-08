@@ -169,10 +169,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                 border: Border.all(
                                     color: lightGreyColor, width: 1),
                               ),
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Product Type",
+                                  title: "Product Type".tr,
                                 ),
                               ),
                             ),
@@ -195,10 +195,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                 border: Border.all(
                                     color: lightGreyColor, width: 1),
                               ),
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Category",
+                                  title: "Category".tr,
                                 ),
                               ),
                             ),
@@ -221,10 +221,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                 border: Border.all(
                                     color: lightGreyColor, width: 1),
                               ),
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Brand",
+                                  title: "Brand".tr,
                                 ),
                               ),
                             ),
@@ -247,10 +247,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                 border: Border.all(
                                     color: lightGreyColor, width: 1),
                               ),
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Price",
+                                  title: "Price".tr,
                                 ),
                               ),
                             ),
@@ -317,8 +317,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
                                         textAlign: TextAlign.left,
                                       ),
-                                      const ReusableButton1(
-                                        title:"Reset",
+                                       ReusableButton1(
+                                        title:"Reset".tr,
                                         size: Size(48,22),
                                         fontSize: 10,
                                       ),
@@ -419,7 +419,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             backgroundColor: white,
                             txtColor: blackLight,
                             size: const Size(160, 44),
-                            title: "Clear",
+                            title: "Clear".tr,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             isOutlineButton: true,
@@ -431,7 +431,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                           child: ReusableButton1(
                             onPressed: () {},
                             size: const Size(200, 44),
-                            title: "Apply",
+                            title: "Apply".tr,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),

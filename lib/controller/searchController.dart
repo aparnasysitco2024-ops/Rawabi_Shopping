@@ -31,7 +31,7 @@ class SearchResutController extends GetxController {
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
       print(barcodeScanRes);
     } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
+      barcodeScanRes = 'Failed to get platform version.'.tr;
     }
     searchType.value = "barcode";
     searchString.value = barcodeScanRes;
