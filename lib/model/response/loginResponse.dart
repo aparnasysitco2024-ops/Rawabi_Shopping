@@ -2,7 +2,7 @@ class LoginResponse {
   String? code;
   String? userid;
   String? phone;
-  int? otp;
+  String? otp;
   String? message;
 
   LoginResponse({this.code, this.userid, this.phone, this.otp, this.message});
@@ -11,7 +11,7 @@ class LoginResponse {
     code = json['code'];
     userid = json['userid'];
     phone = json['phone'];
-    otp = json['otp'];
+    otp = json['otp'].toString();
     message = json['message'];
   }
 
