@@ -1,3 +1,4 @@
+import 'package:rawabi/model/response/categoryResponse.dart';
 import 'package:rawabi/model/response/products.dart';
 
 class ProductsResponse {
@@ -54,29 +55,5 @@ class Res {
   }
 }
 
-class Category {
-  String? catId;
-  String? catName;
-  String? catBanner;
-  String? catIcon;
-
-  Category({this.catId, this.catName, this.catBanner, this.catIcon});
-
-  Category.fromJson(Map<String, dynamic> json) {
-    catId = json['cat_id'];
-    catName = json['cat_name'];
-    catBanner = json['cat_banner'];
-    catIcon = json['cat_icon'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['cat_id'] = catId;
-    data['cat_name'] = catName;
-    data['cat_banner'] = catBanner;
-    data['cat_icon'] = catIcon;
-    return data;
-  }
-}
 
 

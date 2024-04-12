@@ -46,7 +46,7 @@ class Products {
     storeId = json['store_id'].toString();
     sellerId = json['seller_id'];
     productId = json['product_id'];
-    productName = json['product_name'];
+    productName = json['product_name'] ?? "";
     purchasePrice = json['purchase_price'];
     stock = json['stock'];
     storeStock = json['store_stock'];

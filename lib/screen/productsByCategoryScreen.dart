@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:outline_gradient_button/outline_gradient_button.dart';
 import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
@@ -29,36 +30,20 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   var searchController = Get.put(SearchResutController());
   final productController = Get.put(ProductController());
 
-  /* String _scanBarcode = '';
-
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-    if (!mounted) return;
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
-  }*/
-
   @override
   Widget build(BuildContext context) {
-    // final catID = ModalRoute.of(context)?.settings.arguments;
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
     final catID = arguments['catId'] ?? "0";
     final subCatID = arguments['subCatId'] ?? "0";
     final subSubCatID = arguments['subSubCatId'] ?? "0";
-    final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
+    // final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
 
-    productController.getProductsByCat(
-        catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
+    productController.getSubCategory(catID,subCatID,subSubCatID);
+
+    // productController.getProductsByCat(
+    //     catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
@@ -202,7 +187,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         const SizedBox(
                           width: 5,
                         ),
-                         ReusableText(
+                        ReusableText(
                           title: "Filter".tr,
                           size: 12,
                           weight: FontWeight.w800,
@@ -225,7 +210,17 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       showModalBottomSheet(
                           context: context,
                           builder: ((context) {
-                            return SortOptionsWidget();
+                            return SortOptionsWidget(
+                              onPressed: (val) {
+                                Navigator.pop(context);
+                                productController.sort.value = val;
+                                productController.getProductsByCat(
+                                    catID.toString(),
+                                    subCatID.toString(),
+                                    subSubCatID,
+                                    productController.subSubSubCatID.value);
+                              },
+                            );
                           }));
                     },
                     child: Row(
@@ -236,7 +231,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                         const SizedBox(
                           width: 5,
                         ),
-                         ReusableText(
+                        ReusableText(
                           title: "Sort".tr,
                           size: 12,
                           weight: FontWeight.w800,
@@ -248,6 +243,54 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     width: 20,
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 35,
+                child: ListView.builder(
+
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productController.subCategoryList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: OutlineGradientButton(
+                          radius: Radius.circular(5),
+                          padding: EdgeInsets.all(5),
+                          strokeWidth: 1.5,
+                          backgroundColor: silver,
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: productController
+                                          .subSubSubCatID.value ==
+                                      productController
+                                          .subCategoryList[index].catId
+                                  ? [blue, lightBlue, pink]
+                                  : [silver, silver, silver]),
+                          onTap: () {
+                            productController.subSubSubCatID.value =
+                                productController.subCategoryList[index].catId!;
+                            productController.subCategoryList.refresh();
+                            productController.getProductsByCat(
+                                catID,
+                                subCatID,
+                                subSubCatID,
+                                productController.subCategoryList[index].catId
+                                    .toString());
+                          },
+                          child: ReusableText(
+                            title: productController
+                                .subCategoryList[index].catName,
+                            color: darkGrey,
+                          ),
+                        ),
+                      );
+                    }),
               ),
               const SizedBox(
                 height: 10,
@@ -302,7 +345,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset("assets/icons/logo.svg"),
-                                   ReusableText(
+                                  ReusableText(
                                     title: "No Item Found!!".tr,
                                   )
                                 ]),

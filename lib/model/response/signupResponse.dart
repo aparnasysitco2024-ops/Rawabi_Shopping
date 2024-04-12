@@ -1,16 +1,16 @@
 class SignupResponse {
   String? code;
   String? message;
-  int? otp;
-  int? id;
+  String? otp;
+  String? id;
 
   SignupResponse({this.code, this.message, this.otp, this.id});
 
   SignupResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    otp = json['otp'];
-    id = json['id'];
+    otp = json['otp'].toString();
+    id = json['id'].toString();
   }
 
   Map<String, dynamic> toJson() {

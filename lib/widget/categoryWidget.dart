@@ -20,7 +20,6 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
-    List pages = ['Home', 'About', 'Careers', 'Contact Us', 'Blog', 'Disclaimer'];
     return Container(
       margin: const EdgeInsets.all(0),
       color: Colors.white,
@@ -82,18 +81,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                           );
                 }),
           ),
-          // Expanded(
-          //   child: ListView.builder(
-          //       padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-          //       scrollDirection: Axis.horizontal,
-          //       shrinkWrap: true,
-          //       itemCount: widget.itemGroup!.grpCategory!.length,
-          //       itemBuilder: (_, index) {
-          //         return CategoryGroupItem(
-          //           category: widget.itemGroup!.grpCategory![index],
-          //         );
-          //       }),
-          // )
         ],
       ),
     );

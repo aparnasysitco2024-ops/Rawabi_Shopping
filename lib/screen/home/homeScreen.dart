@@ -6,7 +6,7 @@ import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
-import 'package:rawabi/screen/home/pdfViewScreen.dart';
+import 'package:rawabi/screen/home/flayerListScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/adsImageWidget.dart';
@@ -393,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //Flayer
                               InkWell(
                                 onTap: () =>
-                                    AppUtils.navigateToPage(PdfViewScreen()),
+                                    AppUtils.navigateToPage(FlayerListScreen()),
                                 child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10),

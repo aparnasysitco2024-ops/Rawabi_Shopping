@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../../controller/homeController.dart';
-import '../../utils/app_utils.dart';
 import '../../utils/constants.dart';
-import '../../widget/sort_options.dart';
 
 // ignore: must_be_immutable
 class ProductsFromHomeScreen extends StatefulWidget {
@@ -124,166 +121,166 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 5, right: 0),
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [blue, lightBlue, pink]),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/icons/express.svg",
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: ReusableText(
-                            title: "Express delivery".tr,
-                            maxLine: 1,
-                            size: 11,
-                            weight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Switch(
-                            activeColor: primaryColor,
-                            value: homeController.isExpress.value,
-                            onChanged: (value) {
-                              homeController.isExpress.value = value;
-                            },
-                          ),
-                        )
-                      ]),
+              // Row(
+              //   children: [
+              //     const SizedBox(
+              //       width: 10,
+              //     ),
+              //     Flexible(
+              //       child: Container(
+              //         padding: const EdgeInsets.only(left: 5, right: 0),
+              //         height: 40,
+              //         decoration: const BoxDecoration(
+              //             gradient: LinearGradient(
+              //                 begin: Alignment.topCenter,
+              //                 end: Alignment.bottomCenter,
+              //                 colors: [blue, lightBlue, pink]),
+              //             borderRadius: BorderRadius.all(Radius.circular(7))),
+              //         child: Row(children: [
+              //           SvgPicture.asset(
+              //             "assets/icons/express.svg",
+              //             height: 15,
+              //           ),
+              //           const SizedBox(
+              //             width: 5,
+              //           ),
+              //           Expanded(
+              //             child: ReusableText(
+              //               title: "Express delivery".tr,
+              //               maxLine: 1,
+              //               size: 11,
+              //               weight: FontWeight.bold,
+              //               color: Colors.white,
+              //             ),
+              //           ),
+              //           Transform.scale(
+              //             scale: 0.7,
+              //             child: Switch(
+              //               activeColor: primaryColor,
+              //               value: homeController.isExpress.value,
+              //               onChanged: (value) {
+              //                 homeController.isExpress.value = value;
+              //               },
+              //             ),
+              //           )
+              //         ]),
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 15,
+              //     ),
+              //     SvgPicture.asset(
+              //       "assets/icons/line.svg",
+              //       height: 30,
+              //     ),
+              //     const SizedBox(
+              //       width: 15,
+              //     ),
+              //     InkWell(
+              //       onTap: (){
+              //        AppUtils.navigateToPage(FiltersScreen());
+              //       },
+              //       child: Row(
+              //         children: [
+              //           SvgPicture.asset(
+              //             "assets/icons/filter.svg",
+              //           ),
+              //           const SizedBox(
+              //             width: 5,
+              //           ),
+              //            ReusableText(
+              //             title: "Filter".tr,
+              //             size: 12,
+              //             weight: FontWeight.w800,
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 15,
+              //     ),
+              //     SvgPicture.asset(
+              //       "assets/icons/line.svg",
+              //       height: 30,
+              //     ),
+              //     const SizedBox(
+              //       width: 15,
+              //     ),
+              //     InkWell(
+              //       onTap: (){
+              //         showModalBottomSheet(
+              //             context: context,
+              //             builder: ((context) {
+              //               return SortOptionsWidget(onPressed: (val) {
+              //               },);
+              //             }));
+              //       },
+              //       child: Row(
+              //         children: [
+              //           SvgPicture.asset(
+              //             "assets/icons/sort.svg",
+              //           ),
+              //           const SizedBox(
+              //             width: 5,
+              //           ),
+              //            ReusableText(
+              //             title: "Sort".tr,
+              //             size: 12,
+              //             weight: FontWeight.w800,
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 20,
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              products.isNotEmpty
+                  ? Flexible(
+                      child: Container(
+                        height: double.infinity,
+                        color: silver,
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: GridView.builder(
+                            padding: const EdgeInsets.only(top: 15),
+                            shrinkWrap: true,
+                            itemCount: products.length,
+                            // physics: const BouncingScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 12,
+                                    mainAxisExtent: productItemHeight,
+                                    crossAxisSpacing: 12,
+                                    childAspectRatio: 0.5),
+                            itemBuilder: (_, index) {
+                              return InkWell(
+                                  onTap: () async {},
+                                  child: ProductItem(
+                                    products: products[index],
+                                  ));
+                            }),
+                      ),
+                    )
+                  : Flexible(
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset("assets/icons/logo.svg"),
+                              ReusableText(
+                                title: "No Item Found!!".tr,
+                              )
+                            ]),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                    onTap: (){
-                     AppUtils.navigateToPage(FiltersScreen());
-                    },
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/filter.svg",
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                         ReusableText(
-                          title: "Filter".tr,
-                          size: 12,
-                          weight: FontWeight.w800,
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                    onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: ((context) {
-                            return SortOptionsWidget();
-                          }));
-                    },
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/sort.svg",
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                         ReusableText(
-                          title: "Sort".tr,
-                          size: 12,
-                          weight: FontWeight.w800,
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-               products.isNotEmpty
-                      ? Flexible(
-                          child: Container(
-                            height: double.infinity,
-                            color: silver,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: GridView.builder(
-                                padding: const EdgeInsets.only(top: 15),
-                                shrinkWrap: true,
-                                itemCount: products.length,
-                                // physics: const BouncingScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 12,
-                                        mainAxisExtent: productItemHeight,
-                                        crossAxisSpacing: 12,
-                                        childAspectRatio: 0.5),
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                      onTap: () async {},
-                                      child: ProductItem(
-                                        products: products[index],
-                                      ));
-                                }),
-                          ),
-                        )
-                      : Flexible(
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset("assets/icons/logo.svg"),
-                                   ReusableText(
-                                    title: "No Item Found!!".tr,
-                                  )
-                                ]),
-                          ),
-                        ),
             ])),
       ),
     );

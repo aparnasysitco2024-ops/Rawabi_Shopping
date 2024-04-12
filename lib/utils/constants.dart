@@ -30,6 +30,8 @@ const wishListUrl = '${baseURL}wishList';
 const deletewishUrl = '${baseURL}deletewish';
 const myProfileUrl = '${baseURL}myprofile';
 const languageUrl = '${baseURL}language';
+const flyerListUrl = '${baseURL}flyerList';
+
 
 
 //keys
