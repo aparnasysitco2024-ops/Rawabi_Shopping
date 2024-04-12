@@ -47,6 +47,7 @@ class ReusableTextForm extends StatelessWidget {
         prefixIcon: prefixIcon,
         enabled: enabled!,
         hintText: hintText,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         label: ReusableText(
           title: text,
         ),
