@@ -117,9 +117,8 @@ class _ProductItemState extends State<ProductItem> {
                     size: 10,
                     weight: FontWeight.w600,
                   ),
-
                   const SizedBox(
-                    height: 5,
+                    height: 1,
                   ),
                   // const ReusableText(
                   //   title: "30 gm",

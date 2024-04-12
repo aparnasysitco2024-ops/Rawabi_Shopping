@@ -6,7 +6,7 @@ import '../wishlistScreen.dart';
 GlobalKey<NavigatorState> accountNavigatorKey = GlobalKey<NavigatorState>();
 
 class AccountNavigator extends StatefulWidget {
-  const AccountNavigator({super.key});
+   AccountNavigator( {super.key});
 
   @override
   State<AccountNavigator> createState() => _AccountNavigatorState();

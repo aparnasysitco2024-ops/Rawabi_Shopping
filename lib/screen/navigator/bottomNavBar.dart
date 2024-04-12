@@ -17,8 +17,6 @@ import 'cartNavigator.dart';
 import 'homeNavigator.dart';
 import 'offerNavigator.dart';
 
-
-
 class BottomNavBar extends StatelessWidget {
 //   const BottomNavBar({super.key});
 //
@@ -27,7 +25,7 @@ class BottomNavBar extends StatelessWidget {
 // }
 //
 // class _BottomNavBarState extends State<BottomNavBar> {
-  final _currentIndex = 0.obs;
+  final currentIndex = 0.obs;
   final cartController = Get.put(CartController());
   final List _pages = [
     /*HomeScreen(),*/
@@ -35,7 +33,7 @@ class BottomNavBar extends StatelessWidget {
     const CategoryNavigator(),
     const OfferNavigator(),
     const CartNavigator(),
-    const AccountNavigator()
+    AccountNavigator()
   ];
 
   BottomNavBar({super.key});
@@ -48,15 +46,16 @@ class BottomNavBar extends StatelessWidget {
     accountNavigatorKey
   ];
 
+
   _systemBackButtonPressed(bool didPop) {
-    if (_navigatorKeys[_currentIndex.value].currentState!.canPop()) {
-      _navigatorKeys[_currentIndex.value]
+    if (_navigatorKeys[currentIndex.value].currentState!.canPop()) {
+      _navigatorKeys[currentIndex.value]
           .currentState
-          ?.pop(_navigatorKeys[_currentIndex.value].currentContext);
+          ?.pop(_navigatorKeys[currentIndex.value].currentContext);
     } else {
       // SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
-      if (_currentIndex.value != 0) {
-        _currentIndex.value = 0;
+      if (currentIndex.value != 0) {
+        currentIndex.value = 0;
       } else {
         _showBackDialog();
       }
@@ -68,7 +67,7 @@ class BottomNavBar extends StatelessWidget {
           context: Get.context!,
           builder: (context) => AlertDialog(
             title: Text("Rawabi Shopping".tr),
-            content:  Text('Wish to exit from App ? '.tr),
+            content: Text('Wish to exit from App ? '.tr),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -101,7 +100,7 @@ class BottomNavBar extends StatelessWidget {
       //   // }
       // },
       child: Obx(() => Scaffold(
-          body: _pages[_currentIndex.value],
+          body: _pages[currentIndex.value],
           bottomNavigationBar: Container(
             height: Platform.isIOS ? 100 : 70,
             decoration: const BoxDecoration(
@@ -124,7 +123,7 @@ class BottomNavBar extends StatelessWidget {
                       InkWell(
                           onTap: () {
                             // setState(() {
-                            _currentIndex.value = 0;
+                            currentIndex.value = 0;
                             // });
                           },
                           child: SizedBox(
@@ -133,13 +132,13 @@ class BottomNavBar extends StatelessWidget {
                                 SvgIcon(
                                   image: "assets/icons/homeIcon.svg",
                                   height: 20,
-                                  color: _currentIndex == 0
+                                  color: currentIndex == 0
                                       ? primaryColor
                                       : Colors.black,
                                 ),
                                 ReusableText(
                                   title: "Home".tr,
-                                  color: _currentIndex == 0
+                                  color: currentIndex == 0
                                       ? primaryColor
                                       : Colors.black,
                                   size: 12,
@@ -150,7 +149,7 @@ class BottomNavBar extends StatelessWidget {
                       InkWell(
                           onTap: () {
                             // setState(() {
-                            _currentIndex.value = 1;
+                            currentIndex.value = 1;
                             // });
                           },
                           child: SizedBox(
@@ -159,13 +158,13 @@ class BottomNavBar extends StatelessWidget {
                                 SvgIcon(
                                   image: "assets/icons/explore.svg",
                                   height: 20,
-                                  color: _currentIndex == 1
+                                  color: currentIndex == 1
                                       ? primaryColor
                                       : Colors.black,
                                 ),
                                 ReusableText(
                                   title: "Explore".tr,
-                                  color: _currentIndex == 1
+                                  color: currentIndex == 1
                                       ? primaryColor
                                       : Colors.black,
                                   size: 12,
@@ -176,7 +175,7 @@ class BottomNavBar extends StatelessWidget {
                       InkWell(
                           onTap: () {
                             // setState(() {
-                            _currentIndex.value = 2;
+                            currentIndex.value = 2;
                             // });
                           },
                           child: SizedBox(
@@ -185,13 +184,13 @@ class BottomNavBar extends StatelessWidget {
                                 SvgIcon(
                                   image: "assets/icons/gift.svg",
                                   height: 20,
-                                  color: _currentIndex == 2
+                                  color: currentIndex == 2
                                       ? primaryColor
                                       : Colors.black,
                                 ),
                                 ReusableText(
                                   title: "Offers".tr,
-                                  color: _currentIndex == 2
+                                  color: currentIndex == 2
                                       ? primaryColor
                                       : Colors.black,
                                   size: 12,
@@ -205,7 +204,7 @@ class BottomNavBar extends StatelessWidget {
                           InkWell(
                               onTap: () {
                                 // setState(() {
-                                _currentIndex.value = 3;
+                                currentIndex.value = 3;
                                 // });
                               },
                               child: SizedBox(
@@ -214,13 +213,13 @@ class BottomNavBar extends StatelessWidget {
                                     SvgIcon(
                                       image: "assets/icons/cart.svg",
                                       height: 20,
-                                      color: _currentIndex == 3
+                                      color: currentIndex == 3
                                           ? primaryColor
                                           : Colors.black,
                                     ),
                                     ReusableText(
                                       title: "Cart".tr,
-                                      color: _currentIndex == 3
+                                      color: currentIndex == 3
                                           ? primaryColor
                                           : Colors.black,
                                       size: 12,
@@ -240,7 +239,7 @@ class BottomNavBar extends StatelessWidget {
                                     ignorePointer: false,
                                     onTap: () {
                                       // setState(() {
-                                      _currentIndex.value = 3;
+                                      currentIndex.value = 3;
                                       // });
                                     },
                                     badgeContent: Obx(
@@ -279,7 +278,7 @@ class BottomNavBar extends StatelessWidget {
                       InkWell(
                           onTap: () {
                             // setState(() {
-                            _currentIndex.value = 4;
+                            currentIndex.value = 4;
                             // });
                           },
                           child: SizedBox(
@@ -288,13 +287,13 @@ class BottomNavBar extends StatelessWidget {
                                 SvgIcon(
                                   image: "assets/icons/account.svg",
                                   height: 20,
-                                  color: _currentIndex == 4
+                                  color: currentIndex == 4
                                       ? primaryColor
                                       : Colors.black,
                                 ),
                                 ReusableText(
                                   title: "Account".tr,
-                                  color: _currentIndex == 4
+                                  color: currentIndex == 4
                                       ? primaryColor
                                       : Colors.black,
                                   size: 12,

@@ -5,6 +5,7 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../../controller/cartController.dart';
 import '../../model/response/cartListResponse.dart';
+import '../commonwidget/reusableNetworkImage.dart';
 
 class CartItemDetails extends StatelessWidget {
   final Products products;
@@ -28,12 +29,10 @@ class CartItemDetails extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                  width: 50,
-                  child: FadeInImage.assetNetwork(
-                      fit: BoxFit.fill,
-                      placeholder: 'assets/images/logo.png',
-                      image: products.productImage.toString())),
+              ReusableNetworkImage(
+                image: products.productImage.toString(),
+                height: 50,
+              ),
               const SizedBox(
                 width: 5,
               ),

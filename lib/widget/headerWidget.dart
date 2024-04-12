@@ -5,10 +5,10 @@ import 'commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class HeaderWidget extends StatelessWidget {
-  var title;
+  var title="";
   Function() onBack;
 
-  HeaderWidget({super.key, this.title, required this.onBack});
+  HeaderWidget({super.key, required this.title, required this.onBack});
 
   @override
   Widget build(BuildContext context) {

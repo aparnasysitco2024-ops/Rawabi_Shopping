@@ -4,12 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/widget/commonWidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import 'package:rawabi/widget/heartIcon.dart';
 
 import '../controller/productsDetailsController.dart';
 import '../utils/colors.dart';
-import '../widget/commonWidget/networkImageWidget.dart';
 import '../widget/commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
@@ -135,9 +135,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     child: Container(
                                         alignment: Alignment.center,
                                         width: double.infinity,
-                                        child: NetworkImageWidget(
+                                        child: ReusableNetworkImage(
                                           image: productDetailsController
-                                              .productDetails?.productImage,
+                                              .productDetails!.productImage.toString(),
                                           height: 210.0,
                                         ))),
                                 const SizedBox(

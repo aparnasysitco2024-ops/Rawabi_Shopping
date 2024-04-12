@@ -11,7 +11,9 @@ import '../../widget/commonwidget/reusable_textformfield.dart';
 
 // ignore: must_be_immutable
 class AddNewAddressesScreen extends StatelessWidget {
-  AddNewAddressesScreen({super.key});
+  var lat, lng;
+
+  AddNewAddressesScreen({super.key, this.lat, this.lng});
 
   final addAddressController = Get.put(AddAddressController());
   var _country = countries.firstWhere((element) => element.code == "QA");
@@ -120,7 +122,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     controller:
                                         addAddressController.mobileController,
                                     validator: (value) {
-                                      if (value == null ) {
+                                      if (value == null) {
                                         return 'Please enter Address';
                                       }
                                       return null;
@@ -132,9 +134,10 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     initialCountryCode: "QA",
                                     disableLengthCheck: false,
                                     showDropdownIcon: true,
-                                    keyboardType: const TextInputType.numberWithOptions(),
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(),
                                     dropdownIconPosition: IconPosition.trailing,
-                                    decoration:  InputDecoration(
+                                    decoration: InputDecoration(
                                       fillColor: lightGreyColor,
                                       filled: true,
                                       contentPadding: EdgeInsets.symmetric(
@@ -180,7 +183,8 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     hintText: "Building Number".tr,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter Building Number'.tr;
+                                        return 'Please enter Building Number'
+                                            .tr;
                                       }
                                       return null;
                                     },
@@ -198,7 +202,8 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     hintText: "Apartment/Building/Block".tr,
                                     validator: (value) {
                                       if (value == null) {
-                                        return 'Please enter Apartment/Building/Block'.tr;
+                                        return 'Please enter Apartment/Building/Block'
+                                            .tr;
                                       }
                                       return null;
                                     },
@@ -245,7 +250,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     children: [
                                       Flexible(
                                         child: ListTile(
-                                          title:  Text('Work'.tr),
+                                          title: Text('Work'.tr),
                                           leading: Radio<int>(
                                             value: 1,
                                             activeColor: primaryColor,
@@ -261,7 +266,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                       ),
                                       Flexible(
                                         child: ListTile(
-                                          title:  Text('Home'.tr),
+                                          title: Text('Home'.tr),
                                           leading: Radio<int>(
                                             value: 2,
                                             activeColor: primaryColor,
@@ -289,9 +294,9 @@ class AddNewAddressesScreen extends StatelessWidget {
                                         onPressed: () {
                                           if (addAddressController
                                               .formKey.currentState!
-                                              .validate() ) {
+                                              .validate()) {
                                             addAddressController
-                                                .saveAddressList();
+                                                .saveAddressList(lat, lng);
                                           }
                                         }),
                                   ),

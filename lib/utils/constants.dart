@@ -1,4 +1,5 @@
 const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/';
+const baseURLDriver = 'https://dev.rawabihypermarket.com/rwbapi/Driverapi/';
 
 //APis
 
@@ -19,6 +20,7 @@ const addaddressUrl = '${baseURL}addaddress';
 const deleteaddress = '${baseURL}deleteaddress';
 const myorders = '${baseURL}myorders_bystatus';
 const orderDetailUrl = '${baseURL}order_detail';
+const orderStatusLogUrl = '${baseURLDriver}orderStatusLog';
 
 const categoryUrl = '${baseURL}category';
 const subcategoryUrl = '${baseURL}subcategory';
@@ -36,4 +38,6 @@ const flyerListUrl = '${baseURL}flyerList';
 
 //keys
 const token = "Rawabi_jc";
-const productItemHeight = 272.0;
+const tokenDriver = "Rawabi_dc";
+
+const productItemHeight = 277.0;

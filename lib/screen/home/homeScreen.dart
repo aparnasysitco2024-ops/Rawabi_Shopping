@@ -6,6 +6,7 @@ import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
+import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/home/flayerListScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -104,8 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   InkWell(
                     child: SvgPicture.asset("assets/icons/notification.svg"),
                     onTap: () {
-                      // AppUtils.navigateToPage(
-                      //     ProductDetailsScreen(productID: "3"));
+                      AppUtils.navigateToPage(
+                          EmptyScreen(title: "Notification",));
                     },
                   ),
                   const SizedBox(

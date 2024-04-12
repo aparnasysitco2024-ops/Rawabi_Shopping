@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/address/addNewAddressScreen.dart';
+import 'package:rawabi/screen/address/addNewAddressMapScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 
@@ -130,7 +130,7 @@ class MyAddressesScreen extends StatelessWidget {
                               left: 18, top: 10, right: 18, bottom: 33),
                           child: ReusableButton1(
                             onPressed: () {
-                              AppUtils.navigateToPage(AddNewAddressesScreen());
+                              AppUtils.navigateToPage(AddNewAddressesMapScreen());
                             },
                             title: "Add New Address".tr,
                             fontSize: 14,

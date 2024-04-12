@@ -31,6 +31,18 @@ class BaseClient {
     return header;
   }
 
+  Future<Map<String, String>> getHeaderDriver() async {
+    Map<String, String> headerDriver = {
+      "Token": tokenDriver,
+      "Userid": await StorageManager.getUserID(),
+      "Guestid": await StorageManager.getGuestID(),
+      "Storeid": await StorageManager.readData(StorageManager.keyStoreID),
+      "Lang": await StorageManager.getLanguage(),
+    };
+    log('header=$headerDriver');
+    return headerDriver;
+  }
+
   //GET
   Future<dynamic> get(String url_) async {
     log('URL = $url_');
@@ -63,6 +75,27 @@ class BaseClient {
       log('URL = $url_');
       var response = await _ioClient
           .post(uri, headers: await getHeader(), body: payload)
+          .timeout(const Duration(seconds: TIME_OUT_DURATION));
+      log(response.body);
+      return _processResponse(response);
+    } on SocketException {
+      throw FetchDataException(
+          'You do not have internet access'.tr, uri.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException(
+          'error_while_processing'.tr, uri.toString());
+    }
+  }
+
+  Future<dynamic> postDriver(String url_, dynamic payloadObj) async {
+    log('$url_ payloadObj= $payloadObj');
+    var uri = Uri.parse(url_);
+    var payload = json.encode(payloadObj);
+    log(payload);
+    try {
+      log('URL = $url_');
+      var response = await _ioClient
+          .post(uri, headers: await getHeaderDriver(), body: payload)
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
       log(response.body);
       return _processResponse(response);

@@ -32,7 +32,7 @@ class AddAddressController extends GetxController {
     super.onInit();
   }
 
-  Future<void> saveAddressList() async {
+  Future<void> saveAddressList(var lat, var lng) async {
     try {
       loading.value = true;
       AddAddressRequest addAddressRequest = AddAddressRequest();
@@ -45,6 +45,7 @@ class AddAddressController extends GetxController {
       addAddressRequest.addressInstruction = addressController.text;
       addAddressRequest.address = addressController.text;
       addAddressRequest.type = selectedOption.value == 1 ? "Work" : "Home";
+      addAddressRequest.lat_long = lat.toString() + "," + lng.toString();
 
       var response = await BaseClient().post(addaddressUrl, addAddressRequest);
       loading.value = false;

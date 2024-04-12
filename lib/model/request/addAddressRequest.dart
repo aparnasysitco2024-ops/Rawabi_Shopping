@@ -8,17 +8,19 @@ class AddAddressRequest {
   String? apartmentOffice;
   String? floor;
   String? addressInstruction;
+  String? lat_long;
 
   AddAddressRequest(
       {this.addressName,
-        this.zone,
-        this.phone,
-        this.type,
-        this.address,
-        this.houseBuilding,
-        this.apartmentOffice,
-        this.floor,
-        this.addressInstruction});
+      this.zone,
+      this.phone,
+      this.type,
+      this.address,
+      this.houseBuilding,
+      this.apartmentOffice,
+      this.floor,
+      this.addressInstruction,
+      this.lat_long});
 
   AddAddressRequest.fromJson(Map<String, dynamic> json) {
     addressName = json['address_name'];
@@ -30,6 +32,7 @@ class AddAddressRequest {
     apartmentOffice = json['apartment_office'];
     floor = json['floor'];
     addressInstruction = json['address_instruction'];
+    lat_long = json['lat_long'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +46,7 @@ class AddAddressRequest {
     data['apartment_office'] = apartmentOffice;
     data['floor'] = floor;
     data['address_instruction'] = addressInstruction;
+    data['lat_long'] = lat_long;
     return data;
   }
 }

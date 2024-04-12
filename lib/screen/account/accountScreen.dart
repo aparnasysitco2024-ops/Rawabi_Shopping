@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
+import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/home/flayerListScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
@@ -17,6 +19,7 @@ import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
 
 import '../../widget/commonwidget/reusable_text.dart';
+import '../navigator/bottomNavBar.dart';
 import 'languageScreen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -59,41 +62,51 @@ class AccountScreen extends StatelessWidget {
                         image: "assets/icons/checklist.svg",
                         title: "My Orders".tr),
                   ),
-                  Container(
-                    height: 83,
-                    width: 83,
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: white,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: grey, width: 1),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/icons/ahlan.png",
-                          fit: BoxFit.fill,
-                          width: 28,
-                          height: 28,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ReusableText(
-                            title: "Ahlan Rewards".tr,
-                            size: 10,
-                            weight: FontWeight.w500),
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      AppUtils.navigateToPage(EmptyScreen(
+                        title: "Ahlan Rewards".tr,
+                      ));
+                    },
+                    child: Container(
+                      height: 83,
+                      width: 83,
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: grey, width: 1),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/icons/ahlan.png",
+                            fit: BoxFit.fill,
+                            width: 28,
+                            height: 28,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ReusableText(
+                              title: "Ahlan Rewards".tr,
+                              size: 10,
+                              weight: FontWeight.w500),
+                        ],
+                      ),
                     ),
                   ),
-                  /*SquareCard(
-                      image: "assets/icons/ahlan2.svg",
-                      title: "Ahlan Rewards"),*/
-                  SquareCard(
-                      image: "assets/icons/offers.svg", title: "My Offers".tr),
+                  GestureDetector(
+                    onTap: () {
+                      BottomNavBar().currentIndex.value = 0;
+                    },
+                    child: SquareCard(
+                        image: "assets/icons/offers.svg",
+                        title: "My Offers".tr),
+                  ),
                   SquareCard(
                       image: "assets/icons/mycart.svg", title: "My Cart".tr),
                 ],

@@ -4,17 +4,18 @@ import 'package:flutter/cupertino.dart';
 class ReusableNetworkImage extends StatelessWidget {
   String image;
   double height;
-  ReusableNetworkImage({super.key,required this.image,this.height=130});
+
+  ReusableNetworkImage({super.key, required this.image, this.height = 130});
 
   @override
   Widget build(BuildContext context) {
-    return   SizedBox(
+    return SizedBox(
       height: height,
       child: FadeInImage.assetNetwork(
           placeholder: 'assets/images/logo.png',
           imageErrorBuilder: (context, error, stackTrace) {
             return Image.asset('assets/images/logo.png',
-                width: 100, height: 100);
+                width: height, height: height);
           },
           image: image),
     );

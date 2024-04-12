@@ -40,20 +40,18 @@ class MyOrderScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ))
-            : Flexible(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset("assets/icons/logo.svg"),
-                        ReusableText(
-                          title: "Your cart is empty!!".tr,
-                        )
-                      ]),
-                ),
-              ));
+            : SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset("assets/icons/logo.svg"),
+            ReusableText(
+              title: "Your cart is empty!!".tr,
+            )
+          ]),
+    ));
   }
 }
