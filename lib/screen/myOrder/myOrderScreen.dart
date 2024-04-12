@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../controller/myOrdersController.dart';
 import '../../utils/colors.dart';
+import '../../widget/commonWidget/reusable_text.dart';
 import '../../widget/orderItemTile.dart';
 
+// ignore: must_be_immutable
 class MyOrderScreen extends StatelessWidget {
-  MyOrderScreen({super.key});
+  var status;
+
+  MyOrderScreen({super.key, this.status});
 
   final myOrdersController = Get.put(MyOrdersController());
 
   @override
   Widget build(BuildContext context) {
-    myOrdersController.getMyOrder();
+    myOrdersController.getMyOrder(status);
     return Obx(() => myOrdersController.loading.value
         ? SizedBox(
             height: MediaQuery.of(context).size.height - 280,
@@ -35,6 +40,20 @@ class MyOrderScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ))
-            : const SizedBox());
+            : Flexible(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset("assets/icons/logo.svg"),
+                        ReusableText(
+                          title: "Your cart is empty!!".tr,
+                        )
+                      ]),
+                ),
+              ));
   }
 }

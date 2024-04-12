@@ -17,7 +17,7 @@ const checkout = '${baseURL}checkout';
 const addressList = '${baseURL}addressList';
 const addaddressUrl = '${baseURL}addaddress';
 const deleteaddress = '${baseURL}deleteaddress';
-const myorders = '${baseURL}myorders';
+const myorders = '${baseURL}myorders_bystatus';
 const orderDetailUrl = '${baseURL}order_detail';
 
 const categoryUrl = '${baseURL}category';

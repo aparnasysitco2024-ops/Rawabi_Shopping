@@ -40,10 +40,11 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     final subSubCatID = arguments['subSubCatId'] ?? "0";
     // final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
 
-    productController.getSubCategory(catID,subCatID,subSubCatID);
-
-    // productController.getProductsByCat(
-    //     catID.toString(), subCatID.toString(), subSubCatID, subSubSubCatID);
+    if (subSubCatID != "0")
+      productController.getSubCategory(catID, subCatID, subSubCatID);
+    else
+      productController.getProductsByCat(
+          catID.toString(), subCatID.toString(), subSubCatID, "0");
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
@@ -247,51 +248,54 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 35,
-                child: ListView.builder(
-
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productController.subCategoryList.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: OutlineGradientButton(
-                          radius: Radius.circular(5),
-                          padding: EdgeInsets.all(5),
-                          strokeWidth: 1.5,
-                          backgroundColor: silver,
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: productController
-                                          .subSubSubCatID.value ==
+              productController.subCategoryList.isNotEmpty
+                  ? Container(
+                      height: 35,
+                      child: ListView.builder(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: productController.subCategoryList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: OutlineGradientButton(
+                                radius: Radius.circular(5),
+                                padding: EdgeInsets.all(5),
+                                strokeWidth: 1.5,
+                                backgroundColor: silver,
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: productController
+                                                .subSubSubCatID.value ==
+                                            productController
+                                                .subCategoryList[index].catId
+                                        ? [blue, lightBlue, pink]
+                                        : [silver, silver, silver]),
+                                onTap: () {
+                                  productController.subSubSubCatID.value =
+                                      productController
+                                          .subCategoryList[index].catId!;
+                                  productController.subCategoryList.refresh();
+                                  productController.getProductsByCat(
+                                      catID,
+                                      subCatID,
+                                      subSubCatID,
                                       productController
                                           .subCategoryList[index].catId
-                                  ? [blue, lightBlue, pink]
-                                  : [silver, silver, silver]),
-                          onTap: () {
-                            productController.subSubSubCatID.value =
-                                productController.subCategoryList[index].catId!;
-                            productController.subCategoryList.refresh();
-                            productController.getProductsByCat(
-                                catID,
-                                subCatID,
-                                subSubCatID,
-                                productController.subCategoryList[index].catId
-                                    .toString());
-                          },
-                          child: ReusableText(
-                            title: productController
-                                .subCategoryList[index].catName,
-                            color: darkGrey,
-                          ),
-                        ),
-                      );
-                    }),
-              ),
+                                          .toString());
+                                },
+                                child: ReusableText(
+                                  title: productController
+                                      .subCategoryList[index].catName,
+                                  color: darkGrey,
+                                ),
+                              ),
+                            );
+                          }),
+                    )
+                  : SizedBox(),
               const SizedBox(
                 height: 10,
               ),

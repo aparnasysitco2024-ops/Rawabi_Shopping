@@ -21,12 +21,14 @@ class MyOrdersController extends GetxController {
     super.onInit();
   }
 
-  Future<void> getMyOrder() async {
+  Future<void> getMyOrder(String status) async {
     try {
       defaultAddressId.value =
           await StorageManager.readData(StorageManager.keyDefaultAddressId);
       loading.value = true;
-      var response = await BaseClient().get(myorders);
+
+      var request = {"status": status};
+      var response = await BaseClient().post(myorders, request);
       loading.value = false;
       if (response != null) {
         myOrderList.clear();
@@ -45,5 +47,4 @@ class MyOrdersController extends GetxController {
     }
     loading.value = false;
   }
-
 }

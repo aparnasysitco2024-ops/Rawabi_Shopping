@@ -11,7 +11,7 @@ class CategoryController extends GetxController {
   var categoryList = <Category>[].obs;
   var subCategoryList = <Category>[].obs;
   var subSubCategoryList = <Category>[].obs;
-  var subSubSubCategoryList = <Category>[].obs;
+  // var subSubSubCategoryList = <Category>[].obs;
 
   @override
   void onInit() {
@@ -52,9 +52,10 @@ class CategoryController extends GetxController {
         subCategoryList.clear();
       } else if (subPosition == 1) {
         subSubCategoryList.clear();
-      } else if (subPosition == 2) {
-        subSubSubCategoryList.clear();
       }
+      // else if (subPosition == 2) {
+      //   subSubSubCategoryList.clear();
+      // }
       categoryList.refresh();
 
       var request = {"catid": catId};
@@ -72,11 +73,12 @@ class CategoryController extends GetxController {
             subSubCategoryList
                 .addAll(responseData.res!.category as List<Category>);
             // subSubCategoryList.refresh();
-          } else if (subPosition == 2) {
-            subSubSubCategoryList
-                .addAll(responseData.res!.category as List<Category>);
-            // subSubSubCategoryList.refresh();
           }
+          // else if (subPosition == 2) {
+          //   subSubSubCategoryList
+          //       .addAll(responseData.res!.category as List<Category>);
+          //   // subSubSubCategoryList.refresh();
+          // }
 
           categoryList.refresh();
         } else {
