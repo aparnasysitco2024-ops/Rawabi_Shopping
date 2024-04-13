@@ -11,14 +11,25 @@ import '../utils/app_utils.dart';
 import '../widget/commonwidget/reusable_text.dart';
 import '../widget/commonwidget/reusable_textformfield.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends StatefulWidget {
   MyProfileScreen({super.key});
 
+  @override
+  State<MyProfileScreen> createState() => _MyProfileScreenState();
+}
+
+class _MyProfileScreenState extends State<MyProfileScreen> {
   final homeController = Get.put(HomeController());
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     homeController.getMyProfile();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: silver,
@@ -97,7 +108,7 @@ class MyProfileScreen extends StatelessWidget {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Name".tr,
+                                    hintText: "Name",
                                     text: homeController.myProfile.username),
                               ),
                               const SizedBox(
@@ -106,7 +117,7 @@ class MyProfileScreen extends StatelessWidget {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Email".tr,
+                                    hintText: "Email",
                                     text: homeController.myProfile.email),
                               ),
                               const SizedBox(
@@ -115,7 +126,7 @@ class MyProfileScreen extends StatelessWidget {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Mobile".tr,
+                                    hintText: "Mobile",
                                     text: homeController.myProfile.phone),
                               ),
                               // SizedBox(
