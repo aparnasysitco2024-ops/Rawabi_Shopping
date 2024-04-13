@@ -40,6 +40,7 @@ class ReusableTextForm extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText!,
       textAlign: TextAlign.left,
+      initialValue: text??"",
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor ?? white,
@@ -47,9 +48,10 @@ class ReusableTextForm extends StatelessWidget {
         prefixIcon: prefixIcon,
         enabled: enabled!,
         hintText: hintText,
+
         floatingLabelBehavior: FloatingLabelBehavior.always,
         label: ReusableText(
-          title: text,
+          title: hintText,
         ),
         labelStyle: TextStyle(
           fontFamily: Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',
