@@ -5,7 +5,7 @@ import 'commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class HeaderWidget extends StatelessWidget {
-  var title="";
+  var title = "";
   Function() onBack;
 
   HeaderWidget({super.key, required this.title, required this.onBack});
@@ -53,10 +53,13 @@ class HeaderWidget extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(
-            thickness: 2,
-            color: lightGreyColor,
-          ),
+          SizedBox(
+            height: 10,
+          )
+          // const Divider(
+          //   thickness: 2,
+          //   color: lightGreyColor,
+          // ),
         ],
       ),
     );

@@ -17,26 +17,37 @@ import 'cartNavigator.dart';
 import 'homeNavigator.dart';
 import 'offerNavigator.dart';
 
-class BottomNavBar extends StatelessWidget {
-//   const BottomNavBar({super.key});
-//
-//   @override
-//   State<BottomNavBar> createState() => _BottomNavBarState();
-// }
-//
-// class _BottomNavBarState extends State<BottomNavBar> {
-  final currentIndex = 0.obs;
-  final cartController = Get.put(CartController());
-  final List _pages = [
-    /*HomeScreen(),*/
-    const HomeNavigator(),
-    const CategoryNavigator(),
-    const OfferNavigator(),
-    const CartNavigator(),
-    AccountNavigator()
-  ];
+class BottomNavBar extends StatefulWidget {
 
   BottomNavBar({super.key});
+
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  GlobalKey bottomNavigationKey = GlobalKey();
+
+//   const BottomNavBar({super.key});
+  final currentIndex = 0.obs;
+
+  final cartController = Get.put(CartController());
+   late List _pages;
+  void initState() {
+    super.initState();
+
+      _pages = [
+      /*HomeScreen(),*/
+      const HomeNavigator(),
+      const CategoryNavigator(),
+      const OfferNavigator(),
+      const CartNavigator(),
+      AccountNavigator(globalKey: bottomNavigationKey,)
+    ];
+
+  }
+
+
 
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     homeNavigatorKey,
@@ -45,7 +56,6 @@ class BottomNavBar extends StatelessWidget {
     cartNavigatorKey,
     accountNavigatorKey
   ];
-
 
   _systemBackButtonPressed(bool didPop) {
     if (_navigatorKeys[currentIndex.value].currentState!.canPop()) {
@@ -102,6 +112,7 @@ class BottomNavBar extends StatelessWidget {
       child: Obx(() => Scaffold(
           body: _pages[currentIndex.value],
           bottomNavigationBar: Container(
+            key: bottomNavigationKey,
             height: Platform.isIOS ? 100 : 70,
             decoration: const BoxDecoration(
                 boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),

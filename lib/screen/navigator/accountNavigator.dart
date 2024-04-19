@@ -6,7 +6,8 @@ import '../wishlistScreen.dart';
 GlobalKey<NavigatorState> accountNavigatorKey = GlobalKey<NavigatorState>();
 
 class AccountNavigator extends StatefulWidget {
-   AccountNavigator( {super.key});
+  final GlobalKey globalKey;
+   AccountNavigator( {super.key,required this.globalKey});
 
   @override
   State<AccountNavigator> createState() => _AccountNavigatorState();
@@ -23,7 +24,7 @@ class _AccountNavigatorState extends State<AccountNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return AccountScreen();
+                  return AccountScreen(globalKey: widget.globalKey,);
                 case '/WishlistScreen':
                   return WishlistScreen();
                 case '/ProductDetailsScreen':

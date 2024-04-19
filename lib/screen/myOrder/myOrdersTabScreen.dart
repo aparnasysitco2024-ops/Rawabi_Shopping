@@ -86,7 +86,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
                                 title: "Orders".tr,
-                                size: 14,
+                                size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -95,7 +95,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
                                 title: "Delivered".tr,
-                                size: 14,
+                                size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -104,7 +104,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
                                 title: "Cancelled".tr,
-                                size: 14,
+                                size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -113,7 +113,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
                                 title: "Return".tr,
-                                size: 14,
+                                size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),

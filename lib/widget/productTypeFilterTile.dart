@@ -1,15 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/colors.dart';
 import 'commonwidget/reusable_text.dart';
 
+// ignore: must_be_immutable
 class ProductTypeFilterTile extends StatelessWidget {
   final String title;
-
+  Function(bool) checked;
   final bool isChecked;
 
-  const ProductTypeFilterTile({super.key,required this.title,required this.isChecked});
+  ProductTypeFilterTile(
+      {super.key, required this.title, required this.isChecked, required this.checked});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class ProductTypeFilterTile extends StatelessWidget {
           activeColor: primaryColor,
           value: isChecked,
           onChanged: (bool? value) {
+            checked(value!);
           },
         ),
         ReusableText(

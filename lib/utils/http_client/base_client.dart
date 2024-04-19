@@ -67,10 +67,10 @@ class BaseClient {
   }
 
   Future<dynamic> post(String url_, dynamic payloadObj) async {
-    log('$url_ payloadObj= $payloadObj');
+
     var uri = Uri.parse(url_);
     var payload = json.encode(payloadObj);
-    log(payload);
+    log('$url_ payloadObj= $payload');
     try {
       log('URL = $url_');
       var response = await _ioClient

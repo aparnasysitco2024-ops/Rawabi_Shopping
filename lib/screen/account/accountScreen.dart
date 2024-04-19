@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/screen/account/ourStoreScreen.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/emptyScreen.dart';
-import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/home/flayerListScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
@@ -19,11 +18,12 @@ import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
 
 import '../../widget/commonwidget/reusable_text.dart';
-import '../navigator/bottomNavBar.dart';
 import 'languageScreen.dart';
 
 class AccountScreen extends StatelessWidget {
-  AccountScreen({super.key});
+  final GlobalKey globalKey;
+
+  AccountScreen({super.key, required this.globalKey});
 
   final homeController = Get.put(HomeController());
 
@@ -101,7 +101,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      BottomNavBar().currentIndex.value = 0;
+                      // globalKey.currentWidget.;  //<-This is the line where use
                     },
                     child: SquareCard(
                         image: "assets/icons/offers.svg",
@@ -305,6 +305,8 @@ class AccountScreen extends StatelessWidget {
                           thickness: 1,
                         ),
                         ProfileTile(
+                            onPressed: () =>
+                                AppUtils.navigateToPage(OurStoreScreen()),
                             image: "assets/icons/My-shops.svg",
                             title: "Our Store".tr),
                         const Divider(
@@ -328,19 +330,13 @@ class AccountScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        InkWell(
-                          onTap: () {
-                            AppUtils.navigateToPage(const FiltersScreen());
-                          },
-                          child: ProfileTile(
-                              onPressed: () => AppUtils.navigateToPage(
-                                  WebViewScreen(
-                                      url:
-                                          "https://dev.rawabihypermarket.com/b2c/other/faq.php",
-                                      title: "Help")),
-                              image: "assets/icons/Help.svg",
-                              title: "Help".tr),
-                        ),
+                        ProfileTile(
+                            onPressed: () => AppUtils.navigateToPage(WebViewScreen(
+                                url:
+                                    "https://dev.rawabihypermarket.com/b2c/other/faq.php",
+                                title: "Help")),
+                            image: "assets/icons/Help.svg",
+                            title: "Help".tr),
                         const Divider(
                           thickness: 1,
                         ),

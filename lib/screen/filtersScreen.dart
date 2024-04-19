@@ -1,13 +1,36 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/widget/commonwidget/reusable_textformfield.dart';
 import 'package:rawabi/widget/productTypeFilterTile.dart';
+
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
+import '../model/request/filterRequest.dart';
+import '../model/response/productsResponse.dart';
 import '../widget/commonwidget/reusable_button1.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({super.key});
+  List<Brands> brandList;
+  List<Subcategory> subCategoryListFilter;
+  Price price;
+  List<String> selectedBrands = [];
+  FilterRequest filterRequest = FilterRequest();
+  Function(FilterRequest) selectedItem;
+  var minController = TextEditingController();
+  var maxController = TextEditingController();
+  var minAmount = 0;
+  var maxAmount = 200;
+  RangeValues currentRangeValues = RangeValues(0, 200);
+
+  FiltersScreen(
+      {super.key,
+      required this.brandList,
+      required this.selectedItem,
+      required this.subCategoryListFilter,
+      required this.price});
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -15,72 +38,23 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   int selectedIndex = 0;
-  RangeValues _currentRangeValues = const RangeValues(0, 200);
-  List<String> dummyProductType = [
-    "Apple",
-    "Tomato",
-    "Berries",
-    "Carrot",
-    "Grapes",
-    "Onion",
-    "Potato",
-    "Herbs",
-    "Leaves",
-    "Bananas",
-    "Cabbage",
-    "Chilly",
-    "Cucumber",
-    "Garlic",
-    "Capsicum",
-    "Mushrooms"
-  ];
-  List<bool> dummyProductSelected = [
-    true,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
-  List<String> dummyCategoryType = [
-    "Category 1",
-    "Category 2",
-    "Category 3",
-    "Category 4",
-    "Category 5",
-  ];
-  List<bool> dummyCategorySelected = [
-    true,
-    false,
-    false,
-    false,
-    false,
-  ];
-  List<String> dummyBrandType = [
-    "Brand 1",
-    "Brand 2",
-    "Brand 3",
-    "Brand 4",
-    "Brand 5",
-  ];
-  List<bool> dummyBrandSelected = [
-    true,
-    false,
-    false,
-    false,
-    false,
-  ];
   PageController _controller = PageController();
+
+  @override
+  void initState() {
+    widget.minAmount = widget.price.min!.contains(".")
+        ? int.parse(widget.price.min!.split(".").first)
+        : int.parse(widget.price.min.toString());
+    widget.maxAmount = widget.price.max!.contains(".")
+        ? int.parse(widget.price.max!.split(".").first)
+        : int.parse(widget.price.max.toString());
+    widget.minController.text = widget.minAmount.toString();
+    widget.maxController.text = widget.maxAmount.toString();
+    widget.currentRangeValues = RangeValues(
+        double.parse(widget.minAmount.toString()),
+        double.parse(widget.maxAmount.toString()));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,6 +125,32 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     if (mounted) {
+                          //       setState(() {
+                          //         selectedIndex = 0;
+                          //         _controller.jumpToPage(0);
+                          //       });
+                          //     }
+                          //   },
+                          //   child: Container(
+                          //     alignment: Alignment.centerLeft,
+                          //     height: 50,
+                          //     width: 90,
+                          //     decoration: BoxDecoration(
+                          //       color: selectedIndex == 0 ? white : silver,
+                          //       border:
+                          //           Border.all(color: lightGreyColor, width: 1),
+                          //     ),
+                          //     child: Padding(
+                          //       padding: EdgeInsets.only(left: 15),
+                          //       child: ReusableText(
+                          //         title: "Category".tr,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           GestureDetector(
                             onTap: () {
                               if (mounted) {
@@ -166,13 +166,13 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               width: 90,
                               decoration: BoxDecoration(
                                 color: selectedIndex == 0 ? white : silver,
-                                border: Border.all(
-                                    color: lightGreyColor, width: 1),
+                                border:
+                                    Border.all(color: lightGreyColor, width: 1),
                               ),
-                              child:  Padding(
+                              child: Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Product Type".tr,
+                                  title: "Brand".tr,
                                 ),
                               ),
                             ),
@@ -192,62 +192,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               width: 90,
                               decoration: BoxDecoration(
                                 color: selectedIndex == 1 ? white : silver,
-                                border: Border.all(
-                                    color: lightGreyColor, width: 1),
+                                border:
+                                    Border.all(color: lightGreyColor, width: 1),
                               ),
-                              child:  Padding(
-                                padding: EdgeInsets.only(left: 15),
-                                child: ReusableText(
-                                  title: "Category".tr,
-                                ),
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              if (mounted) {
-                                setState(() {
-                                  selectedIndex = 2;
-                                  _controller.jumpToPage(2);
-                                });
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              height: 50,
-                              width: 90,
-                              decoration: BoxDecoration(
-                                color: selectedIndex == 2 ? white : silver,
-                                border: Border.all(
-                                    color: lightGreyColor, width: 1),
-                              ),
-                              child:  Padding(
-                                padding: EdgeInsets.only(left: 15),
-                                child: ReusableText(
-                                  title: "Brand".tr,
-                                ),
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              if (mounted) {
-                                setState(() {
-                                  selectedIndex = 3;
-                                  _controller.jumpToPage(3);
-                                });
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              height: 50,
-                              width: 90,
-                              decoration: BoxDecoration(
-                                color: selectedIndex == 3 ? white : silver,
-                                border: Border.all(
-                                    color: lightGreyColor, width: 1),
-                              ),
-                              child:  Padding(
+                              child: Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
                                   title: "Price".tr,
@@ -261,51 +209,59 @@ class _FiltersScreenState extends State<FiltersScreen> {
                           child: Container(
                         color: white,
                         child: PageView(
+                          onPageChanged: (value) {
+                            setState(() {
+                              selectedIndex=value;
+                            });
+                          },
                           controller: _controller,
                           children: [
-                            ListView.builder(
-                              padding: const EdgeInsets.only(top: 0),
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: dummyProductType.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return ProductTypeFilterTile(
-                                    title: dummyProductType[index],
-                                    isChecked: dummyProductSelected[index],
-                                  );
-                                }),
-                            ListView.builder(
-                                padding: const EdgeInsets.only(top: 0),
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: dummyCategoryType.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return ProductTypeFilterTile(
-                                    title: dummyCategoryType[index],
-                                    isChecked: dummyCategorySelected[index],
-                                  );
-                                }),
+                            // ListView.builder(
+                            //     padding: const EdgeInsets.only(top: 0),
+                            //     physics: const BouncingScrollPhysics(),
+                            //     shrinkWrap: true,
+                            //     itemCount: widget.subCategoryListFilter.length,
+                            //     itemBuilder: (BuildContext context, int index) {
+                            //       return ProductTypeFilterTile(
+                            //         title: widget.subCategoryListFilter[index].subcatName.toString(),
+                            //         isChecked: false,
+                            //         checked: (bool) {},
+                            //       );
+                            //     }),
                             ListView.builder(
                                 padding: const EdgeInsets.only(top: 0),
                                 physics: const BouncingScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: dummyBrandType.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) {
+                                itemCount: widget.brandList.length,
+                                itemBuilder: (BuildContext context, int index) {
                                   return ProductTypeFilterTile(
-                                    title: dummyBrandType[index],
-                                    isChecked: dummyBrandSelected[index],
+                                    checked: (p0) {
+                                      setState(() {
+                                        if (p0)
+                                          widget.selectedBrands.add(widget
+                                              .brandList[index].id
+                                              .toString());
+                                        else
+                                          widget.selectedBrands.remove(widget
+                                              .brandList[index].id
+                                              .toString());
+                                      });
+                                    },
+                                    title:
+                                        widget.brandList[index].name.toString(),
+                                    isChecked: widget.selectedBrands
+                                        .contains(widget.brandList[index].id),
                                   );
                                 }),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         "Choose price Range".tr,
@@ -314,55 +270,83 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
-
                                         textAlign: TextAlign.left,
                                       ),
-                                       ReusableButton1(
-                                        title:"Reset".tr,
-                                        size: Size(48,22),
+                                      ReusableButton1(
+                                        onPressed: () {
+                                          setState(() {
+                                            widget.currentRangeValues =
+                                                RangeValues(
+                                                    double.parse(
+                                                        widget
+                                                            .minAmount
+                                                            .toString()),
+                                                    double.parse(widget
+                                                        .maxAmount
+                                                        .toString()));
+                                            widget.minController.text =
+                                                widget.minAmount.toString();
+                                            widget.maxController.text =
+                                                widget.maxAmount.toString();
+                                          });
+                                        },
+                                        title: "Reset".tr,
+                                        size: Size(48, 22),
                                         fontSize: 10,
                                       ),
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-
-                                        alignment: Alignment.centerLeft,
-                                        height: 36,
-                                        width: 130,
-
-                                        child: const ReusableTextForm(
-                                          contentPadding: EdgeInsets.all(5),
-                                          hintText: "QAR 0",
-                                          borderRadius: 6.0,
-                                          fillColor: silver,
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 36,
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: silver,
+                                              borderRadius:
+                                                  BorderRadius.circular(7)),
+                                          child: ReusableText(
+                                            title: "QAR " +
+                                                widget.minController.text,
+                                          ),
                                         ),
                                       ),
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        height: 36,
-                                        width: 130,
-                                        child:  const ReusableTextForm(
-                                          contentPadding: EdgeInsets.all(5),
-                                          hintText: "QAR 200",
-                                          borderRadius: 6.0,
-                                          fillColor: silver,
+                                     SizedBox(width: 10,),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 36,
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: silver,
+                                              borderRadius:
+                                                  BorderRadius.circular(7)),
+                                          child: ReusableText(
+                                            title: "QAR " +
+                                                widget.maxController.text,
+                                          ),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         "Min".tr,
@@ -370,26 +354,34 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                           fontFamily: "Inter",
                                           fontSize: 10,
                                           fontWeight: FontWeight.w400,
-                                        ),),
-                                    Text(
-                                      "Max".tr,
-                                      style: const TextStyle(
-                                        fontFamily: "Inter",
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                      ),),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Max".tr,
+                                        style: const TextStyle(
+                                          fontFamily: "Inter",
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                                 RangeSlider(
-                                  values: _currentRangeValues,
-                                  min: 0,
-                                  max: 1000,
+                                  values: widget.currentRangeValues,
+                                  min:
+                                      double.parse(widget.minAmount.toString()),
+                                  max:
+                                      double.parse(widget.maxAmount.toString()),
                                   divisions: 20,
-                            activeColor: primaryColor,
+                                  activeColor: primaryColor,
                                   onChanged: (RangeValues values) {
                                     setState(() {
-                                      _currentRangeValues = values;
+                                      widget.currentRangeValues = values;
+                                      widget.minController.text =
+                                          values.start.toInt().toString();
+                                      widget.maxController.text =
+                                          values.end.toInt().toString();
                                     });
                                   },
                                 )
@@ -415,7 +407,19 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         Expanded(
                           flex: 2,
                           child: ReusableButton1(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                widget.selectedBrands.clear();
+                                //resret price
+                                widget.currentRangeValues = RangeValues(
+                                    double.parse(widget.minAmount.toString()),
+                                    double.parse(widget.maxAmount.toString()));
+                                widget.minController.text =
+                                    widget.minAmount.toString();
+                                widget.maxController.text =
+                                    widget.maxAmount.toString();
+                              });
+                            },
                             backgroundColor: white,
                             txtColor: blackLight,
                             size: const Size(160, 44),
@@ -425,11 +429,27 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             isOutlineButton: true,
                           ),
                         ),
-                        const SizedBox(width: 10,),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Expanded(
                           flex: 3,
                           child: ReusableButton1(
-                            onPressed: () {},
+                            onPressed: () {
+                              widget.filterRequest.brand = widget.selectedBrands
+                                  .toString()
+                                  .replaceAll("[", "")
+                                  .replaceAll("]", "");
+
+                              //set price
+                              widget.filterRequest.min =
+                                  widget.minController.text;
+                              widget.filterRequest.price =
+                                  widget.maxController.text;
+
+                              widget.selectedItem(widget.filterRequest);
+                              Navigator.of(context).pop(context);
+                            },
                             size: const Size(200, 44),
                             title: "Apply".tr,
                             fontSize: 14,

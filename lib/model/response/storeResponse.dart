@@ -33,13 +33,15 @@ class StoreList {
   String? latitude;
   String? longitude;
   String? phone;
+  String? address;
 
   StoreList(
       {this.storeId,
-        this.storeName,
-        this.latitude,
-        this.longitude,
-        this.phone});
+      this.storeName,
+      this.latitude,
+      this.longitude,
+      this.phone,
+      this.address});
 
   StoreList.fromJson(Map<String, dynamic> json) {
     storeId = json['store_id'];
@@ -47,6 +49,7 @@ class StoreList {
     latitude = json['latitude'];
     longitude = json['longitude'];
     phone = json['phone'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -56,6 +59,7 @@ class StoreList {
     data['latitude'] = latitude;
     data['longitude'] = longitude;
     data['phone'] = phone;
+    data['address'] = address;
     return data;
   }
 }

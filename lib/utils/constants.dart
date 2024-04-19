@@ -9,6 +9,7 @@ const check_user = '${baseURL}check_user';
 const signup = '${baseURL}signup';
 const signin = '${baseURL}signin';
 const products = '${baseURL}products';
+const filterUrl = '${baseURL}filter';
 const product_details = '${baseURL}product_details';
 const addtocart = '${baseURL}addtocart';
 const cartList = '${baseURL}cartList';

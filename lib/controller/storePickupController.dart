@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/response/storeResponse.dart';
 import '../utils/commonUtils.dart';
@@ -42,4 +43,17 @@ class StorePickupController extends GetxController {
     loading.value = false;
   }
 
+   Future<void> launchGoogleMaps(double lat, double lng) async {
+     double destinationLatitude = lat;
+     double destinationLongitude = lng;
+    final uri = Uri(
+        scheme: "google.navigation",
+        // host: '"0,0"',  {here we can put host}
+        queryParameters: {'q': '$destinationLatitude, $destinationLongitude'});
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      print('An error occurred');
+    }
+  }
 }

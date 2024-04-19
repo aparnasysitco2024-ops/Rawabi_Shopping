@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/screen/filtersScreen.dart';
@@ -30,25 +31,35 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   var searchController = Get.put(SearchResutController());
   final productController = Get.put(ProductController());
 
+  // var catID = "0", subCatID, subSubCatID;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        final arguments = (ModalRoute.of(context)?.settings.arguments ??
+            <String, dynamic>{}) as Map;
+
+        productController.catID.value = arguments['catId'] ?? "0";
+        productController.subCatID.value = arguments['subCatId'] ?? "0";
+        productController.subSubCatID.value = arguments['subSubCatId'] ?? "0";
+        // final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
+
+        if (productController.subSubCatID.value != "0")
+          productController.getSubCategory();
+        else
+          productController.getProductsByCat();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-
-    final catID = arguments['catId'] ?? "0";
-    final subCatID = arguments['subCatId'] ?? "0";
-    final subSubCatID = arguments['subSubCatId'] ?? "0";
-    // final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
-
-    if (subSubCatID != "0")
-      productController.getSubCategory(catID, subCatID, subSubCatID);
-    else
-      productController.getProductsByCat(
-          catID.toString(), subCatID.toString(), subSubCatID, "0");
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
-        // Navigator.of(context).popUntil(ModalRoute.withName('/'));
         Get.delete<ProductController>();
       },
       child: Scaffold(
@@ -66,9 +77,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     child: SvgPicture.asset("assets/icons/back.svg"),
                     onTap: () {
                       Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                      Get.delete<ProductController>();
-                      /*Get.back();
-                      Get.delete<ProductController>();*/
                     },
                   ),
                   const SizedBox(
@@ -178,7 +186,22 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   ),
                   InkWell(
                     onTap: () {
-                      AppUtils.navigateToPage(FiltersScreen());
+                      AppUtils.navigateToPage(FiltersScreen(
+                        price: productController.price.value,
+                        selectedItem: (filterRequest) {
+                          filterRequest.catid = productController.catID.value;
+                          filterRequest.subcatid =
+                              productController.subCatID.value;
+                          filterRequest.subSubcatid =
+                              productController.subSubCatID.value;
+                          filterRequest.subSubSubcatid =
+                              productController.subSubSubCatID.value;
+                          productController.getFilterData(filterRequest);
+                        },
+                        brandList: productController.brandsList,
+                        subCategoryListFilter:
+                            productController.subCategoryListFilter,
+                      ));
                     },
                     child: Row(
                       children: [
@@ -215,11 +238,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                               onPressed: (val) {
                                 Navigator.pop(context);
                                 productController.sort.value = val;
-                                productController.getProductsByCat(
-                                    catID.toString(),
-                                    subCatID.toString(),
-                                    subSubCatID,
-                                    productController.subSubSubCatID.value);
+                                productController.pageNumber.value = 1;
+                                productController.getProductsByCat();
                               },
                             );
                           }));
@@ -278,13 +298,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                       productController
                                           .subCategoryList[index].catId!;
                                   productController.subCategoryList.refresh();
-                                  productController.getProductsByCat(
-                                      catID,
-                                      subCatID,
-                                      subSubCatID,
-                                      productController
-                                          .subCategoryList[index].catId
-                                          .toString());
+                                  productController.pageNumber.value = 1;
+                                  productController.getProductsByCat();
                                 },
                                 child: ReusableText(
                                   title: productController
@@ -318,26 +333,36 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             color: silver,
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: GridView.builder(
-                                padding: const EdgeInsets.only(top: 10),
-                                shrinkWrap: true,
-                                itemCount: productController.productList.length,
-                                // physics: const BouncingScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 12,
-                                        mainAxisExtent: productItemHeight,
-                                        crossAxisSpacing: 12,
-                                        childAspectRatio: 0.5),
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                      onTap: () async {},
-                                      child: ProductItem(
-                                        products: productController
-                                            .productList[index],
-                                      ));
-                                }),
+                            child: LazyLoadScrollView(
+                              scrollOffset: 100,
+                              onEndOfPage: () {
+                                print("=------------load more---------------");
+                                productController.pageNumber.value =
+                                    productController.pageNumber.value + 1;
+                                productController.getProductsByCat();
+                              },
+                              child: GridView.builder(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      productController.productList.length,
+                                  // physics: const BouncingScrollPhysics(),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 12,
+                                          mainAxisExtent: productItemHeight,
+                                          crossAxisSpacing: 12,
+                                          childAspectRatio: 0.5),
+                                  itemBuilder: (_, index) {
+                                    return InkWell(
+                                        onTap: () async {},
+                                        child: ProductItem(
+                                          products: productController
+                                              .productList[index],
+                                        ));
+                                  }),
+                            ),
                           ),
                         )
                       : Flexible(

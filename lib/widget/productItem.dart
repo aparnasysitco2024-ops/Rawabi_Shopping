@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/products.dart';
-import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
-import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../controller/cartController.dart';
+import '../controller/productsController.dart';
 import '../utils/colors.dart';
-import 'commonwidget/reusable_text.dart';
+import 'commonWidget/reusableNetworkImage.dart';
+import 'commonWidget/reusable_button1.dart';
+import 'commonWidget/reusable_text.dart';
 
 class ProductItem extends StatefulWidget {
   final Products products;
@@ -32,10 +32,14 @@ class _ProductItemState extends State<ProductItem> {
           arguments: {
             'productID': widget.products.productId,
           },
+        ).whenComplete(
+          () {
+            if (Get.isRegistered<ProductController>()) {
+              final productController = Get.put(ProductController());
+              productController.getProductsByCat();
+            }
+          },
         );
-        /*AppUtils.navigateToPage(
-          ProductDetailsScreen(
-              productID: widget.products.productId));*/
       },
       child: Container(
         width: 150,
@@ -49,7 +53,7 @@ class _ProductItemState extends State<ProductItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                widget.products.best_seller == "1"
+                widget.products.best_seller == 1
                     ? Container(
                         alignment: Alignment.center,
                         height: 20,
@@ -59,7 +63,7 @@ class _ProductItemState extends State<ProductItem> {
                         decoration: const BoxDecoration(
                             color: lightPink,
                             borderRadius: BorderRadius.all(Radius.circular(4))),
-                        child:  ReusableText(
+                        child: ReusableText(
                           title: "Best seller".tr,
                           color: primaryColor,
                           size: 10,
