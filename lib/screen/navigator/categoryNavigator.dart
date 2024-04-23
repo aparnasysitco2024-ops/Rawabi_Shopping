@@ -1,11 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:rawabi/screen/categoryScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
-
 import '../productDetailsScreen.dart';
-import '../search/SearchResultScreen.dart';
-import '../search/barcodeResultScreen.dart';
 
 GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>();
 class CategoryNavigator extends StatefulWidget {

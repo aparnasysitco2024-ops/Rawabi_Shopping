@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
-
 import '../home/categoryFromHomeScreen.dart';
 import '../home/homeScreen.dart';
 import '../home/productsFromHomeScreen.dart';
-import '../search/SearchResultScreen.dart';
-import '../search/barcodeResultScreen.dart';
 
 GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 

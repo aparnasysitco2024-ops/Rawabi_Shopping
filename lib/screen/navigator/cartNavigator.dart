@@ -3,9 +3,6 @@ import 'package:rawabi/screen/cart/cartScreen.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
 
-import '../search/SearchResultScreen.dart';
-import '../search/barcodeResultScreen.dart';
-
 GlobalKey<NavigatorState> cartNavigatorKey = GlobalKey<NavigatorState>();
 
 class CartNavigator extends StatefulWidget {
