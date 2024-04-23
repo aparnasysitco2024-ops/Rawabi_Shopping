@@ -22,8 +22,9 @@ import 'languageScreen.dart';
 
 class AccountScreen extends StatelessWidget {
   final GlobalKey globalKey;
-
-  AccountScreen({super.key, required this.globalKey});
+  final VoidCallback onOffersSelected;
+  final VoidCallback onCartSelected;
+  AccountScreen({super.key, required this.globalKey,required this.onOffersSelected, required this.onCartSelected });
 
   final homeController = Get.put(HomeController());
 
@@ -101,14 +102,21 @@ class AccountScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
+                      onOffersSelected();
                       // globalKey.currentWidget.;  //<-This is the line where use
                     },
                     child: SquareCard(
                         image: "assets/icons/offers.svg",
                         title: "My Offers".tr),
                   ),
-                  SquareCard(
-                      image: "assets/icons/mycart.svg", title: "My Cart".tr),
+                  GestureDetector(
+                    onTap: () {
+                      onCartSelected();
+                      // globalKey.currentWidget.;  //<-This is the line where use
+                    },
+                    child: SquareCard(
+                        image: "assets/icons/mycart.svg", title: "My Cart".tr),
+                  ),
                 ],
               )),
           Expanded(

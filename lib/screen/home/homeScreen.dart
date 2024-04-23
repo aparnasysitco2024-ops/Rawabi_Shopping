@@ -10,6 +10,7 @@ import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/home/flayerListScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/utils/commonUtils.dart';
 import 'package:rawabi/widget/adsImageWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 width: 5,
                               ),
-                               ReusableText(
+                              ReusableText(
                                 title: "Search".tr,
                               ),
                             ],
@@ -87,13 +88,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         InkWell(
                             onTap: () async {
                               searchController.searchType.value = "barcode";
-                              searchController.scanBarcodeNormal();
-                              searchController.getProductsByBarcodeSearch();
-                              Navigator.pushNamed(
-                                context,
-                                '/BarcodeResultScreen',
-                              );
-                              // AppUtils.navigateToPage(const BarcodeResultScreen());
+                              await searchController
+                                  .scanBarcodeNormal()
+                                  .whenComplete(() {
+                                searchController.searchProductList.isNotEmpty
+                                    ? Navigator.pushNamed(
+                                        context,
+                                        '/ProductDetailsScreen',
+                                        arguments: {
+                                          'productID': searchController
+                                              .searchProductList[0].productId,
+                                        },
+                                      )
+                                    : CommonUtils().messageBox(
+                                        "Unable to identify item!");
+                              });
                             },
                             child: SvgPicture.asset("assets/icons/scan.svg"))
                       ]),
@@ -105,8 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   InkWell(
                     child: SvgPicture.asset("assets/icons/notification.svg"),
                     onTap: () {
-                      AppUtils.navigateToPage(
-                          EmptyScreen(title: "Notification",));
+                      AppUtils.navigateToPage(EmptyScreen(
+                        title: "Notification",
+                      ));
                     },
                   ),
                   const SizedBox(

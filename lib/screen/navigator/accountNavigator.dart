@@ -7,7 +7,9 @@ GlobalKey<NavigatorState> accountNavigatorKey = GlobalKey<NavigatorState>();
 
 class AccountNavigator extends StatefulWidget {
   final GlobalKey globalKey;
-   AccountNavigator( {super.key,required this.globalKey});
+  final VoidCallback onOffersSelected;
+  final VoidCallback onCartSelected;
+   AccountNavigator( {super.key,required this.globalKey, required this.onOffersSelected, required this.onCartSelected });
 
   @override
   State<AccountNavigator> createState() => _AccountNavigatorState();
@@ -24,7 +26,7 @@ class _AccountNavigatorState extends State<AccountNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return AccountScreen(globalKey: widget.globalKey,);
+                  return AccountScreen(globalKey: widget.globalKey, onOffersSelected:widget.onOffersSelected, onCartSelected: widget.onCartSelected,);
                 case '/WishlistScreen':
                   return WishlistScreen();
                 case '/ProductDetailsScreen':

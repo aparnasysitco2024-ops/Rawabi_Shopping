@@ -35,6 +35,7 @@ class SearchResutController extends GetxController {
     }
     searchType.value = "barcode";
     searchString.value = barcodeScanRes;
+    await getProductsByBarcodeSearch();
   }
 
   Future<void> getProductsByWordSearch(String query) async {
@@ -50,12 +51,12 @@ class SearchResutController extends GetxController {
         if (response != null) {
           var responseData =
               SearchResponse.fromJson(json.decode(response.toString()));
-          print(responseData.products.toString());
+          print(responseData.res?.products.toString());
           //searchProductList.clear();
 
           if (responseData.code == "200") {
-            if (responseData.products != null) {
-              searchProductList.addAll(responseData.products as List<Products>);
+            if (responseData.res?.products != null) {
+              searchProductList.addAll(responseData.res?.products as List<Products>);
             }
             loading.value = false;
             isLoaded = true;
@@ -79,30 +80,38 @@ class SearchResutController extends GetxController {
 
   Future<void> getProductsByBarcodeSearch() async {
     try {
-      var request = {
-        "barcode": searchString.value,
-      };
-      if (!isLoaded) loading.value = true;
-      print("loading barcode result");
-      var response = await BaseClient().post(searchBarcode, request);
-      loading.value = false;
-      if (response != null) {
-        var responseData =
-            SearchResponse.fromJson(json.decode(response.toString()));
+      if(searchString.value != "-1"){
+        var request = {
+          "barcode": searchString.value,
+        };
+        if (!isLoaded) loading.value = true;
         searchProductList.clear();
+        print("loading barcode result");
+        var response = await BaseClient().post(searchBarcode, request);
+        loading.value = false;
+        if (response != null) {
+          var responseData =
+          SearchBarcodeResponse.fromJson(json.decode(response.toString()));
 
-        if (responseData.code == "200") {
-          if (responseData.products != null) {
-            searchProductList.addAll(responseData.products as List<Products>);
+          if (responseData.code == "200") {
+            if (responseData.products!= null) {
+              searchProductList.addAll(responseData.products as List<Products>);
+              print("printing $searchProductList");
+              print(searchProductList.length);
+            }
+            isLoaded = true;
+          } else {
+            isLoaded = false;
+            CommonUtils.showErrorDialog(responseData.toString());
           }
-          isLoaded = true;
         } else {
           isLoaded = false;
-          CommonUtils.showErrorDialog(responseData.toString());
         }
-      } else {
-        isLoaded = false;
       }
+      else{
+        searchProductList.clear();
+      }
+
     } catch (error) {
       isLoaded = false;
       error.printError();

@@ -28,10 +28,10 @@ class _OfferNavigatorState extends State<OfferNavigator> {
                   return OffersScreen();
                 case '/ProductsByCategory':
                   return const ProductsByCategory();
-                case '/SearchResultScreen':
-                  return const SearchResultScreen();
-                case '/BarcodeResultScreen':
-                  return const BarcodeResultScreen();
+               /* case '/SearchResultScreen':
+                  return const SearchResultScreen();*/
+                /*case '/BarcodeResultScreen':
+                  return const BarcodeResultScreen();*/
                 case '/ProductDetailsScreen':
                   return ProductDetailsScreen();
               }

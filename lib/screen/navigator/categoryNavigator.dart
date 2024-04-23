@@ -31,10 +31,10 @@ class _CategoryNavigatorState extends State<CategoryNavigator> {
                   return  const ProductsByCategory();
                 case '/ProductDetailsScreen':
                   return  ProductDetailsScreen();
-                case '/SearchResultScreen':
-                  return  const SearchResultScreen();
-                case '/BarcodeResultScreen':
-                  return  const BarcodeResultScreen();
+                /*case '/SearchResultScreen':
+                  return  const SearchResultScreen();*/
+                /*case '/BarcodeResultScreen':
+                  return  const BarcodeResultScreen();*/
               }
               throw (e){
                 ScaffoldMessenger.of(context)

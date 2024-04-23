@@ -6,6 +6,7 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import '../controller/categoryController.dart';
 import '../controller/searchController.dart';
+import '../utils/commonUtils.dart';
 
 // ignore: must_be_immutable
 class OffersScreen extends StatefulWidget {
@@ -85,13 +86,21 @@ class _OffersScreenState extends State<OffersScreen> {
               InkWell(
                   onTap: () async {
                     searchController.searchType.value = "barcode";
-                    searchController.scanBarcodeNormal();
-                    searchController.getProductsByBarcodeSearch();
-                    Navigator.pushNamed(
-                      context,
-                      '/BarcodeResultScreen',
-                    );
-                    // AppUtils.navigateToPage(const BarcodeResultScreen());
+                    await searchController
+                        .scanBarcodeNormal()
+                        .whenComplete(() {
+                      searchController.searchProductList.isNotEmpty
+                          ? Navigator.pushNamed(
+                        context,
+                        '/ProductDetailsScreen',
+                        arguments: {
+                          'productID': searchController
+                              .searchProductList[0].productId,
+                        },
+                      )
+                          : CommonUtils().messageBox(
+                          "Unable to identify item!");
+                    });
                   },
                   child: SvgPicture.asset("assets/icons/scan.svg"))
             ]),

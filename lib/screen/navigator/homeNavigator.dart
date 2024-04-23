@@ -31,10 +31,10 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   return const HomeScreen();
                 case '/ProductsByCategory':
                   return const ProductsByCategory();
-                case '/SearchResultScreen':
-                  return const SearchResultScreen();
-                case '/BarcodeResultScreen':
-                  return const BarcodeResultScreen();
+                /*case '/SearchResultScreen':
+                  return const SearchResultScreen();*/
+                /*case '/BarcodeResultScreen':
+                  return const BarcodeResultScreen();*/
                 case '/ProductDetailsScreen':
                   return ProductDetailsScreen();
                 case '/ProductsFromHomeScreen':

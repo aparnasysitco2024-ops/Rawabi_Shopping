@@ -42,11 +42,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       const CategoryNavigator(),
       const OfferNavigator(),
       const CartNavigator(),
-      AccountNavigator(globalKey: bottomNavigationKey,)
+      AccountNavigator(
+        globalKey: bottomNavigationKey,
+        onOffersSelected: () => currentIndex.value=2,
+        onCartSelected: ()=> currentIndex.value=3,
+      )
     ];
 
   }
-
 
 
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [

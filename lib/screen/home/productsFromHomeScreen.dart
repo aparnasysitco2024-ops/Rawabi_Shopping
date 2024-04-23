@@ -7,6 +7,8 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 
 import '../../controller/homeController.dart';
+import '../../controller/searchController.dart';
+import '../../utils/commonUtils.dart';
 import '../../utils/constants.dart';
 
 // ignore: must_be_immutable
@@ -21,7 +23,7 @@ class ProductsFromHomeScreen extends StatefulWidget {
 
 class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
   final homeController = Get.put(HomeController());
-
+  final searchController = Get.put(SearchResutController());
   /* String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
@@ -85,27 +87,51 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                   decoration: const BoxDecoration(
                       color: silver,
                       borderRadius: BorderRadius.all(Radius.circular(7))),
-                  child: InkWell(
-                    onTap: () {
-                      showSearch(
-                        context: context,
-                        delegate: MySearchDelegate(),
-                      );
-                    },
-                    /*onTap: () async {
-                          AppUtils.navigateToPage(const SearchScreen());
-                        },*/
-                    child: Row(children: [
-                      SvgPicture.asset("assets/icons/search.svg"),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      ReusableText(
-                        title: title,
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          showSearch(
+                            context: context,
+                            delegate: MySearchDelegate(),
+                          );
+                        },
+                        /*onTap: () async {
+                              AppUtils.navigateToPage(const SearchScreen());
+                            },*/
+                        child: Row(children: [
+                          SvgPicture.asset("assets/icons/search.svg"),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          ReusableText(
+                            title: title,
+                          ),
+
+                        ]),
                       ),
                       const Spacer(),
-                      SvgPicture.asset("assets/icons/scan.svg")
-                    ]),
+                      InkWell(
+                          onTap:() async {
+                            searchController.searchType.value = "barcode";
+                            await searchController
+                                .scanBarcodeNormal()
+                                .whenComplete(() {
+                              searchController.searchProductList.isNotEmpty
+                                  ? Navigator.pushNamed(
+                                context,
+                                '/ProductDetailsScreen',
+                                arguments: {
+                                  'productID': searchController
+                                      .searchProductList[0].productId,
+                                },
+                              )
+                                  : CommonUtils().messageBox(
+                                  "Unable to identify item!");
+                            });
+                          },
+                          child: SvgPicture.asset("assets/icons/scan.svg"))
+                    ],
                   ),
                 ),
               ),

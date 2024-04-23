@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -81,3 +82,4 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
         ]));
   }
 }
+*/

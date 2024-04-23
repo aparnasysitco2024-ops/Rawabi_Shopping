@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -124,7 +125,6 @@ class _BarcodeResultScreenState extends State<BarcodeResultScreen> {
                   childAspectRatio: 0.5),
               itemBuilder: (_, index) {
                 return InkWell(
-                    onTap: () async {},
                     child: ProductItem(
                       products: searchController
                           .searchProductList[index],
@@ -150,3 +150,4 @@ class _BarcodeResultScreenState extends State<BarcodeResultScreen> {
     ])));
   }
 }
+*/
