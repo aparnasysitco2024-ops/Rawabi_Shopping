@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
@@ -23,6 +24,7 @@ class CategoryScreen extends StatelessWidget {
   final categoryController = Get.put(CategoryController());
   String catID = "0", subCatID = "0", subSubCatID = "0", subSubSubCatID = "0";
   final searchController = Get.put(SearchResutController());
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class CategoryScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ReusableText(
-                    title: "Categories".tr, size: 18, weight: FontWeight.bold),
+                    title:  homeController.languageParam.value.categories, size: 18, weight: FontWeight.bold),
               ),
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),

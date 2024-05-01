@@ -87,7 +87,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           width: 5,
                         ),
                         ReusableText(
-                          title: "deliver to: ".tr +
+                          title: homeController.languageParam.value.deliverTo! +
                               homeController.defaultAddress.value,
                           size: 12,
                           weight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3))),
                           child: ReusableText(
-                            title: "Change".tr,
+                            title:  homeController.languageParam.value.change,
                             size: 10,
                             color: blue,
                           ),
@@ -199,7 +199,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ? Column(
                                     children: [
                                        ReusableText(
-                                        title: "Overview".tr,
+                                        title: homeController.languageParam.value.overview,
                                         size: 14.0,
                                         weight: FontWeight.w600,
                                       ),
@@ -224,7 +224,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ? Column(
                                     children: [
                                        ReusableText(
-                                        title: "Details".tr,
+                                        title: homeController.languageParam.value.details,
                                         size: 14.0,
                                         weight: FontWeight.w600,
                                       ),
@@ -267,6 +267,7 @@ class AddButton extends StatefulWidget {
 class _AddButtonState extends State<AddButton> {
   final productDetailsController = Get.put(ProductDetailsController());
   final cartController = Get.put(CartController());
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -364,7 +365,7 @@ class _AddButtonState extends State<AddButton> {
           child: SizedBox(
             height: 40,
             child: ReusableButton1(
-              title: "Add to Cart".tr,
+              title: homeController.languageParam.value.addToCart,
               onPressed: () {
                 cartController.addToCart(
                     productDetailsController.productDetails!.productId

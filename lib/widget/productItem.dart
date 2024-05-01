@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/model/response/products.dart';
 
 import '../controller/cartController.dart';
@@ -14,6 +15,7 @@ import 'commonWidget/reusable_text.dart';
 class ProductItem extends StatefulWidget {
   final Products products;
   final cartController = Get.put(CartController());
+  final homeController = Get.put(HomeController());
 
   ProductItem({super.key, required this.products});
 
@@ -64,7 +66,7 @@ class _ProductItemState extends State<ProductItem> {
                             color: lightPink,
                             borderRadius: BorderRadius.all(Radius.circular(4))),
                         child: ReusableText(
-                          title: "Best seller".tr,
+                          title: widget.homeController.languageParam.value.bestSeller,
                           color: primaryColor,
                           size: 10,
                         ),

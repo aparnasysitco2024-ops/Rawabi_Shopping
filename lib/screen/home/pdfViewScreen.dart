@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+import '../../controller/homeController.dart';
 import '../../utils/colors.dart';
 import '../../widget/commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class PdfViewScreen extends StatelessWidget {
   String file;
-
+  final homeController = Get.put(HomeController());
   PdfViewScreen({super.key, required this.file});
 
   @override
@@ -33,7 +34,7 @@ class PdfViewScreen extends StatelessWidget {
                   children: [
                     Center(
                       child: ReusableText(
-                        title: "Flayer".tr,
+                        title: homeController.languageParam.value.flayer,
                         size: 18,
                         weight: FontWeight.bold,
                         textAlign: TextAlign.left,

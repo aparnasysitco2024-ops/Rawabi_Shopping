@@ -5,6 +5,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:rawabi/utils/colors.dart';
 
 import '../../controller/addAddressController.dart';
+import '../../controller/homeController.dart';
 import '../../widget/commonwidget/reusable_button1.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/reusable_textformfield.dart';
@@ -12,7 +13,7 @@ import '../../widget/commonwidget/reusable_textformfield.dart';
 // ignore: must_be_immutable
 class AddNewAddressesScreen extends StatelessWidget {
   var lat, lng;
-
+  final homeController = Get.put(HomeController());
   AddNewAddressesScreen({super.key, this.lat, this.lng});
 
   final addAddressController = Get.put(AddAddressController());
@@ -50,7 +51,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                           children: [
                             Center(
                               child: ReusableText(
-                                title: "Add New Address".tr,
+                                title: homeController.languageParam.value.addNewAddress,
                                 size: 18,
                                 weight: FontWeight.bold,
                                 textAlign: TextAlign.left,
@@ -107,7 +108,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: "Address Name".tr,
+                                    hintText: homeController.languageParam.value.addressName,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter Address Name';
@@ -123,7 +124,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                         addAddressController.mobileController,
                                     validator: (value) {
                                       if (value == null) {
-                                        return 'Please enter Address';
+                                        return homeController.languageParam.value.pleaseEnterAddress;
                                       }
                                       return null;
                                     },
@@ -142,7 +143,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                       filled: true,
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 5),
-                                      hintText: "Mobile Number".tr,
+                                      hintText: homeController.languageParam.value.mobileNumber,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6)),
@@ -161,10 +162,10 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: "Zone".tr,
+                                    hintText: homeController.languageParam.value.zone,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter zone'.tr;
+                                        return homeController.languageParam.value.pleaseEnterZone;
                                       }
                                       return null;
                                     },
@@ -180,11 +181,10 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     keyboardType: TextInputType.number,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: "Building Number".tr,
+                                    hintText: homeController.languageParam.value.buildingNumber,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter Building Number'
-                                            .tr;
+                                        return homeController.languageParam.value.pleaseEnterBuildingNumber;
                                       }
                                       return null;
                                     },
@@ -199,11 +199,10 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: "Apartment/Building/Block".tr,
+                                    hintText: homeController.languageParam.value.apartmentBuildingBlock,
                                     validator: (value) {
                                       if (value == null) {
-                                        return 'Please enter Apartment/Building/Block'
-                                            .tr;
+                                        return homeController.languageParam.value.pleaseEnterApartmentBuildingBlock;
                                       }
                                       return null;
                                     },
@@ -219,7 +218,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     keyboardType: TextInputType.number,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: "Floor".tr,
+                                    hintText: homeController.languageParam.value.floor,
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -231,10 +230,10 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: "Address ".tr,
+                                    hintText: homeController.languageParam.value.address,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter Address'.tr;
+                                        return homeController.languageParam.value.pleaseEnterAddress;
                                       }
                                       return null;
                                     },
@@ -243,14 +242,14 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     height: 10,
                                   ),
                                   ReusableText(
-                                    title: "Location Type".tr,
+                                    title: homeController.languageParam.value.locationType,
                                     size: 14,
                                   ),
                                   Row(
                                     children: [
                                       Flexible(
                                         child: ListTile(
-                                          title: Text('Work'.tr),
+                                          title: Text(homeController.languageParam.value.work.toString()),
                                           leading: Radio<int>(
                                             value: 1,
                                             activeColor: primaryColor,
@@ -266,7 +265,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                       ),
                                       Flexible(
                                         child: ListTile(
-                                          title: Text('Home'.tr),
+                                          title: Text(homeController.languageParam.value.home.toString()),
                                           leading: Radio<int>(
                                             value: 2,
                                             activeColor: primaryColor,
@@ -288,7 +287,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 45,
                                     child: ReusableButton1(
-                                        title: "Add Address".tr,
+                                        title: homeController.languageParam.value.addNewAddress,
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         onPressed: () {

@@ -34,6 +34,7 @@ const deletewishUrl = '${baseURL}deletewish';
 const myProfileUrl = '${baseURL}myprofile';
 const languageUrl = '${baseURL}language';
 const flyerListUrl = '${baseURL}flyerList';
+const lang_paramsUrl ='${baseURL}lang_params';
 
 
 

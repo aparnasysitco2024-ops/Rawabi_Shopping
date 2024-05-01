@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/widget/productItem.dart';
 
+import '../controller/homeController.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
 import '../widget/commonwidget/reusable_text.dart';
@@ -12,6 +13,7 @@ class WishlistScreen extends StatelessWidget {
   WishlistScreen({super.key});
 
   final wishListController = Get.put(WishListController());
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class WishlistScreen extends StatelessWidget {
                           children: [
                             Center(
                               child: ReusableText(
-                                title: "Wishlist".tr,
+                                title: homeController.languageParam.value.wishlist,
                                 size: 18,
                                 weight: FontWeight.bold,
                                 textAlign: TextAlign.left,

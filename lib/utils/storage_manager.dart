@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageManager {
+
   static String keyIsLogin = "keyIsLogin";
   static String keyGuestID = "keyGuestID";
   static String keyUserID = "keyUserID";
@@ -11,6 +12,8 @@ class StorageManager {
   static String keyUserEmail = "keyUserEmail";
   static String keyUserMobile = "keyUserMobile";
   static String keyLanguage = "keyLanguage";
+  static String keyLanguageID = "keyLanguageID";
+  static String keyLanguageParams = "keyLanguageParams";
   static String keyFirebaseToken = "keyFirebaseToken";
   static String keyFirebaseTokenSend = "keyFirebaseTokenSend";
 

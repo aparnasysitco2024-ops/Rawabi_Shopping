@@ -1,10 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/splashScreen.dart';
+import 'dart:async';
+
+import 'package:rawabi/utils/firebase_options.dart';
 
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -24,7 +32,7 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           // translations: AppTranslations(),
           debugShowCheckedModeBanner: false,
-          home:  const SplashScreen(),
+          home:   SplashScreen(),
           builder: (context, child) {
             return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),

@@ -29,16 +29,19 @@ class LanguageResponse {
 
 class LanguageList {
   String? language;
+  String? id;
 
-  LanguageList({this.language});
+  LanguageList({this.language,this.id});
 
   LanguageList.fromJson(Map<String, dynamic> json) {
     language = json['language'];
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['language'] = this.language;
+    data['id'] = this.id;
     return data;
   }
 }

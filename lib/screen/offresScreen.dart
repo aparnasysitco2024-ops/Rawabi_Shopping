@@ -5,6 +5,7 @@ import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import '../controller/categoryController.dart';
+import '../controller/homeController.dart';
 import '../controller/searchController.dart';
 import '../utils/commonUtils.dart';
 
@@ -19,6 +20,7 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   final categoryController = Get.put(CategoryController());
   final searchController = Get.put(SearchResutController());
+  final homeController = Get.put(HomeController());
   /*String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
@@ -49,7 +51,7 @@ class _OffersScreenState extends State<OffersScreen> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: ReusableText(
-                title: "Offers".tr, size: 18, weight: FontWeight.bold),
+                title:  homeController.languageParam.value.offers, size: 18, weight: FontWeight.bold),
           ),
           Container(
             margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
@@ -77,7 +79,7 @@ class _OffersScreenState extends State<OffersScreen> {
                       width: 5,
                     ),
                      ReusableText(
-                      title: "Search".tr,
+                      title:  homeController.languageParam.value.search,
                     ),
                   ],
                 ),

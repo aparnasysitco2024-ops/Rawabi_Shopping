@@ -1,13 +1,12 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/productTypeFilterTile.dart';
 
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
+import '../controller/homeController.dart';
 import '../model/request/filterRequest.dart';
 import '../model/response/productsResponse.dart';
 import '../widget/commonwidget/reusable_button1.dart';
@@ -24,7 +23,7 @@ class FiltersScreen extends StatefulWidget {
   var minAmount = 0;
   var maxAmount = 200;
   RangeValues currentRangeValues = RangeValues(0, 200);
-
+  final homeController = Get.put(HomeController());
   FiltersScreen(
       {super.key,
       required this.brandList,
@@ -86,7 +85,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                           children: [
                             Center(
                               child: ReusableText(
-                                title: "Filters".tr,
+                                title: widget.homeController.languageParam.value.filters,
                                 size: 18,
                                 weight: FontWeight.bold,
                                 textAlign: TextAlign.left,
@@ -172,7 +171,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Brand".tr,
+                                  title: widget.homeController.languageParam.value.brand,
                                 ),
                               ),
                             ),
@@ -198,7 +197,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: "Price".tr,
+                                  title: widget.homeController.languageParam.value.price,
                                 ),
                               ),
                             ),
@@ -264,7 +263,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Choose price Range".tr,
+                                        widget.homeController.languageParam.value.choosePriceRange.toString(),
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 14,
@@ -290,7 +289,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                                 widget.maxAmount.toString();
                                           });
                                         },
-                                        title: "Reset".tr,
+                                        title: widget.homeController.languageParam.value.reset,
                                         size: Size(48, 22),
                                         fontSize: 10,
                                       ),
@@ -349,7 +348,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Min".tr,
+                                        widget.homeController.languageParam.value.min.toString(),
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 10,
@@ -357,7 +356,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                         ),
                                       ),
                                       Text(
-                                        "Max".tr,
+                                        widget.homeController.languageParam.value.max.toString(),
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 10,
@@ -423,7 +422,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             backgroundColor: white,
                             txtColor: blackLight,
                             size: const Size(160, 44),
-                            title: "Clear".tr,
+                            title: widget.homeController.languageParam.value.clear,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             isOutlineButton: true,
@@ -451,7 +450,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               Navigator.of(context).pop(context);
                             },
                             size: const Size(200, 44),
-                            title: "Apply".tr,
+                            title: widget.homeController.languageParam.value.apply,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),

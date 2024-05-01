@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rawabi/screen/address/addNewAddressScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 
+import '../../controller/homeController.dart';
 import '../../utils/app_utils.dart';
 import '../../utils/storage_manager.dart';
 import '../../widget/commonwidget/reusable_button1.dart';
@@ -17,7 +18,7 @@ import '../../widget/commonwidget/reusable_text.dart';
 // ignore: must_be_immutable
 class AddNewAddressesMapScreen extends StatefulWidget {
   AddNewAddressesMapScreen({super.key});
-
+  final homeController = Get.put(HomeController());
   @override
   State<AddNewAddressesMapScreen> createState() =>
       _AddNewAddressesMapScreenState();
@@ -79,7 +80,7 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                       children: [
                         Center(
                           child: ReusableText(
-                            title: "Add New Address".tr,
+                            title: widget.homeController.languageParam.value.addNewAddress,
                             size: 18,
                             weight: FontWeight.bold,
                             textAlign: TextAlign.left,
@@ -143,7 +144,7 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: white,
-                        hintText: "Search Location".tr,
+                        hintText: widget.homeController.languageParam.value.searchLocation,
                         contentPadding: const EdgeInsets.only(left: 10),
                         prefixIcon: const Icon(
                           Icons.search,
@@ -224,7 +225,7 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                           SizedBox(
                             height: 40,
                             child: ReusableButton1(
-                              title: "Confirm Location".tr,
+                              title: widget.homeController.languageParam.value.confirmLocation,
                               backgroundColor:
                                   address.isEmpty ? silver : primaryColor,
                               onPressed: () {

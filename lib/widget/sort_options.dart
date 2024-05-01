@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonWidget/reusable_text.dart';
 
+import '../controller/homeController.dart';
+
 // ignore: must_be_immutable
 class SortOptionsWidget extends StatefulWidget {
   final Function(String val)? onPressed;
-
+  final homeController = Get.put(HomeController());
   SortOptionsWidget({super.key, required this.onPressed});
 
   var sortList = [
@@ -46,7 +48,7 @@ class _SortOptionsWidgetState extends State<SortOptionsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ReusableText(
-            title: "Sort by".tr,
+            title: widget.homeController.languageParam.value.sortBy,
             size: 14,
             weight: FontWeight.w600,
           ),

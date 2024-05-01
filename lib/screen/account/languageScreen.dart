@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/homeController.dart';
 import '../../controller/languageController.dart';
-import '../../utils/app_utils.dart';
 import '../../utils/colors.dart';
 import '../../utils/storage_manager.dart';
 import '../../widget/commonWidget/reusable_text.dart';
-import '../navigator/bottomNavBar.dart';
 
 class LanguageScreen extends StatelessWidget {
   LanguageScreen({super.key});
 
   final languageController = Get.put(LanguageController());
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    updateLanguage(Locale locale) {
-      Get.updateLocale(locale);
-      AppUtils.navigateToPageRemoveUntil(BottomNavBar());
-    }
+    // updateLanguage(Locale locale) {
+    //   Get.updateLocale(locale);
+    //   AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+    // }
 
     languageController.getLanguages();
     return Obx(() => PopScope(
@@ -93,23 +93,33 @@ class LanguageScreen extends StatelessWidget {
                           itemCount: languageController.languageList.length,
                           itemBuilder: (context, index) => GestureDetector(
                                 onTap: () {
+                                  // StorageManager.saveData(
+                                  //     StorageManager.keyLanguage,
+                                  //     languageController
+                                  //         .languageList[index].language);
                                   StorageManager.saveData(
-                                      StorageManager.keyLanguage,
+                                      StorageManager.keyLanguageID,
                                       languageController
-                                          .languageList[index].language);
+                                          .languageList[index].id);
 
-                                  if (languageController
-                                          .languageList[index].language ==
-                                      "Arabic")
-                                    updateLanguage(Locale('ar', 'SA'));
-                                  else
-                                    updateLanguage(Locale('en', 'US'));
+                                  // if (languageController
+                                  //         .languageList[index].language ==
+                                  //     "Arabic")
+                                  //   updateLanguage(Locale('ar', 'SA'));
+                                  // else
+                                  //   updateLanguage(Locale('en', 'US'));
 
                                   StorageManager.setAndReturnLang(
                                       languageController
                                           .languageList[index].language
                                           .toString());
-                                  Get.deleteAll();
+                                  homeController.getLanguageParam(
+                                      languageController
+                                          .languageList[index].language
+                                          .toString(),
+                                      languageController.languageList[index].id
+                                          .toString());
+                                  // Get.deleteAll();
                                 },
                                 child: Container(
                                   height: 52,

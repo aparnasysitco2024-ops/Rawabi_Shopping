@@ -24,7 +24,12 @@ class AccountScreen extends StatelessWidget {
   final GlobalKey globalKey;
   final VoidCallback onOffersSelected;
   final VoidCallback onCartSelected;
-  AccountScreen({super.key, required this.globalKey,required this.onOffersSelected, required this.onCartSelected });
+
+  AccountScreen(
+      {super.key,
+      required this.globalKey,
+      required this.onOffersSelected,
+      required this.onCartSelected});
 
   final homeController = Get.put(HomeController());
 
@@ -41,7 +46,9 @@ class AccountScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: ReusableText(
-                title: "Profile".tr, size: 18, weight: FontWeight.bold),
+                title: homeController.languageParam.value.profile,
+                size: 18,
+                weight: FontWeight.bold),
           ),
           Container(
               padding: const EdgeInsets.only(left: 10, right: 10),
@@ -57,16 +64,17 @@ class AccountScreen extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      AppUtils.navigateToPage(const MyOrdersTabScreen());
+                      AppUtils.navigateToPage(MyOrdersTabScreen());
                     },
                     child: SquareCard(
                         image: "assets/icons/checklist.svg",
-                        title: "My Orders".tr),
+                        title: homeController.languageParam.value.myOrders
+                            .toString()),
                   ),
                   GestureDetector(
                     onTap: () {
                       AppUtils.navigateToPage(EmptyScreen(
-                        title: "Ahlan Rewards".tr,
+                        title: homeController.languageParam.value.ahlanRewards,
                       ));
                     },
                     child: Container(
@@ -93,7 +101,8 @@ class AccountScreen extends StatelessWidget {
                             height: 10,
                           ),
                           ReusableText(
-                              title: "Ahlan Rewards".tr,
+                              title: homeController
+                                  .languageParam.value.ahlanRewards,
                               size: 10,
                               weight: FontWeight.w500),
                         ],
@@ -107,7 +116,8 @@ class AccountScreen extends StatelessWidget {
                     },
                     child: SquareCard(
                         image: "assets/icons/offers.svg",
-                        title: "My Offers".tr),
+                        title: homeController.languageParam.value.myOffers
+                            .toString()),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -115,7 +125,9 @@ class AccountScreen extends StatelessWidget {
                       // globalKey.currentWidget.;  //<-This is the line where use
                     },
                     child: SquareCard(
-                        image: "assets/icons/mycart.svg", title: "My Cart".tr),
+                        image: "assets/icons/mycart.svg",
+                        title: homeController.languageParam.value.myCart
+                            .toString()),
                   ),
                 ],
               )),
@@ -180,7 +192,8 @@ class AccountScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ReusableText(
-                                        title: "our latest deals here".tr,
+                                        title: homeController.languageParam
+                                            .value.ourLatestDealsHere,
                                         size: 14,
                                         color: white,
                                         weight: FontWeight.bold),
@@ -202,7 +215,7 @@ class AccountScreen extends StatelessWidget {
                                           BorderRadius.all(Radius.circular(3))),
                                   child: Center(
                                     child: ReusableText(
-                                      title: "View".tr,
+                                      title: homeController.languageParam.value.view,
                                       size: 10,
                                       color: white,
                                       weight: FontWeight.w600,
@@ -233,7 +246,9 @@ class AccountScreen extends StatelessWidget {
                                     },
                                     child: ProfileTile(
                                         image: "assets/icons/eReceipt.svg",
-                                        title: "E-Receipt".tr),
+                                        title: homeController
+                                            .languageParam.value.eReceipt
+                                            .toString()),
                                   ),
                                   const Divider(
                                     thickness: 1,
@@ -247,7 +262,7 @@ class AccountScreen extends StatelessWidget {
                           },
                           child: ProfileTile(
                               image: "assets/icons/love.svg",
-                              title: "Wishlist".tr),
+                              title: homeController.languageParam.value.wishlist.toString()),
                         ),
                         const Divider(
                           thickness: 1,
@@ -263,7 +278,7 @@ class AccountScreen extends StatelessWidget {
                                       },
                                       child: ProfileTile(
                                           image: "assets/icons/location.svg",
-                                          title: "Address".tr)),
+                                          title: homeController.languageParam.value.address.toString())),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -273,7 +288,7 @@ class AccountScreen extends StatelessWidget {
                             onPressed: () =>
                                 AppUtils.navigateToPage(LanguageScreen()),
                             image: "assets/icons/globe.svg",
-                            title: "Language".tr),
+                            title: homeController.languageParam.value.language.toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -288,14 +303,14 @@ class AccountScreen extends StatelessWidget {
                                     },
                                     child: ProfileTile(
                                         image: "assets/icons/user.svg",
-                                        title: "My Profile".tr),
+                                        title: homeController.languageParam.value.myProfile.toString()),
                                   ),
                                   const Divider(
                                     thickness: 1,
                                   ),
                                   ProfileTile(
                                       image: "assets/icons/gift-card.svg",
-                                      title: "Gift Cards".tr),
+                                      title: homeController.languageParam.value.giftCards.toString()),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -307,7 +322,7 @@ class AccountScreen extends StatelessWidget {
                           },
                           child: ProfileTile(
                               image: "assets/icons/notification2.svg",
-                              title: "Notifications".tr),
+                              title: homeController.languageParam.value.notifications.toString()),
                         ),
                         const Divider(
                           thickness: 1,
@@ -316,7 +331,7 @@ class AccountScreen extends StatelessWidget {
                             onPressed: () =>
                                 AppUtils.navigateToPage(OurStoreScreen()),
                             image: "assets/icons/My-shops.svg",
-                            title: "Our Store".tr),
+                            title: homeController.languageParam.value.ourStore.toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -326,7 +341,7 @@ class AccountScreen extends StatelessWidget {
                                 children: [
                                   ProfileTile(
                                       image: "assets/icons/returns.svg",
-                                      title: "My Returns".tr),
+                                      title: homeController.languageParam.value.myReturns.toString()),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -334,7 +349,7 @@ class AccountScreen extends StatelessWidget {
                               ),
                         ProfileTile(
                             image: "assets/icons/feedback.svg",
-                            title: "Feedback".tr),
+                            title: homeController.languageParam.value.feedback.toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -344,7 +359,7 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/faq.php",
                                 title: "Help")),
                             image: "assets/icons/Help.svg",
-                            title: "Help".tr),
+                            title: homeController.languageParam.value.help.toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -354,7 +369,7 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/about.php",
                                 title: "About Us")),
                             image: "assets/icons/information.svg",
-                            title: "About Us".tr),
+                            title: homeController.languageParam.value.aboutUs.toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -375,7 +390,7 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/return.php",
                                 title: "Return Policy")),
                             image: "assets/icons/turn-back.svg",
-                            title: "Return Policy".tr),
+                            title: homeController.languageParam.value.returnPolicy.toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -383,7 +398,7 @@ class AccountScreen extends StatelessWidget {
                             onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                                 url:
                                     "https://dev.rawabihypermarket.com/b2c/other/service.php",
-                                title: "Service & Warranty")),
+                                title: "Service & Warranty".tr)),
                             image: "assets/icons/verified2.svg",
                             title: "Service & Warranty".tr),
                         const Divider(
@@ -396,14 +411,14 @@ class AccountScreen extends StatelessWidget {
                                 },
                                 child: ProfileTile(
                                     image: "assets/icons/signin.svg",
-                                    title: "Sign In".tr),
+                                    title: homeController.languageParam.value.signIn.toString()),
                               )
                             : InkWell(
                                 onTap: () async {
                                   await showDialog(
                                     context: Get.context!,
                                     builder: (context) => AlertDialog(
-                                      title: Text("Rawabi Shopping".tr),
+                                      title: Text(homeController.languageParam.value.rawabiShopping.toString()),
                                       content: Text(
                                           'Are you sure you would like to Sign out ?'
                                               .tr),
@@ -412,16 +427,16 @@ class AccountScreen extends StatelessWidget {
                                           onPressed: () {
                                             Navigator.of(context).pop(false);
                                           },
-                                          child: Text('No'.tr),
+                                          child: Text(homeController.languageParam.value.no.toString()),
                                         ),
                                         TextButton(
                                           onPressed: () {
                                             StorageManager.clearData();
                                             Get.deleteAll();
                                             AppUtils.navigateToPageRemoveUntil(
-                                                const SplashScreen());
+                                                 SplashScreen());
                                           }, // <-- SEE HERE
-                                          child: Text('Yes'.tr),
+                                          child: Text(homeController.languageParam.value.yes.toString()),
                                         ),
                                       ],
                                     ),
@@ -429,7 +444,7 @@ class AccountScreen extends StatelessWidget {
                                 },
                                 child: ProfileTile(
                                     image: "assets/icons/exit.svg",
-                                    title: "Sign Out".tr),
+                                    title: homeController.languageParam.value.signOut.toString()),
                               ),
                       ],
                     ),

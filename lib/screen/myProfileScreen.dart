@@ -196,7 +196,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               padding: const EdgeInsets.only(
                   left: 18, right: 18, top: 10, bottom: 20),
               child:  ReusableButton1(
-                title: "Save and Update".tr,
+                title: homeController.languageParam.value.saveAndUpdate,
               ),
             ),
             Container(
@@ -215,17 +215,17 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        AppUtils.navigateToPage(const ChangePasswordScreen());
+                        AppUtils.navigateToPage( ChangePasswordScreen());
                       },
                       child:  ProfileTile(
                           image: "assets/icons/lock.svg",
-                          title: "Change Password".tr)),
+                          title: homeController.languageParam.value.changePassword.toString())),
                   const Divider(
                     thickness: 1,
                   ),
                    ProfileTile(
                       image: "assets/icons/delete.svg",
-                      title: "Delete Account".tr),
+                      title:homeController.languageParam.value.deleteAccount.toString()),
                 ],
               ),
             ),

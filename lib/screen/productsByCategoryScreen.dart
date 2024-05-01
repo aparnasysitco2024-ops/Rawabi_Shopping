@@ -179,7 +179,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                               ),
                               Expanded(
                                 child: ReusableText(
-                                  title: "Express delivery".tr,
+                                  title: homeController.languageParam.value.expressDelivery,
                                   maxLine: 1,
                                   size: 11,
                                   weight: FontWeight.bold,
@@ -237,7 +237,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                           width: 5,
                         ),
                         ReusableText(
-                          title: "Filter".tr,
+                          title: homeController.languageParam.value.filter,
                           size: 12,
                           weight: FontWeight.w800,
                         )
@@ -278,7 +278,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                           width: 5,
                         ),
                         ReusableText(
-                          title: "Sort".tr,
+                          title:homeController.languageParam.value.sort,
                           size: 12,
                           weight: FontWeight.w800,
                         )

@@ -1,9 +1,13 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:get/get.dart';
+import 'package:rawabi/model/response/languageParamResponse.dart';
 
 import '../model/response/homeResponse.dart';
 import '../model/response/myProfileResponse.dart';
+import '../screen/navigator/bottomNavBar.dart';
+import '../utils/app_utils.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
@@ -27,7 +31,6 @@ class HomeController extends GetxController {
   var barcodeScannerText = "".obs;
   MyProfile myProfile = MyProfile();
 
-
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
   var storeAddress = "".obs;
@@ -36,6 +39,8 @@ class HomeController extends GetxController {
   var isHomeLoaded = false;
   var loading = false.obs;
   var isPickup = false.obs;
+  var languageParam = LanguageParam().obs;
+  var languageParamString = "";
 
   Future<void> getStorageData() async {
     storeAddress.value =
@@ -48,6 +53,11 @@ class HomeController extends GetxController {
     userID.value = await StorageManager.getUserID();
     isPickup.value =
         await StorageManager.readDataBool(StorageManager.keyIsPickup);
+    languageParamString =
+        await StorageManager.readData(StorageManager.keyLanguageParams);
+    if (languageParamString.isNotEmpty)
+      languageParam.value =
+          LanguageParam.fromJson(json.decode(languageParamString));
   }
 
   Future<void> getHomeData() async {
@@ -67,13 +77,11 @@ class HomeController extends GetxController {
           categoryList.addAll(responseData.res!.category as List<Category>);
 
           responseData.res!.slider!.forEach((element) {
-            if(element.banner_type=="Top")
-            bannerListTop.add(element);
-            else if(element.banner_type=="Below Slider")
+            if (element.banner_type == "Top")
+              bannerListTop.add(element);
+            else if (element.banner_type == "Below Slider")
               bannerListTop2.add(element);
           });
-
-
 
           itemGroupList.addAll(responseData.res!.itemGroup as List<ItemGroup>);
 
@@ -116,5 +124,36 @@ class HomeController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+  }
+
+  Future<void> getLanguageParam(String language, String id) async {
+    try {
+      var params = {"id": id};
+      var response = await BaseClient().post(lang_paramsUrl, params);
+      if (response != null) {
+        var responseData =
+            LanguageParamResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          languageParam.value = responseData.res!.first;
+
+          StorageManager.saveData(StorageManager.keyLanguageParams,
+              json.encode(languageParam.value));
+
+          if (language == "Arabic")
+            updateLanguage(Locale('ar', 'SA'));
+          else
+            updateLanguage(Locale('en', 'US'));
+
+          Get.deleteAll();
+        }
+      }
+    } catch (error) {
+      error.printError();
+    }
+  }
+
+  updateLanguage(Locale locale) {
+    Get.updateLocale(locale);
+    AppUtils.navigateToPageRemoveUntil(BottomNavBar());
   }
 }

@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/ReusableBorderContainer.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+import '../controller/homeController.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  const ChangePasswordScreen({super.key});
+   ChangePasswordScreen({super.key});
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: ReusableText(
-                            title: "Change Password".tr,
+                            title: homeController.languageParam.value.changePassword,
                             size: 18,
                             weight: FontWeight.bold,
                             textAlign: TextAlign.left,
@@ -103,7 +105,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             borderSide: BorderSide.none,
                           ),
-                          labelText: 'Enter Current Password'.tr,
+                          labelText:  homeController.languageParam.value.enterCurrentPassword,
                         ),
                         onChanged: (value) {},
                       ),
@@ -135,7 +137,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             borderSide: BorderSide.none,
                           ),
-                          labelText: 'Enter New Password'.tr,
+                          labelText: homeController.languageParam.value.enterNewPassword,
                         ),
                         onChanged: (value) {},
                       ),
@@ -187,7 +189,7 @@ class ChangePasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             borderSide: BorderSide.none,
                           ),
-                          labelText: 'Confirm Password'.tr,
+                          labelText: homeController.languageParam.value.confirmPassword,
                         ),
                         onChanged: (value) {},
                       ),
@@ -196,7 +198,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       height: 20,
                     ),
                      ReusableButton1(
-                      title: "Reset".tr,
+                      title: homeController.languageParam.value.reset,
                     ),
                   ],
                 ),

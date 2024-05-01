@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controller/homeController.dart';
 import '../utils/colors.dart';
 import 'commonwidget/reusable_text.dart';
 
@@ -7,8 +8,8 @@ class SearchOrdersWidget extends StatelessWidget {
   final TextEditingController ? controller;
 
   final String? hintText;
-  const SearchOrdersWidget({super.key, this.controller,this.hintText});
-
+   SearchOrdersWidget({super.key, this.controller,this.hintText});
+  final homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,7 +65,7 @@ class SearchOrdersWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ReusableText(
-                        title: "Last 3months".tr,
+                        title: homeController.languageParam.value.last3months,
                         size: 12,
                         weight: FontWeight.w400,
                         textAlign: TextAlign.left,

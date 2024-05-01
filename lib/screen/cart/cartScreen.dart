@@ -38,7 +38,9 @@ class CartScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ReusableText(
-                      title: "Cart".tr, size: 18, weight: FontWeight.bold),
+                      title: homeController.languageParam.value.cart,
+                      size: 18,
+                      weight: FontWeight.bold),
                 ),
                 cartController.cartProducts.isNotEmpty &&
                         !homeController.isPickup.value
@@ -61,7 +63,8 @@ class CartScreen extends StatelessWidget {
                           ),
                           ReusableText(
                             title:
-                                "deliver to:".tr+"${homeController.defaultAddress.value}",
+                                homeController.languageParam.value.deliverTo! +
+                                    "${homeController.defaultAddress.value}",
                             size: 12,
                             weight: FontWeight.bold,
                             color: Colors.black,
@@ -77,7 +80,8 @@ class CartScreen extends StatelessWidget {
                               onTap: () =>
                                   AppUtils.navigateToPage(MyAddressesScreen()),
                               child: ReusableText(
-                                title: "Change".tr,
+                                title:
+                                    homeController.languageParam.value.change,
                                 size: 8,
                                 color: blue,
                               ),
@@ -117,7 +121,10 @@ class CartScreen extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10.0, vertical: 2),
                                           child: ReusableText(
-                                              title: "Your orders".tr,
+                                              title: homeController
+                                                  .languageParam
+                                                  .value
+                                                  .yourOrders,
                                               size: 14,
                                               weight: FontWeight.w600),
                                         ),
@@ -128,7 +135,10 @@ class CartScreen extends StatelessWidget {
                                             title: cartController
                                                     .cartProducts.length
                                                     .toString() +
-                                                " items".tr,
+                                                " " +
+                                                homeController
+                                                    .languageParam.value.items
+                                                    .toString(),
                                             size: 10,
                                           ),
                                         ),
@@ -202,8 +212,7 @@ class CartScreen extends StatelessWidget {
                                                       children: [
                                                         ReusableText(
                                                           title:
-                                                              "Contactless Delivery"
-                                                                  .tr,
+                                                          homeController.languageParam.value.contactlessDelivery,
                                                           size: 12,
                                                           weight:
                                                               FontWeight.bold,
@@ -250,7 +259,7 @@ class CartScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         ReusableText(
-                                          title: "Select Payment Method".tr,
+                                          title: homeController.languageParam.value.selectPaymentMethod,
                                           size: 16,
                                           weight: FontWeight.bold,
                                         ),
@@ -326,7 +335,7 @@ class CartScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             ReusableText(
-                                              title: "Add new Card".tr,
+                                              title: homeController.languageParam.value.addNewCard,
                                               weight: FontWeight.w400,
                                             ),
                                             const Spacer(),
@@ -356,7 +365,7 @@ class CartScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             ReusableText(
-                                              title: "Cash on Delivery".tr,
+                                              title: homeController.languageParam.value.cashOnDelivery,
                                               weight: FontWeight.w400,
                                             ),
                                             const Spacer(),
@@ -400,8 +409,8 @@ class CartScreen extends StatelessWidget {
                                           const SizedBox(
                                             width: 5,
                                           ),
-                                           ReusableText(
-                                            title: "Apply Coupon".tr,
+                                          ReusableText(
+                                            title: homeController.languageParam.value.applyCoupon,
                                             size: 14,
                                             weight: FontWeight.w600,
                                             color: Colors.black,
@@ -419,7 +428,7 @@ class CartScreen extends StatelessWidget {
                                                     Radius.circular(3))),
                                             child: Center(
                                               child: ReusableText(
-                                                title: "Apply".tr,
+                                                title: homeController.languageParam.value.apply,
                                                 size: 10,
                                                 color: white,
                                                 weight: FontWeight.w600,
@@ -436,11 +445,11 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                     width: double.maxFinite,
                                   ),
-                                   Padding(
+                                  Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 6.0),
                                     child: ReusableText(
-                                      title: "Order Summary".tr,
+                                      title: homeController.languageParam.value.orderSummary,
                                       size: 14,
                                       weight: FontWeight.w600,
                                       color: Colors.black,
@@ -461,8 +470,8 @@ class CartScreen extends StatelessWidget {
                                       children: [
                                         Row(
                                           children: [
-                                             ReusableText(
-                                              title: "Cart Total".tr,
+                                            ReusableText(
+                                              title: homeController.languageParam.value.cartTotal,
                                               size: 12,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -481,8 +490,8 @@ class CartScreen extends StatelessWidget {
                                             ? SizedBox()
                                             : Row(
                                                 children: [
-                                                   ReusableText(
-                                                    title: "Delivery".tr,
+                                                  ReusableText(
+                                                    title: homeController.languageParam.value.delivery,
                                                     size: 12,
                                                     weight: FontWeight.w600,
                                                     color: Colors.black,
@@ -499,8 +508,8 @@ class CartScreen extends StatelessWidget {
                                               ),
                                         Row(
                                           children: [
-                                             ReusableText(
-                                              title: "Bag Fee".tr,
+                                            ReusableText(
+                                              title: homeController.languageParam.value.bagFee,
                                               size: 12,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -520,8 +529,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                             ReusableText(
-                                              title: "Grand Total".tr,
+                                            ReusableText(
+                                              title: homeController.languageParam.value.grandTotal,
                                               size: 12,
                                               weight: FontWeight.bold,
                                               color: Colors.black,
@@ -539,10 +548,10 @@ class CartScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                   Padding(
+                                  Padding(
                                     padding: EdgeInsets.only(left: 18.0),
                                     child: ReusableText(
-                                      title: "Inclusive of all taxes".tr,
+                                      title: homeController.languageParam.value.inclusiveOfAllTaxes,
                                       size: 10,
                                       weight: FontWeight.w400,
                                       color: Colors.black,
@@ -576,8 +585,8 @@ class CartScreen extends StatelessWidget {
                                               weight: FontWeight.bold,
                                               color: Colors.black,
                                             ),
-                                             ReusableText(
-                                              title: "Total amount".tr,
+                                            ReusableText(
+                                              title: homeController.languageParam.value.totalAmount,
                                               size: 10,
                                               weight: FontWeight.w400,
                                               color: Colors.black,
@@ -589,7 +598,7 @@ class CartScreen extends StatelessWidget {
                                           child: SizedBox(
                                             height: 40,
                                             child: ReusableButton1(
-                                              title: "Place order".tr,
+                                              title: homeController.languageParam.value.placeOrder,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
                                               onPressed: () {
@@ -629,7 +638,7 @@ class CartScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset("assets/icons/logo.svg"),
-                                     ReusableText(
+                                    ReusableText(
                                       title: "Your cart is empty!!".tr,
                                     )
                                   ]),

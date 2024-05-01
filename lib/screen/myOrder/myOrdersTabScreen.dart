@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:rawabi/screen/myOrder/myOrderScreen.dart';
 import 'package:rawabi/widget/searchOrderWidget.dart';
 
+import '../../controller/homeController.dart';
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 
 class MyOrdersTabScreen extends StatefulWidget {
-  const MyOrdersTabScreen({super.key});
+   MyOrdersTabScreen({super.key});
+  final homeController = Get.put(HomeController());
 
   @override
   State<MyOrdersTabScreen> createState() => _MyOrdersTabScreenState();
@@ -43,7 +45,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                         children: [
                           Center(
                             child: ReusableText(
-                              title: "My Orders".tr,
+                              title: widget.homeController.languageParam.value.myOrders,
                               size: 18,
                               weight: FontWeight.bold,
                               textAlign: TextAlign.left,
@@ -66,7 +68,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                         ],
                       ),
                     ),
-                     SearchOrdersWidget(hintText: "Search Orders".tr,),
+                     SearchOrdersWidget(hintText: widget.homeController.languageParam.value.searchOrders,),
                     const Divider(
                       thickness: 1,
                       color: lightGreyColor,
@@ -85,7 +87,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: "Orders".tr,
+                                title: widget.homeController.languageParam.value.orders,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -94,7 +96,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: "Delivered".tr,
+                                title: widget.homeController.languageParam.value.delivered,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -103,7 +105,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: "Cancelled".tr,
+                                title: widget.homeController.languageParam.value.cancelled,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -112,7 +114,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: "Return".tr,
+                                title: widget.homeController.languageParam.value.returns,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,

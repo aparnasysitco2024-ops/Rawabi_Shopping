@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "741522791575",
+    "project_id": "rawabi-7c097",
+    "storage_bucket": "rawabi-7c097.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741522791575:android:bf074b51e4c632dc461dd2",
+        "android_client_info": {
+          "package_name": "com.app.rawabi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-4hm6OP4VY9_Lr_LkxLpGDvlUvLFKV8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741522791575:android:0cbcc7d3e4abbaf3461dd2",
+        "android_client_info": {
+          "package_name": "com.rawabi_Rider"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-4hm6OP4VY9_Lr_LkxLpGDvlUvLFKV8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

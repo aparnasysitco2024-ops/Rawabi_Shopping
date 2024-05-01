@@ -11,11 +11,13 @@ import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../../controller/homeController.dart';
+import '../../controller/storePickupController.dart';
 import '../../utils/app_utils.dart';
 import '../navigator/bottomNavBar.dart';
 
 class HomeDeliveryMapScreen extends StatefulWidget {
-  const HomeDeliveryMapScreen({super.key});
+   HomeDeliveryMapScreen({super.key});
+   final storePickupController = Get.put(StorePickupController());
 
   @override
   State<HomeDeliveryMapScreen> createState() => HomeDeliveryMapScreenState();
@@ -163,7 +165,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: white,
-                hintText: "Search Location".tr,
+                hintText: widget.storePickupController.languageParam.value.searchLocation,
                 contentPadding: const EdgeInsets.only(left: 10),
                 prefixIcon: const Icon(
                   Icons.search,
@@ -243,7 +245,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   SizedBox(
                     height: 40,
                     child: ReusableButton1(
-                      title: "Confirm Location".tr,
+                      title: widget.storePickupController.languageParam.value.confirmLocation,
                       backgroundColor: address.isEmpty ? silver : primaryColor,
                       onPressed: () {
                         if (address.isNotEmpty) {

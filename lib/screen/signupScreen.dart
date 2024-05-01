@@ -50,7 +50,7 @@ class SignupScreen extends StatelessWidget {
                               width: 70.0,
                               onTap: () {
                                 AppUtils.navigateToPageReplace(
-                                    const SplashScreen());
+                                     SplashScreen());
                               },
                               title: "Skip".tr),
                         ),
