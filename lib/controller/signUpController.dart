@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 
 import '../model/response/signupResponse.dart';
+import '../screen/verification_code_screen.dart';
+import '../utils/app_utils.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
@@ -35,6 +37,7 @@ class SignUpController extends GetxController {
           StorageManager.saveData(StorageManager.keyUserEmail, emailController.text);
           StorageManager.saveData(StorageManager.keyUserMobile, mobileController.text);
           StorageManager.saveData(StorageManager.keyUserID, responseData.id);
+          AppUtils.navigateToPageReplace(const VerificationCode());
 
         } else {
           CommonUtils.showErrorDialog(responseData.message);

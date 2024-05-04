@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                           ),
                           ReusableText(
                             title:
-                                homeController.languageParam.value.deliverTo! +
+                                "Deliver to" +
                                     "${homeController.defaultAddress.value}",
                             size: 12,
                             weight: FontWeight.bold,

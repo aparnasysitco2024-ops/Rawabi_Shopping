@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:rawabi/model/response/myorder/myOrderResponse.dart';
 
 import '../model/response/myorder/items.dart';
 import '../model/response/myorder/orderDetailResponse.dart';
@@ -14,6 +15,8 @@ class MyOrderDetailController extends GetxController {
   MyOrderDetailController();
 
   var myOrderList = <Items>[].obs;
+  Orders myOrder =Orders();
+
 
   @override
   onInit() async {
@@ -31,6 +34,7 @@ class MyOrderDetailController extends GetxController {
         var responseData =
             OrderDetailResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
+          myOrder=responseData.res!.first;
           myOrderList.addAll(responseData.res?.first.items! as Iterable<Items>);
         } else {
           CommonUtils.showErrorDialog(responseData.message);

@@ -5,21 +5,20 @@ import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/orderDetailsTile.dart';
 
 import '../../controller/myOrderDetailsController.dart';
-import '../../model/response/myorder/myOrderResponse.dart';
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class OrderDetailsScreen extends StatelessWidget {
-  Orders myOrder;
+  var orderid;
 
   final myOrderDetailController = Get.put(MyOrderDetailController());
 
-  OrderDetailsScreen({super.key, required this.myOrder});
+  OrderDetailsScreen({super.key, required this.orderid});
 
   @override
   Widget build(BuildContext context) {
-    myOrderDetailController.getMyOrderDetail(myOrder.orderid.toString());
+    myOrderDetailController.getMyOrderDetail(orderid.toString());
     return PopScope(
       onPopInvoked: (didPop) {
         Get.delete<MyOrderDetailController>();
@@ -122,8 +121,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                           onTap: () {
                                             AppUtils.navigateToPage(
                                                 TrackOrderScreen(
-                                              myOrder: myOrder,
-                                              id: myOrder.orderid.toString(),
+                                              myOrder: myOrderDetailController
+                                                  .myOrder,
+                                              id: orderid.toString(),
                                             ));
                                           },
                                           child: Container(

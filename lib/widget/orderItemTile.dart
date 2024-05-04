@@ -18,7 +18,7 @@ class OrderItemTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         AppUtils.navigateToPage(OrderDetailsScreen(
-          myOrder: myOrder,
+          orderid: myOrder.orderid,
         ));
       },
       child: Container(

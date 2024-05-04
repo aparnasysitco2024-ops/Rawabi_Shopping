@@ -87,7 +87,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           width: 5,
                         ),
                         ReusableText(
-                          title: homeController.languageParam.value.deliverTo! +
+                          title: "Deliver to ".tr +
                               homeController.defaultAddress.value,
                           size: 12,
                           weight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3))),
                           child: ReusableText(
-                            title:  homeController.languageParam.value.change,
+                            title: homeController.languageParam.value.change,
                             size: 10,
                             color: blue,
                           ),
@@ -137,7 +137,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         width: double.infinity,
                                         child: ReusableNetworkImage(
                                           image: productDetailsController
-                                              .productDetails!.productImage.toString(),
+                                              .productDetails!.productImage
+                                              .toString(),
                                           height: 210.0,
                                         ))),
                                 const SizedBox(
@@ -198,8 +199,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     .productDetails!.shortDesc!.isNotEmpty
                                 ? Column(
                                     children: [
-                                       ReusableText(
-                                        title: homeController.languageParam.value.overview,
+                                      ReusableText(
+                                        title: homeController
+                                            .languageParam.value.overview,
                                         size: 14.0,
                                         weight: FontWeight.w600,
                                       ),
@@ -223,8 +225,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     .productDetails!.detailedDesc!.isNotEmpty
                                 ? Column(
                                     children: [
-                                       ReusableText(
-                                        title: homeController.languageParam.value.details,
+                                      ReusableText(
+                                        title: homeController
+                                            .languageParam.value.details,
                                         size: 14.0,
                                         weight: FontWeight.w600,
                                       ),

@@ -7,9 +7,13 @@ import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../utils/colors.dart';
+import 'myOrder/orderDetailsScreen.dart';
 
+// ignore: must_be_immutable
 class OrderPlacedScreen extends StatelessWidget {
-  const OrderPlacedScreen({super.key});
+  var orderId;
+
+  OrderPlacedScreen({super.key, this.orderId});
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +57,17 @@ class OrderPlacedScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   title: "Continue shopping".tr,
                   onPressed: () =>
-                      AppUtils.navigateToPageRemoveUntil( BottomNavBar()),
+                      AppUtils.navigateToPageRemoveUntil(BottomNavBar()),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 ReusableButton1(
+                  onPressed: () {
+                    AppUtils.navigateToPageReplace(OrderDetailsScreen(
+                      orderid: orderId,
+                    ));
+                  },
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   backgroundColor: Colors.white,

@@ -8,7 +8,7 @@ import 'package:rawabi/screen/filtersScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/widget/commonwidget/reusable_text.dart';
+import 'package:rawabi/widget/Commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/productItem.dart';
 import 'package:rawabi/widget/sort_options.dart';
 
@@ -71,17 +71,11 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               ),
               Row(
                 children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
                   InkWell(
-                    child: SvgPicture.asset("assets/icons/back.svg"),
+                    child: Container(child: SvgPicture.asset("assets/icons/back.svg"),width: 40,height: 50,padding: EdgeInsets.all(15),),
                     onTap: () {
                       Navigator.of(context).popUntil(ModalRoute.withName('/'));
                     },
-                  ),
-                  const SizedBox(
-                    width: 10,
                   ),
                   Flexible(
                     child: Container(
@@ -111,27 +105,26 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                               ReusableText(
                                 title: productController.catName.value,
                               ),
-
                             ]),
                           ),
                           const Spacer(),
                           InkWell(
-                              onTap:() async {
+                              onTap: () async {
                                 searchController.searchType.value = "barcode";
                                 await searchController
                                     .scanBarcodeNormal()
                                     .whenComplete(() {
                                   searchController.searchProductList.isNotEmpty
                                       ? Navigator.pushNamed(
-                                    context,
-                                    '/ProductDetailsScreen',
-                                    arguments: {
-                                      'productID': searchController
-                                          .searchProductList[0].productId,
-                                    },
-                                  )
+                                          context,
+                                          '/ProductDetailsScreen',
+                                          arguments: {
+                                            'productID': searchController
+                                                .searchProductList[0].productId,
+                                          },
+                                        )
                                       : CommonUtils().messageBox(
-                                      "Unable to identify item!");
+                                          "Unable to identify item!");
                                 });
                               },
                               child: SvgPicture.asset("assets/icons/scan.svg"))
@@ -179,7 +172,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                               ),
                               Expanded(
                                 child: ReusableText(
-                                  title: homeController.languageParam.value.expressDelivery,
+                                  title: homeController
+                                      .languageParam.value.expressDelivery,
                                   maxLine: 1,
                                   size: 11,
                                   weight: FontWeight.bold,
@@ -278,7 +272,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                           width: 5,
                         ),
                         ReusableText(
-                          title:homeController.languageParam.value.sort,
+                          title: homeController.languageParam.value.sort,
                           size: 12,
                           weight: FontWeight.w800,
                         )

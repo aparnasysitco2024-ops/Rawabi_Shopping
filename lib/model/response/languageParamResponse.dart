@@ -104,7 +104,6 @@ class LanguageParam {
   String? trackYourOrder;
   String? trackOrder;
   String? changeTime;
-  String? deliverTo;
   String? orderPlaced;
   String? itemProcessed;
   String? baggedFromShopAt245Pm;
@@ -234,7 +233,6 @@ class LanguageParam {
       this.home,
       this.myAddresses,
       this.cart,
-      this.deliverTo,
       this.change,
       this.yourOrders,
       this.items,

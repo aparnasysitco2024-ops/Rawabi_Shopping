@@ -140,7 +140,7 @@ class TrackOrderScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ReusableText(
-                                  title: "Deliver To".tr,
+                                  title: "Deliver To ".tr,
                                   size: 12,
                                   weight: FontWeight.w600,
                                 ),

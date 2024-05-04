@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
+import 'package:rawabi/model/response/checkoutResponse.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 
@@ -137,10 +138,12 @@ class CartController extends GetxController {
       loading.value = false;
       if (response != null) {
         var responseData =
-            BaseResponse.fromJson(json.decode(response.toString()));
+            CheckoutResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
-          AppUtils.navigateToPage(const OrderPlacedScreen());
+          AppUtils.navigateToPage(OrderPlacedScreen(
+            orderId: responseData.orderId,
+          ));
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
