@@ -8,6 +8,7 @@ import 'package:rawabi/controller/searchController.dart';
 import 'package:rawabi/screen/deliverymode/deliveryModeScreen.dart';
 import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/home/flayerListScreen.dart';
+import 'package:rawabi/screen/home/selectSlotScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/commonUtils.dart';
@@ -187,30 +188,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 5,
                               ),
                               Flexible(
-                                child: Container(
-                                  padding:
-                                      const EdgeInsets.only(left: 5, right: 0),
-                                  height: 40,
-                                  decoration: const BoxDecoration(
-                                      color: silver,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(7))),
-                                  child: Row(children: [
-                                    SvgPicture.asset(
-                                      "assets/icons/calendar.svg",
-                                      height: 20,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    ReusableText(
-                                      title: homeController.languageParam.value
-                                          .scheduledDelivery,
-                                      size: 11,
-                                      weight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ]),
+                                child: InkWell(
+                                  onTap: (){
+                                    AppUtils.navigateToPage(SelectSlotScreen());
+                                  },
+                                  child: Container(
+                                    padding:
+                                        const EdgeInsets.only(left: 5, right: 0),
+                                    height: 40,
+                                    decoration: const BoxDecoration(
+                                        color: silver,
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(7))),
+                                    child: Row(children: [
+                                      SvgPicture.asset(
+                                        "assets/icons/calendar.svg",
+                                        height: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      ReusableText(
+                                        title: homeController.languageParam.value
+                                            .scheduledDelivery,
+                                        size: 11,
+                                        weight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ]),
+                                  ),
                                 ),
                               ),
                               const SizedBox(
