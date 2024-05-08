@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:intl/intl.dart';
-import 'package:rawabi/utils/constants.dart';
 import '../../controller/slotController.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 
