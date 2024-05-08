@@ -28,7 +28,7 @@ class ReusableText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       maxLines: maxLine,
-      title!,
+      title??"",
       textAlign: textAlign,
       style: TextStyle(
           decoration:

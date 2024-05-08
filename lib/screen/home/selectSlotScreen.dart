@@ -184,10 +184,13 @@ selectedSlotIndex=null;
                           value:index,
                           groupValue: selectedSlotIndex,
                           onChanged: (value) {
-                          setState(() {
-                            selectedSlotIndex=index;
-                          });
-
+                            if(slotController.slots[index].limit!="0"){
+                              if(mounted){
+                                setState(() {
+                                  selectedSlotIndex=index;
+                                });
+                              }
+                            }
                           }),
                       SizedBox(width: 10,),
                       ReusableText(

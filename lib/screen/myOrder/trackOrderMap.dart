@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonWidget/reusable_text.dart';
 import 'package:rawabi/widget/headerWidget.dart';
+
+import '../../utils/constants.dart';
 
 class TrackOrderMap extends StatefulWidget {
   @override
@@ -22,8 +26,19 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
   Completer<GoogleMapController>();
   late BitmapDescriptor sourceIcon;
   late BitmapDescriptor destinationIcon;
+// Starting point latitude
+  double _originLatitude =25.2854;
+// Starting point longitude
+  double _originLongitude = 51.5310;
+// Destination latitude
+  double _destLatitude = 25.1881567;
+// Destination Longitude
+  double _destLongitude = 51.5465687;
+// Markers to show points on the map
 
-  Map<PolylineId, Polyline> _polylines = {};
+  PolylinePoints polylinePoints = PolylinePoints();
+  Map<PolylineId, Polyline> polylines = {};
+  Map<MarkerId, Marker> markers = {};
 
   void setSourceAndDestinationIcons() async {
     BitmapDescriptor.fromAssetImage(
@@ -39,7 +54,45 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     });
   }
 
-  void _addPolyline() {
+  _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
+    MarkerId markerId = MarkerId(id);
+    Marker marker =
+    Marker(markerId: markerId, icon: descriptor, position: position);
+    markers[markerId] = marker;
+  }
+  void _getPolyline() async {
+    List<LatLng> polylineCoordinates = [];
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      API_KEY,
+      PointLatLng(_originLatitude, _originLongitude),
+      PointLatLng(_destLatitude, _destLongitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    _addPolyLine(polylineCoordinates);
+  }
+
+  _addPolyLine(List<LatLng> polylineCoordinates) {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: primaryColor,
+      points: polylineCoordinates,
+      width: 5,
+    );
+    polylines[id] = polyline;
+    setState(() {});
+  }
+
+
+ /* void _addPolyline() {
     final PolylineId polylineId = PolylineId('polyline_id');
     final Polyline polyline = Polyline(
       polylineId: polylineId,
@@ -57,7 +110,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     });
   }
 
-  void _updatePolyline(/* parameters for new points */) {
+  void _updatePolyline(*//* parameters for new points *//*) {
     final PolylineId polylineId = PolylineId('polyline_id');
     final Polyline? polyline = _polylines[polylineId]?.copyWith(
       pointsParam: [
@@ -68,7 +121,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     setState(() {
       _polylines[polylineId] = polyline!;
     });
-  }
+  }*/
 
   @override
   void initState() {
@@ -76,6 +129,22 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
       target: LatLng(lat, lng),
       zoom: 18,
     );
+
+    _addMarker(
+      LatLng(_originLatitude, _originLongitude),
+      "origin",
+      BitmapDescriptor.defaultMarker,
+    );
+
+    // Add destination marker
+    _addMarker(
+      LatLng(_destLatitude, _destLongitude),
+      "destination",
+      BitmapDescriptor.defaultMarkerWithHue(90),
+    );
+
+    _getPolyline();
+
     super.initState();
   }
   Future<void> _goToThePlace() async {
@@ -89,7 +158,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection("Location")
-          .doc('37')
+          .doc('54')
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.data() != null) {
@@ -130,8 +199,8 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
                         initialCameraPosition: _kGooglePlex,
                         onMapCreated: (GoogleMapController controller) {
                           _controller.complete(controller);
-                          _addPolyline();
-                        },polylines: Set<Polyline>.of(_polylines.values), // Add this line
+                          //_addPolyline();
+                        },polylines: Set<Polyline>.of(polylines.values), // Add this line
 
                       ),
                     ),

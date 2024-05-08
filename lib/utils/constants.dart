@@ -41,5 +41,5 @@ const slotList ='${baseURL}slotList';
 //keys
 const token = "Rawabi_jc";
 const tokenDriver = "Rawabi_dc";
-
+const API_KEY="AIzaSyCz-UXchYfgsLByXYxYEpz7q7Dfto7tt7A";
 const productItemHeight = 277.0;

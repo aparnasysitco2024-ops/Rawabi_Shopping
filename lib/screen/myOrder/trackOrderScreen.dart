@@ -2,6 +2,8 @@ import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/myOrder/trackOrderMap.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/svg_icon.dart';
 
 import '../../controller/trackOrderController.dart';
@@ -197,7 +199,9 @@ class TrackOrderScreen extends StatelessWidget {
                             ),
                             const Spacer(),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                AppUtils.navigateToPage(TrackOrderMap());
+                              },
                               child: Container(
                                 alignment: Alignment.center,
                                 height: 30,
