@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:intl/intl.dart';
+import 'package:rawabi/utils/constants.dart';
+import '../../controller/slotController.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 
 class SelectSlotScreen extends StatefulWidget {
@@ -11,8 +15,10 @@ class SelectSlotScreen extends StatefulWidget {
 }
 
 class _SelectSlotScreenState extends State<SelectSlotScreen> {
+  final slotController = Get.put(SlotController());
+
   late int selectedDateIndex = 0;
-  late int selectedSlotIndex = 2;
+  late int? selectedSlotIndex = 0;
   DateTime todayDate = DateTime.now();
   Map<int, String> weekdayName = {
     1: "MON",
@@ -23,11 +29,23 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
     6: "SAT",
     7: "SUN"
   };
-  var slotAvailability = ["full", "full", "available", "available"];
-  var slots = ["09:00 - 12:00","11:00 - 14:00","15:00 - 18:00","18:00 - 21:00"];
-
+  @override
+  void initState() {
+    super.initState();
+    slotController.getStoreData();
+  }
+void getDefaultSlot(){
+slotController.slots.forEach((element) {
+  if(element.limit!="0"){
+    selectedSlotIndex=int.parse(element.slotid.toString())-1;
+    return;
+  }
+});
+selectedSlotIndex=null;
+}
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
@@ -138,19 +156,27 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
             size: 14,
           ),
           Divider(thickness: 6, color: lightGreyColor),
-          Flexible(
+          selectedSlotIndex==null
+              ?
+              ReusableText(
+                title: "No slots available!",
+                size: 20,
+                weight: FontWeight.bold,
+              )
+          :Flexible(
             child: ListView.separated(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               padding: EdgeInsets.only(left: 16, right: 16),
-              itemCount: 4,
+              itemCount: slotController.slots.length,
               itemBuilder: (BuildContext context, index) {
+                print(slotController.slots.length,);
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       Radio(
-                        activeColor: selectedSlotIndex==2?primaryColor:white,
+                        activeColor: (selectedSlotIndex==index && slotController.slots[index].limit!="0")?primaryColor:white,
                           fillColor:  MaterialStateProperty.resolveWith ((Set  states) {
                             if (states.contains(MaterialState.disabled)) {
                               return white;
@@ -158,7 +184,7 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                             return primaryColor;
                           }),
                           value:index,
-                          groupValue: 2,
+                          groupValue: selectedSlotIndex,
                           onChanged: (value) {
                           setState(() {
                             selectedSlotIndex=index;
@@ -167,14 +193,14 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                           }),
                       SizedBox(width: 10,),
                       ReusableText(
-                        title: slots[index],
-                        color: slotAvailability[index]=="full"?grey:blackLight,
+                        title: "${slotController.slots[index].starttime} - ${slotController.slots[index].endtime}",
+                        color: slotController.slots[index].limit=="0"?grey:blackLight,
                         weight: FontWeight.w500,
                         size: 12,
                       ),
                       Spacer(),
                       ReusableText(
-                        title: slotAvailability[index]=="full"?"Slot Full":"",
+                        title: slotController.slots[index].limit=="0"?"Slot Full":"",
                         color: Color(0xFFA41217),
                         weight: FontWeight.w700,
                         size: 12,
