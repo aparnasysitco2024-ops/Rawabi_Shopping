@@ -250,9 +250,9 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                       onPressed: () {
                         if (address.isNotEmpty) {
                           StorageManager.saveData(
-                              StorageManager.keyStoreLat, lat);
+                              StorageManager.keyStoreLat, lat.toString());
                           StorageManager.saveData(
-                              StorageManager.keyStoreLng, lng);
+                              StorageManager.keyStoreLng, lng.toString());
 
                           StorageManager.saveData(
                               StorageManager.keyStoreID, "10");

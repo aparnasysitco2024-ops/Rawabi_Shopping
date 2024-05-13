@@ -7,6 +7,7 @@ import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/checkoutResponse.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
+import 'package:vibration/vibration.dart';
 
 import '../model/response/cartListResponse.dart';
 import '../utils/commonUtils.dart';
@@ -102,6 +103,7 @@ class CartController extends GetxController {
 
   Future<void> updateQty(var id, var qty) async {
     try {
+      Vibration.vibrate(duration: 10);
       loading.value = true;
       var request = {"id": id, "qty": qty};
       var response = await BaseClient().post(update_qty, request);
@@ -159,6 +161,14 @@ class CartController extends GetxController {
 
   Future<void> addToCart(
       String itemID, String storeID, String? itemPrice, String itemQty) async {
+
+    // if (await Vibration.hasCustomVibrationsSupport()) {
+      Vibration.vibrate(duration: 10);
+    // } else {
+    //   Vibration.vibrate();
+    //   await Future.delayed(Duration(milliseconds: 500));
+    //   Vibration.vibrate();
+    // }
     try {
       loading.value = true;
       var request = {

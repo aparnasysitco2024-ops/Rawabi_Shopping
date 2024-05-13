@@ -189,17 +189,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Flexible(
                                 child: InkWell(
-                                  onTap: (){
-                                    AppUtils.navigateToPage(SelectSlotScreen());
+                                  onTap: () {
+                                    // AppUtils.navigateToPage(SelectSlotScreen());
                                   },
                                   child: Container(
-                                    padding:
-                                        const EdgeInsets.only(left: 5, right: 0),
+                                    padding: const EdgeInsets.only(
+                                        left: 5, right: 0),
                                     height: 40,
                                     decoration: const BoxDecoration(
                                         color: silver,
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(7))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(7))),
                                     child: Row(children: [
                                       SvgPicture.asset(
                                         "assets/icons/calendar.svg",
@@ -209,8 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 5,
                                       ),
                                       ReusableText(
-                                        title: homeController.languageParam.value
-                                            .scheduledDelivery,
+                                        title: homeController.languageParam
+                                            .value.scheduledDelivery,
                                         size: 11,
                                         weight: FontWeight.bold,
                                         color: Colors.black,
@@ -253,7 +253,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       weight: FontWeight.bold,
                       color: Colors.black,
                     ),
-                    const Spacer(),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Container(
                       padding: const EdgeInsets.all(4),
                       decoration: const BoxDecoration(
@@ -268,7 +270,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: blue,
                         ),
                       ),
-                    )
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(3))),
+                      child: InkWell(
+                        onTap: () =>
+                            AppUtils.navigateToPage(SelectSlotScreen()),
+                        child: ReusableText(
+                          title: "Select Slot".tr,
+                          size: 9,
+                          color: blue,
+                        ),
+                      ),
+                    ),
                   ]),
                 ),
                 homeController.loading.value

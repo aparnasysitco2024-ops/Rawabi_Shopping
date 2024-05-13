@@ -38,6 +38,12 @@ class StorePickupScreen extends StatelessWidget {
                     StorageManager.saveData(StorageManager.keyStoreAddress,
                         storePickupController.storeList[index].storeName);
                     StorageManager.saveData(StorageManager.keyIsPickup, true);
+                    StorageManager.saveData(StorageManager.keyStoreAddress,
+                        storePickupController.storeList[index].storeName);
+                    StorageManager.saveData(StorageManager.keyStoreLat,
+                        storePickupController.storeList[index].latitude);
+                    StorageManager.saveData(StorageManager.keyStoreLng,
+                        storePickupController.storeList[index].longitude);
 
                     if (Get.isRegistered<HomeController>()) {
                       final homeController = Get.put(HomeController());

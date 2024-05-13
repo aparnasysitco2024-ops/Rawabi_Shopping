@@ -60,6 +60,7 @@ dependencies:
   cloud_firestore: ^4.17.0
   firebase_core: ^2.30.0
   flutter_polyline_points: ^2.0.0
+  vibration: ^1.8.4
 
 dev_dependencies:
   flutter_test:

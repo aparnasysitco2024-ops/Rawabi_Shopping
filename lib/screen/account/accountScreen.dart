@@ -236,25 +236,25 @@ class AccountScreen extends StatelessWidget {
                     width: double.maxFinite,
                     child: Column(
                       children: [
-                        homeController.userID == '0'
-                            ? SizedBox()
-                            : Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      // AppUtils.navigateToPage(const DeliveryModeScreen());
-                                    },
-                                    child: ProfileTile(
-                                        image: "assets/icons/eReceipt.svg",
-                                        title: homeController
-                                            .languageParam.value.eReceipt
-                                            .toString()),
-                                  ),
-                                  const Divider(
-                                    thickness: 1,
-                                  ),
-                                ],
-                              ),
+                        // homeController.userID == '0'
+                        //     ? SizedBox()
+                        //     : Column(
+                        //         children: [
+                        //           InkWell(
+                        //             onTap: () {
+                        //               // AppUtils.navigateToPage(const DeliveryModeScreen());
+                        //             },
+                        //             child: ProfileTile(
+                        //                 image: "assets/icons/eReceipt.svg",
+                        //                 title: homeController
+                        //                     .languageParam.value.eReceipt
+                        //                     .toString()),
+                        //           ),
+                        //           const Divider(
+                        //             thickness: 1,
+                        //           ),
+                        //         ],
+                        //       ),
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, '/WishlistScreen');
@@ -308,12 +308,12 @@ class AccountScreen extends StatelessWidget {
                                   const Divider(
                                     thickness: 1,
                                   ),
-                                  ProfileTile(
-                                      image: "assets/icons/gift-card.svg",
-                                      title: homeController.languageParam.value.giftCards.toString()),
-                                  const Divider(
-                                    thickness: 1,
-                                  ),
+                                  // ProfileTile(
+                                  //     image: "assets/icons/gift-card.svg",
+                                  //     title: homeController.languageParam.value.giftCards.toString()),
+                                  // const Divider(
+                                  //   thickness: 1,
+                                  // ),
                                 ],
                               ),
                         InkWell(

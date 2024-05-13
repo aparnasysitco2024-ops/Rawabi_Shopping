@@ -23,7 +23,8 @@ class HomeController extends GetxController {
   var grpTypeCategory = "2";
   var grpTypeProduct = "3";
 
-  var isExpress = true.obs;
+  var isExpress = false.obs;
+  var selectedSlotID = "".obs;
   var categoryList = <Category>[].obs;
   var bannerListTop = <Slider>[].obs;
   var bannerListTop2 = <Slider>[].obs;

@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/navigator/categoryNavigator.dart';
+import 'package:rawabi/utils/bouncy.dart';
 import 'package:rawabi/utils/colors.dart';
 
 import '../../controller/cartController.dart';
@@ -282,47 +283,53 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                     : Positioned(
                                         top: -15,
                                         right: -15,
-                                        child: badges.Badge(
-                                          position: badges.BadgePosition.topEnd(
-                                              top: -10, end: -12),
-                                          showBadge: true,
-                                          ignorePointer: false,
-                                          onTap: () {
-                                            // setState(() {
-                                            currentIndex.value = 3;
-                                            // });
-                                          },
-                                          badgeContent: Obx(
-                                            () => Text(
-                                              cartController
-                                                  .totalItemCount.value
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                color: white,
+                                        child: Bouncy(
+                                          lift: 10,
+                                          duration: Duration(seconds: 1),
+                                          child: badges.Badge(
+                                            position:
+                                                badges.BadgePosition.topEnd(
+                                                    top: -10, end: -12),
+                                            showBadge: true,
+                                            ignorePointer: false,
+                                            onTap: () {
+                                              // setState(() {
+                                              currentIndex.value = 3;
+                                              // });
+                                            },
+                                            badgeContent: Obx(
+                                              () => Text(
+                                                cartController
+                                                    .totalItemCount.value
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 10,
+                                                  color: white,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          badgeAnimation:
-                                              const badges.BadgeAnimation.scale(
-                                            animationDuration:
-                                                Duration(seconds: 1),
-                                            colorChangeAnimationDuration:
-                                                Duration(seconds: 1),
-                                            loopAnimation: false,
-                                            curve: Curves.fastOutSlowIn,
-                                            colorChangeAnimationCurve:
-                                                Curves.easeInCubic,
-                                          ),
-                                          badgeStyle: badges.BadgeStyle(
-                                            shape: badges.BadgeShape.circle,
-                                            badgeColor: primaryColor,
-                                            padding: const EdgeInsets.all(8),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            borderSide: const BorderSide(
-                                                color: Colors.white, width: 2),
-                                            elevation: 0,
+                                            badgeAnimation: const badges
+                                                .BadgeAnimation.scale(
+                                              animationDuration:
+                                                  Duration(seconds: 1),
+                                              colorChangeAnimationDuration:
+                                                  Duration(seconds: 1),
+                                              loopAnimation: false,
+                                              curve: Curves.fastOutSlowIn,
+                                              colorChangeAnimationCurve:
+                                                  Curves.easeInCubic,
+                                            ),
+                                            badgeStyle: badges.BadgeStyle(
+                                              shape: badges.BadgeShape.circle,
+                                              badgeColor: primaryColor,
+                                              padding: const EdgeInsets.all(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.white,
+                                                  width: 2),
+                                              elevation: 0,
+                                            ),
                                           ),
                                         ),
                                       ),

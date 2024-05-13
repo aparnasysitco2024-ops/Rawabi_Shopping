@@ -295,8 +295,8 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
   }
 
   Future<void> _getLastLocation() async {
-    lat = await StorageManager.readDataDouble(StorageManager.keyStoreLat);
-    lng = await StorageManager.readDataDouble(StorageManager.keyStoreLng);
+    lat = double.parse(await StorageManager.readData(StorageManager.keyStoreLat));
+    lng = double.parse(await StorageManager.readData(StorageManager.keyStoreLng));
   }
 
   _getCurrentLocation() async {

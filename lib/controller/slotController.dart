@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:rawabi/controller/storePickupController.dart';
 
 import '../model/response/slotResponse.dart';
 import '../utils/commonUtils.dart';
@@ -19,23 +18,17 @@ class SlotController extends GetxController {
   var storeLat;
 
   var storeLng;
-  final storePickupController = Get.put(StorePickupController());
 
   @override
   onInit() async {
     super.onInit();
-    storePickupController.getStore();
   }
 
   Future<void> getStoreData() async {
     storeId = await StorageManager.readData(StorageManager.keyStoreID);
-    storePickupController.storeList.forEach((element) {
-      if (element.storeId == storeId) {
-        storeLat = element.latitude;
-        storeLng = element.longitude;
-      }
-    });
-    await getSlot(storeLat, storeLng);
+    storeLat = await StorageManager.readData(StorageManager.keyStoreLat);
+    storeLng = await StorageManager.readData(StorageManager.keyStoreLng);
+    getSlot(storeLat.toString(), storeLng.toString());
   }
 
   Future<void> getSlot(String latitude, String longitude) async {
