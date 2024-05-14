@@ -61,6 +61,7 @@ dependencies:
   firebase_core: ^2.30.0
   flutter_polyline_points: ^2.0.0
   vibration: ^1.8.4
+  maps_launcher: ^2.2.1
 
 dev_dependencies:
   flutter_test:

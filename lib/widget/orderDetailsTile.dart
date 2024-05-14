@@ -58,22 +58,22 @@ class OrderDetailsTile extends StatelessWidget {
                 // ),
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: blue,
-                      radius: 3,
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    ReusableText(
-                      title: "Out for delivery".tr,
-                      color: blue,
-                      size: 10,
-                      weight: FontWeight.w400,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    // CircleAvatar(
+                    //   backgroundColor: blue,
+                    //   radius: 3,
+                    // ),
+                    // SizedBox(
+                    //   width: 2,
+                    // ),
+                    // ReusableText(
+                    //   title: "Out for delivery".tr,
+                    //   color: blue,
+                    //   size: 10,
+                    //   weight: FontWeight.w400,
+                    // ),
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
                     ReusableText(
                       title: "Arriving in ".tr +
                           items.deliveryDays.toString() +

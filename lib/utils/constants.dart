@@ -36,6 +36,8 @@ const languageUrl = '${baseURL}language';
 const flyerListUrl = '${baseURL}flyerList';
 const lang_paramsUrl ='${baseURL}lang_params';
 const slotList ='${baseURL}slotList';
+const slotAvail ='${baseURL}slotAvail';
+
 
 
 //keys

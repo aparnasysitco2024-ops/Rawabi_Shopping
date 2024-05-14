@@ -310,8 +310,17 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                           onPressed: () {
                             homeController.selectedSlotID.value = slotController
                                 .slots[selectedSlotIndex!.toInt()].slotid!;
+                            homeController.selectedStartTime.value =
+                                slotController.slots[selectedSlotIndex!.toInt()]
+                                    .starttime!;
+                            homeController.selectedEndTime.value =
+                                slotController
+                                    .slots[selectedSlotIndex!.toInt()].endtime!;
+                            homeController.selectedSlotDate.value =
+                                DateFormat('yyyy-MM-dd').format(todayDate
+                                    .add(Duration(days: selectedDateIndex)));
                             CommonUtils()
-                                .messageBox("Slot updated Successfully");
+                                .messageBox("Slot Updated Successfully");
                             Get.back();
                           },
                           title: "Select Slot",

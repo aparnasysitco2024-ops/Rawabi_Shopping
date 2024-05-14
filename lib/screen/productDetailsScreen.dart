@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
-import 'package:rawabi/widget/commonWidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import 'package:rawabi/widget/heartIcon.dart';
 
@@ -131,16 +131,67 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Flexible(
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: double.infinity,
-                                        child: ReusableNetworkImage(
-                                          image: productDetailsController
-                                              .productDetails!.productImage
-                                              .toString(),
-                                          height: 210.0,
-                                        ))),
+                                Expanded(
+                                    child: FlutterCarousel(
+                                  options: CarouselOptions(
+                                    initialPage: 0,
+                                    autoPlay: false,
+                                    enableInfiniteScroll: true,
+                                    enlargeCenterPage: false,
+                                    viewportFraction: 1,
+                                    height: 220.0,
+                                    showIndicator: true,
+                                    slideIndicator:
+                                        const CircularSlideIndicator(),
+                                  ),
+                                  items: productDetailsController
+                                      .productDetails!.multiImages!
+                                      .map((i) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return InkWell(
+                                          onTap: () {
+                                            // if (i.linkType ==
+                                            //     "category") {
+                                            //   Navigator.pushNamed(
+                                            //     context,
+                                            //     '/ProductsByCategory',
+                                            //     arguments: {
+                                            //       'catId': i.bannerPoint,
+                                            //       'subCatId': "0",
+                                            //       'subSubCatId': "0",
+                                            //       'subSubSubCatId': "0"
+                                            //     },
+                                            //   );
+                                            // }
+                                          },
+                                          child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5, top: 5, bottom: 5),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                child: FadeInImage.assetNetwork(
+                                                    fit: BoxFit.fill,
+                                                    placeholder:
+                                                        'assets/images/logo.png',
+                                                    image: i.image.toString()),
+                                              )),
+                                        );
+                                      },
+                                    );
+                                  }).toList(),
+                                )),
+                                // Flexible(
+                                //     child: Container(
+                                //         alignment: Alignment.center,
+                                //         width: double.infinity,
+                                //         child: ReusableNetworkImage(
+                                //           image: productDetailsController
+                                //               .productDetails!.productImage
+                                //               .toString(),
+                                //           height: 210.0,
+                                //         ))),
                                 const SizedBox(
                                   width: 10,
                                 ),

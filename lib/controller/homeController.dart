@@ -25,6 +25,9 @@ class HomeController extends GetxController {
 
   var isExpress = false.obs;
   var selectedSlotID = "".obs;
+  var selectedSlotDate = "".obs;
+  var selectedStartTime = "".obs;
+  var selectedEndTime = "".obs;
   var categoryList = <Category>[].obs;
   var bannerListTop = <Slider>[].obs;
   var bannerListTop2 = <Slider>[].obs;

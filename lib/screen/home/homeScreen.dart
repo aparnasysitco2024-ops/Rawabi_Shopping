@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Flexible(
                                 child: InkWell(
                                   onTap: () {
-                                    // AppUtils.navigateToPage(SelectSlotScreen());
+                                    AppUtils.navigateToPage(SelectSlotScreen());
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.only(
@@ -256,6 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       width: 5,
                     ),
+                    const Spacer(),
                     Container(
                       padding: const EdgeInsets.all(4),
                       decoration: const BoxDecoration(
@@ -271,22 +272,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(3))),
-                      child: InkWell(
-                        onTap: () =>
-                            AppUtils.navigateToPage(SelectSlotScreen()),
-                        child: ReusableText(
-                          title: "Select Slot".tr,
-                          size: 9,
-                          color: blue,
-                        ),
-                      ),
-                    ),
+                    // const Spacer(),
+                    // Container(
+                    //   padding: const EdgeInsets.all(4),
+                    //   decoration: const BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.all(Radius.circular(3))),
+                    //   child: InkWell(
+                    //     onTap: () =>
+                    //         AppUtils.navigateToPage(SelectSlotScreen()),
+                    //     child: ReusableText(
+                    //       title: "Select Slot".tr,
+                    //       size: 9,
+                    //       color: blue,
+                    //     ),
+                    //   ),
+                    // ),
                   ]),
                 ),
                 homeController.loading.value

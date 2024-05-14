@@ -40,12 +40,12 @@ class CategoryItemTile extends StatelessWidget {
                   weight: FontWeight.w600,
                   color: darkGrey,
                 ),
-                ReusableText(
-                  title: category.catName,
-                  color: grey1,
-                  size: 10,
-                  weight: FontWeight.w400,
-                ),
+                // ReusableText(
+                //   title: category.catName,
+                //   color: grey1,
+                //   size: 10,
+                //   weight: FontWeight.w400,
+                // ),
               ],
             ),
           ),

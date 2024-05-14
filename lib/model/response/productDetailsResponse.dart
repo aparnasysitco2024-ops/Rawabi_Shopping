@@ -38,6 +38,7 @@ class ProductDetails {
   String? productImage;
   int? cartCount;
   int? wishlist;
+  List<MultiImages>? multiImages;
 
   ProductDetails(
       {this.productId,
@@ -54,7 +55,8 @@ class ProductDetails {
         this.features,
         this.productImage,
         this.cartCount,
-        this.wishlist});
+        this.wishlist,
+        this.multiImages});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -77,6 +79,12 @@ class ProductDetails {
     productImage = json['product_image'];
     cartCount = json['cart_count']??0;
     wishlist = json['wishlist']??0;
+    if (json['multi_images'] != null) {
+      multiImages = <MultiImages>[];
+      json['multi_images'].forEach((v) {
+        multiImages!.add(new MultiImages.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -98,6 +106,25 @@ class ProductDetails {
     data['product_image'] = productImage;
     data['cart_count'] = cartCount;
     data['wishlist']=wishlist;
+    if (this.multiImages != null) {
+      data['multi_images'] = this.multiImages!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class MultiImages {
+  String? image;
+
+  MultiImages({this.image});
+
+  MultiImages.fromJson(Map<String, dynamic> json) {
+    image = json['image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image'] = this.image;
     return data;
   }
 }

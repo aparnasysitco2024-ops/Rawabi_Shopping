@@ -134,7 +134,11 @@ class CartController extends GetxController {
         "subtotal": subTotal.value,
         "discount": "0",
         "payable": grandTotal.value,
-        "order_type": homeController.isPickup.value ? "pickup" : "delivery"
+        "order_type": homeController.isPickup.value ? "pickup" : "delivery",
+        "delivery_type": "Normal",
+        "start_time": homeController.selectedStartTime.value,
+        "end_time": homeController.selectedEndTime.value,
+        "date": homeController.selectedSlotDate.value
       };
       var response = await BaseClient().post(checkout, request);
       loading.value = false;
@@ -161,9 +165,8 @@ class CartController extends GetxController {
 
   Future<void> addToCart(
       String itemID, String storeID, String? itemPrice, String itemQty) async {
-
     // if (await Vibration.hasCustomVibrationsSupport()) {
-      Vibration.vibrate(duration: 10);
+    Vibration.vibrate(duration: 10);
     // } else {
     //   Vibration.vibrate();
     //   await Future.delayed(Duration(milliseconds: 500));
@@ -240,6 +243,35 @@ class CartController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> checkSlotAvailability() async {
+    try {
+      loading.value = true;
+      var request = {
+        "type": "Normal",
+        "start": homeController.selectedStartTime.value,
+        "end": homeController.selectedEndTime.value,
+        "date": homeController.selectedSlotDate.value
+      };
+      var response = await BaseClient().post(slotAvail, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          checkoutCart();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      print(error.toString());
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;

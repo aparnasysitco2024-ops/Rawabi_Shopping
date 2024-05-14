@@ -616,7 +616,7 @@ class CartScreen extends StatelessWidget {
                                                       ? AppUtils.navigateToPage(
                                                           MyAddressesScreen())
                                                       : cartController
-                                                          .checkoutCart();
+                                                          .checkSlotAvailability();
                                                 }
                                               },
                                             ),

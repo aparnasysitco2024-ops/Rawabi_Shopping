@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/headerWidget.dart';
 
@@ -95,18 +96,28 @@ class OurStoreScreen extends StatelessWidget {
                                           ),
                                           ReusableButton1(
                                             onPressed: () {
-                                              storePickupController
-                                                  .launchGoogleMaps(
-                                                      double.parse(
-                                                          storePickupController
-                                                              .storeList[index]
-                                                              .latitude
-                                                              .toString()),
-                                                      double.parse(
-                                                          storePickupController
-                                                              .storeList[index]
-                                                              .longitude
-                                                              .toString()));
+                                              MapsLauncher.launchCoordinates( double.parse(
+                                                  storePickupController
+                                                      .storeList[index]
+                                                      .latitude
+                                                      .toString()),
+                                                  double.parse(
+                                                      storePickupController
+                                                          .storeList[index]
+                                                          .longitude
+                                                          .toString()));
+                                              // storePickupController
+                                              //     .launchGoogleMaps(
+                                              //         double.parse(
+                                              //             storePickupController
+                                              //                 .storeList[index]
+                                              //                 .latitude
+                                              //                 .toString()),
+                                              //         double.parse(
+                                              //             storePickupController
+                                              //                 .storeList[index]
+                                              //                 .longitude
+                                              //                 .toString()));
                                             },
                                             fontSize: 12.0,
                                             size: Size(double.infinity, 40),
