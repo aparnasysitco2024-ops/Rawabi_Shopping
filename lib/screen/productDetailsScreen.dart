@@ -7,9 +7,11 @@ import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import 'package:rawabi/widget/heartIcon.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import '../controller/productsDetailsController.dart';
 import '../utils/colors.dart';
+import '../widget/commonWidget/reusableNetworkImage.dart';
 import '../widget/commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
@@ -131,67 +133,69 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Expanded(
-                                    child: FlutterCarousel(
-                                  options: CarouselOptions(
-                                    initialPage: 0,
-                                    autoPlay: false,
-                                    enableInfiniteScroll: true,
-                                    enlargeCenterPage: false,
-                                    viewportFraction: 1,
-                                    height: 220.0,
-                                    showIndicator: true,
-                                    slideIndicator:
-                                        const CircularSlideIndicator(),
-                                  ),
-                                  items: productDetailsController
-                                      .productDetails!.multiImages!
-                                      .map((i) {
-                                    return Builder(
-                                      builder: (BuildContext context) {
-                                        return InkWell(
-                                          onTap: () {
-                                            // if (i.linkType ==
-                                            //     "category") {
-                                            //   Navigator.pushNamed(
-                                            //     context,
-                                            //     '/ProductsByCategory',
-                                            //     arguments: {
-                                            //       'catId': i.bannerPoint,
-                                            //       'subCatId': "0",
-                                            //       'subSubCatId': "0",
-                                            //       'subSubSubCatId': "0"
-                                            //     },
-                                            //   );
-                                            // }
-                                          },
-                                          child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 5, top: 5, bottom: 5),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                child: FadeInImage.assetNetwork(
-                                                    fit: BoxFit.fill,
-                                                    placeholder:
-                                                        'assets/images/logo.png',
-                                                    image: i.image.toString()),
-                                              )),
-                                        );
-                                      },
-                                    );
-                                  }).toList(),
-                                )),
-                                // Flexible(
-                                //     child: Container(
-                                //         alignment: Alignment.center,
-                                //         width: double.infinity,
-                                //         child: ReusableNetworkImage(
-                                //           image: productDetailsController
-                                //               .productDetails!.productImage
-                                //               .toString(),
-                                //           height: 210.0,
-                                //         ))),
+                                productDetailsController
+                                        .productDetails!.multiImages!.isNotEmpty
+                                    ? Expanded(
+                                        child: FlutterCarousel(
+                                        options: CarouselOptions(
+                                          initialPage: 0,
+                                          autoPlay: false,
+                                          enableInfiniteScroll: true,
+                                          enlargeCenterPage: false,
+                                          viewportFraction: 1,
+                                          height: 220.0,
+                                          showIndicator: true,
+                                          slideIndicator:
+                                              const CircularSlideIndicator(
+                                                  currentIndicatorColor:
+                                                      primaryColor,
+                                                  indicatorBorderColor:
+                                                      Colors.grey),
+                                        ),
+                                        items: productDetailsController
+                                            .productDetails!.multiImages!
+                                            .map((i) {
+                                          return Builder(
+                                            builder: (BuildContext context) {
+                                              return WidgetZoom(
+                                                heroAnimationTag: "tag",
+                                                zoomWidget: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 5,
+                                                            top: 5,
+                                                            bottom: 5),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                      child: FadeInImage
+                                                          .assetNetwork(
+                                                              fit: BoxFit.fill,
+                                                              placeholder:
+                                                                  'assets/images/logo.png',
+                                                              image: i.image
+                                                                  .toString()),
+                                                    )),
+                                              );
+                                            },
+                                          );
+                                        }).toList(),
+                                      ))
+                                    : Flexible(
+                                        child: Container(
+                                        alignment: Alignment.center,
+                                        width: double.infinity,
+                                        child: WidgetZoom(
+                                          zoomWidget: ReusableNetworkImage(
+                                            image: productDetailsController
+                                                .productDetails!.productImage
+                                                .toString(),
+                                            height: 210.0,
+                                          ),
+                                          heroAnimationTag: "tag",
+                                        ),
+                                      )),
                                 const SizedBox(
                                   width: 10,
                                 ),
