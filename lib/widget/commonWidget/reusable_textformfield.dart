@@ -40,14 +40,14 @@ class ReusableTextForm extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText!,
       textAlign: TextAlign.left,
-      initialValue: text??"",
+      //initialValue: text??"",
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor ?? white,
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         enabled: enabled!,
-        hintText: hintText,
+        //hintText: hintText,
 
         floatingLabelBehavior: FloatingLabelBehavior.always,
         label: ReusableText(
@@ -56,9 +56,9 @@ class ReusableTextForm extends StatelessWidget {
         labelStyle: TextStyle(
           fontFamily: Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',
         ),
-        hintStyle: TextStyle(
+        /*hintStyle: TextStyle(
           fontFamily: Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',
-        ),
+        ),*/
         contentPadding: contentPadding ?? const EdgeInsets.all(10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 30),

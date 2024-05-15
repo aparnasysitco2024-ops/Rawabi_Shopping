@@ -88,7 +88,13 @@ class OrderDetailsScreen extends StatelessWidget {
                                   horizontal: 5, vertical: 5),
                               child: Column(
                                 children: [
-                                  ListView.separated(
+                                  myOrderDetailController
+                                      .myOrderList.length==0?
+                                      ReusableText(
+                                        title: "No items".tr,
+                                        size: 12,
+                                        weight: FontWeight.w600,)
+                                  :ListView.separated(
                                       padding: const EdgeInsets.all(0),
                                       shrinkWrap: true,
                                       physics:

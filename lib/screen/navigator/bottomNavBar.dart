@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:badges/badges.dart' as badges;
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -103,7 +104,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           context: Get.context!,
           builder: (context) => AlertDialog(
             title: Text("Rawabi Shopping".tr),
-            content: Text('Wish to exit from App ? '.tr),
+            content: Text('Wish to exit from App ?'.tr),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -278,61 +279,49 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                         ],
                                       ),
                                     )),
-                                cartController.totalItemCount == 0
-                                    ? const SizedBox()
-                                    : Positioned(
-                                        top: -15,
-                                        right: -15,
-                                        child: Bouncy(
-                                          lift: 10,
-                                          duration: Duration(seconds: 1),
-                                          child: badges.Badge(
-                                            position:
-                                                badges.BadgePosition.topEnd(
-                                                    top: -10, end: -12),
-                                            showBadge: true,
-                                            ignorePointer: false,
-                                            onTap: () {
-                                              // setState(() {
-                                              currentIndex.value = 3;
-                                              // });
-                                            },
-                                            badgeContent: Obx(
-                                              () => Text(
-                                                cartController
-                                                    .totalItemCount.value
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontSize: 10,
-                                                  color: white,
-                                                ),
-                                              ),
-                                            ),
-                                            badgeAnimation: const badges
-                                                .BadgeAnimation.scale(
-                                              animationDuration:
-                                                  Duration(seconds: 1),
-                                              colorChangeAnimationDuration:
-                                                  Duration(seconds: 1),
-                                              loopAnimation: false,
-                                              curve: Curves.fastOutSlowIn,
-                                              colorChangeAnimationCurve:
-                                                  Curves.easeInCubic,
-                                            ),
-                                            badgeStyle: badges.BadgeStyle(
-                                              shape: badges.BadgeShape.circle,
-                                              badgeColor: primaryColor,
-                                              padding: const EdgeInsets.all(8),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              borderSide: const BorderSide(
-                                                  color: Colors.white,
-                                                  width: 2),
-                                              elevation: 0,
-                                            ),
-                                          ),
+                                 Positioned(
+                                  top: -15,
+                                  right: -15,
+                                  child: badges.Badge(
+                                    position:
+                                    badges.BadgePosition.topEnd(
+                                        top: -10, end: -12),
+                                    showBadge:cartController.totalItemCount == 0?false: true,
+                                    onTap: () {
+                                      // setState(() {
+                                      currentIndex.value = 3;
+                                      // });
+                                    },
+                                    badgeContent: Obx(
+                                          () => Text(
+                                        cartController
+                                            .totalItemCount.value
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          color: white,
                                         ),
                                       ),
+                                    ),
+                                    badgeAnimation: badges.BadgeAnimation.slide(
+                                      // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+                                      // curve: Curves.easeInCubic,
+                                    ),
+
+                                    badgeStyle: badges.BadgeStyle(
+                                      shape: badges.BadgeShape.circle,
+                                      badgeColor: primaryColor,
+                                      padding: const EdgeInsets.all(8),
+                                      //borderRadius:
+                                      //BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white,
+                                          width: 2),
+                                      elevation: 0,
+                                    ),
+                                  ),
+                                ),
+
                               ],
                             ),
                             InkWell(

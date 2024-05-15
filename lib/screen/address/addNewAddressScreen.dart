@@ -111,10 +111,11 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: homeController
-                                        .languageParam.value.addressName,
+                                        .languageParam.value.addressName??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter Address Name';
+                                        return homeController.languageParam
+                                            .value.pleaseEnterAddress;
                                       }
                                       return null;
                                     },
@@ -128,7 +129,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     validator: (value) {
                                       if (value == null) {
                                         return homeController.languageParam
-                                            .value.pleaseEnterAddress;
+                                            .value.enterMobileNumber;
                                       }
                                       return null;
                                     },
@@ -148,7 +149,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 5),
                                       hintText: homeController
-                                          .languageParam.value.mobileNumber,
+                                          .languageParam.value.mobileNumber??"",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6)),
@@ -168,7 +169,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText:
-                                        homeController.languageParam.value.zone,
+                                        homeController.languageParam.value.zone??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam
@@ -189,7 +190,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: homeController
-                                        .languageParam.value.buildingNumber,
+                                        .languageParam.value.buildingNumber??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam
@@ -209,7 +210,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: homeController.languageParam.value
-                                        .apartmentBuildingBlock,
+                                        .apartmentBuildingBlock??"",
                                     validator: (value) {
                                       if (value == null) {
                                         return homeController
@@ -245,7 +246,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
                                     hintText: homeController
-                                        .languageParam.value.address,
+                                        .languageParam.value.address??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam

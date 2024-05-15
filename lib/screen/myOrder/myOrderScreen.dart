@@ -49,7 +49,7 @@ class MyOrderScreen extends StatelessWidget {
           children: [
             SvgPicture.asset("assets/icons/logo.svg"),
             ReusableText(
-              title: "Your cart is empty!!".tr,
+              title: "No orders!!".tr,
             )
           ]),
     ));

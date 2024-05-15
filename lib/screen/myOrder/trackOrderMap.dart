@@ -11,6 +11,8 @@ import 'package:rawabi/widget/headerWidget.dart';
 import '../../utils/constants.dart';
 
 class TrackOrderMap extends StatefulWidget {
+  final String id;
+  TrackOrderMap({super.key, required this.id});
   @override
   _TrackOrderMapState createState() => _TrackOrderMapState();
 }
@@ -24,12 +26,12 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
   late CameraPosition _kGooglePlex;
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
-  late BitmapDescriptor sourceIcon;
-  late BitmapDescriptor destinationIcon;
+  late BitmapDescriptor sourceIcon=BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
+  late BitmapDescriptor destinationIcon=BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
 // Starting point latitude
-  double _originLatitude =25.2854;
+  double _deliveryBoyLatitude =25.2854;
 // Starting point longitude
-  double _originLongitude = 51.5310;
+  double _deliveryBoyLongitude = 51.5310;
 // Destination latitude
   double _destLatitude = 25.1881567;
 // Destination Longitude
@@ -42,17 +44,18 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
 
   void setSourceAndDestinationIcons() async {
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.0), 'assets/driving_pin.png')
+        ImageConfiguration(devicePixelRatio: 2.0,size: Size(0,0)), 'assets/icons/image.png')
         .then((onValue) {
       sourceIcon = onValue;
     });
 
     BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/destination_map_marker.png')
+        'assets/icons/destination_marker.png')
         .then((onValue) {
       destinationIcon = onValue;
     });
   }
+
 
   _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
     MarkerId markerId = MarkerId(id);
@@ -65,7 +68,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       API_KEY,
-      PointLatLng(_originLatitude, _originLongitude),
+      PointLatLng(_deliveryBoyLatitude, _deliveryBoyLongitude),
       PointLatLng(_destLatitude, _destLongitude),
       travelMode: TravelMode.driving,
     );
@@ -91,37 +94,22 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     setState(() {});
   }
 
-
- /* void _addPolyline() {
-    final PolylineId polylineId = PolylineId('polyline_id');
-    final Polyline polyline = Polyline(
-      polylineId: polylineId,
-      color: Colors.blue,
-      points: [
-        LatLng(25.2854, 51.5310),
-        LatLng(25.1881567, 51.5465687),
-        // Add more LatLng points for your polyline here
-      ],
-      width: 5,
-    );
-
-    setState(() {
-      _polylines[polylineId] = polyline;
-    });
+  LatLngBounds _bounds(Set<Marker> markers) {
+    //if (markers == null || markers.isEmpty) return null;
+    return _createBounds(markers.map((m) => m.position).toList());
   }
 
-  void _updatePolyline(*//* parameters for new points *//*) {
-    final PolylineId polylineId = PolylineId('polyline_id');
-    final Polyline? polyline = _polylines[polylineId]?.copyWith(
-      pointsParam: [
-        // New list of LatLng points
-      ],
-    );
 
-    setState(() {
-      _polylines[polylineId] = polyline!;
-    });
-  }*/
+  LatLngBounds _createBounds(List<LatLng> positions) {
+    final southwestLat = positions.map((p) => p.latitude).reduce((value, element) => value < element ? value : element); // smallest
+    final southwestLon = positions.map((p) => p.longitude).reduce((value, element) => value < element ? value : element);
+    final northeastLat = positions.map((p) => p.latitude).reduce((value, element) => value > element ? value : element); // biggest
+    final northeastLon = positions.map((p) => p.longitude).reduce((value, element) => value > element ? value : element);
+    return LatLngBounds(
+        southwest: LatLng(southwestLat, southwestLon),
+        northeast: LatLng(northeastLat, northeastLon)
+    );
+  }
 
   @override
   void initState() {
@@ -130,18 +118,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
       zoom: 18,
     );
 
-    _addMarker(
-      LatLng(_originLatitude, _originLongitude),
-      "origin",
-      BitmapDescriptor.defaultMarker,
-    );
-
-    // Add destination marker
-    _addMarker(
-      LatLng(_destLatitude, _destLongitude),
-      "destination",
-      BitmapDescriptor.defaultMarkerWithHue(90),
-    );
+   setSourceAndDestinationIcons();
 
     _getPolyline();
 
@@ -158,7 +135,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection("Location")
-          .doc('54')
+          .doc(widget.id)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.data() != null) {
@@ -166,6 +143,8 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
               snapshot.data!.data() as Map<String, dynamic>;
           lat = data['latitude'];
           lng = data['longitude'];
+          _deliveryBoyLatitude=lat;
+          _deliveryBoyLongitude=lng;
           print(data['latitude'].toString());
           print(data['longitude'].toString());
           _kGooglePlex = CameraPosition(
@@ -194,14 +173,29 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
                       padding: const EdgeInsets.only(bottom: 0),
                       child: GoogleMap(
                         myLocationEnabled: true,
-                        zoomControlsEnabled: false,
+                        zoomControlsEnabled: true,
                         mapType: MapType.normal,
                         initialCameraPosition: _kGooglePlex,
                         onMapCreated: (GoogleMapController controller) {
                           _controller.complete(controller);
-                          //_addPolyline();
-                        },polylines: Set<Polyline>.of(polylines.values), // Add this line
+                        },
+                        polylines: Set<Polyline>.of(polylines.values), // Add this line
+                        markers: {
 
+                           Marker(
+                        markerId: MarkerId("Delivery Boy"),
+                        position: LatLng(_deliveryBoyLatitude, _deliveryBoyLongitude),
+                             icon: sourceIcon,
+                             infoWindow: InfoWindow(
+                               title:"Delivery Boy"
+                             ),
+                      ),
+                          Marker(
+                        markerId: const MarkerId("destination"),
+                        position: LatLng(_destLatitude, _destLongitude),
+                            icon: destinationIcon,
+                      ),
+                        },
                       ),
                     ),
                     // Align(
