@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable
-
 import 'dart:io';
-
 import 'package:badges/badges.dart' as badges;
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -11,7 +8,6 @@ import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/navigator/categoryNavigator.dart';
 import 'package:rawabi/utils/bouncy.dart';
 import 'package:rawabi/utils/colors.dart';
-
 import '../../controller/cartController.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/svg_icon.dart';
@@ -162,9 +158,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           children: [
                             InkWell(
                                 onTap: () {
-                                  // setState(() {
+                                   setState(() {
                                   currentIndex.value = 0;
-                                  // });
+                                   });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -191,9 +187,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 )),
                             InkWell(
                                 onTap: () {
-                                  // setState(() {
+                                  setState(() {
                                   currentIndex.value = 1;
-                                  // });
+                                   });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -220,9 +216,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 )),
                             InkWell(
                                 onTap: () {
-                                  // setState(() {
+                                  setState(() {
                                   currentIndex.value = 2;
-                                  // });
+                                   });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -247,83 +243,67 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                     ],
                                   ),
                                 )),
-                            Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      // setState(() {
-                                      currentIndex.value = 3;
-                                      // });
-                                    },
-                                    child: SizedBox(
-                                      child: Column(
-                                        children: [
-                                          SvgIcon(
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                  currentIndex.value = 3;
+                                 });
+                                },
+                                child: SizedBox(
+                                  child: Column(
+                                    children: [
+                                      Bouncy(
+                                        lift: 20,
+                                        child: badges.Badge(
+                                          position: badges.BadgePosition.topEnd(
+                                              top: -12, end: -12),
+                                          showBadge: cartController.totalItemCount == 0 ? false : true,
+                                          badgeContent: Text(
+                                              cartController.totalItemCount.value
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                fontSize: 10,
+                                                color: white,
+                                              ),
+                                          ),
+                                          badgeAnimation: badges.BadgeAnimation.scale(
+                                            animationDuration:
+                                            Duration(milliseconds: 300),
+                                            curve: Curves.bounceOut,
+                                          ),
+                                          badgeStyle: badges.BadgeStyle(
+                                            shape: badges.BadgeShape.circle,
+                                            badgeColor: primaryColor,
+                                            padding: const EdgeInsets.all(8),
+                                            //borderRadius:
+                                            //BorderRadius.circular(10),
+                                            borderSide: const BorderSide(
+                                             color: Colors.white, width: 2),
+                                            elevation: 0,
+                                          ),
+                                          child: SvgIcon(
                                             image: "assets/icons/cart.svg",
                                             height: 20,
                                             color: currentIndex == 3
                                                 ? primaryColor
                                                 : Colors.black,
                                           ),
-                                          Expanded(
-                                            child: ReusableText(
-                                              title: homeController
-                                                  .languageParam.value.cart,
-                                              color: currentIndex == 3
-                                                  ? primaryColor
-                                                  : Colors.black,
-                                              size: 12,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                                 Positioned(
-                                  top: -15,
-                                  right: -15,
-                                  child: badges.Badge(
-                                    position:
-                                    badges.BadgePosition.topEnd(
-                                        top: -10, end: -12),
-                                    showBadge:cartController.totalItemCount == 0?false: true,
-                                    onTap: () {
-                                      // setState(() {
-                                      currentIndex.value = 3;
-                                      // });
-                                    },
-                                    badgeContent: Obx(
-                                          () => Text(
-                                        cartController
-                                            .totalItemCount.value
-                                            .toString(),
-                                        style: const TextStyle(
-                                          fontSize: 10,
-                                          color: white,
                                         ),
                                       ),
-                                    ),
-                                    badgeAnimation: badges.BadgeAnimation.slide(
-                                      // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
-                                      // curve: Curves.easeInCubic,
-                                    ),
-
-                                    badgeStyle: badges.BadgeStyle(
-                                      shape: badges.BadgeShape.circle,
-                                      badgeColor: primaryColor,
-                                      padding: const EdgeInsets.all(8),
-                                      //borderRadius:
-                                      //BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                          color: Colors.white,
-                                          width: 2),
-                                      elevation: 0,
-                                    ),
+                                      Expanded(
+                                        child: ReusableText(
+                                          title: homeController
+                                              .languageParam.value.cart,
+                                          color: currentIndex == 3
+                                              ? primaryColor
+                                              : Colors.black,
+                                          size: 12,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                ),
+                                )),
 
-                              ],
-                            ),
                             InkWell(
                                 onTap: () {
                                   // setState(() {
