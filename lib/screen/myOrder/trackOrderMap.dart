@@ -55,12 +55,12 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
   }
 
 
-  _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
+  /*_addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
     MarkerId markerId = MarkerId(id);
     Marker marker =
     Marker(markerId: markerId, icon: descriptor, position: position);
     markers[markerId] = marker;
-  }
+  }*/
   void _getPolyline() async {
     List<LatLng> polylineCoordinates = [];
 
@@ -91,8 +91,46 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     polylines[id] = polyline;
     setState(() {});
   }
+  Future<void> updateCameraLocation(
+      LatLng source,
+      LatLng destination,
+      GoogleMapController mapController,
+      ) async {
+    if (mapController == null) return;
 
-  LatLngBounds _bounds(Set<Marker> markers) {
+    LatLngBounds bounds;
+
+    if (source.latitude > destination.latitude &&
+        source.longitude > destination.longitude) {
+      bounds = LatLngBounds(southwest: destination, northeast: source);
+    } else if (source.longitude > destination.longitude) {
+      bounds = LatLngBounds(
+          southwest: LatLng(source.latitude, destination.longitude),
+          northeast: LatLng(destination.latitude, source.longitude));
+    } else if (source.latitude > destination.latitude) {
+      bounds = LatLngBounds(
+          southwest: LatLng(destination.latitude, source.longitude),
+          northeast: LatLng(source.latitude, destination.longitude));
+    } else {
+      bounds = LatLngBounds(southwest: source, northeast: destination);
+    }
+
+    CameraUpdate cameraUpdate = CameraUpdate.newLatLngBounds(bounds, 70);
+
+    return checkCameraLocation(cameraUpdate, mapController);
+  }
+
+  Future<void> checkCameraLocation(
+      CameraUpdate cameraUpdate, GoogleMapController mapController) async {
+    mapController.animateCamera(cameraUpdate);
+    LatLngBounds l1 = await mapController.getVisibleRegion();
+    LatLngBounds l2 = await mapController.getVisibleRegion();
+
+    if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90) {
+      return checkCameraLocation(cameraUpdate, mapController);
+    }
+  }
+ /* LatLngBounds _bounds(Set<Marker> markers) {
     //if (markers == null || markers.isEmpty) return null;
     return _createBounds(markers.map((m) => m.position).toList());
   }
@@ -107,7 +145,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
         southwest: LatLng(southwestLat, southwestLon),
         northeast: LatLng(northeastLat, northeastLon)
     );
-  }
+  }*/
 
   @override
   void initState() {
@@ -172,8 +210,10 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
                         zoomControlsEnabled: true,
                         mapType: MapType.normal,
                         initialCameraPosition: _kGooglePlex,
-                        onMapCreated: (GoogleMapController controller) {
+                        onMapCreated: (GoogleMapController controller) async {
                           _controller.complete(controller);
+                          await updateCameraLocation(LatLng(_deliveryBoyLatitude, _deliveryBoyLongitude), LatLng(_destLatitude, _destLongitude), controller);
+
                         },
                         polylines: Set<Polyline>.of(polylines.values), // Add this line
                         markers: {

@@ -4,8 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/myOrder/trackOrderMap.dart';
 import 'package:rawabi/utils/app_utils.dart';
-import 'package:rawabi/utils/commonUtils.dart';
-import 'package:rawabi/utils/constants.dart';
 import 'package:rawabi/widget/commonwidget/svg_icon.dart';
 
 import '../../controller/trackOrderController.dart';
