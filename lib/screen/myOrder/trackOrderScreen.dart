@@ -207,7 +207,10 @@ class TrackOrderScreen extends StatelessWidget {
                                 const Spacer(),
                                 GestureDetector(
                                   onTap: () {
-                                    trackOrderController.status.value
+
+                                    AppUtils.navigateToPage(TrackOrderMap(
+                                        id: myOrder.orderid.toString()));
+                                    /*trackOrderController.status.value
                                         .delivering ==
                                         "yes"
                                         ? AppUtils.navigateToPage(TrackOrderMap(
@@ -219,8 +222,8 @@ class TrackOrderScreen extends StatelessWidget {
                                         : trackOrderController.status.value
                                         .processing ==
                                         "yes"
-                                        ?CommonUtils().messageBox("Item processing")
-                                        :CommonUtils().messageBox("Item placed");
+                                        ?CommonUtils().messageBox("Item processing.Delivery not startted yet!")
+                                        :CommonUtils().messageBox("Item placed.Delivery not startted yet!");*/
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

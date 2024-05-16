@@ -138,7 +138,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
             padding: const EdgeInsets.only(bottom: 145),
             child: GoogleMap(
               myLocationEnabled: true,
-              zoomControlsEnabled: false,
+              zoomControlsEnabled: true,
               mapType: MapType.normal,
               initialCameraPosition: _kGooglePlex,
               onMapCreated: (GoogleMapController controller) {

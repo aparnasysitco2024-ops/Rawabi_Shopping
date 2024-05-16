@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -7,7 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonWidget/reusable_text.dart';
 import 'package:rawabi/widget/headerWidget.dart';
-
 import '../../utils/constants.dart';
 
 class TrackOrderMap extends StatefulWidget {
@@ -21,13 +19,13 @@ late CollectionReference orderTrackingCollection;
 
 
 class _TrackOrderMapState extends State<TrackOrderMap> {
-  double lat = 0.0;
-  double lng = 0.0;
+ // double lat = 0.0;
+  //double lng = 0.0;
   late CameraPosition _kGooglePlex;
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
-  late BitmapDescriptor sourceIcon=BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
-  late BitmapDescriptor destinationIcon=BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
+  late BitmapDescriptor sourceIcon=BitmapDescriptor.defaultMarker;
+  late BitmapDescriptor destinationIcon=BitmapDescriptor.defaultMarker;
 // Starting point latitude
   double _deliveryBoyLatitude =25.2854;
 // Starting point longitude
@@ -44,7 +42,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
 
   void setSourceAndDestinationIcons() async {
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.0,size: Size(0,0)), 'assets/icons/image.png')
+        ImageConfiguration(devicePixelRatio: 2.0), 'assets/icons/driverIcon150.png')
         .then((onValue) {
       sourceIcon = onValue;
     });
@@ -114,8 +112,8 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
   @override
   void initState() {
     _kGooglePlex = CameraPosition(
-      target: LatLng(lat, lng),
-      zoom: 18,
+      target: LatLng(_deliveryBoyLatitude, _deliveryBoyLongitude),
+      zoom: 12,
     );
 
    setSourceAndDestinationIcons();
@@ -141,14 +139,12 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
         if (snapshot.hasData && snapshot.data!.data() != null) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          lat = data['latitude'];
-          lng = data['longitude'];
-          _deliveryBoyLatitude=lat;
-          _deliveryBoyLongitude=lng;
+          _deliveryBoyLatitude= data['latitude'];
+          _deliveryBoyLongitude= data['longitude'];
           print(data['latitude'].toString());
           print(data['longitude'].toString());
           _kGooglePlex = CameraPosition(
-            target: LatLng(lat, lng),
+            target: LatLng(_deliveryBoyLatitude, _deliveryBoyLongitude),
             zoom: 12
           );
           _goToThePlace();
@@ -161,10 +157,10 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
                 onBack: () {},
               ),
               ReusableText(
-                title: "lat: " + lat.toString(),
+                title: "lat: " + _deliveryBoyLatitude.toString(),
               ),
               ReusableText(
-                title: "lng: " + lng.toString(),
+                title: "lng: " + _deliveryBoyLongitude.toString(),
               ),
               Expanded(
                 child: Stack(
@@ -194,6 +190,9 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
                         markerId: const MarkerId("destination"),
                         position: LatLng(_destLatitude, _destLongitude),
                             icon: destinationIcon,
+                            infoWindow: InfoWindow(
+                                title:"Destination",
+                            ),
                       ),
                         },
                       ),

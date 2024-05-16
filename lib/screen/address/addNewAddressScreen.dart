@@ -23,7 +23,7 @@ class AddNewAddressesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: white,
       body: Obx(() => SizedBox(
             height: MediaQuery.of(context).size.height,
