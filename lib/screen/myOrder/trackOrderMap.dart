@@ -96,7 +96,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
       LatLng destination,
       GoogleMapController mapController,
       ) async {
-    if (mapController == null) return;
+    //if (mapController == null) return;
 
     LatLngBounds bounds;
 
