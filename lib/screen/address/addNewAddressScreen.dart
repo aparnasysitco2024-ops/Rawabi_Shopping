@@ -103,6 +103,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
+                                  SizedBox(height: 10,),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
                                     controller: addAddressController
@@ -179,7 +180,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     },
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
@@ -200,7 +201,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     },
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
@@ -222,7 +223,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     },
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
@@ -236,7 +237,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                         .languageParam.value.floor,
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height:20,
                                   ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
@@ -256,7 +257,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     },
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                   ReusableText(
                                     title: homeController

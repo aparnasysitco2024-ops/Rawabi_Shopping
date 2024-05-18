@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/widget/commonWidget/reusable_text.dart';
 import 'package:rawabi/widget/headerWidget.dart';
+
 import '../../utils/constants.dart';
 
 class TrackOrderMap extends StatefulWidget {
@@ -48,7 +49,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     });
 
     BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/icons/destination_marker.png')
+        'assets/icons/driver_icon.png')
         .then((onValue) {
       destinationIcon = onValue;
     });
@@ -194,12 +195,12 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
                 title: "Track",
                 onBack: () {},
               ),
-              ReusableText(
-                title: "lat: " + _deliveryBoyLatitude.toString(),
-              ),
-              ReusableText(
-                title: "lng: " + _deliveryBoyLongitude.toString(),
-              ),
+              // ReusableText(
+              //   title: "lat: " + _deliveryBoyLatitude.toString(),
+              // ),
+              // ReusableText(
+              //   title: "lng: " + _deliveryBoyLongitude.toString(),
+              // ),
               Expanded(
                 child: Stack(
                   children: [

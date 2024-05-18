@@ -39,6 +39,8 @@ class AddressList {
   String? floor;
   String? addressInstruction;
   String? defaultAddress;
+  String? lat;
+  String? long;
 
   AddressList(
       {this.addressId,
@@ -51,7 +53,9 @@ class AddressList {
       this.apartmentOffice,
       this.floor,
       this.addressInstruction,
-      this.defaultAddress});
+      this.defaultAddress,
+      this.lat,
+      this.long});
 
   AddressList.fromJson(Map<String, dynamic> json) {
     addressId = json['address_id'];
@@ -65,6 +69,8 @@ class AddressList {
     floor = json['floor'];
     addressInstruction = json['address_instruction'];
     defaultAddress = json['default'];
+    lat = json['lat'];
+    long = json['long'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,6 +86,8 @@ class AddressList {
     data['floor'] = floor;
     data['address_instruction'] = addressInstruction;
     data['default'] = defaultAddress;
+    data['lat'] = lat;
+    data['long'] = long;
     return data;
   }
 }

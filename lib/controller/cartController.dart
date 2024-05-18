@@ -9,6 +9,7 @@ import 'package:rawabi/screen/orderPlacedScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:vibration/vibration.dart';
 
+import '../model/response/calculateFeeResponse.dart';
 import '../model/response/cartListResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
@@ -74,6 +75,40 @@ class CartController extends GetxController {
     } catch (error) {
       error.printError();
       // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> calculateDeliveryFee() async {
+    try {
+      loading.value = true;
+      await StorageManager.readData(StorageManager.keyDefaultAddressId);
+      var request = {
+        "lat1":
+            await StorageManager.readData(StorageManager.keyDefaultAddressLat),
+        "lon1":
+            await StorageManager.readData(StorageManager.keyDefaultAddressLng),
+        "type": "1"
+      };
+
+      var response = await BaseClient().post(calculate, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+        CalculateFeeResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          if(responseData.fee!=null)
+            {
+              delivery.value=double.parse(responseData.fee.toString());
+            }
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      error.printError();
     }
     loading.value = false;
   }

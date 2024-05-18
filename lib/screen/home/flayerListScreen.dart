@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
-import 'package:pdf_render/pdf_render_widgets.dart';
+// import 'package:pdf_render/pdf_render_widgets.dart';
 import 'package:rawabi/controller/flayerListController.dart';
 import 'package:rawabi/screen/home/pdfViewScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/headerWidget.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
@@ -50,15 +50,25 @@ class FlayerListScreen extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(5),
                         color: Colors.white,
-                        child: PdfViewer.openFutureFile(
-                          () async => (await DefaultCacheManager()
-                                  .getSingleFile(flayerListController
-                                      .flayersList[index].file
-                                      .toString()))
-                              .path,
-                          // viewerController: controller,
-                          params: const PdfViewerParams(padding: 0),
+                        child: SfPdfViewer.network(
+                          flayerListController.flayersList[index].file
+                              .toString(),
+                          onTap: (details) {
+                            AppUtils.navigateToPage(PdfViewScreen(
+                              file: flayerListController.flayersList[index].file
+                                  .toString(),
+                            ));
+                          },
                         ),
+                        // child: PdfViewer.openFutureFile(
+                        //   () async => (await DefaultCacheManager()
+                        //           .getSingleFile(flayerListController
+                        //               .flayersList[index].file
+                        //               .toString()))
+                        //       .path,
+                        //   // viewerController: controller,
+                        //   params: const PdfViewerParams(padding: 0),
+                        // ),
                       )
                       // Container(
                       //   width: double.maxFinite,

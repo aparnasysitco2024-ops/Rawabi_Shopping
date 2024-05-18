@@ -25,6 +25,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     cartController.getCartList();
+    cartController.calculateDeliveryFee();
 
     return Scaffold(
       backgroundColor: Colors.white,

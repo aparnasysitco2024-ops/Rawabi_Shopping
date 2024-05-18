@@ -13,6 +13,7 @@ const filterUrl = '${baseURL}filter';
 const product_details = '${baseURL}product_details';
 const addtocart = '${baseURL}addtocart';
 const cartList = '${baseURL}cartList';
+const calculate = '${baseURL}calculate';
 const deletecart = '${baseURL}deletecart';
 const update_qty = '${baseURL}update_qty';
 const checkout = '${baseURL}checkout';
