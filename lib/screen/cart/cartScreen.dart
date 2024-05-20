@@ -7,6 +7,7 @@ import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cartController.dart';
 import '../../controller/homeController.dart';
@@ -14,6 +15,7 @@ import '../../utils/colors.dart';
 import '../../widget/commonwidget/cart_items_details.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/round_card.dart';
+import 'coupons_screen.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -395,8 +397,8 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 18, vertical: 6),
+                                    padding: const EdgeInsets.only(
+                                        left: 18),
                                     height: 36,
                                     width: double.maxFinite,
                                     child: Row(
@@ -417,22 +419,27 @@ class CartScreen extends StatelessWidget {
                                             color: Colors.black,
                                           ),
                                           const Spacer(),
-                                          Container(
-                                            height: 22,
-                                            width: 48,
-                                            margin: const EdgeInsets.only(
-                                                right: 16),
-                                            padding: const EdgeInsets.all(4),
-                                            decoration: const BoxDecoration(
-                                                color: primaryColor,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3))),
-                                            child: Center(
-                                              child: ReusableText(
-                                                title: homeController.languageParam.value.apply,
-                                                size: 10,
-                                                color: white,
-                                                weight: FontWeight.w600,
+                                          InkWell(
+                                            onTap: (){
+                                              AppUtils.navigateToPage(ApplyCoupons());
+                                            },
+                                            child: Container(
+                                              height: 22,
+                                              width: 48,
+                                              margin: const EdgeInsets.only(
+                                                  right: 16),
+                                              padding: const EdgeInsets.all(4),
+                                              decoration: const BoxDecoration(
+                                                  color: primaryColor,
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(3))),
+                                              child: Center(
+                                                child: ReusableText(
+                                                  title: homeController.languageParam.value.apply,
+                                                  size: 10,
+                                                  color: white,
+                                                  weight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
                                           )

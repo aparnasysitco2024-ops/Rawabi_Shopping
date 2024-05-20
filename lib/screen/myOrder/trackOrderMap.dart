@@ -11,6 +11,7 @@ import '../../utils/constants.dart';
 
 class TrackOrderMap extends StatefulWidget {
   final String id;
+  //final String? destinationLatLng;
   TrackOrderMap({super.key, required this.id});
   @override
   _TrackOrderMapState createState() => _TrackOrderMapState();
@@ -131,22 +132,6 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
       return checkCameraLocation(cameraUpdate, mapController);
     }
   }
- /* LatLngBounds _bounds(Set<Marker> markers) {
-    //if (markers == null || markers.isEmpty) return null;
-    return _createBounds(markers.map((m) => m.position).toList());
-  }
-
-
-  LatLngBounds _createBounds(List<LatLng> positions) {
-    final southwestLat = positions.map((p) => p.latitude).reduce((value, element) => value < element ? value : element); // smallest
-    final southwestLon = positions.map((p) => p.longitude).reduce((value, element) => value < element ? value : element);
-    final northeastLat = positions.map((p) => p.latitude).reduce((value, element) => value > element ? value : element); // biggest
-    final northeastLon = positions.map((p) => p.longitude).reduce((value, element) => value > element ? value : element);
-    return LatLngBounds(
-        southwest: LatLng(southwestLat, southwestLon),
-        northeast: LatLng(northeastLat, northeastLon)
-    );
-  }*/
 
   @override
   void initState() {

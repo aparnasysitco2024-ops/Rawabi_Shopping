@@ -28,6 +28,8 @@ class StorageManager {
   static String keyDefaultAddressLat = "keyDefaultAddressLat";
   static String keyDefaultAddressLng = "keyDefaultAddressLng";
 
+  static String keyCouponCode = "keyCouponCode";
+
   static void saveData(String key, dynamic value) async {
     final prefs = await SharedPreferences.getInstance();
     if (value is int) {

@@ -7,7 +7,6 @@ import 'dart:async';
 
 import 'package:rawabi/utils/firebase_options.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

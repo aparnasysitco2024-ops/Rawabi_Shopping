@@ -9,6 +9,7 @@ import 'package:rawabi/widget/commonwidget/svg_icon.dart';
 import '../../controller/trackOrderController.dart';
 import '../../model/response/myorder/myOrderResponse.dart';
 import '../../utils/colors.dart';
+import '../../utils/commonUtils.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
@@ -206,9 +207,10 @@ class TrackOrderScreen extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {
 
-                                    AppUtils.navigateToPage(TrackOrderMap(
-                                        id: myOrder.orderid.toString()));
-                                    /*trackOrderController.status.value
+                                    /*AppUtils.navigateToPage(TrackOrderMap(
+                                        id: myOrder.orderid.toString()));*/
+
+                                    trackOrderController.status.value
                                         .delivering ==
                                         "yes"
                                         ? AppUtils.navigateToPage(TrackOrderMap(
@@ -221,7 +223,7 @@ class TrackOrderScreen extends StatelessWidget {
                                         .processing ==
                                         "yes"
                                         ?CommonUtils().messageBox("Item processing.Delivery not startted yet!")
-                                        :CommonUtils().messageBox("Item placed.Delivery not startted yet!");*/
+                                        :CommonUtils().messageBox("Item placed.Delivery not startted yet!");
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
