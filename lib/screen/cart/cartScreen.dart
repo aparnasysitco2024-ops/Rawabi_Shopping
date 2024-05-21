@@ -421,7 +421,7 @@ class CartScreen extends StatelessWidget {
                                           const Spacer(),
                                           InkWell(
                                             onTap: (){
-                                              AppUtils.navigateToPage(ApplyCoupons());
+                                              AppUtils.navigateToPage(CouponScreen());
                                             },
                                             child: Container(
                                               height: 22,

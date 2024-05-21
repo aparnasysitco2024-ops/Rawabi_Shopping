@@ -7,30 +7,71 @@ import '../../controller/couponsController.dart';
 import '../../utils/storage_manager.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 
-class ApplyCoupons extends StatelessWidget {
-  ApplyCoupons({Key? key}) : super(key: key);
+class CouponScreen extends StatelessWidget {
+  CouponScreen({Key? key}) : super(key: key);
   final couponController = Get.put(CouponsController());
 
   @override
   Widget build(BuildContext context) {
+    couponController.getCoupons();
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
-        alignment: Alignment.center,
-        child: Stack(
-          alignment: Alignment.topRight,
-          children: [
-            Container(
+      backgroundColor: white,
+      body: Column(
+        children: [
+          Container(
+            color: white,
+            padding: const EdgeInsets.only(bottom: 10),
+            width: double.maxFinite,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                // const Divider(
+                //   thickness: 1,
+                //   color: lightGreyColor,
+                // ),
+                Container(
+                  height: 40,
+                  width: double.maxFinite,
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: ReusableText(
+                          title: "Coupons",
+                          size: 18,
+                          weight: FontWeight.bold,
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Positioned(
+                        left: 20,
+                        top: 0,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(
+                            Icons.arrow_back_ios,
+                            color: blackLight,
+                            size: 24,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Flexible(
+            child: Container(
               alignment: Alignment.center,
-              //padding: EdgeInsets.all(18),
-
-              // width: double.maxFinite,
-              height: 400,
-              width: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: white,
-              ),
+              padding: EdgeInsets.all(10),
+              width: double.maxFinite,
+              color: silver,
               child: couponController.coupons!.isEmpty
                   ? Center(
                       child: ReusableText(
@@ -97,11 +138,17 @@ class ApplyCoupons extends StatelessWidget {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        StorageManager.saveData(
-                                            StorageManager.keyCouponCode,
-                                            couponController
-                                                .coupons![index]!.couponcode);
-                                        Navigator.pop(context);
+                                        var res = await couponController
+                                            .validateCoupon(couponController
+                                                .coupons![index]!.couponcode
+                                                .toString());
+                                        if (res) {
+                                          StorageManager.saveData(
+                                              StorageManager.keyCouponCode,
+                                              couponController
+                                                  .coupons![index]!.couponcode);
+                                        }
+                                        //Navigator.pop(context);
                                       },
                                       child: ReusableText(
                                         title: "Apply Coupon".tr,
@@ -124,22 +171,8 @@ class ApplyCoupons extends StatelessWidget {
                       },
                     ),
             ),
-            Container(
-              width: 40,
-              height: 40,
-              margin: const EdgeInsets.only(right: 20, top: 10),
-              color: Colors.white.withAlpha(150),
-              child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.close,
-                    size: 36,
-                  )),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

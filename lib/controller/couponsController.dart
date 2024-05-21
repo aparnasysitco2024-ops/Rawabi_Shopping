@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/myorder/myOrderResponse.dart';
+import 'package:rawabi/utils/app_utils.dart';
 
 import '../model/response/couponsModel.dart';
 import '../utils/commonUtils.dart';
@@ -36,4 +38,32 @@ class CouponsController extends GetxController {
     }
     loading.value = false;
   }
+
+  Future<bool> validateCoupon(String couponCode)  async {
+    try {
+      loading.value = true;
+      var request = {"coupon_code": couponCode};
+      var response = await BaseClient().post(couponValidate,request);
+      loading.value = false;
+      if (response!=null) {
+        var responseData = CouponValidateResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200"&&responseData.res=="valid") {
+          return true;
+        }
+        else{
+          CommonUtils().messageBox(responseData.res.toString());
+          return false;
+        }
+      } else {
+        CommonUtils().messageBox("Something wrong! Please try later!");
+        return false;
+      }
+    } catch (error) {
+      CommonUtils().messageBox("Something wrong! Please try later!");
+
+    }
+    loading.value = false;
+    return false;
+  }
+
 }
