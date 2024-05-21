@@ -208,13 +208,12 @@ class TrackOrderScreen extends StatelessWidget {
                                   onTap: () {
 
                                     /*AppUtils.navigateToPage(TrackOrderMap(
-                                        id: myOrder.orderid.toString()));*/
-
+                                        id: myOrder.orderid.toString(), destinationLatLng: myOrder.latlng.toString(),)); */
                                     trackOrderController.status.value
                                         .delivering ==
                                         "yes"
                                         ? AppUtils.navigateToPage(TrackOrderMap(
-                                        id: myOrder.orderid.toString()))
+                                        id: myOrder.orderid.toString(), destinationLatLng: myOrder.latlng.toString(),))
                                         : trackOrderController.status.value
                                         .delivered ==
                                         "yes"
@@ -224,7 +223,8 @@ class TrackOrderScreen extends StatelessWidget {
                                         "yes"
                                         ?CommonUtils().messageBox("Item processing.Delivery not startted yet!")
                                         :CommonUtils().messageBox("Item placed.Delivery not startted yet!");
-                                  },
+
+                                    },
                                   child: Container(
                                     alignment: Alignment.center,
                                     height: 30,

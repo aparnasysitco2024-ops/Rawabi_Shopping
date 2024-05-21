@@ -55,6 +55,7 @@ class Orders {
   String? addressId;
   String? addressName;
   String? zone;
+  String? latlng;
   String? phone;
   String? addressType;
   String? address;
@@ -75,6 +76,7 @@ class Orders {
         this.addressId,
         this.addressName,
         this.zone,
+        this.latlng,
         this.phone,
         this.addressType,
         this.address,
@@ -95,6 +97,7 @@ class Orders {
     addressId = json['address_id'];
     addressName = json['address_name'];
     zone = json['zone'];
+    latlng = json['lat_long'];
     phone = json['phone'];
     addressType = json['address_type'];
     address = json['address'];
@@ -122,6 +125,7 @@ class Orders {
     data['address_id'] = addressId;
     data['address_name'] = addressName;
     data['zone'] = zone;
+    data['lat_long']=latlng;
     data['phone'] = phone;
     data['address_type'] = addressType;
     data['address'] = address;

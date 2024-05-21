@@ -1,18 +1,16 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/headerWidget.dart';
-
 import '../../utils/constants.dart';
 
 class TrackOrderMap extends StatefulWidget {
   final String id;
-  //final String? destinationLatLng;
-  TrackOrderMap({super.key, required this.id});
+  final String? destinationLatLng;
+  TrackOrderMap({super.key, required this.id, required this.destinationLatLng});
   @override
   _TrackOrderMapState createState() => _TrackOrderMapState();
 }
@@ -50,12 +48,27 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
     });
 
     BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/icons/driver_icon.png')
+        'assets/icons/destination_marker.png')
         .then((onValue) {
       destinationIcon = onValue;
     });
   }
 
+  void getDestinationLocation() {
+    if (widget.destinationLatLng == null) {
+      //print("destination is null");
+      _destLatitude = 0.00;
+      _destLongitude=0.00;
+
+    } else {
+      //print("destination is not null");
+      print(widget.destinationLatLng);
+      List<String>? latLng = widget.destinationLatLng!.split(",");
+      _destLatitude = double.parse(latLng[0]);
+      _destLongitude = double.parse(latLng[1]);
+
+    }
+  }
 
   /*_addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
     MarkerId markerId = MarkerId(id);
@@ -139,7 +152,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
       target: LatLng(_deliveryBoyLatitude, _deliveryBoyLongitude),
       zoom: 12,
     );
-
+    getDestinationLocation();
    setSourceAndDestinationIcons();
 
     _getPolyline();
@@ -171,6 +184,7 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
             target: LatLng(_deliveryBoyLatitude, _deliveryBoyLongitude),
             zoom: 12
           );
+          _getPolyline();
           _goToThePlace();
         }
         return Scaffold(
