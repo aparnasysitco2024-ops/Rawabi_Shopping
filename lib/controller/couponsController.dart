@@ -1,15 +1,9 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/model/response/myorder/myOrderResponse.dart';
-import 'package:rawabi/utils/app_utils.dart';
-
 import '../model/response/couponsModel.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
-import '../utils/storage_manager.dart';
 
 class CouponsController extends GetxController {
 

@@ -7,8 +7,6 @@ import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../controller/cartController.dart';
 import '../../controller/homeController.dart';
 import '../../utils/colors.dart';
