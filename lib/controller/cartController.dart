@@ -28,6 +28,7 @@ class CartController extends GetxController {
   var subTotal = 0.00.obs;
   var delivery = 0.00.obs;
   var bagFee = 0.00.obs;
+  var discount = 0.00.obs;
   var grandTotal = 0.00.obs;
   var totalItemCount = 0.obs;
 
@@ -65,7 +66,7 @@ class CartController extends GetxController {
                 subTotal.value + double.parse(element.subtotal.toString());
           }
 
-          grandTotal.value = subTotal.value + delivery.value + bagFee.value;
+          grandTotal.value = subTotal.value + delivery.value + bagFee.value - discount.value;
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

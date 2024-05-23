@@ -69,12 +69,16 @@ class Coupon {
 class CouponValidateResponse {
   String? code;
   String? res;
+  String? type;
+  String? value;
 
-  CouponValidateResponse({this.code, this.res});
+  CouponValidateResponse({this.code, this.res,this.type,this.value});
 
   CouponValidateResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     res = json['res'];
+    type = json['type'];
+    value = json['value'];
   }
 
 }

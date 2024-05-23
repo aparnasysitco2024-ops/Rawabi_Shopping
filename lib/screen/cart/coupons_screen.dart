@@ -3,14 +3,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
+import '../../controller/cartController.dart';
 import '../../controller/couponsController.dart';
 import '../../utils/storage_manager.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 
 class CouponScreen extends StatelessWidget {
-  CouponScreen({Key? key}) : super(key: key);
+  final String amount;
+  CouponScreen({Key? key, required this.amount}) : super(key: key);
   final couponController = Get.put(CouponsController());
+  final cartController = Get.put(CartController());
 
+
+  void getDiscount(){
+    if(couponController.couponType=="fixed"){
+      cartController.discount.value=couponController.couponValue.value;
+    }
+    else if(couponController.couponType=="percentage"){
+      var offPercentage = int.parse(couponController.couponValue.value.toString());
+      cartController.discount.value = double.parse(amount) * offPercentage / 100;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     couponController.getCoupons();
@@ -141,12 +154,13 @@ class CouponScreen extends StatelessWidget {
                                         var res = await couponController
                                             .validateCoupon(couponController
                                                 .coupons![index]!.couponcode
-                                                .toString());
+                                                .toString(),amount);
                                         if (res) {
-                                          StorageManager.saveData(
+                                          getDiscount();
+                                          /*StorageManager.saveData(
                                               StorageManager.keyCouponCode,
                                               couponController
-                                                  .coupons![index]!.couponcode);
+                                                  .coupons![index]!.couponcode);*/
                                         }
                                         //Navigator.pop(context);
                                       },

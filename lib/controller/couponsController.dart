@@ -10,7 +10,8 @@ class CouponsController extends GetxController {
   CouponsController();
   var loading = false.obs;
   List<Coupon?>? coupons=<Coupon?>[].obs;
-
+var couponType ="".obs;
+var couponValue=0.00.obs;
   Future<void> getCoupons()  async {
     try {
       loading.value = true;
@@ -33,15 +34,18 @@ class CouponsController extends GetxController {
     loading.value = false;
   }
 
-  Future<bool> validateCoupon(String couponCode)  async {
+  Future<bool> validateCoupon(String couponCode,String amount)  async {
     try {
       loading.value = true;
-      var request = {"coupon_code": couponCode};
+      var request = {"coupon_code": couponCode,"amount":amount};
       var response = await BaseClient().post(couponValidate,request);
       loading.value = false;
       if (response!=null) {
         var responseData = CouponValidateResponse.fromJson(json.decode(response.toString()));
-        if (responseData.code == "200"&&responseData.res=="valid") {
+        if (responseData.code == "200"&&responseData.res=="Valid") {
+          couponType.value=responseData.type!;
+          couponValue.value=double.parse(responseData.value.toString());
+          CommonUtils().messageBox("Coupon applied successfully!");
           return true;
         }
         else{

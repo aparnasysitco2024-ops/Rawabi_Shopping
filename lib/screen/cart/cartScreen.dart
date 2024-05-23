@@ -419,7 +419,7 @@ class CartScreen extends StatelessWidget {
                                           const Spacer(),
                                           InkWell(
                                             onTap: (){
-                                              AppUtils.navigateToPage(CouponScreen());
+                                              AppUtils.navigateToPage(CouponScreen(amount: cartController.grandTotal.value.toString(),));
                                             },
                                             child: Container(
                                               height: 22,
@@ -524,6 +524,24 @@ class CartScreen extends StatelessWidget {
                                             ReusableText(
                                               title:
                                                   "QAR- ${cartController.bagFee.value}",
+                                              size: 10,
+                                              weight: FontWeight.w600,
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            ReusableText(
+                                              title: "Discount".tr,
+                                              size: 12,
+                                              weight: FontWeight.w600,
+                                              color: Colors.black,
+                                            ),
+                                            const Spacer(),
+                                            ReusableText(
+                                              title:
+                                              "QAR- ${cartController.discount.value}",
                                               size: 10,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
