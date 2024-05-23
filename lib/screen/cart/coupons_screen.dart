@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
 import '../../controller/cartController.dart';
 import '../../controller/couponsController.dart';
-import '../../utils/storage_manager.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 
 class CouponScreen extends StatelessWidget {
