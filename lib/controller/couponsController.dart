@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../model/response/couponsModel.dart';
 import '../utils/commonUtils.dart';
@@ -9,6 +10,7 @@ class CouponsController extends GetxController {
 
   CouponsController();
   var loading = false.obs;
+  var codeController=TextEditingController();
   List<Coupon?>? coupons=<Coupon?>[].obs;
 var couponType ="".obs;
 var couponValue=0.00.obs;

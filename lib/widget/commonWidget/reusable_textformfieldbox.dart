@@ -12,6 +12,7 @@ class ReusableTextFormBox extends StatelessWidget {
   final Widget? prefixIcon;
   final fillColor;
   final Color? borderColor;
+  final double? borderRadius;
 
   const ReusableTextFormBox({
     Key? key,
@@ -25,6 +26,7 @@ class ReusableTextFormBox extends StatelessWidget {
     this.enabled = true,
     this.prefixIcon,
     this.borderColor,
+    this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -50,25 +52,25 @@ class ReusableTextFormBox extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.all(10),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius??8),
             // borderSide: BorderSide.none,
             borderSide:
-                BorderSide(color: Colors.blue.withOpacity(0.5), width: 1.0),
+                BorderSide(color: borderColor??Colors.blue.withOpacity(0.5), width: 1.0),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius??8),
             // borderSide: BorderSide.none,
             borderSide:
             BorderSide(color: borderColor??Colors.blue.withOpacity(0.5), width: 1.0),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius??8),
             // borderSide: BorderSide.none,
             borderSide:
             BorderSide(color: Colors.red.withOpacity(0.5), width: 1.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius??8),
             // borderSide: BorderSide.none,
             borderSide:
             BorderSide(color: borderColor??Colors.blue.withOpacity(0.5), width: 1.0),
