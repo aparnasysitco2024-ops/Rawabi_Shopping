@@ -10,14 +10,12 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
-import '../../controller/homeController.dart';
 import '../../controller/storePickupController.dart';
-import '../../utils/app_utils.dart';
-import '../navigator/bottomNavBar.dart';
 
 class HomeDeliveryMapScreen extends StatefulWidget {
-   HomeDeliveryMapScreen({super.key});
-   final storePickupController = Get.put(StorePickupController());
+  HomeDeliveryMapScreen({super.key});
+
+  final storePickupController = Get.put(StorePickupController());
 
   @override
   State<HomeDeliveryMapScreen> createState() => HomeDeliveryMapScreenState();
@@ -165,7 +163,8 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: white,
-                hintText: widget.storePickupController.languageParam.value.searchLocation,
+                hintText: widget
+                    .storePickupController.languageParam.value.searchLocation,
                 contentPadding: const EdgeInsets.only(left: 10),
                 prefixIcon: const Icon(
                   Icons.search,
@@ -245,30 +244,33 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   SizedBox(
                     height: 40,
                     child: ReusableButton1(
-                      title: widget.storePickupController.languageParam.value.confirmLocation,
+                      title: widget.storePickupController.languageParam.value
+                          .confirmLocation,
                       backgroundColor: address.isEmpty ? silver : primaryColor,
                       onPressed: () {
                         if (address.isNotEmpty) {
-                          StorageManager.saveData(
-                              StorageManager.keyStoreLat, lat.toString());
-                          StorageManager.saveData(
-                              StorageManager.keyStoreLng, lng.toString());
-
-                          StorageManager.saveData(
-                              StorageManager.keyStoreID, "10");
-                          StorageManager.saveData(
-                              StorageManager.keyStoreAddress, address);
-                          StorageManager.saveData(StorageManager.keyIsPickup, false);
-
-                          if (Get.isRegistered<HomeController>()) {
-                            final homeController = Get.put(HomeController());
-                            homeController.storeAddress.value = address;
-                            homeController.isPickup.value = false;
-                            homeController.getHomeData();
-                            Navigator.pop(context);
-                          } else {
-                            AppUtils.navigateToPageRemoveUntil(BottomNavBar());
-                          }
+                          widget.storePickupController
+                              .getSlot(lat.toString(), lng.toString(), address);
+                          // StorageManager.saveData(
+                          //     StorageManager.keyStoreLat, lat.toString());
+                          // StorageManager.saveData(
+                          //     StorageManager.keyStoreLng, lng.toString());
+                          //
+                          // StorageManager.saveData(
+                          //     StorageManager.keyStoreID, "10");
+                          // StorageManager.saveData(
+                          //     StorageManager.keyStoreAddress, address);
+                          // StorageManager.saveData(StorageManager.keyIsPickup, false);
+                          //
+                          // if (Get.isRegistered<HomeController>()) {
+                          //   final homeController = Get.put(HomeController());
+                          //   homeController.storeAddress.value = address;
+                          //   homeController.isPickup.value = false;
+                          //   homeController.getHomeData();
+                          //   Navigator.pop(context);
+                          // } else {
+                          //   AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+                          // }
                         }
                       },
                       fontSize: 14,

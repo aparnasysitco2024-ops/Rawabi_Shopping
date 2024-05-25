@@ -89,19 +89,18 @@ class CartController extends GetxController {
             await StorageManager.readData(StorageManager.keyDefaultAddressLat),
         "lon1":
             await StorageManager.readData(StorageManager.keyDefaultAddressLng),
-        "type": "1"
+        "type": homeController.isExpress.value ? "2" : "1"
       };
 
       var response = await BaseClient().post(calculate, request);
       loading.value = false;
       if (response != null) {
         var responseData =
-        CalculateFeeResponse.fromJson(json.decode(response.toString()));
+            CalculateFeeResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          if(responseData.fee!=null)
-            {
-              delivery.value=double.parse(responseData.fee.toString());
-            }
+          if (responseData.fee != null) {
+            delivery.value = double.parse(responseData.fee.toString());
+          }
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -171,7 +170,7 @@ class CartController extends GetxController {
         "discount": "0",
         "payable": grandTotal.value,
         "order_type": homeController.isPickup.value ? "pickup" : "delivery",
-        "delivery_type": "Normal",
+        "delivery_type": homeController.isExpress.value ? "Express" : "Normal",
         "start_time": homeController.selectedStartTime.value,
         "end_time": homeController.selectedEndTime.value,
         "date": homeController.selectedSlotDate.value

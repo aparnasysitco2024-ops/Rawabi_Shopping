@@ -137,7 +137,7 @@ class CommonUtils{
 
   void messageBox(String message) {
     ScaffoldMessenger.of(Get.context!)
-        .showSnackBar(SnackBar(content: Text(message)));
+        .showSnackBar(SnackBar(content: Text(message),duration: Durations.long1,));
   }
 
 

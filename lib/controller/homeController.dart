@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/languageParamResponse.dart';
+
 import '../model/response/homeResponse.dart';
 import '../model/response/myProfileResponse.dart';
 import '../screen/navigator/bottomNavBar.dart';
@@ -158,4 +160,6 @@ class HomeController extends GetxController {
     Get.updateLocale(locale);
     AppUtils.navigateToPageRemoveUntil(BottomNavBar());
   }
+
+
 }

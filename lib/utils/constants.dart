@@ -38,6 +38,7 @@ const flyerListUrl = '${baseURL}flyerList';
 const lang_paramsUrl ='${baseURL}lang_params';
 const slotList ='${baseURL}slotList';
 const slotAvail ='${baseURL}slotAvail';
+const notificationList ='${baseURL}notificationList';
 
 const couponList ='${baseURL}couponList';
 const couponValidate ='${baseURL}couponValidate';

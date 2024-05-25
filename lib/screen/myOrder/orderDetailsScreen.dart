@@ -88,28 +88,30 @@ class OrderDetailsScreen extends StatelessWidget {
                                   horizontal: 5, vertical: 5),
                               child: Column(
                                 children: [
-                                  myOrderDetailController
-                                      .myOrderList.length==0?
-                                      ReusableText(
-                                        title: "No items".tr,
-                                        size: 12,
-                                        weight: FontWeight.w600,)
-                                  :ListView.separated(
-                                      padding: const EdgeInsets.all(0),
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: myOrderDetailController
-                                          .myOrderList.length,
-                                      itemBuilder: (context, index) =>
-                                          OrderDetailsTile(
-                                              items: myOrderDetailController
-                                                  .myOrderList[index]),
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              const Divider(
-                                                thickness: 1,
-                                              )),
+                                  myOrderDetailController.myOrderList.length ==
+                                          0
+                                      ? ReusableText(
+                                          title: "No items".tr,
+                                          size: 12,
+                                          weight: FontWeight.w600,
+                                        )
+                                      : ListView.separated(
+                                          padding: const EdgeInsets.all(0),
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: myOrderDetailController
+                                              .myOrderList.length,
+                                          itemBuilder: (context, index) =>
+                                              OrderDetailsTile(
+                                                  items: myOrderDetailController
+                                                      .myOrderList[index]),
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  )),
                                   const Divider(
                                     thickness: 1,
                                   ),

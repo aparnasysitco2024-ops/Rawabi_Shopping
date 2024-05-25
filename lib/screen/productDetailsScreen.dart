@@ -171,7 +171,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                               10.0),
                                                       child: FadeInImage
                                                           .assetNetwork(
-                                                              fit: BoxFit.fill,
+                                                              fit: BoxFit.contain,
                                                               placeholder:
                                                                   'assets/images/logo.png',
                                                               image: i.image
