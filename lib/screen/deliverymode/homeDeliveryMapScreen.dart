@@ -150,37 +150,37 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
               },
             ),
           ),
-          Container(
-            width: 380,
-            height: 45,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.all(Radius.circular(4))),
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.only(right: 10),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: white,
-                hintText: widget
-                    .storePickupController.languageParam.value.searchLocation,
-                contentPadding: const EdgeInsets.only(left: 10),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: blackLight,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   width: 380,
+          //   height: 45,
+          //   alignment: Alignment.center,
+          //   decoration: const BoxDecoration(
+          //       color: white,
+          //       borderRadius: BorderRadius.all(Radius.circular(4))),
+          //   margin: const EdgeInsets.all(10),
+          //   padding: const EdgeInsets.only(right: 10),
+          //   child: TextField(
+          //     decoration: InputDecoration(
+          //       filled: true,
+          //       fillColor: white,
+          //       hintText: widget
+          //           .storePickupController.languageParam.value.searchLocation,
+          //       contentPadding: const EdgeInsets.only(left: 10),
+          //       prefixIcon: const Icon(
+          //         Icons.search,
+          //         color: blackLight,
+          //       ),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(4),
+          //         borderSide: BorderSide.none,
+          //       ),
+          //       focusedBorder: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(4),
+          //         borderSide: BorderSide.none,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Align(
             alignment: Alignment.center,
             child: Padding(

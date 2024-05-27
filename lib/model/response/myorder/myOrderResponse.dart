@@ -67,27 +67,31 @@ class Orders {
   String? discount;
   String? payable;
   List<Items>? items;
+  String? order_type;
+  String? order_delivery_type;
 
   Orders(
       {this.orderid,
-        this.refno,
-        this.status,
-        this.date,
-        this.addressId,
-        this.addressName,
-        this.zone,
-        this.latlng,
-        this.phone,
-        this.addressType,
-        this.address,
-        this.houseBuilding,
-        this.apartmentOffice,
-        this.floor,
-        this.addressInstruction,
-        this.subtotal,
-        this.discount,
-        this.payable,
-        this.items});
+      this.refno,
+      this.status,
+      this.date,
+      this.addressId,
+      this.addressName,
+      this.zone,
+      this.latlng,
+      this.phone,
+      this.addressType,
+      this.address,
+      this.houseBuilding,
+      this.apartmentOffice,
+      this.floor,
+      this.addressInstruction,
+      this.subtotal,
+      this.discount,
+      this.payable,
+      this.items,
+      this.order_type,
+      this.order_delivery_type});
 
   Orders.fromJson(Map<String, dynamic> json) {
     orderid = json['orderid'];
@@ -114,6 +118,8 @@ class Orders {
         items!.add(Items.fromJson(v));
       });
     }
+    order_type = json['order_type'];
+    order_delivery_type = json['order_delivery_type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -125,7 +131,7 @@ class Orders {
     data['address_id'] = addressId;
     data['address_name'] = addressName;
     data['zone'] = zone;
-    data['lat_long']=latlng;
+    data['lat_long'] = latlng;
     data['phone'] = phone;
     data['address_type'] = addressType;
     data['address'] = address;
@@ -139,7 +145,8 @@ class Orders {
     if (items != null) {
       data['items'] = items!.map((v) => v.toJson()).toList();
     }
+    data['order_type'] = order_type;
+    data['order_delivery_type'] = order_delivery_type;
     return data;
   }
 }
-

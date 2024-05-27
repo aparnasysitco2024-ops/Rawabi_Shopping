@@ -24,12 +24,12 @@ class OrderDetailsTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Checkbox(
-            checkColor: white,
-            activeColor: primaryColor,
-            value: false,
-            onChanged: (bool? value) {},
-          ),
+          // Checkbox(
+          //   checkColor: white,
+          //   activeColor: primaryColor,
+          //   value: false,
+          //   onChanged: (bool? value) {},
+          // ),
           SizedBox(
               width: 60,
               child: ReusableNetworkImage(

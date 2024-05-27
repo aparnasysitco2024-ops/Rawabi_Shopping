@@ -39,12 +39,12 @@ class _AddressTileState extends State<AddressTile> {
                 weight: FontWeight.w600,
                 textAlign: TextAlign.center,
               ),
-              ReusableText(
-                title: "Edit".tr,
-                size: 10,
-                weight: FontWeight.w600,
-                textAlign: TextAlign.center,
-              ),
+              // ReusableText(
+              //   title: "Edit".tr,
+              //   size: 10,
+              //   weight: FontWeight.w600,
+              //   textAlign: TextAlign.center,
+              // ),
             ],
           ),
           ReusableText(
@@ -67,6 +67,8 @@ class _AddressTileState extends State<AddressTile> {
                         widget.addressList.addressId!;
                     StorageManager.saveData(StorageManager.keyDefaultAddressId,
                         widget.addressList.addressId!);
+                    widget.homeController.defaultAddress.value =
+                        "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}";
                     StorageManager.saveData(StorageManager.keyDefaultAddress,
                         "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}");
                     StorageManager.saveData(StorageManager.keyDefaultAddressLat,

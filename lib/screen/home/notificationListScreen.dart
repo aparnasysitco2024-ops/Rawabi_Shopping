@@ -21,7 +21,7 @@ class NotificationListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     notificationListController.getNotificationList();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: silver,
       body: Column(
         children: [
           HeaderWidget(
@@ -39,7 +39,7 @@ class NotificationListScreen extends StatelessWidget {
                 )
               : notificationListController.notifications.isNotEmpty
                   ? ListView.separated(
-                      padding: const EdgeInsets.all(0),
+                      padding: const EdgeInsets.only(top: 10),
                       shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
                       itemCount:

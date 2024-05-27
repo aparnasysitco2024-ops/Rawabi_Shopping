@@ -22,6 +22,7 @@ class NotificationItemTile extends StatelessWidget {
       child: Column(
         children: [
           Container(
+
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 1),
             //alignment: Alignment.center,
@@ -45,21 +46,17 @@ class NotificationItemTile extends StatelessWidget {
                     children: [
                       ReusableText(
                         title: "${notifications.title}",
-                        size: 13,
-                        weight: FontWeight.bold,
-                        color: darkGrey,
+                        size: 10,
+                        weight: FontWeight.w600,
+                        color: blue,
                       ),
-                      Html(data: notifications.message),
+                      Html(data: notifications.message,),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Divider(
-            color: Colors.grey,
-            thickness: 0.1,
-          )
         ],
       ),
     );

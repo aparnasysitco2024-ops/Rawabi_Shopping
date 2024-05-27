@@ -25,7 +25,7 @@ class _CartNavigatorState extends State<CartNavigator> {
                 case '/':
                   return CartScreen();
                 case '/ProductsByCategory':
-                  return const ProductsByCategory();
+                  return ProductsByCategory();
                 /*case '/SearchResultScreen':
                   return const SearchResultScreen();*/
                 /*case '/BarcodeResultScreen':

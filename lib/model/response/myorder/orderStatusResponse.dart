@@ -36,16 +36,22 @@ class Status {
   String? deliverTime;
   String? delivered;
   String? deliveryTime;
+  String? order_type;
+  String? order_delivery_type;
+  String? store_name;
 
   Status(
       {this.orderPlaced,
-        this.orderTime,
-        this.processing,
-        this.processTime,
-        this.delivering,
-        this.deliverTime,
-        this.delivered,
-        this.deliveryTime});
+      this.orderTime,
+      this.processing,
+      this.processTime,
+      this.delivering,
+      this.deliverTime,
+      this.delivered,
+      this.deliveryTime,
+      this.order_type,
+      this.order_delivery_type,
+      this.store_name});
 
   Status.fromJson(Map<String, dynamic> json) {
     orderPlaced = json['order_placed'];
@@ -56,6 +62,9 @@ class Status {
     deliverTime = json['deliver_time'];
     delivered = json['delivered'];
     deliveryTime = json['delivery_time'];
+    order_type = json['order_type'];
+    order_delivery_type = json['order_delivery_type'];
+    store_name = json['store_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +77,10 @@ class Status {
     data['deliver_time'] = this.deliverTime;
     data['delivered'] = this.delivered;
     data['delivery_time'] = this.deliveryTime;
+
+    data['order_type'] = this.order_type;
+    data['order_delivery_type'] = this.order_delivery_type;
+    data['store_name'] = this.store_name;
     return data;
   }
 }

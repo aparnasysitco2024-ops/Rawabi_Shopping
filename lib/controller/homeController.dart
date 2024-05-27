@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/model/response/languageParamResponse.dart';
 
 import '../model/response/homeResponse.dart';
-import '../model/response/myProfileResponse.dart';
+import '../model/response/slotResponse.dart';
 import '../screen/navigator/bottomNavBar.dart';
 import '../utils/app_utils.dart';
 import '../utils/commonUtils.dart';
@@ -33,7 +33,6 @@ class HomeController extends GetxController {
   var bannerListTop2 = <Slider>[].obs;
   var itemGroupList = <ItemGroup>[].obs;
   var barcodeScannerText = "".obs;
-  MyProfile myProfile = MyProfile();
 
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
@@ -47,12 +46,27 @@ class HomeController extends GetxController {
   var languageParamString = "";
 
   Future<void> getStorageData() async {
-    storeAddress.value =
-        await StorageManager.readData(StorageManager.keyStoreAddress);
     defaultAddressId.value =
         await StorageManager.readData(StorageManager.keyDefaultAddressId);
-    defaultAddress.value =
-        await StorageManager.readData(StorageManager.keyDefaultAddress);
+    if (defaultAddressId.value.isEmpty) {
+      storeAddress.value =
+          await StorageManager.readData(StorageManager.keyStoreAddress);
+      getSlot(
+          await StorageManager.readData(StorageManager.keyStoreLat),
+          await StorageManager.readData(StorageManager.keyStoreLng),
+          await StorageManager.readData(StorageManager.keyStoreAddress));
+    } else {
+      storeAddress.value =
+          await StorageManager.readData(StorageManager.keyDefaultAddress);
+
+      getSlot(
+          await StorageManager.readData(StorageManager.keyDefaultAddressLat),
+          await StorageManager.readData(StorageManager.keyDefaultAddressLng),
+          await StorageManager.readData(StorageManager.keyDefaultAddress));
+    }
+
+    defaultAddressId.value =
+        await StorageManager.readData(StorageManager.keyDefaultAddressId);
 
     userID.value = await StorageManager.getUserID();
     isPickup.value =
@@ -106,30 +120,6 @@ class HomeController extends GetxController {
     loading.value = false;
   }
 
-  Future<void> getMyProfile() async {
-    try {
-      loading.value = true;
-      var response = await BaseClient().get(myProfileUrl);
-      loading.value = false;
-      if (response != null) {
-        var responseData =
-            MyProfileResponse.fromJson(json.decode(response.toString()));
-
-        if (responseData.code == "200") {
-          myProfile = responseData.res!;
-        } else {
-          CommonUtils.showErrorDialog(responseData.message);
-        }
-      } else {
-        CommonUtils.showErrorDialog(response.message);
-      }
-    } catch (error) {
-      error.printError();
-      // CommonUtils.showErrorDialog(error.toString());
-    }
-    loading.value = false;
-  }
-
   Future<void> getLanguageParam(String language, String id) async {
     try {
       var params = {"id": id};
@@ -161,5 +151,56 @@ class HomeController extends GetxController {
     AppUtils.navigateToPageRemoveUntil(BottomNavBar());
   }
 
+  Future<void> getSlot(
+      String latitude, String longitude, String address) async {
+    try {
+      loading.value = true;
+      var request = {"latitude": latitude, "longitude": longitude};
 
+      var response = await BaseClient().post(slotList, request);
+      loading.value = false;
+
+      if (response != null) {
+        var responseData =
+            SlotResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          StorageManager.saveData(StorageManager.keyStoreLat, latitude);
+          StorageManager.saveData(StorageManager.keyStoreLng, longitude);
+
+          if (responseData.res != null && responseData.res!.isNotEmpty) {
+            StorageManager.saveData(
+                StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+            StorageManager.saveData(
+                StorageManager.keyStoreID, responseData.res?.first?.storeid);
+            StorageManager.saveData(StorageManager.keyStoreAddress, address);
+            StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+            storeAddress.value = address;
+            isPickup.value = false;
+            getHomeData();
+            // Navigator.pop(Get!.context);
+          } else {
+            StorageManager.saveData(
+                StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+            StorageManager.saveData(StorageManager.keyStoreID, "10");
+            StorageManager.saveData(StorageManager.keyStoreAddress, address);
+            StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+            storeAddress.value = address;
+            isPickup.value = false;
+            getHomeData();
+          }
+        } else {
+          CommonUtils.showErrorDialog(response.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
 }

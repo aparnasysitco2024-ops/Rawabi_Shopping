@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/home/selectSlotScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
@@ -27,6 +28,141 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     cartController.getCartList();
     cartController.calculateDeliveryFee();
+
+    // var result = DateTime.now().add(Duration(hours: 1));
+    // print("now + 1 hr = ${result}");
+    // DateTime currentTime = DateTime.now();
+    // String dateString = '10.00';
+    // DateFormat format = new DateFormat("hh:MM");
+    // DateTime dateTime = format.parse(dateString);
+    // print(dateTime);
+
+    DateFormat dateFormat = DateFormat("HH:mm");
+    String currentTime = dateFormat.format(DateTime.now());
+    print(currentTime);
+    DateTime todayDate = DateTime.now();
+
+    void PickupSlot() {
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setState /*You can rename this!*/) {
+            return SizedBox(
+              height: 300,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ReusableText(
+                      title: "Select Pickup Time",
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GridView.builder(
+                        padding:
+                            const EdgeInsets.only(left: 10, top: 10, right: 10),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: 13,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                mainAxisExtent: 50,
+                                crossAxisCount: 4),
+                        itemBuilder: (_, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (double.parse(DateFormat('HH').format(
+                                            todayDate.add(
+                                                Duration(hours: index + 2)))) <
+                                        9 ||
+                                    double.parse(DateFormat('HH').format(
+                                            todayDate.add(
+                                                Duration(hours: index + 2)))) >
+                                        21) {
+                                } else {
+                                  cartController.selectedPickupSlot.value =
+                                      DateFormat('hh:00 a').format(todayDate
+                                          .add(Duration(hours: index + 2)));
+                                }
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: double.parse(DateFormat('HH').format(
+                                                  todayDate.add(Duration(
+                                                      hours: index + 2)))) <
+                                              9 ||
+                                          double.parse(DateFormat('HH').format(
+                                                  todayDate.add(Duration(
+                                                      hours: index + 2)))) >
+                                              21
+                                      ? Colors.grey
+                                      : cartController.selectedPickupSlot ==
+                                      DateFormat('hh:00 a').format(todayDate
+                                          .add(Duration(hours: index + 2)))
+                                          ? primaryColor
+                                          : Colors.white),
+                              child: ReusableText(
+                                  color: cartController.selectedPickupSlot ==
+                                      DateFormat('hh:00 a').format(todayDate
+                                          .add(Duration(hours: index + 2)))
+                                      ? Colors.white
+                                      : Colors.black,
+                                  // title: cartController.timeSlot[index],
+                                  title: DateFormat('hh:00 a').format(
+                                      todayDate.add(Duration(hours: index + 2)))
+                                  // todayDate
+                                  //     .add(Duration(hours: index))
+                                  //     .day
+                                  //     .toString(),
+                                  ),
+                            ),
+                          );
+                        }),
+                    // Container(
+                    //   height: 60,
+                    //   padding:
+                    //       const EdgeInsets
+                    //           .all(
+                    //           8.0),
+                    //   child:
+                    //       ReusableButton1(
+                    //     title:
+                    //         'Select Slot',
+                    //     onPressed:
+                    //         () =>
+                    //             Navigator.pop(context),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
+            );
+          });
+        },
+      );
+    }
+
+    // String tm = DateFormat("hh:mm a").format(DateFormat("HH:mm").parse("10:00 am"));
+    // print(tm);
+
+    // var inputDate = DateTime.parse("10:00 AM");
+    // var outputFormat = DateFormat("hh:mm a");
+    // var outputDate = outputFormat.format(inputDate);
+    // print(outputDate);
+
+    // String dateStringWithTimeZone = '14:00:00-08:00';
+    // DateTime dateTimeWithTimeZone = DateTime.parse(dateStringWithTimeZone);
+    // print(dateTimeWithTimeZone);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -64,7 +200,7 @@ class CartScreen extends StatelessWidget {
                             width: 5,
                           ),
                           ReusableText(
-                            title: "Deliver to" +
+                            title: "Deliver to " +
                                 "${homeController.defaultAddress.value}",
                             size: 12,
                             weight: FontWeight.bold,
@@ -404,8 +540,7 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 18),
+                                    padding: const EdgeInsets.only(left: 18),
                                     height: 36,
                                     width: double.maxFinite,
                                     child: Row(
@@ -428,8 +563,13 @@ class CartScreen extends StatelessWidget {
                                           ),
                                           const Spacer(),
                                           InkWell(
-                                            onTap: (){
-                                              AppUtils.navigateToPage(CouponScreen(amount: cartController.grandTotal.value.toString(),));
+                                            onTap: () {
+                                              AppUtils.navigateToPage(
+                                                  CouponScreen(
+                                                amount: cartController
+                                                    .grandTotal.value
+                                                    .toString(),
+                                              ));
                                             },
                                             child: Container(
                                               height: 22,
@@ -439,11 +579,15 @@ class CartScreen extends StatelessWidget {
                                               padding: const EdgeInsets.all(4),
                                               decoration: const BoxDecoration(
                                                   color: primaryColor,
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(3))),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(3))),
                                               child: Center(
                                                 child: ReusableText(
-                                                  title: homeController.languageParam.value.apply,
+                                                  title: homeController
+                                                      .languageParam
+                                                      .value
+                                                      .apply,
                                                   size: 10,
                                                   color: white,
                                                   weight: FontWeight.w600,
@@ -461,6 +605,85 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                     width: double.maxFinite,
                                   ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  homeController.isPickup.value
+                                      ? Column(children: [
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 18),
+                                            width: double.maxFinite,
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      ReusableText(
+                                                        title: "Pickup time",
+                                                        size: 14,
+                                                        weight: FontWeight.w600,
+                                                        color: Colors.black,
+                                                      ),
+                                                      ReusableText(
+                                                        title: cartController
+                                                            .selectedPickupSlot
+                                                            .value,
+                                                        size: 10,
+                                                        weight: FontWeight.w600,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const Spacer(),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      PickupSlot();
+                                                    },
+                                                    child: Container(
+                                                      height: 22,
+                                                      width: 48,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 16),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              4),
+                                                      decoration: const BoxDecoration(
+                                                          color: primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          3))),
+                                                      child: Center(
+                                                        child: ReusableText(
+                                                          title: "Select",
+                                                          size: 10,
+                                                          color: white,
+                                                          weight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ]),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            color: silver,
+                                            height: 1,
+                                            width: double.maxFinite,
+                                          ),
+                                        ])
+                                      : SizedBox(),
+
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 6.0),
@@ -559,7 +782,7 @@ class CartScreen extends StatelessWidget {
                                             const Spacer(),
                                             ReusableText(
                                               title:
-                                              "QAR- ${cartController.discount.value}",
+                                                  "QAR- ${cartController.discount.value}",
                                               size: 10,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -660,26 +883,31 @@ class CartScreen extends StatelessWidget {
                                                   AppUtils.navigateToPage(
                                                       LoginScreen());
                                                 } else {
-                                                  !homeController
-                                                              .isPickup.value &&
-                                                          homeController
-                                                              .defaultAddressId
-                                                              .isEmpty
-                                                      ? AppUtils.navigateToPage(
-                                                          MyAddressesScreen())
-                                                      : homeController
-                                                              .isPickup.value
-                                                          ? cartController
-                                                              .checkoutCart()
-                                                          : homeController
-                                                                  .selectedSlotID
-                                                                  .value
-                                                                  .isEmpty
-                                                              ? AppUtils
-                                                                  .navigateToPage(
-                                                                      SelectSlotScreen())
-                                                              : cartController
-                                                                  .checkSlotAvailability();
+                                                  if (homeController
+                                                      .isPickup.value) {
+                                                    if (cartController
+                                                        .selectedPickupSlot
+                                                        .isEmpty)
+                                                      PickupSlot();
+                                                    else
+                                                      cartController
+                                                          .checkoutCart();
+                                                  } else {
+                                                    homeController
+                                                            .defaultAddressId
+                                                            .isEmpty
+                                                        ? AppUtils.navigateToPage(
+                                                            MyAddressesScreen())
+                                                        : homeController
+                                                                .selectedSlotID
+                                                                .value
+                                                                .isEmpty
+                                                            ? AppUtils
+                                                                .navigateToPage(
+                                                                    SelectSlotScreen())
+                                                            : cartController
+                                                                .checkSlotAvailability();
+                                                  }
                                                 }
                                               },
                                             ),

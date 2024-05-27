@@ -19,9 +19,9 @@ import '../utils/constants.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
-  const ProductsByCategory({
-    super.key,
-  });
+  bool isOffer = false;
+
+  ProductsByCategory({super.key, this.isOffer = false});
 
   @override
   State<ProductsByCategory> createState() => _ProductsByCategoryState();
@@ -30,14 +30,14 @@ class ProductsByCategory extends StatefulWidget {
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final homeController = Get.put(HomeController());
   var searchController = Get.put(SearchResutController());
-  final productController = Get.put(ProductController());
+  late var productController =
+      Get.put(ProductController(isOffer: widget.isOffer));
 
   // var catID = "0", subCatID, subSubCatID;
 
   @override
   void initState() {
     super.initState();
-
     Future.delayed(Duration.zero, () {
       setState(() {
         final arguments = (ModalRoute.of(context)?.settings.arguments ??
@@ -72,7 +72,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               Row(
                 children: [
                   InkWell(
-                    child: Container(child: SvgPicture.asset("assets/icons/back.svg"),width: 40,height: 50,padding: EdgeInsets.all(15),),
+                    child: Container(
+                      child: SvgPicture.asset("assets/icons/back.svg"),
+                      width: 40,
+                      height: 50,
+                      padding: EdgeInsets.all(15),
+                    ),
                     onTap: () {
                       Navigator.of(context).popUntil(ModalRoute.withName('/'));
                     },

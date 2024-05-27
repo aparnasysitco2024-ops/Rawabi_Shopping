@@ -1,12 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/app_utils.dart';
+
 import '../model/response/languageParamResponse.dart';
 import '../utils/colors.dart';
+import '../utils/constants.dart';
+import '../utils/http_client/base_client.dart';
 import '../utils/storage_manager.dart';
 import '../widget/commonWidget/reusable_text.dart';
 import 'deliverymode/deliveryModeScreen.dart';
@@ -71,6 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    firebase();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(40),
@@ -115,5 +123,95 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> firebase() async {
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
+      final messaging = FirebaseMessaging.instance;
+
+      await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
+      const AndroidNotificationChannel channel = AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        importance: Importance.max,
+      );
+      final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+          FlutterLocalNotificationsPlugin();
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
+
+      // To handle Error(Red screen of death) globally.
+      // If there is any red screen will appear app will rederict to the login screen .. temp solution
+      ErrorWidget.builder = (FlutterErrorDetails details) => SplashScreen();
+
+      if (await StorageManager.readData(StorageManager.keyFirebaseToken) ==
+          "") {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        updatePushToken(fcmToken.toString());
+        print("token------------------------: " + fcmToken.toString());
+      }
+
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification?.android;
+
+        print('Got a message whilst in the foreground!');
+        if (message.notification != null && android != null) {
+          print('Notification Title: ${message.notification!.title}');
+          print('Notification Body: ${message.notification!.body}');
+          flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification!.title,
+              notification.body,
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  channel.id,
+                  channel.name,
+                  icon: android.smallIcon,
+                  // other properties...
+                ),
+              ));
+        }
+      });
+
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    } catch (e) {
+      print("-------------------firebase error-------------------");
+      print(e..printError());
+    }
+  }
+
+  Future<void> updatePushToken(String token) async {
+    try {
+      var params = {"pushtoken": token};
+      var response = await BaseClient().post(pushTokenUrl, params);
+      if (response != null) {
+        var responseData =
+            LanguageParamResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          StorageManager.saveData(StorageManager.keyFirebaseToken, token);
+        }
+      }
+    } catch (error) {
+      error.printError();
+    }
   }
 }

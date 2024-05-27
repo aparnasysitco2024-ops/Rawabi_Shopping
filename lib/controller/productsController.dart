@@ -29,6 +29,9 @@ class ProductController extends GetxController {
   var subCategoryListFilter = <Subcategory>[].obs;
   var price = Price().obs;
   var pageNumber = 1.obs;
+  bool isOffer = false;
+
+  ProductController({this.isOffer = false});
 
   Future<void> getProductsByCat() async {
     try {
@@ -41,7 +44,8 @@ class ProductController extends GetxController {
         "sort": sort.value,
         "page": pageNumber.value.toString()
       };
-      var response = await BaseClient().post(products, request);
+      var response = await BaseClient()
+          .post(isOffer ? discount_products : products, request);
       loading.value = false;
       if (response != null) {
         var responseData =

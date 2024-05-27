@@ -31,6 +31,8 @@ class CartController extends GetxController {
   var discount = 0.00.obs;
   var grandTotal = 0.00.obs;
   var totalItemCount = 0.obs;
+  var couponID = 0.obs;
+  var selectedPickupSlot = "".obs;
 
   CartController();
 
@@ -66,7 +68,8 @@ class CartController extends GetxController {
                 subTotal.value + double.parse(element.subtotal.toString());
           }
 
-          grandTotal.value = subTotal.value + delivery.value + bagFee.value - discount.value;
+          grandTotal.value =
+              subTotal.value + delivery.value + bagFee.value - discount.value;
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -138,7 +141,7 @@ class CartController extends GetxController {
 
   Future<void> updateQty(var id, var qty) async {
     try {
-      Vibration.vibrate(duration: 10);
+      Vibration.vibrate(duration: 5);
       loading.value = true;
       var request = {"id": id, "qty": qty};
       var response = await BaseClient().post(update_qty, request);
@@ -173,7 +176,8 @@ class CartController extends GetxController {
         "delivery_type": homeController.isExpress.value ? "Express" : "Normal",
         "start_time": homeController.selectedStartTime.value,
         "end_time": homeController.selectedEndTime.value,
-        "date": homeController.selectedSlotDate.value
+        "date": homeController.selectedSlotDate.value,
+        "coupon": couponID.value
       };
       var response = await BaseClient().post(checkout, request);
       loading.value = false;
@@ -201,7 +205,7 @@ class CartController extends GetxController {
   Future<void> addToCart(
       String itemID, String storeID, String? itemPrice, String itemQty) async {
     // if (await Vibration.hasCustomVibrationsSupport()) {
-    Vibration.vibrate(duration: 10);
+    Vibration.vibrate(duration: 5);
     // } else {
     //   Vibration.vibrate();
     //   await Future.delayed(Duration(milliseconds: 500));

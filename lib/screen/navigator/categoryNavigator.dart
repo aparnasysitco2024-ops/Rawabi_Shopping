@@ -24,7 +24,7 @@ class _CategoryNavigatorState extends State<CategoryNavigator> {
                 case '/':
                   return   CategoryScreen();
                 case '/ProductsByCategory':
-                  return  const ProductsByCategory();
+                  return   ProductsByCategory();
                 case '/ProductDetailsScreen':
                   return  ProductDetailsScreen();
                 /*case '/SearchResultScreen':

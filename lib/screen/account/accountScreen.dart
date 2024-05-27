@@ -5,10 +5,10 @@ import 'package:rawabi/screen/account/ourStoreScreen.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/home/flayerListScreen.dart';
+import 'package:rawabi/screen/home/notificationListScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
 import 'package:rawabi/screen/myProfileScreen.dart';
-import 'package:rawabi/screen/notificationsScreen.dart';
 import 'package:rawabi/screen/splashScreen.dart';
 import 'package:rawabi/screen/webViewScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
@@ -215,7 +215,8 @@ class AccountScreen extends StatelessWidget {
                                           BorderRadius.all(Radius.circular(3))),
                                   child: Center(
                                     child: ReusableText(
-                                      title: homeController.languageParam.value.view,
+                                      title: homeController
+                                          .languageParam.value.view,
                                       size: 10,
                                       color: white,
                                       weight: FontWeight.w600,
@@ -262,7 +263,8 @@ class AccountScreen extends StatelessWidget {
                           },
                           child: ProfileTile(
                               image: "assets/icons/love.svg",
-                              title: homeController.languageParam.value.wishlist.toString()),
+                              title: homeController.languageParam.value.wishlist
+                                  .toString()),
                         ),
                         const Divider(
                           thickness: 1,
@@ -278,7 +280,9 @@ class AccountScreen extends StatelessWidget {
                                       },
                                       child: ProfileTile(
                                           image: "assets/icons/location.svg",
-                                          title: homeController.languageParam.value.address.toString())),
+                                          title: homeController
+                                              .languageParam.value.address
+                                              .toString())),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -288,7 +292,8 @@ class AccountScreen extends StatelessWidget {
                             onPressed: () =>
                                 AppUtils.navigateToPage(LanguageScreen()),
                             image: "assets/icons/globe.svg",
-                            title: homeController.languageParam.value.language.toString()),
+                            title: homeController.languageParam.value.language
+                                .toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -303,7 +308,9 @@ class AccountScreen extends StatelessWidget {
                                     },
                                     child: ProfileTile(
                                         image: "assets/icons/user.svg",
-                                        title: homeController.languageParam.value.myProfile.toString()),
+                                        title: homeController
+                                            .languageParam.value.myProfile
+                                            .toString()),
                                   ),
                                   const Divider(
                                     thickness: 1,
@@ -318,11 +325,15 @@ class AccountScreen extends StatelessWidget {
                               ),
                         InkWell(
                           onTap: () {
-                            AppUtils.navigateToPage(NotificationsScreen());
+                            AppUtils.navigateToPage(NotificationListScreen(
+                              title: "Notification",
+                            ));
                           },
                           child: ProfileTile(
                               image: "assets/icons/notification2.svg",
-                              title: homeController.languageParam.value.notifications.toString()),
+                              title: homeController
+                                  .languageParam.value.notifications
+                                  .toString()),
                         ),
                         const Divider(
                           thickness: 1,
@@ -331,7 +342,8 @@ class AccountScreen extends StatelessWidget {
                             onPressed: () =>
                                 AppUtils.navigateToPage(OurStoreScreen()),
                             image: "assets/icons/My-shops.svg",
-                            title: homeController.languageParam.value.ourStore.toString()),
+                            title: homeController.languageParam.value.ourStore
+                                .toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -341,7 +353,9 @@ class AccountScreen extends StatelessWidget {
                                 children: [
                                   ProfileTile(
                                       image: "assets/icons/returns.svg",
-                                      title: homeController.languageParam.value.myReturns.toString()),
+                                      title: homeController
+                                          .languageParam.value.myReturns
+                                          .toString()),
                                   const Divider(
                                     thickness: 1,
                                   ),
@@ -349,7 +363,8 @@ class AccountScreen extends StatelessWidget {
                               ),
                         ProfileTile(
                             image: "assets/icons/feedback.svg",
-                            title: homeController.languageParam.value.feedback.toString()),
+                            title: homeController.languageParam.value.feedback
+                                .toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -359,7 +374,8 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/faq.php",
                                 title: "Help")),
                             image: "assets/icons/Help.svg",
-                            title: homeController.languageParam.value.help.toString()),
+                            title: homeController.languageParam.value.help
+                                .toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -369,7 +385,8 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/about.php",
                                 title: "About Us")),
                             image: "assets/icons/information.svg",
-                            title: homeController.languageParam.value.aboutUs.toString()),
+                            title: homeController.languageParam.value.aboutUs
+                                .toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -390,7 +407,9 @@ class AccountScreen extends StatelessWidget {
                                     "https://dev.rawabihypermarket.com/b2c/other/return.php",
                                 title: "Return Policy")),
                             image: "assets/icons/turn-back.svg",
-                            title: homeController.languageParam.value.returnPolicy.toString()),
+                            title: homeController
+                                .languageParam.value.returnPolicy
+                                .toString()),
                         const Divider(
                           thickness: 1,
                         ),
@@ -411,14 +430,18 @@ class AccountScreen extends StatelessWidget {
                                 },
                                 child: ProfileTile(
                                     image: "assets/icons/signin.svg",
-                                    title: homeController.languageParam.value.signIn.toString()),
+                                    title: homeController
+                                        .languageParam.value.signIn
+                                        .toString()),
                               )
                             : InkWell(
                                 onTap: () async {
                                   await showDialog(
                                     context: Get.context!,
                                     builder: (context) => AlertDialog(
-                                      title: Text(homeController.languageParam.value.rawabiShopping.toString()),
+                                      title: Text(homeController
+                                          .languageParam.value.rawabiShopping
+                                          .toString()),
                                       content: Text(
                                           'Are you sure you would like to Sign out ?'
                                               .tr),
@@ -427,16 +450,20 @@ class AccountScreen extends StatelessWidget {
                                           onPressed: () {
                                             Navigator.of(context).pop(false);
                                           },
-                                          child: Text(homeController.languageParam.value.no.toString()),
+                                          child: Text(homeController
+                                              .languageParam.value.no
+                                              .toString()),
                                         ),
                                         TextButton(
                                           onPressed: () {
                                             StorageManager.clearData();
                                             Get.deleteAll();
                                             AppUtils.navigateToPageRemoveUntil(
-                                                 SplashScreen());
+                                                SplashScreen());
                                           }, // <-- SEE HERE
-                                          child: Text(homeController.languageParam.value.yes.toString()),
+                                          child: Text(homeController
+                                              .languageParam.value.yes
+                                              .toString()),
                                         ),
                                       ],
                                     ),
@@ -444,7 +471,9 @@ class AccountScreen extends StatelessWidget {
                                 },
                                 child: ProfileTile(
                                     image: "assets/icons/exit.svg",
-                                    title: homeController.languageParam.value.signOut.toString()),
+                                    title: homeController
+                                        .languageParam.value.signOut
+                                        .toString()),
                               ),
                       ],
                     ),

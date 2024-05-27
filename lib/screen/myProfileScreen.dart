@@ -1,35 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/changePasswordScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/ReusableBorderContainer.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
 import '../controller/homeController.dart';
-import '../utils/app_utils.dart';
+import '../controller/profileController.dart';
 import '../widget/commonwidget/reusable_text.dart';
 import '../widget/commonwidget/reusable_textformfield.dart';
 
-class MyProfileScreen extends StatefulWidget {
+class MyProfileScreen extends StatelessWidget {
   MyProfileScreen({super.key});
 
-  @override
-  State<MyProfileScreen> createState() => _MyProfileScreenState();
-}
-
-class _MyProfileScreenState extends State<MyProfileScreen> {
+  final profileController = Get.put(ProfileController());
   final homeController = Get.put(HomeController());
 
   @override
-  void initState() {
-    super.initState();
-    homeController.getMyProfile();
-  }
-
-  @override
   Widget build(BuildContext context) {
-
+    profileController.getMyProfile();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: silver,
@@ -86,7 +75,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 ],
               ),
             ),
-            Obx(() => homeController.loading.value
+            Obx(() => profileController.loading.value
                 ? SizedBox(
                     height: 100,
                     child: const Center(
@@ -108,8 +97,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Name",
-                                    text: homeController.myProfile.username),
+                                  controller:
+                                      profileController.nameController.value,
+                                  hintText: "Name",
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -117,8 +108,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Email",
-                                    text: homeController.myProfile.email),
+                                  controller:
+                                      profileController.emailController.value,
+                                  hintText: "Email",
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -126,8 +119,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
-                                    hintText: "Mobile",
-                                    text: homeController.myProfile.phone),
+                                  controller:
+                                      profileController.mobileController.value,
+                                  hintText: "Mobile",
+                                ),
                               ),
                               // SizedBox(
                               //   height: 50,
@@ -195,7 +190,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               color: white,
               padding: const EdgeInsets.only(
                   left: 18, right: 18, top: 10, bottom: 20),
-              child:  ReusableButton1(
+              child: ReusableButton1(
                 title: homeController.languageParam.value.saveAndUpdate,
               ),
             ),
@@ -213,19 +208,51 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                      onTap: () {
-                        AppUtils.navigateToPage( ChangePasswordScreen());
-                      },
-                      child:  ProfileTile(
-                          image: "assets/icons/lock.svg",
-                          title: homeController.languageParam.value.changePassword.toString())),
-                  const Divider(
-                    thickness: 1,
+                  // GestureDetector(
+                  //     onTap: () {
+                  //       AppUtils.navigateToPage( ChangePasswordScreen());
+                  //     },
+                  //     child:  ProfileTile(
+                  //         image: "assets/icons/lock.svg",
+                  //         title: homeController.languageParam.value.changePassword.toString())),
+                  // const Divider(
+                  //   thickness: 1,
+                  // ),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: Get.context!,
+                        builder: (context) => AlertDialog(
+                          title: Text(homeController
+                              .languageParam.value.rawabiShopping
+                              .toString()),
+                          content: Text(
+                              'Are you sure you would like to Delete account ?'
+                                  .tr),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              },
+                              child: Text(homeController.languageParam.value.no
+                                  .toString()),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                profileController.deleteAccount();
+                              }, // <-- SEE HERE
+                              child: Text(homeController.languageParam.value.yes
+                                  .toString()),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: ProfileTile(
+                        image: "assets/icons/delete.svg",
+                        title: homeController.languageParam.value.deleteAccount
+                            .toString()),
                   ),
-                   ProfileTile(
-                      image: "assets/icons/delete.svg",
-                      title:homeController.languageParam.value.deleteAccount.toString()),
                 ],
               ),
             ),

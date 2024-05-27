@@ -1,40 +1,43 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 
-import '../model/response/addressListResponse.dart';
+import '../model/response/myProfileResponse.dart';
+import '../screen/splashScreen.dart';
+import '../utils/app_utils.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
-import '../utils/storage_manager.dart';
 
-class MyAddressController extends GetxController {
+class ProfileController extends GetxController {
   var loading = false.obs;
-  var defaultAddressId = "".obs;
-
-  MyAddressController();
-
-  var addressListData = <AddressList>[].obs;
+  MyProfile myProfile = MyProfile();
+  var nameController = TextEditingController().obs;
+  var emailController = TextEditingController().obs;
+  var mobileController = TextEditingController().obs;
 
   @override
   onInit() async {
     super.onInit();
   }
 
-  Future<void> getAddressList() async {
+  Future<void> getMyProfile() async {
     try {
-      defaultAddressId.value =
-          await StorageManager.readData(StorageManager.keyDefaultAddressId);
       loading.value = true;
-      var response = await BaseClient().get(addressList);
+      var response = await BaseClient().get(myProfileUrl);
       loading.value = false;
       if (response != null) {
-        addressListData.clear();
         var responseData =
-            AddressListResponse.fromJson(json.decode(response.toString()));
+            MyProfileResponse.fromJson(json.decode(response.toString()));
+
         if (responseData.code == "200") {
-          addressListData.addAll(responseData.res as Iterable<AddressList>);
+          myProfile = responseData.res!;
+          nameController.value.text = myProfile.username!;
+          emailController.value.text = myProfile.email!;
+          mobileController.value.text = myProfile.phone!;
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -42,24 +45,25 @@ class MyAddressController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
+      error.printError();
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }
 
-  Future<void> deleteAddress(var addressId) async {
+  Future<void> deleteAccount() async {
     try {
       loading.value = true;
-      var request = {"address_id": addressId};
-
-      var response = await BaseClient().post(deleteaddress, request);
+      var response = await BaseClient().get(deleteAccountUrl);
       loading.value = false;
       if (response != null) {
         var responseData =
             BaseResponse.fromJson(json.decode(response.toString()));
+
         if (responseData.code == "200") {
-          StorageManager.saveData(StorageManager.keyDefaultAddressId, "");
-          getAddressList();
+          StorageManager.clearData();
+          Get.deleteAll();
+          AppUtils.navigateToPageRemoveUntil(SplashScreen());
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -67,7 +71,8 @@ class MyAddressController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      CommonUtils.showErrorDialog(error.toString());
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

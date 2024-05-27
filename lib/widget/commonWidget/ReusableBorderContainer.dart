@@ -11,9 +11,10 @@ class ReusableBorderContainer extends StatelessWidget {
 
   final Widget? child;
 
-  const ReusableBorderContainer({super.key,
-  this.width,
-  this.height,
+  const ReusableBorderContainer({
+    super.key,
+    this.width,
+    this.height,
     this.fillColor,
     this.borderColor,
     this.borderRadius,
@@ -23,15 +24,14 @@ class ReusableBorderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-height: height,
+      height: height,
       width: width,
       decoration: BoxDecoration(
-        color: fillColor??white,
-        borderRadius: BorderRadius.circular(borderRadius??5),
-        border: Border.all(color: borderColor??white,width: 1),
-
+        color: fillColor ?? white,
+        borderRadius: BorderRadius.circular(borderRadius ?? 5),
+        border: Border.all(color: borderColor ?? white, width: 1),
       ),
-        child:child??const SizedBox(),
+      child: child ?? const SizedBox(),
     );
   }
 }

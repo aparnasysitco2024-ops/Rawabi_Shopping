@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/screen/navigator/categoryNavigator.dart';
 import 'package:rawabi/utils/bouncy.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -158,9 +159,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           children: [
                             InkWell(
                                 onTap: () {
-                                   setState(() {
-                                  currentIndex.value = 0;
-                                   });
+                                  setState(() {
+                                    currentIndex.value = 0;
+                                  });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -187,9 +188,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 )),
                             InkWell(
                                 onTap: () {
+                                  if (Get.isRegistered<ProductController>())
+                                    Get.delete<ProductController>();
                                   setState(() {
-                                  currentIndex.value = 1;
-                                   });
+                                    currentIndex.value = 1;
+                                  });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -216,9 +219,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 )),
                             InkWell(
                                 onTap: () {
+                                  if (Get.isRegistered<ProductController>())
+                                    Get.delete<ProductController>();
                                   setState(() {
-                                  currentIndex.value = 2;
-                                   });
+                                    currentIndex.value = 2;
+                                  });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -246,8 +251,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             InkWell(
                                 onTap: () {
                                   setState(() {
-                                  currentIndex.value = 3;
-                                 });
+                                    currentIndex.value = 3;
+                                  });
                                 },
                                 child: SizedBox(
                                   child: Column(
@@ -257,18 +262,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                         child: badges.Badge(
                                           position: badges.BadgePosition.topEnd(
                                               top: -12, end: -12),
-                                          showBadge: cartController.totalItemCount == 0 ? false : true,
+                                          showBadge:
+                                              cartController.totalItemCount == 0
+                                                  ? false
+                                                  : true,
                                           badgeContent: Text(
-                                              cartController.totalItemCount.value
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                color: white,
-                                              ),
+                                            cartController.totalItemCount.value
+                                                .toString(),
+                                            style: const TextStyle(
+                                              fontSize: 10,
+                                              color: white,
+                                            ),
                                           ),
-                                          badgeAnimation: badges.BadgeAnimation.scale(
+                                          badgeAnimation:
+                                              badges.BadgeAnimation.scale(
                                             animationDuration:
-                                            Duration(milliseconds: 300),
+                                                Duration(milliseconds: 300),
                                             curve: Curves.bounceOut,
                                           ),
                                           badgeStyle: badges.BadgeStyle(
@@ -278,7 +287,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                             //borderRadius:
                                             //BorderRadius.circular(10),
                                             borderSide: const BorderSide(
-                                             color: Colors.white, width: 2),
+                                                color: Colors.white, width: 2),
                                             elevation: 0,
                                           ),
                                           child: SvgIcon(
@@ -303,7 +312,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                     ],
                                   ),
                                 )),
-
                             InkWell(
                                 onTap: () {
                                   // setState(() {

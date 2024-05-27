@@ -24,7 +24,7 @@ class _OfferNavigatorState extends State<OfferNavigator> {
                 case '/':
                   return OffersScreen();
                 case '/ProductsByCategory':
-                  return const ProductsByCategory();
+                  return  ProductsByCategory(isOffer: true,);
                /* case '/SearchResultScreen':
                   return const SearchResultScreen();*/
                 /*case '/BarcodeResultScreen':

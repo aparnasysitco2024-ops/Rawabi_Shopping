@@ -6,8 +6,7 @@ import '../widget/commonwidget/reusable_button1.dart';
 import '../widget/commonwidget/reusable_text.dart';
 import 'colors.dart';
 
-class CommonUtils{
-
+class CommonUtils {
   static showLoader() {
     Get.dialog(
         const Center(
@@ -136,9 +135,9 @@ class CommonUtils{
   }
 
   void messageBox(String message) {
-    ScaffoldMessenger.of(Get.context!)
-        .showSnackBar(SnackBar(content: Text(message),duration: Durations.long1,));
+    ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+      content: Text(message),
+      duration: Durations.extralong1,
+    ));
   }
-
-
 }

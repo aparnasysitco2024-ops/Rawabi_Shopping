@@ -44,7 +44,11 @@ class OrderItemTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReusableText(
-                    title: "Order #".tr+"${myOrder.refno}",
+                    title: "Order #".tr +
+                        "${myOrder.refno}" +
+                        " (" +
+                        myOrder.order_type.toString() +
+                        ")",
                     size: 10,
                     weight: FontWeight.w600,
                     color: darkGrey,
@@ -62,7 +66,7 @@ class OrderItemTile extends StatelessWidget {
                     weight: FontWeight.w400,
                   ),
                   ReusableText(
-                    title: "Amount: ".tr+"QAR ${myOrder.payable}",
+                    title: "Amount: ".tr + "QAR ${myOrder.payable}",
                     color: darkGrey,
                     size: 10,
                     weight: FontWeight.w400,

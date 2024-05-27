@@ -94,7 +94,8 @@ class StorePickupController extends GetxController {
             StorageManager.saveData(
                 StorageManager.keyStoreID, responseData.res?.first?.storeid);
 
-            StorageManager.saveData(StorageManager.keyStoreID, responseData.res?.first?.storeid);
+            StorageManager.saveData(
+                StorageManager.keyStoreID, responseData.res?.first?.storeid);
             StorageManager.saveData(StorageManager.keyStoreAddress, address);
             StorageManager.saveData(StorageManager.keyIsPickup, false);
 
@@ -109,8 +110,8 @@ class StorePickupController extends GetxController {
               AppUtils.navigateToPageRemoveUntil(BottomNavBar());
             }
           } else {
-            StorageManager.saveData(
-                StorageManager.keyStoreID, responseData.res?.first?.storeid);
+            // StorageManager.saveData(
+            //     StorageManager.keyStoreID, responseData.res?.first?.storeid);
 
             StorageManager.saveData(StorageManager.keyStoreID, "10");
             StorageManager.saveData(StorageManager.keyStoreAddress, address);
@@ -134,7 +135,7 @@ class StorePickupController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      // CommonUtils.showErrorDialog(error.toString());
+      CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

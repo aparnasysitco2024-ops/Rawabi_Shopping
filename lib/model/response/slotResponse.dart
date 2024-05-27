@@ -15,7 +15,7 @@ class SlotResponse {
     if (json['res'] != null) {
       res = <Res>[];
       json['res'].forEach((v) {
-        res!.add(Res.fromJson(v));
+        if (v != null) res!.add(Res.fromJson(v));
       });
     }
   }
@@ -23,10 +23,11 @@ class SlotResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['code'] = code;
-    data['res'] =res != null ? res!.map((v) => v?.toJson()).toList() : null;
+    data['res'] = res != null ? res!.map((v) => v?.toJson()).toList() : null;
     return data;
   }
 }
+
 class Res {
   String? storeid;
   String? storename;
@@ -36,7 +37,14 @@ class Res {
   String? address;
   List<Slot?>? slots;
 
-  Res({this.storeid, this.storename, this.latitude, this.longitude, this.phone, this.address, this.slots});
+  Res(
+      {this.storeid,
+      this.storename,
+      this.latitude,
+      this.longitude,
+      this.phone,
+      this.address,
+      this.slots});
 
   Res.fromJson(Map<String, dynamic> json) {
     storeid = json['store_id'];
@@ -61,11 +69,11 @@ class Res {
     data['longitude'] = longitude;
     data['phone'] = phone;
     data['address'] = address;
-    data['slots'] =slots != null ? slots!.map((v) => v?.toJson()).toList() : null;
+    data['slots'] =
+        slots != null ? slots!.map((v) => v?.toJson()).toList() : null;
     return data;
   }
 }
-
 
 class Slot {
   String? slotid;
@@ -91,4 +99,3 @@ class Slot {
     return data;
   }
 }
-

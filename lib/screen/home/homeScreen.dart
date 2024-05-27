@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    homeController.getStorageData();
+    if (!homeController.isPickup.value) homeController.getStorageData();
     homeController.getHomeData();
     cartController.getCartList();
     // homeController.getLanguageParam("en","1");
