@@ -5,6 +5,7 @@ import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/checkoutResponse.dart';
+import 'package:rawabi/screen/home/selectSlotScreen.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:vibration/vibration.dart';
@@ -291,7 +292,7 @@ class CartController extends GetxController {
     try {
       loading.value = true;
       var request = {
-        "type": "Normal",
+        "type": homeController.isExpress.value ? "Express" : "Normal",
         "start": homeController.selectedStartTime.value,
         "end": homeController.selectedEndTime.value,
         "date": homeController.selectedSlotDate.value
@@ -304,7 +305,8 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           checkoutCart();
         } else {
-          CommonUtils.showErrorDialog(responseData.message);
+          AppUtils.navigateToPage(SelectSlotScreen());
+          // CommonUtils.showErrorDialog(responseData.slot);
         }
       } else {
         CommonUtils.showErrorDialog(response.message);

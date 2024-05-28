@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/utils/colors.dart';
-import 'package:rawabi/utils/commonUtils.dart';
 
 import '../../controller/slotController.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
@@ -308,20 +307,8 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                             EdgeInsets.only(bottom: 30, left: 10, right: 10),
                         child: ReusableButton1(
                           onPressed: () {
-                            homeController.selectedSlotID.value = slotController
-                                .slots[selectedSlotIndex!.toInt()].slotid!;
-                            homeController.selectedStartTime.value =
-                                slotController.slots[selectedSlotIndex!.toInt()]
-                                    .starttime!;
-                            homeController.selectedEndTime.value =
-                                slotController
-                                    .slots[selectedSlotIndex!.toInt()].endtime!;
-                            homeController.selectedSlotDate.value =
-                                DateFormat('yyyy-MM-dd').format(todayDate
-                                    .add(Duration(days: selectedDateIndex)));
-                            CommonUtils()
-                                .messageBox("Slot Updated Successfully");
-                            Get.back();
+                            slotController.checkSlotAvailability(
+                                selectedSlotIndex!, selectedDateIndex);
                           },
                           title: "Select Slot",
                         ),

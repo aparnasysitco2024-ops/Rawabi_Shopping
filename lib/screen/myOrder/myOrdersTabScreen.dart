@@ -135,7 +135,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                     controller: _tabController,
                     children: [
                       MyOrderScreen(status: "Processing",),
-                      MyOrderScreen(status: "Deliverd",),
+                      MyOrderScreen(status: "Delivered",),
                       MyOrderScreen(status: "Cancelled",),
                       MyOrderScreen(status: "Return",),
                     ],

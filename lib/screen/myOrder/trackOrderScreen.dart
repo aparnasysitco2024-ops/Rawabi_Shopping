@@ -128,45 +128,82 @@ class TrackOrderScreen extends StatelessWidget {
                       // const SizedBox(
                       //   height: 6,
                       // ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ReusableText(
-                                  title: "Deliver To ".tr,
-                                  size: 12,
-                                  weight: FontWeight.w600,
-                                ),
-                                ReusableText(
-                                  title: myOrder.addressName.toString() +
-                                      ", " +
-                                      myOrder.address.toString() +
-                                      ", " +
-                                      myOrder.phone.toString(),
-                                  size: 12,
-                                  weight: FontWeight.w400,
-                                ),
-                              ],
+                      trackOrderController.status.value.order_type == "pickup"
+                          ? Container(
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title: "Pickup From ".tr,
+                                        size: 12,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      ReusableText(
+                                        title: trackOrderController
+                                            .status.value.store_name,
+                                        size: 12,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  ),
+                                  // ReusableText(
+                                  //   title: "Change".tr,
+                                  //   size: 10,
+                                  //   color: blue,
+                                  // ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        title: "Deliver To ".tr,
+                                        size: 12,
+                                        weight: FontWeight.w600,
+                                      ),
+                                      ReusableText(
+                                        title: myOrder.addressName.toString() +
+                                            ", " +
+                                            myOrder.address.toString() +
+                                            ", " +
+                                            myOrder.phone.toString(),
+                                        size: 12,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  ),
+                                  // ReusableText(
+                                  //   title: "Change".tr,
+                                  //   size: 10,
+                                  //   color: blue,
+                                  // ),
+                                ],
+                              ),
                             ),
-                            const Spacer(),
-                            // ReusableText(
-                            //   title: "Change".tr,
-                            //   size: 10,
-                            //   color: blue,
-                            // ),
-                          ],
-                        ),
-                      ),
                       const SizedBox(
                         height: 6,
                       ),
@@ -354,62 +391,87 @@ class TrackOrderScreen extends StatelessWidget {
                                             space: 2.0,
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            trackOrderController.status.value
-                                                        .delivering ==
-                                                    "yes"
-                                                ? Checking()
-                                                : trackOrderController.status
-                                                            .value.delivered ==
-                                                        "yes"
-                                                    ? Checked()
-                                                    : EmptyChecked(),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                ReusableText(
-                                                  title: "Delivering".tr,
-                                                  size: 10,
-                                                  color: primaryColor,
-                                                  weight: FontWeight.w600,
-                                                ),
-                                                ReusableText(
-                                                  title: trackOrderController
-                                                              .status
-                                                              .value
-                                                              .delivering ==
-                                                          "yes"
-                                                      ? "Your delivery is on the way"
-                                                          .tr
-                                                      : trackOrderController
-                                                          .status
-                                                          .value
-                                                          .deliverTime,
-                                                  size: 10,
-                                                  color: blackLight,
-                                                  weight: FontWeight.w400,
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 19.0, vertical: 5),
-                                          child: FDottedLine(
-                                            color: blackLight,
-                                            height: 26.0,
-                                            width: 0,
-                                            strokeWidth: 2.0,
-                                            dottedLength: 3.0,
-                                            space: 2.0,
-                                          ),
-                                        ),
+                                        trackOrderController
+                                                    .status.value.order_type ==
+                                                "pickup"
+                                            ? SizedBox()
+                                            : Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      trackOrderController
+                                                                  .status
+                                                                  .value
+                                                                  .delivering ==
+                                                              "yes"
+                                                          ? Checking()
+                                                          : trackOrderController
+                                                                      .status
+                                                                      .value
+                                                                      .delivered ==
+                                                                  "yes"
+                                                              ? Checked()
+                                                              : EmptyChecked(),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          ReusableText(
+                                                            title:
+                                                                "Delivering".tr,
+                                                            size: 10,
+                                                            color: primaryColor,
+                                                            weight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                          ReusableText(
+                                                            title: trackOrderController
+                                                                            .status
+                                                                            .value
+                                                                            .delivering ==
+                                                                        "yes" &&
+                                                                    trackOrderController
+                                                                            .status
+                                                                            .value
+                                                                            .delivered !=
+                                                                        "yes"
+                                                                ? "Your delivery is on the way"
+                                                                    .tr
+                                                                : trackOrderController
+                                                                    .status
+                                                                    .value
+                                                                    .deliverTime,
+                                                            size: 10,
+                                                            color: blackLight,
+                                                            weight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 19.0,
+                                                        vertical: 5),
+                                                    child: FDottedLine(
+                                                      color: blackLight,
+                                                      height: 26.0,
+                                                      width: 0,
+                                                      strokeWidth: 2.0,
+                                                      dottedLength: 3.0,
+                                                      space: 2.0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                         Row(
                                           children: [
                                             trackOrderController.status.value
