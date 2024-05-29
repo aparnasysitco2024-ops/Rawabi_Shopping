@@ -240,18 +240,25 @@ class TrackOrderScreen extends StatelessWidget {
                               onTap: () {
                                 /*AppUtils.navigateToPage(TrackOrderMap(
                                         id: myOrder.orderid.toString(), destinationLatLng: myOrder.latlng.toString(),)); */
-                                trackOrderController.status.value.delivering ==
+                                /*trackOrderController.status.value.delivering ==
                                         "yes"
                                     ? AppUtils.navigateToPage(TrackOrderMap(
                                         id: myOrder.orderid.toString(),
                                         destinationLatLng:
                                             myOrder.latlng.toString(),
                                       ))
+                                    : */
+                                trackOrderController.status.value.delivered ==
+                                        "yes"
+                                    ? CommonUtils().messageBox("Item Delivered")
                                     : trackOrderController
-                                                .status.value.delivered ==
+                                                .status.value.delivering ==
                                             "yes"
-                                        ? CommonUtils()
-                                            .messageBox("Item Delivered")
+                                        ? AppUtils.navigateToPage(TrackOrderMap(
+                                            id: myOrder.orderid.toString(),
+                                            destinationLatLng:
+                                                myOrder.latlng.toString(),
+                                          ))
                                         : trackOrderController
                                                     .status.value.processing ==
                                                 "yes"

@@ -185,7 +185,8 @@ class _TrackOrderMapState extends State<TrackOrderMap> {
             zoom: 12
           );
           _getPolyline();
-          _goToThePlace();
+          //_goToThePlace();
+
         }
         return Scaffold(
           body: Column(
