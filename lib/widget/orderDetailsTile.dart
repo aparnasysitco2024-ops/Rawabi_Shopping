@@ -5,12 +5,14 @@ import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../model/response/myorder/items.dart';
+import '../model/response/myorder/myOrderResponse.dart';
 
 // ignore: must_be_immutable
 class OrderDetailsTile extends StatelessWidget {
   Items items;
+  Orders myOrder;
 
-  OrderDetailsTile({super.key, required this.items});
+  OrderDetailsTile({super.key, required this.items, required this.myOrder});
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +76,17 @@ class OrderDetailsTile extends StatelessWidget {
                     // SizedBox(
                     //   width: 10,
                     // ),
-                    ReusableText(
-                      title: "Arriving in ".tr +
-                          items.deliveryDays.toString() +
-                          " days".tr,
-                      size: 10,
-                      weight: FontWeight.w400,
-                    ),
+
+                    myOrder.status == "Processing" &&
+                            myOrder.order_type == "delivery"
+                        ? ReusableText(
+                            title: "Arriving in ".tr +
+                                items.deliveryDays.toString() +
+                                " days".tr,
+                            size: 10,
+                            weight: FontWeight.w400,
+                          )
+                        : SizedBox(),
                   ],
                 ),
                 ReusableText(

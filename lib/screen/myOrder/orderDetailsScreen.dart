@@ -104,6 +104,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                               .myOrderList.length,
                                           itemBuilder: (context, index) =>
                                               OrderDetailsTile(
+                                                  myOrder:
+                                                      myOrderDetailController
+                                                          .myOrder,
                                                   items: myOrderDetailController
                                                       .myOrderList[index]),
                                           separatorBuilder:
@@ -119,11 +122,15 @@ class OrderDetailsScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
-                                        ReusableText(
-                                          title: "Cancel Order".tr,
-                                          size: 12,
-                                          weight: FontWeight.w600,
-                                        ),
+                                        myOrderDetailController
+                                                    .myOrder.status ==
+                                                "Processing"
+                                            ? ReusableText(
+                                                title: "Cancel Order".tr,
+                                                size: 12,
+                                                weight: FontWeight.w600,
+                                              )
+                                            : SizedBox(),
                                         const Spacer(),
                                         GestureDetector(
                                           onTap: () {

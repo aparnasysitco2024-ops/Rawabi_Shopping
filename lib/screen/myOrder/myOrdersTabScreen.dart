@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/myOrder/myOrderScreen.dart';
-import 'package:rawabi/widget/searchOrderWidget.dart';
 
 import '../../controller/homeController.dart';
 import '../../utils/colors.dart';
@@ -68,7 +67,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                         ],
                       ),
                     ),
-                     SearchOrdersWidget(hintText: widget.homeController.languageParam.value.searchOrders,),
+                     // SearchOrdersWidget(hintText: widget.homeController.languageParam.value.searchOrders,),
                     const Divider(
                       thickness: 1,
                       color: lightGreyColor,
