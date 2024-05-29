@@ -9,7 +9,7 @@ const check_user = '${baseURL}check_user';
 const signup = '${baseURL}signup';
 const signin = '${baseURL}signin';
 const products = '${baseURL}products';
-const discount_products = '${baseURL}discount_products';
+const discount_products = '${baseURL}discount_products_bycategory';
 const filterUrl = '${baseURL}filter';
 const product_details = '${baseURL}product_details';
 const addtocart = '${baseURL}addtocart';
@@ -45,10 +45,11 @@ const couponList ='${baseURL}couponList';
 const couponValidate ='${baseURL}couponValidate';
 const deleteAccountUrl ='${baseURL}deleteaccount';
 const pushTokenUrl ='${baseURL}pushtoken';
+const discountProductsUrl ='${baseURL}discount_products';
 
 
 //keys
 const token = "Rawabi_jc";
 const tokenDriver = "Rawabi_dc";
 const API_KEY="AIzaSyCz-UXchYfgsLByXYxYEpz7q7Dfto7tt7A";
-const productItemHeight = 277.0;
+const productItemHeight = 280.0;

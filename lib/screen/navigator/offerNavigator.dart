@@ -31,6 +31,7 @@ class _OfferNavigatorState extends State<OfferNavigator> {
                   return const BarcodeResultScreen();*/
                 case '/ProductDetailsScreen':
                   return ProductDetailsScreen();
+
               }
               throw (e) {
                 ScaffoldMessenger.of(context)
