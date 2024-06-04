@@ -44,6 +44,7 @@ class HomeController extends GetxController {
   var isPickup = false.obs;
   var languageParam = LanguageParam().obs;
   var languageParamString = "";
+  var storeLat, storeLng;
 
   Future<void> getStorageData() async {
     defaultAddressId.value =
@@ -51,10 +52,11 @@ class HomeController extends GetxController {
     if (defaultAddressId.value.isEmpty) {
       storeAddress.value =
           await StorageManager.readData(StorageManager.keyStoreAddress);
-      getSlot(
-          await StorageManager.readData(StorageManager.keyStoreLat),
-          await StorageManager.readData(StorageManager.keyStoreLng),
-          await StorageManager.readData(StorageManager.keyStoreAddress));
+      storeLat =
+          await StorageManager.readData(StorageManager.keyStoreLat).toString();
+      storeLng =
+          await StorageManager.readData(StorageManager.keyStoreLng).toString();
+      getSlot(storeLat, storeLng, storeAddress.value);
     } else {
       storeAddress.value =
           await StorageManager.readData(StorageManager.keyDefaultAddress);

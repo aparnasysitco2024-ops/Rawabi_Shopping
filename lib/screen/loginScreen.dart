@@ -80,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                       ReusableTextFormBox(
                         controller: loginController.mobileController,
                         fillColor: silver,
-                        hintText: "Enter Mobile number or Email".tr,
+                        hintText: "Enter Mobile number".tr,
                         validator: (value) {
                           value!.isEmpty
                               ? "Please enter Mobile number or Email".tr
