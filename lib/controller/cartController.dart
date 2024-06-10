@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
@@ -20,12 +21,13 @@ import '../utils/storage_manager.dart';
 class CartController extends GetxController {
   var loading = false.obs;
   var isContactless = false.obs;
-  var groupValue = "Cash".obs;
+  var paymentValue = "cod".obs;
 
   var cartProducts = <Products>[].obs;
   String masterCard = "Master Card";
-  String visa = "Visa";
-  String cash = "Cash";
+  String online = "online";
+  String cash = "cod";
+  String card = "card";
   var subTotal = 0.00.obs;
   var delivery = 0.00.obs;
   var bagFee = 0.00.obs;
@@ -34,6 +36,7 @@ class CartController extends GetxController {
   var totalItemCount = 0.obs;
   var couponID = 0.obs;
   var selectedPickupSlot = "".obs;
+  var noteTextController = TextEditingController();
 
   CartController();
 
@@ -178,7 +181,9 @@ class CartController extends GetxController {
         "start_time": homeController.selectedStartTime.value,
         "end_time": homeController.selectedEndTime.value,
         "date": homeController.selectedSlotDate.value,
-        "coupon": couponID.value
+        "coupon": couponID.value,
+        "payment_method": paymentValue.value,
+        "order_note": noteTextController.text
       };
       var response = await BaseClient().post(checkout, request);
       loading.value = false;
@@ -204,7 +209,7 @@ class CartController extends GetxController {
   }
 
   Future<void> addToCart(
-      String itemID, String storeID, String? itemPrice, String itemQty) async {
+      String itemID, String storeID, String? itemPrice, String itemQty,String note) async {
     // if (await Vibration.hasCustomVibrationsSupport()) {
     Vibration.vibrate(duration: 5);
     // } else {
@@ -218,7 +223,8 @@ class CartController extends GetxController {
         "item_id": itemID,
         "store_id": storeID,
         "item_price": itemPrice,
-        "item_qty": itemQty
+        "item_qty": itemQty,
+
       };
       var response = await BaseClient().post(addtocart, request);
       loading.value = false;

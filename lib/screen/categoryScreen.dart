@@ -23,7 +23,7 @@ class CategoryScreen extends StatelessWidget {
 // class _CategoryScreenState extends State<CategoryScreen> {
   final categoryController = Get.put(CategoryController());
   String catID = "0", subCatID = "0", subSubCatID = "0", subSubSubCatID = "0";
-  final searchController = Get.put(SearchResutController());
+  final searchController = Get.put(SearchResultController());
   final homeController = Get.put(HomeController());
 
   @override

@@ -22,7 +22,8 @@ class CategoryFromHomeScreen extends StatefulWidget {
 
 class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
   final homeController = Get.put(HomeController());
-  final searchController = Get.put(SearchResutController());
+  final searchController = Get.put(SearchResultController());
+
   @override
   Widget build(BuildContext context) {
     // final catID = ModalRoute.of(context)?.settings.arguments;
@@ -75,7 +76,7 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
                         onTap: () {
                           showSearch(
                             context: context,
-                            delegate: MySearchDelegate(),
+                            delegate: MySearchDelegate(catID: category),
                           );
                         },
                         /*onTap: () async {
@@ -89,8 +90,6 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
                           ReusableText(
                             title: title,
                           ),
-
-
                         ]),
                       ),
                       const Spacer(),
@@ -102,15 +101,15 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
                                 .whenComplete(() {
                               searchController.searchProductList.isNotEmpty
                                   ? Navigator.pushNamed(
-                                context,
-                                '/ProductDetailsScreen',
-                                arguments: {
-                                  'productID': searchController
-                                      .searchProductList[0].productId,
-                                },
-                              )
-                                  : CommonUtils().messageBox(
-                                  "Unable to identify item!");
+                                      context,
+                                      '/ProductDetailsScreen',
+                                      arguments: {
+                                        'productID': searchController
+                                            .searchProductList[0].productId,
+                                      },
+                                    )
+                                  : CommonUtils()
+                                      .messageBox("Unable to identify item!");
                             });
                           },
                           child: SvgPicture.asset("assets/icons/scan.svg"))
@@ -132,44 +131,45 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
           ),
           category.isNotEmpty
               ? Flexible(
-            child: Container(
-              height: double.infinity,
-              color: silver,
-              padding:
-              const EdgeInsets.symmetric(horizontal: 15.0),
-              child:  GridView.builder(
-                  padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: category.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 5,
-                      mainAxisExtent: 130,
-                      crossAxisCount: 4),
-                  itemBuilder: (_, index) {
-                    return CategoryGroupItem(
-                      category: category![index],
-                    );
-                  }),
-            ),
-          )
+                  child: Container(
+                    height: double.infinity,
+                    color: silver,
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: GridView.builder(
+                        padding:
+                            const EdgeInsets.only(left: 10, top: 10, right: 10),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: category.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisSpacing: 15,
+                                mainAxisSpacing: 5,
+                                mainAxisExtent: 130,
+                                crossAxisCount: 4),
+                        itemBuilder: (_, index) {
+                          return CategoryGroupItem(
+                            category: category![index],
+                          );
+                        }),
+                  ),
+                )
               : Flexible(
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/icons/logo.svg"),
-                    const ReusableText(
-                      title: "No Item Found!!",
-                    )
-                  ]),
-            ),
-          ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/icons/logo.svg"),
+                          const ReusableText(
+                            title: "No Item Found!!",
+                          )
+                        ]),
+                  ),
+                ),
         ]),
       ),
     );

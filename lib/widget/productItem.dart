@@ -167,7 +167,7 @@ class _ProductItemState extends State<ProductItem> {
                                         ? widget.products.sellingPrice
                                             .toString()
                                         : widget.products.offerPrice.toString(),
-                                    "1");
+                                    "1","");
                                 setState(() {
                                   widget.products.cartCount =
                                       (widget.products.cartCount! + 1);
@@ -236,7 +236,7 @@ class _ProductItemState extends State<ProductItem> {
                                                   .toString()
                                               : widget.products.offerPrice
                                                   .toString(),
-                                          "1");
+                                          "1","");
                                       setState(() {
                                         widget.products.cartCount =
                                             (widget.products.cartCount! + 1);

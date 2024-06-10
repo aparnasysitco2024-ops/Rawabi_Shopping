@@ -16,7 +16,9 @@ import '../widget/commonWidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class ProductDetailsScreen extends StatefulWidget {
-  ProductDetailsScreen({super.key});
+  final VoidCallback onCartSelected;
+
+  ProductDetailsScreen({super.key, required this.onCartSelected});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -171,7 +173,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                               10.0),
                                                       child: FadeInImage
                                                           .assetNetwork(
-                                                              fit: BoxFit.contain,
+                                                              fit: BoxFit
+                                                                  .contain,
                                                               placeholder:
                                                                   'assets/images/logo.png',
                                                               image: i.image
@@ -300,7 +303,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            AddButton(),
+                            Padding(
+                              padding: EdgeInsets.only(left: 16, top: 6),
+                              child: ReusableText(
+                                title: "Note".tr,
+                                size: 14,
+                                weight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16, right: 16, bottom: 10),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(top: 0),
+                                    hintText: "Note".tr,
+                                    hintStyle: TextStyle(fontSize: 13),
+                                    labelStyle: TextStyle(fontSize: 10)),
+                                controller:
+                                    productDetailsController.noteTextController,
+                              ),
+                            ),
+
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            AddButton(
+                              onCartSelected: widget.onCartSelected,
+                            ),
 
                             const SizedBox(
                               height: 20,
@@ -316,7 +347,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 }
 
 class AddButton extends StatefulWidget {
-  const AddButton({super.key});
+  final VoidCallback onCartSelected;
+
+  AddButton({super.key, required this.onCartSelected});
 
   @override
   State<AddButton> createState() => _AddButtonState();
@@ -335,7 +368,7 @@ class _AddButtonState extends State<AddButton> {
             ? Container(
                 margin: const EdgeInsets.only(bottom: 5, top: 5),
                 height: 40,
-                width: 70,
+                width: 90,
                 padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
                     color: pink, borderRadius: BorderRadius.circular(5)),
@@ -371,17 +404,17 @@ class _AddButtonState extends State<AddButton> {
                       ),
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 15,
                     ),
                     ReusableText(
                       title: productDetailsController.productDetails!.cartCount
                           .toString(),
-                      size: 12,
+                      size: 14,
                       color: silver,
                       weight: FontWeight.bold,
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 15,
                     ),
                     InkWell(
                       onTap: () {
@@ -399,7 +432,8 @@ class _AddButtonState extends State<AddButton> {
                                 : productDetailsController
                                     .productDetails!.offerPrice
                                     .toString(),
-                            "1");
+                            "1",
+                            productDetailsController.noteTextController.text);
                         setState(() {
                           productDetailsController.productDetails!.cartCount =
                               (productDetailsController
@@ -419,30 +453,48 @@ class _AddButtonState extends State<AddButton> {
         SizedBox(
           width: 10,
         ),
-        Expanded(
-          child: SizedBox(
-            height: 40,
-            child: ReusableButton1(
-              title: homeController.languageParam.value.addToCart,
-              onPressed: () {
-                cartController.addToCart(
-                    productDetailsController.productDetails!.productId
-                        .toString(),
-                    productDetailsController.productDetails!.storeId.toString(),
-                    productDetailsController.productDetails!.offerPrice ==
-                            "0.00"
-                        ? productDetailsController.productDetails!.sellingPrice
-                        : productDetailsController.productDetails!.offerPrice,
-                    "1");
-                setState(() {
-                  productDetailsController.productDetails!.cartCount =
-                      (productDetailsController.productDetails!.cartCount! + 1);
-                });
-                //cartController.itemCount++;
-              },
-            ),
-          ),
-        ),
+        productDetailsController.productDetails!.cartCount == 0
+            ? Expanded(
+                child: SizedBox(
+                  height: 40,
+                  child: ReusableButton1(
+                    title: homeController.languageParam.value.addToCart,
+                    onPressed: () {
+                      cartController.addToCart(
+                          productDetailsController.productDetails!.productId
+                              .toString(),
+                          productDetailsController.productDetails!.storeId
+                              .toString(),
+                          productDetailsController.productDetails!.offerPrice ==
+                                  "0.00"
+                              ? productDetailsController
+                                  .productDetails!.sellingPrice
+                              : productDetailsController
+                                  .productDetails!.offerPrice,
+                          "1",
+                          productDetailsController.noteTextController.text);
+                      setState(() {
+                        productDetailsController.productDetails!.cartCount =
+                            (productDetailsController
+                                    .productDetails!.cartCount! +
+                                1);
+                      });
+                      //cartController.itemCount++;
+                    },
+                  ),
+                ),
+              )
+            : Expanded(
+                child: SizedBox(
+                  height: 40,
+                  child: ReusableButton1(
+                    title: "Got To Cart".tr,
+                    onPressed: () {
+                      widget.onCartSelected();
+                    },
+                  ),
+                ),
+              ),
       ],
     );
   }

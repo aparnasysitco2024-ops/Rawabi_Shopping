@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/screen/account/accountScreen.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
+import '../../controller/productsDetailsController.dart';
 import '../wishlistScreen.dart';
 
 GlobalKey<NavigatorState> accountNavigatorKey = GlobalKey<NavigatorState>();
@@ -30,7 +32,9 @@ class _AccountNavigatorState extends State<AccountNavigator> {
                 case '/WishlistScreen':
                   return WishlistScreen();
                 case '/ProductDetailsScreen':
-                  return ProductDetailsScreen();
+                  if (Get.isRegistered<ProductDetailsController>())
+                    Get.delete<ProductDetailsController>();
+                  return ProductDetailsScreen(onCartSelected: widget.onCartSelected);
               }
               throw (e) {
                 ScaffoldMessenger.of(context)

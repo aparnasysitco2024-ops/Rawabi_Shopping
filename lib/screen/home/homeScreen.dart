@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final homeController = Get.put(HomeController());
 
   final cartController = Get.put(CartController());
-  final searchController = Get.put(SearchResutController());
+  final searchController = Get.put(SearchResultController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,31 +64,29 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: silver,
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         child: Row(children: [
-                          InkWell(
-                            onTap: () {
-                              showSearch(
-                                context: context,
-                                delegate: MySearchDelegate(),
-                              );
-                            },
-                            /*onTap: () async {
-                            searchController.searchType.value = "word";
-                            AppUtils.navigateToPage( MySearchDelegate());
-                          },*/
-                            child: Row(
-                              children: [
-                                SvgPicture.asset("assets/icons/search.svg"),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                ReusableText(
-                                  title:
-                                      homeController.languageParam.value.search,
-                                ),
-                              ],
+                          Flexible(
+                            child: InkWell(
+                              onTap: () {
+                                showSearch(
+                                  context: context,
+                                  delegate: MySearchDelegate(),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset("assets/icons/search.svg"),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  ReusableText(
+                                    title: homeController
+                                        .languageParam.value.search,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          const Spacer(),
+                          // const Spacer(),
                           InkWell(
                               onTap: () async {
                                 searchController.searchType.value = "barcode";
@@ -187,38 +185,43 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Flexible(
-                                child: InkWell(
-                                  onTap: () {
-                                    AppUtils.navigateToPage(SelectSlotScreen());
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 5, right: 0),
-                                    height: 40,
-                                    decoration: const BoxDecoration(
-                                        color: silver,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(7))),
-                                    child: Row(children: [
-                                      SvgPicture.asset(
-                                        "assets/icons/calendar.svg",
-                                        height: 20,
+                              homeController.isExpress.value
+                                  ? SizedBox()
+                                  : Flexible(
+                                      child: InkWell(
+                                        onTap: () {
+                                          AppUtils.navigateToPage(
+                                              SelectSlotScreen());
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 5, right: 0),
+                                          height: 40,
+                                          decoration: const BoxDecoration(
+                                              color: silver,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(7))),
+                                          child: Row(children: [
+                                            SvgPicture.asset(
+                                              "assets/icons/calendar.svg",
+                                              height: 20,
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            ReusableText(
+                                              title: homeController
+                                                  .languageParam
+                                                  .value
+                                                  .scheduledDelivery,
+                                              size: 11,
+                                              weight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ]),
+                                        ),
                                       ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      ReusableText(
-                                        title: homeController.languageParam
-                                            .value.scheduledDelivery,
-                                        size: 11,
-                                        weight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                              ),
+                                    ),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -333,16 +336,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 onTap: () {
                                                   if (i.linkType ==
                                                       "category") {
-                                                    Navigator.pushNamed(
-                                                      context,
-                                                      '/ProductsByCategory',
-                                                      arguments: {
-                                                        'catId': i.bannerPoint,
-                                                        'subCatId': "0",
-                                                        'subSubCatId': "0",
-                                                        'subSubSubCatId': "0"
-                                                      },
-                                                    );
+                                                    if (i.bannerPoint != "0") {
+                                                      Navigator.pushNamed(
+                                                        context,
+                                                        '/ProductsByCategory',
+                                                        arguments: {
+                                                          'catId':
+                                                              i.bannerPoint,
+                                                          'subCatId': "0",
+                                                          'subSubCatId': "0",
+                                                          'subSubSubCatId': "0"
+                                                        },
+                                                      );
+                                                    }
                                                   }
                                                 },
                                                 child: Padding(

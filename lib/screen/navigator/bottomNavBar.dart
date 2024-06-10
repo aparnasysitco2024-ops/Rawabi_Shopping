@@ -43,10 +43,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
     homeController.getStorageData();
     _pages = [
       /*HomeScreen(),*/
-      const HomeNavigator(),
-      const CategoryNavigator(),
-      const OfferNavigator(),
-      const CartNavigator(),
+      HomeNavigator(
+        onCartSelected: () => currentIndex.value = 3,
+      ),
+      CategoryNavigator(
+        onCartSelected: () => currentIndex.value = 3,
+      ),
+      OfferNavigator(
+        onCartSelected: () => currentIndex.value = 3,
+      ),
+      CartNavigator(
+        onCartSelected: () => currentIndex.value = 3,
+      ),
       AccountNavigator(
         globalKey: bottomNavigationKey,
         onOffersSelected: () => currentIndex.value = 2,
@@ -159,6 +167,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           children: [
                             InkWell(
                                 onTap: () {
+                                  if (Get.isRegistered<ProductController>())
+                                    Get.delete<ProductController>();
                                   setState(() {
                                     currentIndex.value = 0;
                                   });
@@ -250,6 +260,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 )),
                             InkWell(
                                 onTap: () {
+                                  if (Get.isRegistered<ProductController>())
+                                    Get.delete<ProductController>();
                                   setState(() {
                                     currentIndex.value = 3;
                                   });
@@ -315,6 +327,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             InkWell(
                                 onTap: () {
                                   // setState(() {
+                                  if (Get.isRegistered<ProductController>())
+                                    Get.delete<ProductController>();
                                   currentIndex.value = 4;
                                   // });
                                 },

@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>1.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -31,7 +31,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Rawabi Shopping app needs to access your current location to show courts closest to you</string>
 	<key>NSCameraUsageDescription</key>
-        <string>Rawabi Shopping app needs access to the camera to upload the selected photos and scan QR code</string>
+	<string>Rawabi Shopping app needs access to the camera to upload the selected photos and scan QR code</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -53,29 +53,28 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>UIViewControllerBasedStatusBarAppearance</key>
-    <false/>
-    <key>io.flutter.embedded_views_preview</key>
-    <true/>
-    <key>NSPrivacyAccessedAPITypes</key>
-    	<array>
-    		<dict>
-    			<key>NSPrivacyAccessedAPIType</key>
-    			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
-    		</dict>
-    		<dict>
-    			<key>NSPrivacyAccessedAPIType</key>
-    			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
-    		</dict>
-    		<dict>
-                <key>NSPrivacyAccessedAPIType</key>
-                <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
-            </dict>
-            <dict>
-                <key>NSPrivacyAccessedAPIType</key>
-                <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
-            </dict>
-
-    	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -9,7 +9,7 @@ import '../model/response/products.dart';
 import '../utils/commonUtils.dart';
 import '../utils/http_client/base_client.dart';
 
-class SearchResutController extends GetxController {
+class SearchResultController extends GetxController {
   var isLoaded = false;
   var loading = false.obs;
   var searchType = "word".obs;
@@ -17,7 +17,7 @@ class SearchResutController extends GetxController {
   var searchProductList = <Products>[].obs;
   var searchTextController = TextEditingController();
 
-  SearchResutController();
+  SearchResultController();
 
   @override
   onInit() async {
@@ -38,25 +38,24 @@ class SearchResutController extends GetxController {
     await getProductsByBarcodeSearch();
   }
 
-  Future<void> getProductsByWordSearch(String query) async {
+  Future<void> getProductsByWordSearch(String query, catID) async {
     if (query.isNotEmpty) {
       try {
-        if (!isLoaded) loading.value = true;
-        var request = {
-          "word": query,
-        };
+        loading.value = true;
+        var request = {"word": query, "catid": catID};
         var response = await BaseClient().post(searchWord, request);
         //loading.value = false;
         searchProductList.clear();
         if (response != null) {
           var responseData =
               SearchResponse.fromJson(json.decode(response.toString()));
-          print(responseData.res?.products.toString());
+          // print(responseData.res?.products.toString());
           //searchProductList.clear();
 
           if (responseData.code == "200") {
             if (responseData.res?.products != null) {
-              searchProductList.addAll(responseData.res?.products as List<Products>);
+              searchProductList
+                  .addAll(responseData.res?.products as List<Products>);
             }
             loading.value = false;
             isLoaded = true;
@@ -73,14 +72,14 @@ class SearchResutController extends GetxController {
         // CommonUtils.showErrorDialog(error.toString());
       }
       loading.value = false;
-    }else{
+    } else {
       searchProductList.clear();
     }
   }
 
   Future<void> getProductsByBarcodeSearch() async {
     try {
-      if(searchString.value != "-1"){
+      if (searchString.value != "-1") {
         var request = {
           "barcode": searchString.value,
         };
@@ -91,10 +90,10 @@ class SearchResutController extends GetxController {
         loading.value = false;
         if (response != null) {
           var responseData =
-          SearchBarcodeResponse.fromJson(json.decode(response.toString()));
+              SearchBarcodeResponse.fromJson(json.decode(response.toString()));
 
           if (responseData.code == "200") {
-            if (responseData.products!= null) {
+            if (responseData.products != null) {
               searchProductList.addAll(responseData.products as List<Products>);
               print("printing $searchProductList");
               print(searchProductList.length);
@@ -107,11 +106,9 @@ class SearchResutController extends GetxController {
         } else {
           isLoaded = false;
         }
-      }
-      else{
+      } else {
         searchProductList.clear();
       }
-
     } catch (error) {
       isLoaded = false;
       error.printError();

@@ -8,14 +8,20 @@ import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/productItem.dart';
 
 class MySearchDelegate extends SearchDelegate {
-  var searchController = Get.put(SearchResutController());
+  var searchController = Get.put(SearchResultController());
+  var catID;
 
-  MySearchDelegate();
+  MySearchDelegate({this.catID = ""});
 
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
-      icon: const Icon(Icons.chevron_left),
+      icon: const Icon(Icons.keyboard_arrow_left),
       onPressed: () => close(context, null));
+
+  @override
+  TextStyle? get searchFieldStyle {
+    return TextStyle(fontSize: 15.0);
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) => [
@@ -33,7 +39,7 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    searchController.getProductsByWordSearch(query);
+    searchController.getProductsByWordSearch(query,catID);
     return Obx(() => Column(children: [
           searchController.loading.value
               ? const Flexible(
@@ -96,18 +102,21 @@ class MySearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     List<String> suggestions = [
       'Chicken'.tr,
-      'oil'.tr,
-      'soap'.tr,
+      'Oil'.tr,
+      'Soap'.tr,
       'Fish'.tr,
-      'sandwitch'.tr
+      'Sandwich'.tr
     ];
     return ListView.builder(
-      itemCount: suggestions.length,
+      itemCount: 0,
       itemBuilder: (BuildContext context, int index) {
         final suggestion = suggestions[index];
 
         return ListTile(
-          title: Text(suggestion),
+          title: Text(
+            suggestion,
+            style: TextStyle(fontSize: 15),
+          ),
           onTap: () {
             query = suggestion;
             showResults(context);

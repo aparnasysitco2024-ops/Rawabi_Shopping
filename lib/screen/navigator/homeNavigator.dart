@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
+import '../../controller/productsDetailsController.dart';
 import '../home/categoryFromHomeScreen.dart';
 import '../home/homeScreen.dart';
 import '../home/productsFromHomeScreen.dart';
@@ -8,7 +10,8 @@ import '../home/productsFromHomeScreen.dart';
 GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 
 class HomeNavigator extends StatefulWidget {
-  const HomeNavigator({super.key});
+  final VoidCallback onCartSelected;
+  const HomeNavigator({super.key,required this.onCartSelected});
 
   @override
   State<HomeNavigator> createState() => _HomeNavigatorState();
@@ -33,7 +36,9 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                 /*case '/BarcodeResultScreen':
                   return const BarcodeResultScreen();*/
                 case '/ProductDetailsScreen':
-                  return ProductDetailsScreen();
+                  if (Get.isRegistered<ProductDetailsController>())
+                    Get.delete<ProductDetailsController>();
+                  return ProductDetailsScreen(onCartSelected: widget.onCartSelected);
                 case '/ProductsFromHomeScreen':
                   return ProductsFromHomeScreen();
                 case '/CategoryFromHomeScreen':

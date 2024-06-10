@@ -13,6 +13,7 @@ import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import '../../controller/cartController.dart';
 import '../../controller/homeController.dart';
 import '../../utils/colors.dart';
+import '../../widget/commonWidget/round_card.dart';
 import '../../widget/commonwidget/cart_items_details.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import 'coupons_screen.dart';
@@ -97,9 +98,7 @@ class CartScreen extends StatelessWidget {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: double.parse(DateFormat('HH').format(
-                                                  todayDate.add(Duration(
-                                                      hours: index + 2)))) <
+                                  color: double.parse(DateFormat('HH').format(todayDate.add(Duration(hours: index + 2)))) <
                                               9 ||
                                           double.parse(DateFormat('HH').format(
                                                   todayDate.add(Duration(
@@ -107,14 +106,15 @@ class CartScreen extends StatelessWidget {
                                               21
                                       ? Colors.grey
                                       : cartController.selectedPickupSlot ==
-                                      DateFormat('hh:00 a').format(todayDate
-                                          .add(Duration(hours: index + 2)))
+                                              DateFormat('hh:00 a').format(
+                                                  todayDate.add(Duration(
+                                                      hours: index + 2)))
                                           ? primaryColor
                                           : Colors.white),
                               child: ReusableText(
                                   color: cartController.selectedPickupSlot ==
-                                      DateFormat('hh:00 a').format(todayDate
-                                          .add(Duration(hours: index + 2)))
+                                          DateFormat('hh:00 a').format(todayDate
+                                              .add(Duration(hours: index + 2)))
                                       ? Colors.white
                                       : Colors.black,
                                   // title: cartController.timeSlot[index],
@@ -388,149 +388,179 @@ class CartScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                  // Container(
-                                  //   width: double.maxFinite,
-                                  //   color: white,
-                                  //   padding: const EdgeInsets.symmetric(
-                                  //       horizontal: 18, vertical: 5),
-                                  //   child: Column(
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       ReusableText(
-                                  //         title: homeController.languageParam
-                                  //             .value.selectPaymentMethod,
-                                  //         size: 16,
-                                  //         weight: FontWeight.bold,
-                                  //       ),
-                                  //       const SizedBox(
-                                  //         height: 10,
-                                  //       ),
-                                  //       // Row(
-                                  //       //   children: [
-                                  //       //     const RoundCard(
-                                  //       //         image:
-                                  //       //             'assets/icons/mastercard.svg'),
-                                  //       //     const SizedBox(
-                                  //       //       width: 10,
-                                  //       //     ),
-                                  //       //     const ReusableText(
-                                  //       //       title: "Card ending in 6785",
-                                  //       //       weight: FontWeight.w400,
-                                  //       //     ),
-                                  //       //     const Spacer(),
-                                  //       //     Radio(
-                                  //       //         value:
-                                  //       //             cartController.masterCard,
-                                  //       //         groupValue: cartController
-                                  //       //             .groupValue.value,
-                                  //       //         activeColor: MaterialStateColor
-                                  //       //             .resolveWith((states) =>
-                                  //       //                 primaryColor),
-                                  //       //         onChanged: (v) {
-                                  //       //           cartController
-                                  //       //               .groupValue.value = v!;
-                                  //       //         })
-                                  //       //   ],
-                                  //       // ),
-                                  //       // const SizedBox(
-                                  //       //   height: 5,
-                                  //       // ),
-                                  //       // Row(
-                                  //       //   children: [
-                                  //       //     const RoundCard(
-                                  //       //       image:
-                                  //       //           'assets/icons/visacard.svg',
-                                  //       //     ),
-                                  //       //     const SizedBox(
-                                  //       //       width: 10,
-                                  //       //     ),
-                                  //       //     const ReusableText(
-                                  //       //       title: "Card ending in 2314",
-                                  //       //       weight: FontWeight.w400,
-                                  //       //     ),
-                                  //       //     const Spacer(),
-                                  //       //     Radio(
-                                  //       //         value: cartController.visa,
-                                  //       //         groupValue: cartController
-                                  //       //             .groupValue.value,
-                                  //       //         activeColor: MaterialStateColor
-                                  //       //             .resolveWith((states) =>
-                                  //       //                 primaryColor),
-                                  //       //         onChanged: (v) {
-                                  //       //           cartController
-                                  //       //               .groupValue.value = v!;
-                                  //       //         })
-                                  //       //   ],
-                                  //       // ),
-                                  //       // const SizedBox(
-                                  //       //   height: 5,
-                                  //       // ),
-                                  //       Row(
-                                  //         children: [
-                                  //           const RoundCard(
-                                  //             image: 'assets/icons/plus.svg',
-                                  //           ),
-                                  //           const SizedBox(
-                                  //             width: 10,
-                                  //           ),
-                                  //           ReusableText(
-                                  //             title: homeController
-                                  //                 .languageParam
-                                  //                 .value
-                                  //                 .addNewCard,
-                                  //             weight: FontWeight.w400,
-                                  //           ),
-                                  //           const Spacer(),
-                                  //           const Padding(
-                                  //             padding:
-                                  //                 EdgeInsets.only(right: 8.0),
-                                  //             child: Icon(
-                                  //               Icons.arrow_forward_ios,
-                                  //               color: grey,
-                                  //             ),
-                                  //           )
-                                  //         ],
-                                  //       ),
-                                  //       const SizedBox(
-                                  //         height: 5,
-                                  //       ),
-                                  //       const Divider(),
-                                  //       const SizedBox(
-                                  //         height: 5,
-                                  //       ),
-                                  //       Row(
-                                  //         children: [
-                                  //           const RoundCard(
-                                  //             image: 'assets/icons/money.svg',
-                                  //           ),
-                                  //           const SizedBox(
-                                  //             width: 10,
-                                  //           ),
-                                  //           ReusableText(
-                                  //             title: homeController
-                                  //                 .languageParam
-                                  //                 .value
-                                  //                 .cashOnDelivery,
-                                  //             weight: FontWeight.w400,
-                                  //           ),
-                                  //           const Spacer(),
-                                  //           Radio(
-                                  //               value: cartController.cash,
-                                  //               groupValue: cartController
-                                  //                   .groupValue.value,
-                                  //               activeColor: MaterialStateColor
-                                  //                   .resolveWith((states) =>
-                                  //                       primaryColor),
-                                  //               onChanged: (v) {
-                                  //                 cartController
-                                  //                     .groupValue.value = v!;
-                                  //               })
-                                  //         ],
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
+                                  Container(
+                                    width: double.maxFinite,
+                                    color: white,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18, vertical: 5),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ReusableText(
+                                          title: homeController.languageParam
+                                              .value.selectPaymentMethod,
+                                          size: 16,
+                                          weight: FontWeight.bold,
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     const RoundCard(
+                                        //         image:
+                                        //             'assets/icons/mastercard.svg'),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     const ReusableText(
+                                        //       title: "Card ending in 6785",
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     Radio(
+                                        //         value:
+                                        //             cartController.masterCard,
+                                        //         groupValue: cartController
+                                        //             .groupValue.value,
+                                        //         activeColor: MaterialStateColor
+                                        //             .resolveWith((states) =>
+                                        //                 primaryColor),
+                                        //         onChanged: (v) {
+                                        //           cartController
+                                        //               .groupValue.value = v!;
+                                        //         })
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        // Row(
+                                        //   children: [
+                                        //     const RoundCard(
+                                        //       image:
+                                        //           'assets/icons/visacard.svg',
+                                        //     ),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     const ReusableText(
+                                        //       title: "Card ending in 2314",
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     Radio(
+                                        //         value: cartController.visa,
+                                        //         groupValue: cartController
+                                        //             .groupValue.value,
+                                        //         activeColor: MaterialStateColor
+                                        //             .resolveWith((states) =>
+                                        //                 primaryColor),
+                                        //         onChanged: (v) {
+                                        //           cartController
+                                        //               .groupValue.value = v!;
+                                        //         })
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        // Row(
+                                        //   children: [
+                                        //     const RoundCard(
+                                        //       image: 'assets/icons/plus.svg',
+                                        //     ),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     ReusableText(
+                                        //       title: homeController
+                                        //           .languageParam
+                                        //           .value
+                                        //           .addNewCard,
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     const Padding(
+                                        //       padding:
+                                        //           EdgeInsets.only(right: 8.0),
+                                        //       child: Icon(
+                                        //         Icons.arrow_forward_ios,
+                                        //         color: grey,
+                                        //       ),
+                                        //     )
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        // const Divider(),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          children: [
+                                            const RoundCard(
+                                              image: 'assets/icons/money.svg',
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            ReusableText(
+                                              title: homeController
+                                                  .languageParam
+                                                  .value
+                                                  .cashOnDelivery,
+                                              weight: FontWeight.w400,
+                                            ),
+                                            const Spacer(),
+                                            Radio(
+                                                value: cartController.cash,
+                                                groupValue: cartController
+                                                    .paymentValue.value,
+                                                activeColor: WidgetStateColor
+                                                    .resolveWith((states) =>
+                                                        primaryColor),
+                                                onChanged: (v) {
+                                                  cartController
+                                                      .paymentValue.value = v!;
+                                                })
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        const Divider(),
+                                        Row(
+                                          children: [
+                                            const RoundCard(
+                                              image: 'assets/icons/money.svg',
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            ReusableText(
+                                              title: "Card on Delivery",
+                                              weight: FontWeight.w400,
+                                            ),
+                                            const Spacer(),
+                                            Radio(
+                                                value: cartController.card,
+                                                groupValue: cartController
+                                                    .paymentValue.value,
+                                                activeColor: WidgetStateColor
+                                                    .resolveWith((states) =>
+                                                        primaryColor),
+                                                onChanged: (v) {
+                                                  cartController
+                                                      .paymentValue.value = v!;
+                                                })
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   Container(
                                     color: silver,
                                     height: 5,
@@ -683,7 +713,34 @@ class CartScreen extends StatelessWidget {
                                           ),
                                         ])
                                       : SizedBox(),
-
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 16, top: 6),
+                                    child: ReusableText(
+                                      title: "Note".tr,
+                                      size: 14,
+                                      weight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 16, right: 16, bottom: 10),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(top: 0),
+                                          hintText: "Note".tr,
+                                          hintStyle: TextStyle(fontSize: 13),
+                                          labelStyle: TextStyle(fontSize: 10)),
+                                      controller:
+                                          cartController.noteTextController,
+                                    ),
+                                  ),
+                                  Container(
+                                    color: silver,
+                                    height: 1,
+                                    width: double.maxFinite,
+                                  ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 6.0),
@@ -752,25 +809,26 @@ class CartScreen extends StatelessWidget {
                                                   ),
                                                 ],
                                               ),
-                                        Row(
-                                          children: [
-                                            ReusableText(
-                                              title: homeController
-                                                  .languageParam.value.bagFee,
-                                              size: 12,
-                                              weight: FontWeight.w600,
-                                              color: Colors.black,
-                                            ),
-                                            const Spacer(),
-                                            ReusableText(
-                                              title:
-                                                  "QAR- ${cartController.bagFee.value}",
-                                              size: 10,
-                                              weight: FontWeight.w600,
-                                              color: Colors.black,
-                                            ),
-                                          ],
-                                        ),
+                                        if (cartController.bagFee.value > 0)
+                                          Row(
+                                            children: [
+                                              ReusableText(
+                                                title: homeController
+                                                    .languageParam.value.bagFee,
+                                                size: 12,
+                                                weight: FontWeight.w600,
+                                                color: Colors.black,
+                                              ),
+                                              const Spacer(),
+                                              ReusableText(
+                                                title:
+                                                    "QAR- ${cartController.bagFee.value}",
+                                                size: 10,
+                                                weight: FontWeight.w600,
+                                                color: Colors.black,
+                                              ),
+                                            ],
+                                          ),
                                         Row(
                                           children: [
                                             ReusableText(

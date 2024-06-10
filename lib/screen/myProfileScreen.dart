@@ -85,6 +85,7 @@ class MyProfileScreen extends StatelessWidget {
                     ),
                   )
                 : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         width: double.maxFinite,
@@ -93,35 +94,60 @@ class MyProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 18.0, vertical: 20),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              ReusableText(
+                                title: homeController
+                                        .languageParam.value.name ??
+                                    "",
+                                size: 14,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
                                   controller:
                                       profileController.nameController.value,
-                                  hintText: "Name",
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
+                              ),
+                              ReusableText(
+                                title: homeController
+                                    .languageParam.value.email ??
+                                    "",
+                                size: 14,
+                              ),
+                              SizedBox(
+                                height: 5,
                               ),
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
                                   controller:
                                       profileController.emailController.value,
-                                  hintText: "Email",
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
+                              ),
+                              ReusableText(
+                                title: homeController
+                                    .languageParam.value.mobileNumber ??
+                                    "",
+                                size: 14,
+                              ),
+                              SizedBox(
+                                height: 5,
                               ),
                               ReusableBorderContainer(
                                 borderColor: silver,
                                 child: ReusableTextForm(
                                   controller:
                                       profileController.mobileController.value,
-                                  hintText: "Mobile",
                                 ),
                               ),
                               // SizedBox(

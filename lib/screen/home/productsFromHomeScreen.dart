@@ -23,7 +23,7 @@ class ProductsFromHomeScreen extends StatefulWidget {
 
 class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
   final homeController = Get.put(HomeController());
-  final searchController = Get.put(SearchResutController());
+  final searchController = Get.put(SearchResultController());
   /* String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/utils/colors.dart';
@@ -35,27 +36,43 @@ class OffersScreen extends StatelessWidget {
                     weight: FontWeight.bold),
               ),
               !offerListController.loading.value
-                  ? Expanded(
-                      child: Container(
-                        color: silver,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 5,
+                  ? offerListController.offerList.isNotEmpty
+                      ? Expanded(
+                          child: Container(
+                            color: silver,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.all(10),
+                                      //Main category
+                                      child: MainCategory()),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
                               ),
-                              Container(
-                                  margin: const EdgeInsets.all(10),
-                                  //Main category
-                                  child: MainCategory()),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    )
+                        )
+                      : Flexible(
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset("assets/icons/logo.svg"),
+                                  ReusableText(
+                                    title: "No offers!!".tr,
+                                  )
+                                ]),
+                          ),
+                        )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height - 280,
                       child: const Center(

@@ -29,7 +29,7 @@ class ProductsByCategory extends StatefulWidget {
 
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final homeController = Get.put(HomeController());
-  var searchController = Get.put(SearchResutController());
+  var searchController = Get.put(SearchResultController());
   late var productController =
       Get.put(ProductController(isOffer: widget.isOffer));
 
@@ -96,7 +96,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             onTap: () {
                               showSearch(
                                 context: context,
-                                delegate: MySearchDelegate(),
+                                delegate: MySearchDelegate(
+                                    catID: productController.catID.value),
                               );
                             },
                             /*onTap: () async {
@@ -318,6 +319,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                         ? [blue, lightBlue, pink]
                                         : [silver, silver, silver]),
                                 onTap: () {
+                                  productController.isLoaded = false;
                                   productController.subSubSubCatID.value =
                                       productController
                                           .subCategoryList[index].catId!;

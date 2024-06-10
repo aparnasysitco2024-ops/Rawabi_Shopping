@@ -47,37 +47,43 @@ class HomeController extends GetxController {
   var storeLat, storeLng;
 
   Future<void> getStorageData() async {
-    defaultAddressId.value =
-        await StorageManager.readData(StorageManager.keyDefaultAddressId);
-    if (defaultAddressId.value.isEmpty) {
-      storeAddress.value =
-          await StorageManager.readData(StorageManager.keyStoreAddress);
-      storeLat =
-          await StorageManager.readData(StorageManager.keyStoreLat).toString();
-      storeLng =
-          await StorageManager.readData(StorageManager.keyStoreLng).toString();
-      getSlot(storeLat, storeLng, storeAddress.value);
-    } else {
-      storeAddress.value =
-          await StorageManager.readData(StorageManager.keyDefaultAddress);
-
-      getSlot(
-          await StorageManager.readData(StorageManager.keyDefaultAddressLat),
-          await StorageManager.readData(StorageManager.keyDefaultAddressLng),
-          await StorageManager.readData(StorageManager.keyDefaultAddress));
-    }
-
-    defaultAddressId.value =
-        await StorageManager.readData(StorageManager.keyDefaultAddressId);
-
     userID.value = await StorageManager.getUserID();
-    isPickup.value =
-        await StorageManager.readDataBool(StorageManager.keyIsPickup);
+
     languageParamString =
         await StorageManager.readData(StorageManager.keyLanguageParams);
     if (languageParamString.isNotEmpty)
       languageParam.value =
           LanguageParam.fromJson(json.decode(languageParamString));
+    isPickup.value =
+        await StorageManager.readDataBool(StorageManager.keyIsPickup);
+
+    if (!isPickup.value) {
+      defaultAddressId.value =
+          await StorageManager.readData(StorageManager.keyDefaultAddressId);
+      if (defaultAddressId.value.isEmpty) {
+        storeAddress.value =
+            await StorageManager.readData(StorageManager.keyStoreAddress);
+        storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
+            .toString();
+        storeLng = await StorageManager.readData(StorageManager.keyStoreLng)
+            .toString();
+        getSlot(storeLat, storeLng, storeAddress.value);
+      } else {
+        storeAddress.value =
+            await StorageManager.readData(StorageManager.keyDefaultAddress);
+
+        getSlot(
+            await StorageManager.readData(StorageManager.keyDefaultAddressLat),
+            await StorageManager.readData(StorageManager.keyDefaultAddressLng),
+            await StorageManager.readData(StorageManager.keyDefaultAddress));
+      }
+
+      defaultAddressId.value =
+          await StorageManager.readData(StorageManager.keyDefaultAddressId);
+    }else{
+      storeAddress.value =
+      await StorageManager.readData(StorageManager.keyStoreAddress);
+    }
   }
 
   Future<void> getHomeData() async {

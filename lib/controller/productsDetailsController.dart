@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../model/response/productDetailsResponse.dart';
@@ -11,7 +12,7 @@ class ProductDetailsController extends GetxController {
 
   var loading = false.obs;
   ProductDetails? productDetails;
-
+  var noteTextController = TextEditingController();
   ProductDetailsController();
 
   @override

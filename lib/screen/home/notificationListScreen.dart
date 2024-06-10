@@ -28,43 +28,47 @@ class NotificationListScreen extends StatelessWidget {
             onBack: () {},
             title: title,
           ),
-          Obx(() => notificationListController.loading.value
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height - 280,
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      color: primaryColor,
+          Obx(
+            () => notificationListController.loading.value
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height - 180,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: primaryColor,
+                      ),
                     ),
-                  ),
-                )
-              : notificationListController.notifications.isNotEmpty
-                  ? ListView.separated(
-                      padding: const EdgeInsets.only(top: 10),
-                      shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                          notificationListController.notifications.length,
-                      itemBuilder: (context, index) => NotificationItemTile(
-                            notifications:
-                                notificationListController.notifications[index],
-                          ),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(
-                            height: 5,
-                          ))
-                  : SizedBox(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset("assets/icons/logo.svg"),
-                            ReusableText(
-                              title: "No orders!!".tr,
-                            )
-                          ]),
-                    ))
+                  )
+                : notificationListController.notifications.isNotEmpty
+                    ? ListView.separated(
+                        padding: const EdgeInsets.only(top: 10),
+                        shrinkWrap: true,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            notificationListController.notifications.length,
+                        itemBuilder: (context, index) => NotificationItemTile(
+                              notifications: notificationListController
+                                  .notifications[index],
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 5,
+                            ))
+                    : Flexible(
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset("assets/icons/logo.svg"),
+                                ReusableText(
+                                  title: "No notification found!!".tr,
+                                )
+                              ]),
+                        ),
+                      ),
+          )
         ],
       ),
     );

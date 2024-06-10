@@ -5,7 +5,8 @@ import '../productDetailsScreen.dart';
 
 GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>();
 class CategoryNavigator extends StatefulWidget {
-  const CategoryNavigator({super.key});
+  final VoidCallback onCartSelected;
+  const CategoryNavigator({super.key,required this.onCartSelected});
 
   @override
   State<CategoryNavigator> createState() => _CategoryNavigatorState();
@@ -26,7 +27,7 @@ class _CategoryNavigatorState extends State<CategoryNavigator> {
                 case '/ProductsByCategory':
                   return   ProductsByCategory();
                 case '/ProductDetailsScreen':
-                  return  ProductDetailsScreen();
+                  return  ProductDetailsScreen(onCartSelected: widget.onCartSelected);
                 /*case '/SearchResultScreen':
                   return  const SearchResultScreen();*/
                 /*case '/BarcodeResultScreen':

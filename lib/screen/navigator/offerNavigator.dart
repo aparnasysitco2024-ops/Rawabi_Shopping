@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:rawabi/controller/productsDetailsController.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/productsByCategoryScreen.dart';
 import '../offresScreen.dart';
 GlobalKey<NavigatorState> offerNavigatorKey = GlobalKey<NavigatorState>();
 
 class OfferNavigator extends StatefulWidget {
-  const OfferNavigator({super.key});
+  final VoidCallback onCartSelected;
+  const OfferNavigator({super.key,required this.onCartSelected});
 
   @override
   State<OfferNavigator> createState() => _OfferNavigatorState();
@@ -30,8 +33,9 @@ class _OfferNavigatorState extends State<OfferNavigator> {
                 /*case '/BarcodeResultScreen':
                   return const BarcodeResultScreen();*/
                 case '/ProductDetailsScreen':
-                  return ProductDetailsScreen();
-
+                  if (Get.isRegistered<ProductDetailsController>())
+                    Get.delete<ProductDetailsController>();
+                  return ProductDetailsScreen(onCartSelected: widget.onCartSelected);
               }
               throw (e) {
                 ScaffoldMessenger.of(context)

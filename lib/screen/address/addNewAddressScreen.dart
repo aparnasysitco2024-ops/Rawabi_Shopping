@@ -103,7 +103,18 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  SizedBox(height: 10,),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ReusableText(
+                                    title: homeController
+                                            .languageParam.value.addressName ??
+                                        "",
+                                    size: 14,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
                                     controller: addAddressController
@@ -111,8 +122,6 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: homeController
-                                        .languageParam.value.addressName??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam
@@ -149,8 +158,9 @@ class AddNewAddressesScreen extends StatelessWidget {
                                       filled: true,
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 5),
-                                      hintText: homeController
-                                          .languageParam.value.mobileNumber??"",
+                                      hintText: homeController.languageParam
+                                              .value.mobileNumber ??
+                                          "",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6)),
@@ -161,6 +171,15 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 10,
                                   ),
+                                  ReusableText(
+                                    title: homeController
+                                        .languageParam.value.zone ??
+                                        "",
+                                    size: 14,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
                                     controller:
@@ -169,8 +188,6 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText:
-                                        homeController.languageParam.value.zone??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam
@@ -182,6 +199,15 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 20,
                                   ),
+                                  ReusableText(
+                                    title: homeController
+                                        .languageParam.value.buildingNumber ??
+                                        "",
+                                    size: 14,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
                                     borderRadius: 6,
@@ -190,8 +216,6 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     keyboardType: TextInputType.number,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: homeController
-                                        .languageParam.value.buildingNumber??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam
@@ -203,6 +227,15 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 20,
                                   ),
+                                  ReusableText(
+                                    title: homeController
+                                        .languageParam.value.apartmentBuildingBlock ??
+                                        "",
+                                    size: 14,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
                                     controller: addAddressController
@@ -210,8 +243,6 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: homeController.languageParam.value
-                                        .apartmentBuildingBlock??"",
                                     validator: (value) {
                                       if (value == null) {
                                         return homeController
@@ -225,6 +256,15 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 20,
                                   ),
+                                  ReusableText(
+                                    title: homeController
+                                        .languageParam.value.floor ??
+                                        "",
+                                    size: 14,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
                                     borderRadius: 6,
@@ -233,11 +273,18 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     keyboardType: TextInputType.number,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: homeController
-                                        .languageParam.value.floor,
                                   ),
                                   const SizedBox(
-                                    height:20,
+                                    height: 20,
+                                  ),
+                                  ReusableText(
+                                    title: homeController
+                                        .languageParam.value.address ??
+                                        "",
+                                    size: 14,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
                                   ),
                                   ReusableTextForm(
                                     fillColor: lightGreyColor,
@@ -246,8 +293,6 @@ class AddNewAddressesScreen extends StatelessWidget {
                                     borderRadius: 6,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    hintText: homeController
-                                        .languageParam.value.address??"",
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return homeController.languageParam
