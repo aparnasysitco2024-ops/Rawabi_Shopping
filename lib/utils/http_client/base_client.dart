@@ -127,6 +127,9 @@ class BaseClient {
         throw BadRequestException(
             utf8.decode(response.bodyBytes), response.request?.url.toString());
       case 500:
+        throw FetchDataException(
+            'Error occurred with code : ${response.statusCode}',
+            response.request?.url.toString());
       default:
         throw FetchDataException(
             'Error occurred with code : ${response.statusCode}',

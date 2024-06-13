@@ -78,6 +78,7 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       ReusableTextFormBox(
+                        keyboardType: TextInputType.number,
                         controller: loginController.mobileController,
                         fillColor: silver,
                         hintText: "Enter Mobile number".tr,

@@ -10,6 +10,7 @@ import '../model/response/loginResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
+import '../utils/http_client/base_controller.dart';
 import '../utils/storage_manager.dart';
 
 class LoginController extends GetxController {
@@ -45,7 +46,8 @@ class LoginController extends GetxController {
       }
     } catch (error) {
       CommonUtils.hideLoader();
-      CommonUtils.showErrorDialog(error.toString());
+      BaseController().handleError(error);
+      // CommonUtils.showErrorDialog(error.toString());
     }
     // loading.value = false;
   }

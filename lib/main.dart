@@ -1,10 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/screen/splashScreen.dart';
-import 'dart:async';
-
+import 'package:rawabi/router.dart' as router ;
 import 'package:rawabi/utils/firebase_options.dart';
 
 Future<void> main() async {
@@ -12,8 +12,26 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // runApp(MaterialApp.router(routerConfig: router));
   runApp(const MyApp());
 }
+
+// final router = GoRouter(
+//   routes: [
+//     GoRoute(
+//       path: '/',
+//       builder: (_, __) => SplashScreen(),
+//       routes: [
+//         GoRoute(
+//           path: 'details',
+//           builder: (_, __) => Scaffold(
+//             appBar: AppBar(title: const Text('Details Screen')),
+//           ),
+//         ),
+//       ],
+//     ),
+//   ],
+// );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,9 +47,10 @@ class MyApp extends StatelessWidget {
 
         ),
         child: GetMaterialApp(
+          onGenerateRoute: router.Router.generateRoute,
           // translations: AppTranslations(),
           debugShowCheckedModeBanner: false,
-          home:   SplashScreen(),
+          // home:   SplashScreen(),
           builder: (context, child) {
             return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
@@ -51,6 +70,8 @@ class MyApp extends StatelessWidget {
           locale: const Locale('en', 'US'),
         ));
   }
+
+
 }
 
 

@@ -729,7 +729,6 @@ class CartScreen extends StatelessWidget {
                                       decoration: InputDecoration(
                                           contentPadding:
                                               EdgeInsets.only(top: 0),
-                                          hintText: "Note".tr,
                                           hintStyle: TextStyle(fontSize: 13),
                                           labelStyle: TextStyle(fontSize: 10)),
                                       controller:

@@ -17,10 +17,11 @@ import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/profile_tile.dart';
 import 'package:rawabi/widget/commonwidget/square_card.dart';
 
+import '../../controller/profileController.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import 'languageScreen.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   final GlobalKey globalKey;
   final VoidCallback onOffersSelected;
   final VoidCallback onCartSelected;
@@ -31,7 +32,22 @@ class AccountScreen extends StatelessWidget {
       required this.onOffersSelected,
       required this.onCartSelected});
 
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
   final homeController = Get.put(HomeController());
+
+  final profileController = Get.put(ProfileController());
+
+  @override
+  void initState() {
+    super.initState();
+    if (homeController.userID != "0") {
+      profileController.getMyProfile();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +127,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      onOffersSelected();
+                      widget.onOffersSelected();
                       // globalKey.currentWidget.;  //<-This is the line where use
                     },
                     child: SquareCard(
@@ -121,7 +137,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      onCartSelected();
+                      widget.onCartSelected();
                       // globalKey.currentWidget.;  //<-This is the line where use
                     },
                     child: SquareCard(
@@ -134,7 +150,19 @@ class AccountScreen extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(
+                        left: 20, top: 10, bottom: 10, right: 10),
+                    color: Colors.white,
+                    child: ReusableText(
+                      size: 14,
+                      weight: FontWeight.bold,
+                      title: "Hi, " + profileController.userName.value,
+                    ),
+                  ),
                   Container(
                     height: 96,
                     color: white,

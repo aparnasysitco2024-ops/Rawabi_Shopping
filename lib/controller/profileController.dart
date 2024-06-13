@@ -18,6 +18,7 @@ class ProfileController extends GetxController {
   var nameController = TextEditingController().obs;
   var emailController = TextEditingController().obs;
   var mobileController = TextEditingController().obs;
+  var userName = "".obs;
 
   @override
   onInit() async {
@@ -35,7 +36,8 @@ class ProfileController extends GetxController {
 
         if (responseData.code == "200") {
           myProfile = responseData.res!;
-          nameController.value.text = myProfile.username!;
+          userName.value = myProfile.username!;
+          nameController.value.text = userName.value;
           emailController.value.text = myProfile.email!;
           mobileController.value.text = myProfile.phone!;
         } else {
