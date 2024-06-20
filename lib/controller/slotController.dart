@@ -31,7 +31,8 @@ class SlotController extends GetxController {
 
   Future<void> getStoreData() async {
     storeId = await StorageManager.readData(StorageManager.keyStoreID);
-    storeLat = await StorageManager.readData(StorageManager.keyStoreLat);
+    // storeLat = await StorageManager.readData(StorageManager.keyStoreLat);
+    storeLat =await StorageManager.getStoreLat();
     storeLng = await StorageManager.readData(StorageManager.keyStoreLng);
     getSlot(storeLat.toString(), storeLng.toString());
   }

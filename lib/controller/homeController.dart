@@ -37,6 +37,7 @@ class HomeController extends GetxController {
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
   var storeAddress = "".obs;
+  var storeID = "".obs;
   var userID = "0".obs;
 
   var isHomeLoaded = false;
@@ -63,14 +64,19 @@ class HomeController extends GetxController {
       if (defaultAddressId.value.isEmpty) {
         storeAddress.value =
             await StorageManager.readData(StorageManager.keyStoreAddress);
-        storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
-            .toString();
-        storeLng = await StorageManager.readData(StorageManager.keyStoreLng)
-            .toString();
+        storeID.value =
+        await StorageManager.readData(StorageManager.keyStoreID);
+
+        // storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
+        //     .toString();
+        storeLat =await StorageManager.getStoreLat();
+        storeLng = await StorageManager.getStoreLng();
         getSlot(storeLat, storeLng, storeAddress.value);
       } else {
         storeAddress.value =
             await StorageManager.readData(StorageManager.keyDefaultAddress);
+        storeID.value =
+        await StorageManager.readData(StorageManager.keyStoreID);
 
         getSlot(
             await StorageManager.readData(StorageManager.keyDefaultAddressLat),
@@ -83,6 +89,8 @@ class HomeController extends GetxController {
     }else{
       storeAddress.value =
       await StorageManager.readData(StorageManager.keyStoreAddress);
+      storeID.value =
+      await StorageManager.readData(StorageManager.keyStoreID);
     }
   }
 
@@ -185,6 +193,8 @@ class HomeController extends GetxController {
             StorageManager.saveData(StorageManager.keyIsPickup, false);
 
             storeAddress.value = address;
+            storeID.value =
+            await StorageManager.readData(StorageManager.keyStoreID);
             isPickup.value = false;
             getHomeData();
             // Navigator.pop(Get!.context);

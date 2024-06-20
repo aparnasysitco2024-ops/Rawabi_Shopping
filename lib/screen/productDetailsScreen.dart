@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/model/response/productDetailsResponse.dart';
 import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import 'package:rawabi/widget/heartIcon.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 
 import '../controller/productsDetailsController.dart';
@@ -135,8 +138,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                productDetailsController
-                                        .productDetails!.multiImages!.isNotEmpty
+                                productDetailsController.productDetails.value
+                                        .multiImages!.isNotEmpty
                                     ? Expanded(
                                         child: FlutterCarousel(
                                         options: CarouselOptions(
@@ -155,7 +158,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                       Colors.grey),
                                         ),
                                         items: productDetailsController
-                                            .productDetails!.multiImages!
+                                            .productDetails.value.multiImages!
                                             .map((i) {
                                           return Builder(
                                             builder: (BuildContext context) {
@@ -192,7 +195,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         child: WidgetZoom(
                                           zoomWidget: ReusableNetworkImage(
                                             image: productDetailsController
-                                                .productDetails!.productImage
+                                                .productDetails
+                                                .value
+                                                .productImage
                                                 .toString(),
                                             height: 210.0,
                                           ),
@@ -209,9 +214,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ),
                                     HeartIcon(
                                       productId: productDetailsController
-                                          .productDetails!.productId,
+                                          .productDetails.value.productId,
                                       wishlist: productDetailsController
-                                          .productDetails!.wishlist,
+                                          .productDetails.value.wishlist,
                                     ),
                                     const SizedBox(
                                       height: 15,
@@ -219,7 +224,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     InkWell(
                                       child: SvgPicture.asset(
                                           "assets/icons/share.svg"),
-                                      onTap: () {},
+                                      onTap: () {
+                                        Share.share(productDetailsController
+                                            .productDetails.value.share_link
+                                            .toString());
+                                      },
                                     ),
                                   ],
                                 ),
@@ -233,7 +242,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             ReusableText(
                               title: productDetailsController
-                                  .productDetails!.productName,
+                                  .productDetails.value.productName,
                               size: 18.0,
                               weight: FontWeight.w600,
                             ),
@@ -244,7 +253,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             // ),
                             ReusableText(
                               title:
-                                  "QAR ${productDetailsController.productDetails!.offerPrice == "0.00" ? productDetailsController.productDetails!.sellingPrice : productDetailsController.productDetails!.offerPrice}",
+                                  "QAR ${productDetailsController.productDetails.value.offerPrice == "0.00" ? productDetailsController.productDetails.value.sellingPrice : productDetailsController.productDetails.value.offerPrice}",
                               size: 18.0,
                               weight: FontWeight.w600,
                             ),
@@ -254,7 +263,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               height: 20,
                             ),
                             productDetailsController
-                                    .productDetails!.shortDesc!.isNotEmpty
+                                    .productDetails.value.shortDesc!.isNotEmpty
                                 ? Column(
                                     children: [
                                       ReusableText(
@@ -270,7 +279,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       ),
                                       Html(
                                           data: productDetailsController
-                                              .productDetails!.shortDesc),
+                                              .productDetails.value.shortDesc),
                                       const Divider(
                                         color: lightGreyColor,
                                         thickness: 3,
@@ -279,8 +288,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ],
                                   )
                                 : SizedBox(),
-                            productDetailsController
-                                    .productDetails!.detailedDesc!.isNotEmpty
+                            productDetailsController.productDetails.value
+                                    .detailedDesc!.isNotEmpty
                                 ? Column(
                                     children: [
                                       ReusableText(
@@ -296,7 +305,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       ),
                                       Html(
                                           data: productDetailsController
-                                              .productDetails!.detailedDesc),
+                                              .productDetails
+                                              .value
+                                              .detailedDesc),
                                     ],
                                   )
                                 : SizedBox(),
@@ -316,6 +327,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               padding: const EdgeInsets.only(
                                   left: 16, right: 16, bottom: 10),
                               child: TextFormField(
+                                onEditingComplete: () {
+                                  productDetailsController
+                                      .isKeyboardRefresh.value = true;
+                                  SystemChannels.textInput
+                                      .invokeMethod('TextInput.hide');
+                                },
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(top: 0),
                                     hintText: "Note".tr,
@@ -331,6 +348,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             AddButton(
                               onCartSelected: widget.onCartSelected,
+                              productDetails:
+                                  productDetailsController.productDetails.value,
+                              note: productDetailsController
+                                  .noteTextController.text,
                             ),
 
                             const SizedBox(
@@ -346,17 +367,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class AddButton extends StatefulWidget {
   final VoidCallback onCartSelected;
+  ProductDetails productDetails;
+  String note;
 
-  AddButton({super.key, required this.onCartSelected});
+  AddButton(
+      {super.key,
+      required this.onCartSelected,
+      required this.productDetails,
+      required this.note});
 
   @override
   State<AddButton> createState() => _AddButtonState();
 }
 
 class _AddButtonState extends State<AddButton> {
-  final productDetailsController = Get.put(ProductDetailsController());
+  // final productDetailsController = Get.put(ProductDetailsController());
   final cartController = Get.put(CartController());
   final homeController = Get.put(HomeController());
 
@@ -364,7 +392,7 @@ class _AddButtonState extends State<AddButton> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        productDetailsController.productDetails!.cartCount != 0
+        widget.productDetails.cartCount != 0
             ? Container(
                 margin: const EdgeInsets.only(bottom: 5, top: 5),
                 height: 40,
@@ -385,16 +413,13 @@ class _AddButtonState extends State<AddButton> {
                         //       .productDetails!.productId);
                         // } else {
                         cartController.updateQty(
-                            productDetailsController.productDetails!.productId,
-                            int.parse(productDetailsController
-                                    .productDetails!.cartCount
+                            widget.productDetails.productId,
+                            int.parse(widget.productDetails.cartCount
                                     .toString()) -
                                 1);
                         setState(() {
-                          productDetailsController.productDetails!.cartCount =
-                              (productDetailsController
-                                      .productDetails!.cartCount! -
-                                  1);
+                          widget.productDetails.cartCount =
+                              (widget.productDetails.cartCount! - 1);
                         });
                         // }
                       },
@@ -407,8 +432,7 @@ class _AddButtonState extends State<AddButton> {
                       width: 15,
                     ),
                     ReusableText(
-                      title: productDetailsController.productDetails!.cartCount
-                          .toString(),
+                      title: widget.productDetails.cartCount.toString(),
                       size: 14,
                       color: silver,
                       weight: FontWeight.bold,
@@ -419,26 +443,16 @@ class _AddButtonState extends State<AddButton> {
                     InkWell(
                       onTap: () {
                         cartController.addToCart(
-                            productDetailsController.productDetails!.productId
-                                .toString(),
-                            productDetailsController.productDetails!.storeId
-                                .toString(),
-                            productDetailsController.productDetails!.offerPrice
-                                        .toString() ==
-                                    "0"
-                                ? productDetailsController
-                                    .productDetails!.sellingPrice
-                                    .toString()
-                                : productDetailsController
-                                    .productDetails!.offerPrice
-                                    .toString(),
+                            widget.productDetails.productId.toString(),
+                            widget.productDetails.storeId.toString(),
+                            widget.productDetails.offerPrice.toString() == "0"
+                                ? widget.productDetails.sellingPrice.toString()
+                                : widget.productDetails.offerPrice.toString(),
                             "1",
-                            productDetailsController.noteTextController.text);
+                            widget.note);
                         setState(() {
-                          productDetailsController.productDetails!.cartCount =
-                              (productDetailsController
-                                      .productDetails!.cartCount! +
-                                  1);
+                          widget.productDetails.cartCount =
+                              (widget.productDetails.cartCount! + 1);
                         });
                       },
                       child: SvgPicture.asset(
@@ -453,7 +467,7 @@ class _AddButtonState extends State<AddButton> {
         SizedBox(
           width: 10,
         ),
-        productDetailsController.productDetails!.cartCount == 0
+        widget.productDetails.cartCount == 0
             ? Expanded(
                 child: SizedBox(
                   height: 40,
@@ -461,23 +475,16 @@ class _AddButtonState extends State<AddButton> {
                     title: homeController.languageParam.value.addToCart,
                     onPressed: () {
                       cartController.addToCart(
-                          productDetailsController.productDetails!.productId
-                              .toString(),
-                          productDetailsController.productDetails!.storeId
-                              .toString(),
-                          productDetailsController.productDetails!.offerPrice ==
-                                  "0.00"
-                              ? productDetailsController
-                                  .productDetails!.sellingPrice
-                              : productDetailsController
-                                  .productDetails!.offerPrice,
+                          widget.productDetails.productId.toString(),
+                          widget.productDetails.storeId.toString(),
+                          widget.productDetails.offerPrice == "0.00"
+                              ? widget.productDetails.sellingPrice
+                              : widget.productDetails.offerPrice,
                           "1",
-                          productDetailsController.noteTextController.text);
+                          widget.note);
                       setState(() {
-                        productDetailsController.productDetails!.cartCount =
-                            (productDetailsController
-                                    .productDetails!.cartCount! +
-                                1);
+                        widget.productDetails.cartCount =
+                            (widget.productDetails.cartCount! + 1);
                       });
                       //cartController.itemCount++;
                     },

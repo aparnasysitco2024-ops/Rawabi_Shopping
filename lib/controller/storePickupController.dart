@@ -76,6 +76,8 @@ class StorePickupController extends GetxController {
 
   Future<void> getSlot(
       String latitude, String longitude, String address) async {
+    // latitude = "25.179864";
+    // longitude = "51.5678239";
     try {
       loading.value = true;
       var request = {"latitude": latitude, "longitude": longitude};
@@ -102,6 +104,7 @@ class StorePickupController extends GetxController {
             if (Get.isRegistered<HomeController>()) {
               final homeController = Get.put(HomeController());
               homeController.storeAddress.value = address;
+              homeController.storeID.value = responseData.res!.first!.storeid!;
               homeController.isPickup.value = false;
               homeController.getHomeData();
               Get.back();
@@ -120,6 +123,7 @@ class StorePickupController extends GetxController {
             if (Get.isRegistered<HomeController>()) {
               final homeController = Get.put(HomeController());
               homeController.storeAddress.value = address;
+              homeController.storeID.value = "10";
               homeController.isPickup.value = false;
               homeController.getHomeData();
               Get.back();

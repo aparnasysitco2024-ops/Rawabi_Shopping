@@ -733,6 +733,7 @@ class CartScreen extends StatelessWidget {
                                           labelStyle: TextStyle(fontSize: 10)),
                                       controller:
                                           cartController.noteTextController,
+                                      keyboardType: TextInputType.text,
                                     ),
                                   ),
                                   Container(

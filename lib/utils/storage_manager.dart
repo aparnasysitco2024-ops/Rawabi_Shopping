@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageManager {
-
   static String keyIsLogin = "keyIsLogin";
   static String keyGuestID = "keyGuestID";
   static String keyUserID = "keyUserID";
@@ -76,7 +75,6 @@ class StorageManager {
     return obj;
   }
 
-
   static Future<String> getUserID() async {
     final prefs = await SharedPreferences.getInstance();
     String obj = prefs.getString(keyUserID) ?? '0';
@@ -92,24 +90,27 @@ class StorageManager {
     }
     return obj;
   }
+
   static Future<String> getStoreLat() async {
-    String obj = "0";
+    // String obj = "0";
     final prefs = await SharedPreferences.getInstance();
-    String storeLat = prefs.getString(keyStoreLat) ?? '0';
-    if (storeLat == '0') {
-      obj = prefs.getString(keyStoreLat) ?? '0';
-    }
-    return obj;
+    return prefs.getString(keyStoreLat) ?? '0';
+    // if (storeLat == '0') {
+    //   obj = prefs.getString(keyStoreLat) ?? '0';
+    // }
+    // return obj;
   }
+
   static Future<String> getStoreLng() async {
-    String obj = "0";
+    // String obj = "0";
     final prefs = await SharedPreferences.getInstance();
-    String storeLng = prefs.getString(keyStoreLng) ?? '0';
-    if (storeLng == '0') {
-      obj = prefs.getString(keyStoreLng) ?? '0';
-    }
-    return obj;
+    return prefs.getString(keyStoreLng) ?? '0';
+    // if (storeLng == '0') {
+    //   obj = prefs.getString(keyStoreLng) ?? '0';
+    // }
+    // return obj;
   }
+
   static Future<bool> readDataBool(String key) async {
     final prefs = await SharedPreferences.getInstance();
     bool obj = prefs.getBool(key) ?? false;

@@ -235,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //Location
                 Container(
                   padding: const EdgeInsets.only(left: 10, right: 10),
-                  height: 30,
+                  height: 36,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
@@ -250,27 +250,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       width: 5,
                     ),
-                    ReusableText(
-                      title: homeController.storeAddress.value,
-                      size: 12,
-                      weight: FontWeight.bold,
-                      color: Colors.black,
+                    Expanded(
+                      child: ReusableText(
+                        title: homeController.storeAddress.value +
+                            ", " +
+                            homeController.storeID.value,
+                        size: 12,
+                        weight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(3))),
-                      child: InkWell(
-                        onTap: () =>
-                            AppUtils.navigateToPage(DeliveryModeScreen()),
+                    InkWell(
+                      onTap: () =>AppUtils.navigateToPage(DeliveryModeScreen()),
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(3))),
                         child: ReusableText(
                           title: homeController.languageParam.value.change,
-                          size: 9,
+                          size: 10,
                           color: blue,
                         ),
                       ),

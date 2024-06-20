@@ -19,6 +19,7 @@ import '../utils/http_client/base_client.dart';
 import '../utils/storage_manager.dart';
 
 class CartController extends GetxController {
+  var isLoadedFirst = false.obs;
   var loading = false.obs;
   var isContactless = false.obs;
   var paymentValue = "cod".obs;
@@ -49,7 +50,10 @@ class CartController extends GetxController {
 
   Future<void> getCartList() async {
     try {
-      loading.value = true;
+      if (isLoadedFirst.value) {
+        loading.value = true;
+        isLoadedFirst.value = true;
+      }
       var response = await BaseClient().get(cartList);
       loading.value = false;
       subTotal.value = 0.00;
@@ -89,7 +93,10 @@ class CartController extends GetxController {
 
   Future<void> calculateDeliveryFee() async {
     try {
-      loading.value = true;
+      if (isLoadedFirst.value) {
+        loading.value = true;
+        isLoadedFirst.value = true;
+      }
       await StorageManager.readData(StorageManager.keyDefaultAddressId);
       var request = {
         "lat1":
@@ -208,8 +215,8 @@ class CartController extends GetxController {
     loading.value = false;
   }
 
-  Future<void> addToCart(
-      String itemID, String storeID, String? itemPrice, String itemQty,String note) async {
+  Future<void> addToCart(String itemID, String storeID, String? itemPrice,
+      String itemQty, String note) async {
     // if (await Vibration.hasCustomVibrationsSupport()) {
     Vibration.vibrate(duration: 5);
     // } else {
@@ -224,7 +231,7 @@ class CartController extends GetxController {
         "store_id": storeID,
         "item_price": itemPrice,
         "item_qty": itemQty,
-
+        "item_note": note
       };
       var response = await BaseClient().post(addtocart, request);
       loading.value = false;

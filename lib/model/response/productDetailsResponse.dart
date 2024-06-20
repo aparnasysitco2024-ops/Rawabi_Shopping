@@ -8,7 +8,8 @@ class ProductDetailsResponse {
   ProductDetailsResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    productDetails = json['res'] != null ? ProductDetails.fromJson(json['res']) : null;
+    productDetails =
+        json['res'] != null ? ProductDetails.fromJson(json['res']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -39,24 +40,26 @@ class ProductDetails {
   int? cartCount;
   int? wishlist;
   List<MultiImages>? multiImages;
+  String? share_link;
 
   ProductDetails(
       {this.productId,
-        this.productName,
-        this.sellingPrice,
-        this.offerPrice,
-        this.storeId,
-        this.sellerId,
-        this.shortDesc,
-        this.detailedDesc,
-        this.purchasePrice,
-        this.stock,
-        this.storeStock,
-        this.features,
-        this.productImage,
-        this.cartCount,
-        this.wishlist,
-        this.multiImages});
+      this.productName,
+      this.sellingPrice,
+      this.offerPrice,
+      this.storeId,
+      this.sellerId,
+      this.shortDesc,
+      this.detailedDesc,
+      this.purchasePrice,
+      this.stock,
+      this.storeStock,
+      this.features,
+      this.productImage,
+      this.cartCount,
+      this.wishlist,
+      this.multiImages,
+      this.share_link});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -77,14 +80,15 @@ class ProductDetails {
       });
     }
     productImage = json['product_image'];
-    cartCount = json['cart_count']??0;
-    wishlist = json['wishlist']??0;
+    cartCount = json['cart_count'] ?? 0;
+    wishlist = json['wishlist'] ?? 0;
     if (json['multi_images'] != null) {
       multiImages = <MultiImages>[];
       json['multi_images'].forEach((v) {
         multiImages!.add(new MultiImages.fromJson(v));
       });
     }
+    share_link = json["share_link"];
   }
 
   Map<String, dynamic> toJson() {
@@ -105,10 +109,11 @@ class ProductDetails {
     }
     data['product_image'] = productImage;
     data['cart_count'] = cartCount;
-    data['wishlist']=wishlist;
+    data['wishlist'] = wishlist;
     if (this.multiImages != null) {
       data['multi_images'] = this.multiImages!.map((v) => v.toJson()).toList();
     }
+    data["share_link"] = share_link;
     return data;
   }
 }

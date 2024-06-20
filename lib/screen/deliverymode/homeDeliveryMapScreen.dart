@@ -116,9 +116,10 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
     lng = position.target.longitude;
 
     placeMarks = await placemarkFromCoordinates(lat, lng);
-    place = placeMarks.length > 1 ? placeMarks[1] : placeMarks[0];
+    place = placeMarks.length > 1 ? placeMarks[2] : placeMarks.last;
+    if (place.name!.contains("+")) place = placeMarks.last;
     setState(() {
-      address = "${place.subLocality!}, ${place.locality}";
+      address = "${place.name!}, ${place.subLocality!}, ${place.locality}";
 
       print(address);
       // _currentAddress =
@@ -210,7 +211,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
                           "assets/icons/location.svg",
@@ -241,40 +242,32 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   //     ? ReusableText(title:
                   //     "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}")
                   //     : CircularProgressIndicator(),
-                  SizedBox(
-                    height: 40,
-                    child: ReusableButton1(
-                      title: widget.storePickupController.languageParam.value
-                          .confirmLocation,
-                      backgroundColor: address.isEmpty ? silver : primaryColor,
-                      onPressed: () {
-                        if (address.isNotEmpty) {
-                          widget.storePickupController
-                              .getSlot(lat.toString(), lng.toString(), address);
-                          // StorageManager.saveData(
-                          //     StorageManager.keyStoreLat, lat.toString());
-                          // StorageManager.saveData(
-                          //     StorageManager.keyStoreLng, lng.toString());
-                          //
-                          // StorageManager.saveData(
-                          //     StorageManager.keyStoreID, "10");
-                          // StorageManager.saveData(
-                          //     StorageManager.keyStoreAddress, address);
-                          // StorageManager.saveData(StorageManager.keyIsPickup, false);
-                          //
-                          // if (Get.isRegistered<HomeController>()) {
-                          //   final homeController = Get.put(HomeController());
-                          //   homeController.storeAddress.value = address;
-                          //   homeController.isPickup.value = false;
-                          //   homeController.getHomeData();
-                          //   Navigator.pop(context);
-                          // } else {
-                          //   AppUtils.navigateToPageRemoveUntil(BottomNavBar());
-                          // }
-                        }
-                      },
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                  Obx(
+                    () => SizedBox(
+                      height: 40,
+                      child: widget.storePickupController.loading.value
+                          ? SizedBox(
+                              height: 40,
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: primaryColor,
+                                ),
+                              ),
+                            )
+                          : ReusableButton1(
+                              title: widget.storePickupController.languageParam
+                                  .value.confirmLocation,
+                              backgroundColor:
+                                  address.isEmpty ? silver : primaryColor,
+                              onPressed: () {
+                                if (address.isNotEmpty) {
+                                  widget.storePickupController.getSlot(
+                                      lat.toString(), lng.toString(), address);
+                                }
+                              },
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                     ),
                   ),
                   const SizedBox(
