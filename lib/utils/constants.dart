@@ -46,6 +46,7 @@ const couponValidate ='${baseURL}couponValidate';
 const deleteAccountUrl ='${baseURL}deleteaccount';
 const pushTokenUrl ='${baseURL}pushtoken';
 const discountProductsUrl ='${baseURL}discount_products';
+const popupBannerUrl ='${baseURL}popupbanner';
 
 
 //keys

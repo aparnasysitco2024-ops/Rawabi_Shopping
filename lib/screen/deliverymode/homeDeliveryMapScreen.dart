@@ -119,7 +119,8 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
     place = placeMarks.length > 1 ? placeMarks[2] : placeMarks.last;
     if (place.name!.contains("+")) place = placeMarks.last;
     setState(() {
-      address = "${place.name!}, ${place.subLocality!}, ${place.locality}";
+      address = "${place.name!}, ${place.subLocality!}";
+      // ", ${place.locality}";
 
       print(address);
       // _currentAddress =

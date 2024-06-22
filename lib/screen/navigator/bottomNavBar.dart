@@ -18,7 +18,9 @@ import 'homeNavigator.dart';
 import 'offerNavigator.dart';
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({super.key});
+  String? productId;
+
+  BottomNavBar({super.key, this.productId = ""});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -45,6 +47,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       /*HomeScreen(),*/
       HomeNavigator(
         onCartSelected: () => currentIndex.value = 3,
+        productId: widget.productId,
       ),
       CategoryNavigator(
         onCartSelected: () => currentIndex.value = 3,

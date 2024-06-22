@@ -27,6 +27,7 @@ class StorePickupController extends GetxController {
   onInit() async {
     super.onInit();
     getLanguageData();
+    getStore();
   }
 
   Future<void> getLanguageData() async {

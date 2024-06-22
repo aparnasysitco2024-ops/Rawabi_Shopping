@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../../utils/colors.dart';
@@ -38,8 +39,7 @@ class ReusableButton extends StatelessWidget {
           color: buttonColor,
         ),
         child: ReusableText(
-          // fontFamily:
-          // Get.locale!.languageCode == 'en' ? 'englishFont' : 'elmessiri',
+          fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
           title: title,
           weight: FontWeight.w700,
           size: textSize,

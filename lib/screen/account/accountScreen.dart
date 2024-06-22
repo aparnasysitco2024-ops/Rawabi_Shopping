@@ -152,15 +152,17 @@ class _AccountScreenState extends State<AccountScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.only(
-                        left: 20, top: 10, bottom: 10, right: 10),
-                    color: Colors.white,
-                    child: ReusableText(
-                      size: 14,
-                      weight: FontWeight.bold,
-                      title: "Hi, " + profileController.userName.value,
+                  Obx(
+                    () => Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.only(
+                          left: 20, top: 10, bottom: 10, right: 10),
+                      color: Colors.white,
+                      child: ReusableText(
+                        size: 14,
+                        weight: FontWeight.bold,
+                        title: "Hi, " + profileController.userName.value,
+                      ),
                     ),
                   ),
                   Container(
@@ -214,24 +216,22 @@ class _AccountScreenState extends State<AccountScreen> {
                                   width: 72,
                                   height: 52,
                                 ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ReusableText(
-                                        title: homeController.languageParam
-                                            .value.ourLatestDealsHere,
-                                        size: 14,
-                                        color: white,
-                                        weight: FontWeight.bold),
-                                    ReusableText(
-                                        title: "20 - 28 dec".tr,
-                                        size: 10,
-                                        color: white,
-                                        weight: FontWeight.w600),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                          title: homeController.languageParam
+                                              .value.ourLatestDealsHere,
+                                          size: 14,
+                                          color: white,
+                                          weight: FontWeight.bold),
+                                    ],
+                                  ),
                                 ),
+                                SizedBox(width: 5,),
                                 Container(
                                   height: 22,
                                   width: 48,

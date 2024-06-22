@@ -9,7 +9,6 @@ import 'package:rawabi/screen/home/selectSlotScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
-
 import '../../controller/cartController.dart';
 import '../../controller/homeController.dart';
 import '../../utils/colors.dart';
@@ -501,7 +500,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            const RoundCard(
+                                             RoundCard(
                                               image: 'assets/icons/money.svg',
                                             ),
                                             const SizedBox(
@@ -534,8 +533,10 @@ class CartScreen extends StatelessWidget {
                                         const Divider(),
                                         Row(
                                           children: [
-                                            const RoundCard(
-                                              image: 'assets/icons/money.svg',
+                                            RoundCard(
+                                              image:
+                                                  'assets/icons/card-on-delvery.png',
+                                              isPng: true,
                                             ),
                                             const SizedBox(
                                               width: 10,
@@ -570,7 +571,7 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Container(
-                                    padding: const EdgeInsets.only(left: 18),
+                                    padding: const EdgeInsets.only(left: 18,right: 18),
                                     height: 36,
                                     width: double.maxFinite,
                                     child: Row(
@@ -642,7 +643,7 @@ class CartScreen extends StatelessWidget {
                                       ? Column(children: [
                                           Container(
                                             padding:
-                                                const EdgeInsets.only(left: 18),
+                                                const EdgeInsets.only(left: 18,right: 18),
                                             width: double.maxFinite,
                                             child: Row(
                                                 mainAxisAlignment:
@@ -714,7 +715,7 @@ class CartScreen extends StatelessWidget {
                                         ])
                                       : SizedBox(),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 16, top: 6),
+                                    padding: EdgeInsets.only(left: 18, top: 6,right: 18),
                                     child: ReusableText(
                                       title: "Note".tr,
                                       size: 14,
@@ -722,6 +723,7 @@ class CartScreen extends StatelessWidget {
                                       color: Colors.black,
                                     ),
                                   ),
+
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 16, right: 16, bottom: 10),

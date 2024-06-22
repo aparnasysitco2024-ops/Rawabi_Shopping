@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/languageParamResponse.dart';
+import 'package:rawabi/model/response/popupBannerResponse.dart';
 
 import '../model/response/homeResponse.dart';
 import '../model/response/slotResponse.dart';
@@ -46,6 +47,8 @@ class HomeController extends GetxController {
   var languageParam = LanguageParam().obs;
   var languageParamString = "";
   var storeLat, storeLng;
+  var popUpBanners = PopUpBanners().obs;
+  bool isPopUpLoaded = false;
 
   Future<void> getStorageData() async {
     userID.value = await StorageManager.getUserID();
@@ -221,4 +224,6 @@ class HomeController extends GetxController {
     }
     loading.value = false;
   }
+
+
 }

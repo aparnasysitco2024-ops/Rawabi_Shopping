@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ReusableText extends StatelessWidget {
   final String? title;
@@ -29,14 +30,13 @@ class ReusableText extends StatelessWidget {
     return Text(
       maxLines: maxLine,
       title ?? "",
-
       textAlign: textAlign,
       style: TextStyle(
           decoration: strike ? TextDecoration.lineThrough : TextDecoration.none,
           fontSize: size,
           fontWeight: weight,
           color: color,
-          fontFamily: fontFamily,
+          fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
           overflow: TextOverflow.ellipsis,
           fontStyle: fontStyle),
     );

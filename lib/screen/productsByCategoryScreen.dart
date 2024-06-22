@@ -159,7 +159,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ? Spacer()
                       : Flexible(
                           child: Container(
-                            padding: const EdgeInsets.only(left: 5, right: 0),
+                            padding: const EdgeInsets.only(left: 5, right: 5),
                             height: 40,
                             decoration: const BoxDecoration(
                                 gradient: LinearGradient(

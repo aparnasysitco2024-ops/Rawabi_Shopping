@@ -43,12 +43,10 @@ class ReusableTextFormBox extends StatelessWidget {
           enabled: enabled!,
           hintText: hintText,
           labelStyle: TextStyle(
-            fontFamily:
-                Get.locale!.languageCode == 'en' ? 'englishFont' : 'elmessiri',
+            fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
           ),
           hintStyle: TextStyle(
-            fontFamily:
-                Get.locale!.languageCode == 'en' ? 'englishFont' : 'elmessiri',
+            fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
           ),
           contentPadding: const EdgeInsets.all(10),
           border: OutlineInputBorder(

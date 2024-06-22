@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,11 +22,17 @@ import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
 
+import '../../model/response/popupBannerResponse.dart';
 import '../../utils/app_utils.dart';
+import '../../utils/constants.dart';
+import '../../utils/http_client/base_client.dart';
+import '../../widget/commonWidget/reusable_button.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  String? productId;
+
+  HomeScreen({super.key, this.productId = ""});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -35,10 +45,129 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = Get.put(SearchResultController());
 
   @override
+  void initState() {
+    if (widget.productId!.isNotEmpty) {
+      Timer(const Duration(microseconds: 500), () async {
+        Navigator.pushNamed(
+          context,
+          '/ProductDetailsScreen',
+          arguments: {
+            'productID': widget.productId,
+          },
+        );
+      });
+    } else {
+      if (!homeController.isPopUpLoaded) getPopupBanner();
+    }
+    super.initState();
+  }
+
+  Future<void> getPopupBanner() async {
+    try {
+      var response = await BaseClient().get(popupBannerUrl);
+      if (response != null) {
+        var responseData =
+            PopupBannerResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          if (responseData.popUpBanners != null &&
+              responseData.popUpBanners!.isNotEmpty) {
+            homeController.popUpBanners.value =
+                responseData.popUpBanners!.first;
+            showPopUpBannerDialog();
+          }
+        }
+      }
+    } catch (error) {
+      error.printError();
+    }
+  }
+
+  Future<dynamic> showPopUpBannerDialog() async {
+    homeController.isPopUpLoaded = true;
+    return (showDialog(
+        useSafeArea: true,
+        context: context,
+        builder: (_) => new Dialog(
+              backgroundColor: Colors.transparent,
+              child: new Container(
+                  // alignment: FractionalOffset.center,
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: InkWell(
+                          onTap: () {
+                            Get.back();
+                            if (homeController.popUpBanners.value.linkType ==
+                                "category") {
+                              moveToProductList(
+                                  homeController.popUpBanners.value.bannerPoint
+                                      .toString(),
+                                  "0");
+                            } else if (homeController
+                                    .popUpBanners.value.linkType ==
+                                "sub_category") {
+                              moveToProductList(
+                                  "0",
+                                  homeController.popUpBanners.value.bannerPoint
+                                      .toString());
+                            }
+                          },
+                          child: CachedNetworkImage(
+                            imageUrl: homeController
+                                      .popUpBanners.value.bannerImage
+                                      .toString(),
+                            placeholder: (context, url) => Center(
+                                child:
+                                new CircularProgressIndicator(color: primaryColor,)),
+                            errorWidget: (context, url, error) =>
+                            new Image.asset(
+                                'assets/images/logo.png'),
+                            fit: BoxFit.contain,
+                          ),
+                          // FadeInImage.assetNetwork(
+                          //     fit: BoxFit.contain,
+                          //     placeholder: 'assets/images/logo.png',
+                          //     image: homeController
+                          //         .popUpBanners.value.bannerImage
+                          //         .toString()),
+                        ),
+                      ),
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 0, top: 0),
+                            child: SizedBox(
+                              height: 30,
+                              child: ReusableButton(
+                                  padding: 8.0,
+                                  textSize: 9.0,
+                                  buttonColor: Colors.white,
+                                  textColor: Colors.black,
+                                  width: 70.0,
+                                  onTap: () {
+                                    print("Skip");
+                                    // AppUtils.navigateToPageReplace(
+                                    //      BottomNavBar());
+                                    Get.back();
+                                  },
+                                  title: "Skip".tr),
+                            ),
+                          )),
+                    ],
+                  )),
+            )));
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (!homeController.isPickup.value) homeController.getStorageData();
     homeController.getHomeData();
     cartController.getCartList();
+
     // homeController.getLanguageParam("en","1");
 
     return Scaffold(
@@ -141,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Flexible(
                                 child: Container(
                                   padding:
-                                      const EdgeInsets.only(left: 5, right: 0),
+                                      const EdgeInsets.only(left: 5, right: 5),
                                   height: 40,
                                   decoration: const BoxDecoration(
                                       gradient: LinearGradient(
@@ -195,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.only(
-                                              left: 5, right: 0),
+                                              left: 5, right: 5),
                                           height: 40,
                                           decoration: const BoxDecoration(
                                               color: silver,
@@ -209,14 +338,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            ReusableText(
-                                              title: homeController
-                                                  .languageParam
-                                                  .value
-                                                  .scheduledDelivery,
-                                              size: 11,
-                                              weight: FontWeight.bold,
-                                              color: Colors.black,
+                                            Expanded(
+                                              child: ReusableText(
+                                                title: homeController
+                                                    .languageParam
+                                                    .value
+                                                    .scheduledDelivery,
+                                                size: 11,
+                                                weight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           ]),
                                         ),
@@ -255,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: homeController.storeAddress.value +
                             ", " +
                             homeController.storeID.value,
-                        size: 12,
+                        size: 10,
                         weight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -265,7 +396,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     InkWell(
-                      onTap: () =>AppUtils.navigateToPage(DeliveryModeScreen()),
+                      onTap: () =>
+                          AppUtils.navigateToPage(DeliveryModeScreen()),
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: const BoxDecoration(
@@ -340,17 +472,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   if (i.linkType ==
                                                       "category") {
                                                     if (i.bannerPoint != "0") {
-                                                      Navigator.pushNamed(
-                                                        context,
-                                                        '/ProductsByCategory',
-                                                        arguments: {
-                                                          'catId':
-                                                              i.bannerPoint,
-                                                          'subCatId': "0",
-                                                          'subSubCatId': "0",
-                                                          'subSubSubCatId': "0"
-                                                        },
-                                                      );
+                                                      moveToProductList(
+                                                          i.bannerPoint
+                                                              .toString(),
+                                                          "0");
+                                                    }
+                                                  } else if (i.linkType ==
+                                                      "sub_category") {
+                                                    if (i.bannerPoint != "0") {
+                                                      moveToProductList(
+                                                          "0",
+                                                          i.bannerPoint
+                                                              .toString());
                                                     }
                                                   }
                                                 },
@@ -519,6 +652,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             )
           : SizedBox()),
+    );
+  }
+
+  moveToProductList(String catID, String subCatID) {
+    Navigator.pushNamed(
+      context,
+      '/ProductsByCategory',
+      arguments: {
+        'catId': catID,
+        'subCatId': subCatID,
+        'subSubCatId': "0",
+        'subSubSubCatId': "0"
+      },
     );
   }
 }

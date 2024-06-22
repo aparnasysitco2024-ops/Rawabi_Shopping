@@ -16,7 +16,7 @@ class SquareCard extends StatelessWidget {
     return Container(
       height: 83,
       width: 83,
-      padding: const EdgeInsets.only(top: 5,bottom: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: white,
@@ -33,8 +33,15 @@ class SquareCard extends StatelessWidget {
             width: 28,
             height: 28,
           ),
-          const SizedBox(height: 10,),
-          ReusableText(title: title.tr, size: 10, weight: FontWeight.w500),
+          const SizedBox(
+            height: 10,
+          ),
+          ReusableText(
+            title: title.tr,
+            size: 10,
+            weight: FontWeight.w500,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

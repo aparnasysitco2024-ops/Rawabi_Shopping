@@ -60,7 +60,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     width: 10,
                   ),
                   InkWell(
-                    child: SvgPicture.asset("assets/icons/back.svg"),
+                    child: Container(
+                      child: SvgPicture.asset("assets/icons/back.svg"),
+                      width: 40,
+                      height: 50,
+                      padding: EdgeInsets.all(15),
+                    ),
                     onTap: () {
                       Navigator.of(context).pop(context);
                       /*Navigator.of(context).popUntil(ModalRoute.withName('/'));*/
@@ -127,239 +132,262 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                       )
-                    : Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                    : productDetailsController.productDetails.value.productId !=
+                            null
+                        ? Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                productDetailsController.productDetails.value
-                                        .multiImages!.isNotEmpty
-                                    ? Expanded(
-                                        child: FlutterCarousel(
-                                        options: CarouselOptions(
-                                          initialPage: 0,
-                                          autoPlay: false,
-                                          enableInfiniteScroll: true,
-                                          enlargeCenterPage: false,
-                                          viewportFraction: 1,
-                                          height: 220.0,
-                                          showIndicator: true,
-                                          slideIndicator:
-                                              const CircularSlideIndicator(
-                                                  currentIndicatorColor:
-                                                      primaryColor,
-                                                  indicatorBorderColor:
-                                                      Colors.grey),
-                                        ),
-                                        items: productDetailsController
-                                            .productDetails.value.multiImages!
-                                            .map((i) {
-                                          return Builder(
-                                            builder: (BuildContext context) {
-                                              return WidgetZoom(
-                                                heroAnimationTag: "tag",
-                                                zoomWidget: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 5,
-                                                            top: 5,
-                                                            bottom: 5),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                      child: FadeInImage
-                                                          .assetNetwork(
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                              placeholder:
-                                                                  'assets/images/logo.png',
-                                                              image: i.image
-                                                                  .toString()),
-                                                    )),
-                                              );
-                                            },
-                                          );
-                                        }).toList(),
-                                      ))
-                                    : Flexible(
-                                        child: Container(
-                                        alignment: Alignment.center,
-                                        width: double.infinity,
-                                        child: WidgetZoom(
-                                          zoomWidget: ReusableNetworkImage(
-                                            image: productDetailsController
-                                                .productDetails
-                                                .value
-                                                .productImage
-                                                .toString(),
-                                            height: 210.0,
-                                          ),
-                                          heroAnimationTag: "tag",
-                                        ),
-                                      )),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(
-                                      height: 30,
+                                      width: 30,
                                     ),
-                                    HeartIcon(
-                                      productId: productDetailsController
-                                          .productDetails.value.productId,
-                                      wishlist: productDetailsController
-                                          .productDetails.value.wishlist,
+                                    productDetailsController.productDetails
+                                            .value.multiImages!.isNotEmpty
+                                        ? Expanded(
+                                            child: FlutterCarousel(
+                                            options: CarouselOptions(
+                                              initialPage: 0,
+                                              autoPlay: false,
+                                              enableInfiniteScroll: true,
+                                              enlargeCenterPage: false,
+                                              viewportFraction: 1,
+                                              height: 220.0,
+                                              showIndicator: true,
+                                              slideIndicator:
+                                                  const CircularSlideIndicator(
+                                                      currentIndicatorColor:
+                                                          primaryColor,
+                                                      indicatorBorderColor:
+                                                          Colors.grey),
+                                            ),
+                                            items: productDetailsController
+                                                .productDetails
+                                                .value
+                                                .multiImages!
+                                                .map((i) {
+                                              return Builder(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return WidgetZoom(
+                                                    heroAnimationTag: "tag",
+                                                    zoomWidget: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                right: 5,
+                                                                top: 5,
+                                                                bottom: 5),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                          child: FadeInImage
+                                                              .assetNetwork(
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                  placeholder:
+                                                                      'assets/images/logo.png',
+                                                                  image: i.image
+                                                                      .toString()),
+                                                        )),
+                                                  );
+                                                },
+                                              );
+                                            }).toList(),
+                                          ))
+                                        : Flexible(
+                                            child: Container(
+                                            alignment: Alignment.center,
+                                            width: double.infinity,
+                                            child: WidgetZoom(
+                                              zoomWidget: ReusableNetworkImage(
+                                                image: productDetailsController
+                                                    .productDetails
+                                                    .value
+                                                    .productImage
+                                                    .toString(),
+                                                height: 210.0,
+                                              ),
+                                              heroAnimationTag: "tag",
+                                            ),
+                                          )),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        HeartIcon(
+                                          productId: productDetailsController
+                                              .productDetails.value.productId,
+                                          wishlist: productDetailsController
+                                              .productDetails.value.wishlist,
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        InkWell(
+                                          child: SvgPicture.asset(
+                                              "assets/icons/share.svg"),
+                                          onTap: () {
+                                            Share.share(productDetailsController
+                                                .productDetails.value.share_link
+                                                .toString());
+                                          },
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
-                                      height: 15,
-                                    ),
-                                    InkWell(
-                                      child: SvgPicture.asset(
-                                          "assets/icons/share.svg"),
-                                      onTap: () {
-                                        Share.share(productDetailsController
-                                            .productDetails.value.share_link
-                                            .toString());
-                                      },
+                                      width: 10,
                                     ),
                                   ],
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  height: 10,
+                                ),
+                                ReusableText(
+                                  title: productDetailsController
+                                      .productDetails.value.productName,
+                                  size: 18.0,
+                                  weight: FontWeight.w600,
+                                ),
+                                // const ReusableText(
+                                //   title: "Pack size - 1kg",
+                                //   size: 14.0,
+                                //   weight: FontWeight.w600,
+                                // ),
+                                ReusableText(
+                                  title:
+                                      "QAR ${productDetailsController.productDetails.value.offerPrice == "0.00" ? productDetailsController.productDetails.value.sellingPrice : productDetailsController.productDetails.value.offerPrice}",
+                                  size: 18.0,
+                                  weight: FontWeight.w600,
+                                ),
+                                const Divider(
+                                  color: lightGreyColor,
+                                  thickness: 3,
+                                  height: 20,
+                                ),
+                                productDetailsController.productDetails.value
+                                        .shortDesc!.isNotEmpty
+                                    ? Column(
+                                        children: [
+                                          ReusableText(
+                                            title: homeController
+                                                .languageParam.value.overview,
+                                            size: 14.0,
+                                            weight: FontWeight.w600,
+                                          ),
+                                          const Divider(
+                                            color: grey,
+                                            thickness: .5,
+                                            height: 20,
+                                          ),
+                                          Html(
+                                              data: productDetailsController
+                                                  .productDetails
+                                                  .value
+                                                  .shortDesc),
+                                          const Divider(
+                                            color: lightGreyColor,
+                                            thickness: 3,
+                                            height: 20,
+                                          ),
+                                        ],
+                                      )
+                                    : SizedBox(),
+                                productDetailsController.productDetails.value
+                                        .detailedDesc!.isNotEmpty
+                                    ? Column(
+                                        children: [
+                                          ReusableText(
+                                            title: homeController
+                                                .languageParam.value.details,
+                                            size: 14.0,
+                                            weight: FontWeight.w600,
+                                          ),
+                                          const Divider(
+                                            color: grey,
+                                            thickness: .5,
+                                            height: 20,
+                                          ),
+                                          Html(
+                                              data: productDetailsController
+                                                  .productDetails
+                                                  .value
+                                                  .detailedDesc),
+                                        ],
+                                      )
+                                    : SizedBox(),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16, top: 6),
+                                  child: ReusableText(
+                                    title: "Note".tr,
+                                    size: 14,
+                                    weight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16, bottom: 10),
+                                  child: TextFormField(
+                                    onEditingComplete: () {
+                                      productDetailsController
+                                          .isKeyboardRefresh.value = true;
+                                      SystemChannels.textInput
+                                          .invokeMethod('TextInput.hide');
+                                    },
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.only(top: 0),
+                                        hintText: "Note".tr,
+                                        hintStyle: TextStyle(fontSize: 13),
+                                        labelStyle: TextStyle(fontSize: 10)),
+                                    controller: productDetailsController
+                                        .noteTextController,
+                                  ),
+                                ),
+
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                AddButton(
+                                  onCartSelected: widget.onCartSelected,
+                                  productDetails: productDetailsController
+                                      .productDetails.value,
+                                  note: productDetailsController
+                                      .noteTextController.text,
+                                ),
+
+                                const SizedBox(
+                                  height: 20,
                                 ),
                               ],
+                            ))
+                        : Flexible(
+                            child: SizedBox(
+                              // width: double.infinity,
+                              // height: double.infinity,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset("assets/icons/logo.svg"),
+                                    ReusableText(
+                                      title: "No Item Found!!".tr,
+                                    )
+                                  ]),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ReusableText(
-                              title: productDetailsController
-                                  .productDetails.value.productName,
-                              size: 18.0,
-                              weight: FontWeight.w600,
-                            ),
-                            // const ReusableText(
-                            //   title: "Pack size - 1kg",
-                            //   size: 14.0,
-                            //   weight: FontWeight.w600,
-                            // ),
-                            ReusableText(
-                              title:
-                                  "QAR ${productDetailsController.productDetails.value.offerPrice == "0.00" ? productDetailsController.productDetails.value.sellingPrice : productDetailsController.productDetails.value.offerPrice}",
-                              size: 18.0,
-                              weight: FontWeight.w600,
-                            ),
-                            const Divider(
-                              color: lightGreyColor,
-                              thickness: 3,
-                              height: 20,
-                            ),
-                            productDetailsController
-                                    .productDetails.value.shortDesc!.isNotEmpty
-                                ? Column(
-                                    children: [
-                                      ReusableText(
-                                        title: homeController
-                                            .languageParam.value.overview,
-                                        size: 14.0,
-                                        weight: FontWeight.w600,
-                                      ),
-                                      const Divider(
-                                        color: grey,
-                                        thickness: .5,
-                                        height: 20,
-                                      ),
-                                      Html(
-                                          data: productDetailsController
-                                              .productDetails.value.shortDesc),
-                                      const Divider(
-                                        color: lightGreyColor,
-                                        thickness: 3,
-                                        height: 20,
-                                      ),
-                                    ],
-                                  )
-                                : SizedBox(),
-                            productDetailsController.productDetails.value
-                                    .detailedDesc!.isNotEmpty
-                                ? Column(
-                                    children: [
-                                      ReusableText(
-                                        title: homeController
-                                            .languageParam.value.details,
-                                        size: 14.0,
-                                        weight: FontWeight.w600,
-                                      ),
-                                      const Divider(
-                                        color: grey,
-                                        thickness: .5,
-                                        height: 20,
-                                      ),
-                                      Html(
-                                          data: productDetailsController
-                                              .productDetails
-                                              .value
-                                              .detailedDesc),
-                                    ],
-                                  )
-                                : SizedBox(),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 16, top: 6),
-                              child: ReusableText(
-                                title: "Note".tr,
-                                size: 14,
-                                weight: FontWeight.w600,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16, right: 16, bottom: 10),
-                              child: TextFormField(
-                                onEditingComplete: () {
-                                  productDetailsController
-                                      .isKeyboardRefresh.value = true;
-                                  SystemChannels.textInput
-                                      .invokeMethod('TextInput.hide');
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(top: 0),
-                                    hintText: "Note".tr,
-                                    hintStyle: TextStyle(fontSize: 13),
-                                    labelStyle: TextStyle(fontSize: 10)),
-                                controller:
-                                    productDetailsController.noteTextController,
-                              ),
-                            ),
-
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            AddButton(
-                              onCartSelected: widget.onCartSelected,
-                              productDetails:
-                                  productDetailsController.productDetails.value,
-                              note: productDetailsController
-                                  .noteTextController.text,
-                            ),
-
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
               ))
             ])),
       ),
@@ -445,7 +473,8 @@ class _AddButtonState extends State<AddButton> {
                         cartController.addToCart(
                             widget.productDetails.productId.toString(),
                             widget.productDetails.storeId.toString(),
-                            widget.productDetails.offerPrice.toString() == "0"
+                            widget.productDetails.offerPrice.toString() ==
+                                    "0.00"
                                 ? widget.productDetails.sellingPrice.toString()
                                 : widget.productDetails.offerPrice.toString(),
                             "1",

@@ -12,6 +12,7 @@ import '../../controller/cartController.dart';
 import '../../controller/couponsController.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 
+// ignore: must_be_immutable
 class CouponScreen extends StatelessWidget {
   final String amount;
   var couponID = 0;
@@ -140,7 +141,9 @@ class CouponScreen extends StatelessWidget {
                                               .toString(),
                                           placeholder: (context, url) => Center(
                                               child:
-                                                  new CircularProgressIndicator()),
+                                                  new CircularProgressIndicator(
+                                            color: primaryColor,
+                                          )),
                                           errorWidget: (context, url, error) =>
                                               new Image.asset(
                                                   'assets/images/logo.png'),

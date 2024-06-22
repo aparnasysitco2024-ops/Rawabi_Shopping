@@ -54,7 +54,7 @@ class ReusableButton1 extends StatelessWidget {
             child: Text(
               title!,
               style: TextStyle(fontFamily:
-              Get.locale!.languageCode == 'en' ? 'englishFont' : 'elmessiri',
+               Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
                   color: txtColor!, fontWeight: FontWeight.w700, fontSize: 18),
             ),
           )

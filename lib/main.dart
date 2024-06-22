@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:rawabi/router.dart' as router ;
+import 'package:rawabi/router.dart' as router;
 import 'package:rawabi/utils/firebase_options.dart';
 
 Future<void> main() async {
@@ -39,12 +40,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     return AnnotatedRegion<SystemUiOverlayStyle>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.light,
-
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
         ),
         child: GetMaterialApp(
           onGenerateRoute: router.Router.generateRoute,
@@ -53,28 +53,25 @@ class MyApp extends StatelessWidget {
           // home:   SplashScreen(),
           builder: (context, child) {
             return MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: TextScaler.noScaling),
                 child: child!);
           },
+          theme: ThemeData(fontFamily:
+          Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',),
           // translations: LocalizationService(),
           supportedLocales: const [
             Locale('en', 'US'), // English, no country code
             Locale('ar', 'SA'), // Arabic, no country code
           ],
-          // localizationsDelegates: const [
-          //   // AppLocalizations.delegate,
-          //   GlobalMaterialLocalizations.delegate,
-          //   GlobalWidgetsLocalizations.delegate,
-          //   GlobalCupertinoLocalizations.delegate,
-          // ],
+
+          localizationsDelegates:  [
+            // AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           locale: const Locale('en', 'US'),
         ));
   }
-
-
 }
-
-
-
-
-

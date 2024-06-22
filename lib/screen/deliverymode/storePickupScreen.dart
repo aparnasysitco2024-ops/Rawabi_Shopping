@@ -16,7 +16,7 @@ class StorePickupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    storePickupController.getStore();
+    // storePickupController.getStore();
     return Obx(() => storePickupController.loading.value
         ? SizedBox(
             height: MediaQuery.of(context).size.height - 280,
@@ -51,6 +51,8 @@ class StorePickupScreen extends StatelessWidget {
                           .storeList[index].storeName
                           .toString();
                       homeController.isPickup.value = true;
+                      homeController.storeID.value =
+                          storePickupController.storeList[index].storeId!;
                       homeController.getHomeData();
                       Navigator.pop(context);
                     } else {

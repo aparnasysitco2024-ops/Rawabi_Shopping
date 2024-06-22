@@ -54,7 +54,7 @@ class ReusableTextForm extends StatelessWidget {
           title: hintText,
         ),
         labelStyle: TextStyle(
-          fontFamily: Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',
+          fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
         ),
         /*hintStyle: TextStyle(
           fontFamily: Get.locale!.languageCode == 'en' ? 'DMSans' : 'DMSans',

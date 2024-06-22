@@ -9,9 +9,13 @@ import '../home/productsFromHomeScreen.dart';
 
 GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 
+// ignore: must_be_immutable
 class HomeNavigator extends StatefulWidget {
   final VoidCallback onCartSelected;
-  const HomeNavigator({super.key,required this.onCartSelected});
+  String? productId;
+
+  HomeNavigator(
+      {super.key, required this.onCartSelected, this.productId = ""});
 
   @override
   State<HomeNavigator> createState() => _HomeNavigatorState();
@@ -28,9 +32,11 @@ class _HomeNavigatorState extends State<HomeNavigator> {
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return const HomeScreen();
+                  return HomeScreen(
+                    productId: widget.productId,
+                  );
                 case '/ProductsByCategory':
-                  return  ProductsByCategory();
+                  return ProductsByCategory();
                 /*case '/SearchResultScreen':
                   return const SearchResultScreen();*/
                 /*case '/BarcodeResultScreen':
@@ -38,7 +44,8 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                 case '/ProductDetailsScreen':
                   if (Get.isRegistered<ProductDetailsController>())
                     Get.delete<ProductDetailsController>();
-                  return ProductDetailsScreen(onCartSelected: widget.onCartSelected);
+                  return ProductDetailsScreen(
+                      onCartSelected: widget.onCartSelected);
                 case '/ProductsFromHomeScreen':
                   return ProductsFromHomeScreen();
                 case '/CategoryFromHomeScreen':
