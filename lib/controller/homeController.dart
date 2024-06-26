@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/languageParamResponse.dart';
 import 'package:rawabi/model/response/popupBannerResponse.dart';
@@ -49,6 +50,7 @@ class HomeController extends GetxController {
   var storeLat, storeLng;
   var popUpBanners = PopUpBanners().obs;
   bool isPopUpLoaded = false;
+  bool isSavedAddressSlotLoaded = false;
 
   Future<void> getStorageData() async {
     userID.value = await StorageManager.getUserID();
@@ -58,6 +60,73 @@ class HomeController extends GetxController {
     if (languageParamString.isNotEmpty)
       languageParam.value =
           LanguageParam.fromJson(json.decode(languageParamString));
+
+    isPickup.value =
+        await StorageManager.readDataBool(StorageManager.keyIsPickup);
+
+    if (!isPickup.value) {
+      defaultAddressId.value =
+          await StorageManager.readData(StorageManager.keyDefaultAddressId);
+      defaultAddress.value =
+          await StorageManager.readData(StorageManager.keyDefaultAddress);
+      //   if (defaultAddressId.value.isEmpty) {
+      //     storeAddress.value =
+      //         await StorageManager.readData(StorageManager.keyStoreAddress);
+      //     storeID.value =
+      //     await StorageManager.readData(StorageManager.keyStoreID);
+      //
+      //     // storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
+      //     //     .toString();
+      //     storeLat =await StorageManager.getStoreLat();
+      //     storeLng = await StorageManager.getStoreLng();
+      //     getSlot(storeLat, storeLng, storeAddress.value);
+      //   } else {
+      //     storeAddress.value =
+      //         await StorageManager.readData(StorageManager.keyDefaultAddress);
+      //     storeID.value =
+      //     await StorageManager.readData(StorageManager.keyStoreID);
+      //
+      //     getSlot(
+      //         await StorageManager.readData(StorageManager.keyDefaultAddressLat),
+      //         await StorageManager.readData(StorageManager.keyDefaultAddressLng),
+      //         await StorageManager.readData(StorageManager.keyDefaultAddress));
+      //   }
+      //
+      //   defaultAddressId.value =
+      //       await StorageManager.readData(StorageManager.keyDefaultAddressId);
+      // }else{
+      //   storeAddress.value =
+      //   await StorageManager.readData(StorageManager.keyStoreAddress);
+      //   storeID.value =
+      //   await StorageManager.readData(StorageManager.keyStoreID);
+    }
+  }
+
+  moveToProductList(BuildContext context, String catID, String subCatID) {
+    Navigator.pushNamed(
+      context,
+      '/ProductsByCategory',
+      arguments: {
+        'catId': catID,
+        'subCatId': subCatID,
+        'subSubCatId': "0",
+        'subSubSubCatId': "0"
+      },
+    );
+  }
+
+  moveToProductDetails(BuildContext context, String productID) {
+    Navigator.pushNamed(
+      context,
+      '/ProductDetailsScreen',
+      arguments: {
+        'productID': productID,
+      },
+    );
+  }
+
+  Future<void> getSavedAddressSlot() async {
+    isSavedAddressSlotLoaded = true;
     isPickup.value =
         await StorageManager.readDataBool(StorageManager.keyIsPickup);
 
@@ -68,18 +137,18 @@ class HomeController extends GetxController {
         storeAddress.value =
             await StorageManager.readData(StorageManager.keyStoreAddress);
         storeID.value =
-        await StorageManager.readData(StorageManager.keyStoreID);
+            await StorageManager.readData(StorageManager.keyStoreID);
 
         // storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
         //     .toString();
-        storeLat =await StorageManager.getStoreLat();
+        storeLat = await StorageManager.getStoreLat();
         storeLng = await StorageManager.getStoreLng();
         getSlot(storeLat, storeLng, storeAddress.value);
       } else {
         storeAddress.value =
             await StorageManager.readData(StorageManager.keyDefaultAddress);
         storeID.value =
-        await StorageManager.readData(StorageManager.keyStoreID);
+            await StorageManager.readData(StorageManager.keyStoreID);
 
         getSlot(
             await StorageManager.readData(StorageManager.keyDefaultAddressLat),
@@ -89,11 +158,10 @@ class HomeController extends GetxController {
 
       defaultAddressId.value =
           await StorageManager.readData(StorageManager.keyDefaultAddressId);
-    }else{
+    } else {
       storeAddress.value =
-      await StorageManager.readData(StorageManager.keyStoreAddress);
-      storeID.value =
-      await StorageManager.readData(StorageManager.keyStoreID);
+          await StorageManager.readData(StorageManager.keyStoreAddress);
+      storeID.value = await StorageManager.readData(StorageManager.keyStoreID);
     }
   }
 
@@ -197,7 +265,7 @@ class HomeController extends GetxController {
 
             storeAddress.value = address;
             storeID.value =
-            await StorageManager.readData(StorageManager.keyStoreID);
+                await StorageManager.readData(StorageManager.keyStoreID);
             isPickup.value = false;
             getHomeData();
             // Navigator.pop(Get!.context);
@@ -224,6 +292,4 @@ class HomeController extends GetxController {
     }
     loading.value = false;
   }
-
-
 }

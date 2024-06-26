@@ -1,6 +1,4 @@
-
-class CouponsResponse
-{
+class CouponsResponse {
   String? code;
   List<Coupon?>? res;
 
@@ -31,7 +29,19 @@ class Coupon {
   String? instructions;
   String? image;
 
-  Coupon({this.id, this.title, this.type, this.couponcode, this.startdate, this.enddate, this.minamt, this.maxamt, this.fixed, this.discounttype, this.instructions, this.image});
+  Coupon(
+      {this.id,
+      this.title,
+      this.type,
+      this.couponcode,
+      this.startdate,
+      this.enddate,
+      this.minamt,
+      this.maxamt,
+      this.fixed,
+      this.discounttype,
+      this.instructions,
+      this.image});
 
   Coupon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -71,17 +81,16 @@ class CouponValidateResponse {
   String? res;
   String? type;
   String? value;
+  String? coupon_id;
 
-  CouponValidateResponse({this.code, this.res,this.type,this.value});
+  CouponValidateResponse(
+      {this.code, this.res, this.type, this.value, this.coupon_id});
 
   CouponValidateResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     res = json['res'];
     type = json['type'];
     value = json['value'];
+    coupon_id = json["coupon_id"];
   }
-
 }
-
-
-

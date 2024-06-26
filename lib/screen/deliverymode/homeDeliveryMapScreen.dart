@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/utils/commonUtils.dart';
+import 'package:rawabi/utils/constants.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
@@ -46,27 +50,29 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
   }
 
   Future<void> _getLastLocation() async {
-    lat = await StorageManager.readDataDouble(StorageManager.keyStoreLat);
-    lng = await StorageManager.readDataDouble(StorageManager.keyStoreLng);
+    lat = double.parse(await StorageManager.getStoreLat());
+    lng = double.parse(await StorageManager.getStoreLng());
   }
 
   _getCurrentLocation() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    // setState(() {
-    _currentPosition = position;
-    _kGooglePlex = CameraPosition(
-      target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
-      zoom: 18,
-    );
-    _getAddressFromLatLng(_kGooglePlex);
-    _goToThePlace();
-    print(
-        "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
-    // });
+    try {
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      // setState(() {
+      _currentPosition = position;
+      _kGooglePlex = CameraPosition(
+        target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
+        zoom: 18,
+      );
+      _getAddressFromLatLng(_kGooglePlex);
+      _goToThePlace();
+      print(
+          "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
+      // });
+    } catch (error) {}
   }
 
-  Future<Position> _determinePosition() async {
+  Future<dynamic> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -129,13 +135,72 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
     });
   }
 
+  Future<void> _handlePressButton() async {
+    Prediction? p = await PlacesAutocomplete.show(
+        context: context,
+        apiKey: API_KEY,
+        onError: onError,
+        mode: Mode.overlay,
+        language: 'en',
+        strictbounds: false,
+        types: [""],
+        components: [const Component(Component.country, 'qa')]);
+    // decoration: InputDecoration(
+    //     hintText: 'Search',
+    //     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.white))),
+    // components: [Component(Component.country,"pk"),Component(Component.country,"usa")]);
+
+    displayPrediction(p!);
+  }
+
+  Future<void> displayPrediction(Prediction p) async {
+    GoogleMapsPlaces places = GoogleMapsPlaces(
+      apiKey: API_KEY,
+      // apiHeaders: await const GoogleApiHeaders().getHeaders()
+    );
+
+    PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
+
+    _kGooglePlex = CameraPosition(
+      target: LatLng(lat, lng),
+      zoom: 18,
+    );
+    _goToThePlace();
+    // markersList.clear();
+    // markersList.add(Marker(markerId: const MarkerId("0"),position: LatLng(lat, lng),infoWindow: InfoWindow(title: detail.result.name)));
+    //
+    // setState(() {});
+    //
+    // googleMapController.animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
+  }
+
+  void onError(PlacesAutocompleteResponse response) {
+    CommonUtils().messageBox(response.errorMessage!);
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   elevation: 0,
+    //   behavior: SnackBarBehavior.floating,
+    //   backgroundColor: Colors.transparent,
+    //   content: CommonUtils().messageBox(response.errorMessage!),
+    //   // AwesomeSnackbarContent(
+    //   //   title: 'Message',
+    //   //   message: response.errorMessage!,
+    //   //   contentType: ContentType.failure,
+    //   // ),
+    // ));
+
+    // homeScaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(response.errorMessage!)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 145),
+            padding: const EdgeInsets.only(bottom: 145, top: 0),
             child: GoogleMap(
               myLocationEnabled: true,
               zoomControlsEnabled: true,
@@ -273,11 +338,36 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                   ),
                   const SizedBox(
                     height: 10,
-                  )
+                  ),
                 ],
               ),
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  _handlePressButton();
+                },
+                child: Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),color: blackTrans),
+                  width: 40,
+                  height: 40,
+                  margin: const EdgeInsets.only(top: 50),
+                  child: Icon(Icons.search),
+                )
+              // ReusableButton1(
+              //   backgroundColor: Colors.transparent,
+              //   txtColor: Colors.white,
+              //   title: "Search",
+              //   onPressed: () {
+              //     _handlePressButton();
+              //   },
+              // ),
+              // ),
+            ),
+          ),
         ],
       ),
     );

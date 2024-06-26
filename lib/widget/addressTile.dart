@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/model/response/addressListResponse.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
+import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 
 import '../controller/homeController.dart';
 import '../controller/myAddressController.dart';
@@ -26,33 +27,42 @@ class _AddressTileState extends State<AddressTile> {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
+      padding: const EdgeInsets.only(left: 5, top: 0, right: 20, bottom: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ReusableText(
-                title: widget.addressList.addressType,
-                size: 12,
-                weight: FontWeight.w600,
-                textAlign: TextAlign.center,
-              ),
-              // ReusableText(
-              //   title: "Edit".tr,
-              //   size: 10,
-              //   weight: FontWeight.w600,
-              //   textAlign: TextAlign.center,
-              // ),
-            ],
-          ),
-          ReusableText(
-            title:
-                "${widget.addressList.addressName!}\n${widget.addressList.address}\n${widget.addressList.zone}\n${widget.addressList.phone}",
-            size: 12,
-            weight: FontWeight.w400,
-            textAlign: TextAlign.left,
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 15, top: 0, right: 0, bottom: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ReusableText(
+                      title: widget.addressList.addressType,
+                      size: 12,
+                      weight: FontWeight.w600,
+                      textAlign: TextAlign.center,
+                    ),
+                    // ReusableText(
+                    //   title: "Edit".tr,
+                    //   size: 10,
+                    //   weight: FontWeight.w600,
+                    //   textAlign: TextAlign.center,
+                    // ),
+                  ],
+                ),
+                ReusableText(
+                  title:
+                      "${widget.addressList.addressName!}\n${widget.addressList.address}\n${widget.addressList.zone}\n${widget.addressList.phone}",
+                  size: 12,
+                  weight: FontWeight.w400,
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
           ),
           Row(
             children: [
@@ -88,14 +98,16 @@ class _AddressTileState extends State<AddressTile> {
                 textAlign: TextAlign.left,
               ),
               const Spacer(),
-              InkWell(
-                onTap: () => widget.myAddressController
-                    .deleteAddress(widget.addressList.addressId),
-                child: ReusableText(
+              SizedBox(
+                width: 70,
+                height: 30,
+                child: ReusableButton1(
                   title: "Delete".tr,
-                  size: 10,
-                  weight: FontWeight.w600,
-                  textAlign: TextAlign.left,
+                  fontSize: 11,
+                  onPressed: () => _showDeleteDialog(),
+                  // size: 10,
+                  // weight: FontWeight.w600,
+                  // textAlign: TextAlign.left,
                 ),
               ),
             ],
@@ -103,5 +115,30 @@ class _AddressTileState extends State<AddressTile> {
         ],
       ),
     );
+  }
+
+  Future<bool> _showDeleteDialog() async {
+    return (await showDialog(
+          context: Get.context!,
+          builder: (context) => AlertDialog(
+            content: Text('Do you want to delete ?'.tr),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                //<-- SEE HERE
+                child: Text('No'.tr),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  widget.myAddressController
+                      .deleteAddress(widget.addressList.addressId);
+                }, // <-- SEE HERE
+                child: Text('Yes'.tr),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 }

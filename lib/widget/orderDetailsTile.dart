@@ -90,7 +90,7 @@ class OrderDetailsTile extends StatelessWidget {
                   ],
                 ),
                 ReusableText(
-                  title: "QAR ${items.itemPrice}",
+                  title:items.itemQty!+ "x QAR ${items.itemPrice}",
                   size: 10,
                   weight: FontWeight.w600,
                 ),

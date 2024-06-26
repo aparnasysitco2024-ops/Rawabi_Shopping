@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -11,6 +13,8 @@ import 'package:rawabi/utils/colors.dart';
 
 import '../../controller/homeController.dart';
 import '../../utils/app_utils.dart';
+import '../../utils/commonUtils.dart';
+import '../../utils/constants.dart';
 import '../../utils/storage_manager.dart';
 import '../../widget/commonwidget/reusable_button1.dart';
 import '../../widget/commonwidget/reusable_text.dart';
@@ -18,7 +22,9 @@ import '../../widget/commonwidget/reusable_text.dart';
 // ignore: must_be_immutable
 class AddNewAddressesMapScreen extends StatefulWidget {
   AddNewAddressesMapScreen({super.key});
+
   final homeController = Get.put(HomeController());
+
   @override
   State<AddNewAddressesMapScreen> createState() =>
       _AddNewAddressesMapScreenState();
@@ -33,6 +39,7 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
   double lat = 25.2854;
   double lng = 51.5310;
   String address = "";
+  TextEditingController placeController = TextEditingController();
   late Placemark place;
   late CameraPosition selectedPosition;
   late List<Placemark> placeMarks;
@@ -47,6 +54,66 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
     );
     _determinePosition();
   }
+
+  Future<void> _handlePressButton() async {
+    Prediction? p = await PlacesAutocomplete.show(
+        context: context,
+        apiKey: API_KEY,
+        onError: onError,
+        mode: Mode.overlay,
+        language: 'en',
+        strictbounds: false,
+        types: [""],
+        components: [const Component(Component.country, 'qa')]);
+    // decoration: InputDecoration(
+    //     hintText: 'Search',
+    //     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.white))),
+    // components: [Component(Component.country,"pk"),Component(Component.country,"usa")]);
+
+    displayPrediction(p!);
+  }
+
+  Future<void> displayPrediction(Prediction p) async {
+    GoogleMapsPlaces places = GoogleMapsPlaces(
+      apiKey: API_KEY,
+      // apiHeaders: await const GoogleApiHeaders().getHeaders()
+    );
+
+    PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
+
+    _kGooglePlex = CameraPosition(
+      target: LatLng(lat, lng),
+      zoom: 18,
+    );
+    _goToThePlace();
+    // markersList.clear();
+    // markersList.add(Marker(markerId: const MarkerId("0"),position: LatLng(lat, lng),infoWindow: InfoWindow(title: detail.result.name)));
+    //
+    // setState(() {});
+    //
+    // googleMapController.animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
+  }
+
+  void onError(PlacesAutocompleteResponse response) {
+    CommonUtils().messageBox(response.errorMessage!);
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   elevation: 0,
+    //   behavior: SnackBarBehavior.floating,
+    //   backgroundColor: Colors.transparent,
+    //   content: CommonUtils().messageBox(response.errorMessage!),
+    //   // AwesomeSnackbarContent(
+    //   //   title: 'Message',
+    //   //   message: response.errorMessage!,
+    //   //   contentType: ContentType.failure,
+    //   // ),
+    // ));
+
+    // homeScaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(response.errorMessage!)));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +147,8 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                       children: [
                         Center(
                           child: ReusableText(
-                            title: widget.homeController.languageParam.value.addNewAddress,
+                            title: widget.homeController.languageParam.value
+                                .addNewAddress,
                             size: 18,
                             weight: FontWeight.bold,
                             textAlign: TextAlign.left,
@@ -131,35 +199,33 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                       },
                     ),
                   ),
-                  Container(
-                    width: 380,
-                    height: 45,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                        color: white,
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.only(right: 10),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: white,
-                        hintText: widget.homeController.languageParam.value.searchLocation,
-                        contentPadding: const EdgeInsets.only(left: 10),
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          color: blackLight,
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          _handlePressButton();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: blackTrans),
+                          width: 40,
+                          height: 40,
+                          margin: const EdgeInsets.only(left: 10),
+                          child: Icon(Icons.search),
+                        )
+                        // ReusableButton1(
+                        //   backgroundColor: Colors.transparent,
+                        //   txtColor: Colors.white,
+                        //   title: "Search",
+                        //   onPressed: () {
+                        //     _handlePressButton();
+                        //   },
+                        // ),
+                        // ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
                   ),
                   Align(
                     alignment: Alignment.center,
@@ -225,12 +291,14 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                           SizedBox(
                             height: 40,
                             child: ReusableButton1(
-                              title: widget.homeController.languageParam.value.confirmLocation,
+                              title: widget.homeController.languageParam.value
+                                  .confirmLocation,
                               backgroundColor:
                                   address.isEmpty ? silver : primaryColor,
                               onPressed: () {
                                 if (address.isNotEmpty) {
-                                  AppUtils.navigateToPageReplace(AddNewAddressesScreen(
+                                  AppUtils.navigateToPageReplace(
+                                      AddNewAddressesScreen(
                                     lat: lat,
                                     lng: lng,
                                   ));
@@ -295,8 +363,10 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
   }
 
   Future<void> _getLastLocation() async {
-    lat = double.parse(await StorageManager.readData(StorageManager.keyStoreLat));
-    lng = double.parse(await StorageManager.readData(StorageManager.keyStoreLng));
+    lat =
+        double.parse(await StorageManager.readData(StorageManager.keyStoreLat));
+    lng =
+        double.parse(await StorageManager.readData(StorageManager.keyStoreLng));
   }
 
   _getCurrentLocation() async {

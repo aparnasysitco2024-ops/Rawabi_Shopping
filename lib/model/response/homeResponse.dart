@@ -216,16 +216,22 @@ class ItemGroup {
 
 class GrpImages {
   String? image;
+  String? linkType;
+  String? bannerPoint;
 
-  GrpImages({this.image});
+  GrpImages({this.image, this.linkType, this.bannerPoint});
 
   GrpImages.fromJson(Map<String, dynamic> json) {
     image = json['image'];
+    linkType = json['link_type'];
+    bannerPoint = json['banner_point'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['image'] = image;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image'] = this.image;
+    data['link_type'] = this.linkType;
+    data['banner_point'] = this.bannerPoint;
     return data;
   }
 }

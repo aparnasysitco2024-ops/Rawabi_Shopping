@@ -84,27 +84,30 @@ class MyAddressesScreen extends StatelessWidget {
                           ),
                         )
                       : myAddressController.addressListData.isNotEmpty
-                          ? Container(
-                              color: white,
-                              padding:
-                                  const EdgeInsets.only(top: 10, bottom: 10),
-                              child: ListView.separated(
-                                padding: const EdgeInsets.all(0),
-                                shrinkWrap: true,
-                                // physics: const NeverScrollableScrollPhysics(),
-                                itemCount:
-                                    myAddressController.addressListData.length,
-                                itemBuilder: (context, index) => AddressTile(
-                                    addressList: myAddressController
-                                        .addressListData[index]),
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const Divider(
-                                  thickness: 1,
-                                  color: lightGreyColor,
-                                ),
-                              ))
-                          : Flexible(
+                          ? Flexible(
+                              child: Container(
+                                  color: white,
+                                  padding: const EdgeInsets.only(
+                                      top: 10, bottom: 10),
+                                  child: ListView.separated(
+                                    padding: const EdgeInsets.all(0),
+                                    shrinkWrap: true,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: myAddressController
+                                        .addressListData.length,
+                                    itemBuilder: (context, index) =>
+                                        AddressTile(
+                                            addressList: myAddressController
+                                                .addressListData[index]),
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const Divider(
+                                      thickness: 1,
+                                      color: lightGreyColor,
+                                    ),
+                                  )),
+                            )
+                          : Expanded(
                               child: SizedBox(
                                 width: double.infinity,
                                 height: double.infinity,
@@ -114,13 +117,14 @@ class MyAddressesScreen extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset("assets/icons/logo.svg"),
-                                       ReusableText(
+                                      ReusableText(
                                         title: "No address added!!".tr,
                                       )
                                     ]),
                               ),
                             ),
                   Expanded(
+                    flex: 0,
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
@@ -130,7 +134,8 @@ class MyAddressesScreen extends StatelessWidget {
                               left: 18, top: 10, right: 18, bottom: 33),
                           child: ReusableButton1(
                             onPressed: () {
-                              AppUtils.navigateToPage(AddNewAddressesMapScreen());
+                              AppUtils.navigateToPage(
+                                  AddNewAddressesMapScreen());
                             },
                             title: "Add New Address".tr,
                             fontSize: 14,

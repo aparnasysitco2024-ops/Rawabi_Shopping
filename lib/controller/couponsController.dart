@@ -5,12 +5,14 @@ import '../model/response/couponsModel.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
+import 'cartController.dart';
 
 class CouponsController extends GetxController {
   CouponsController();
 
   var loading = false.obs;
   var codeController = TextEditingController();
+  final cartController = Get.put(CartController());
   List<Coupon?>? coupons = <Coupon?>[].obs;
   var couponType = "".obs;
   var couponValue = 0.00.obs;
@@ -46,6 +48,8 @@ class CouponsController extends GetxController {
         var responseData =
             CouponValidateResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200" && responseData.res == "Valid") {
+          cartController.couponID.value =
+              int.parse(responseData.coupon_id.toString());
           couponType.value = responseData.type!;
           couponValue.value = double.parse(responseData.value.toString());
           CommonUtils().messageBox("Coupon applied successfully!");

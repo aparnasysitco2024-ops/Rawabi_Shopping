@@ -500,7 +500,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                             RoundCard(
+                                            RoundCard(
                                               image: 'assets/icons/money.svg',
                                             ),
                                             const SizedBox(
@@ -571,7 +571,8 @@ class CartScreen extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Container(
-                                    padding: const EdgeInsets.only(left: 18,right: 18),
+                                    padding: const EdgeInsets.only(
+                                        left: 18, right: 18),
                                     height: 36,
                                     width: double.maxFinite,
                                     child: Row(
@@ -586,46 +587,93 @@ class CartScreen extends StatelessWidget {
                                             width: 5,
                                           ),
                                           ReusableText(
-                                            title: homeController.languageParam
-                                                .value.applyCoupon,
+                                            title: cartController
+                                                    .couponText.value.isEmpty
+                                                ? homeController.languageParam
+                                                    .value.applyCoupon
+                                                : cartController
+                                                    .couponText.value,
                                             size: 14,
                                             weight: FontWeight.w600,
                                             color: Colors.black,
                                           ),
                                           const Spacer(),
-                                          InkWell(
-                                            onTap: () {
-                                              AppUtils.navigateToPage(
-                                                  CouponScreen(
-                                                amount: cartController
-                                                    .grandTotal.value
-                                                    .toString(),
-                                              ));
-                                            },
-                                            child: Container(
-                                              height: 22,
-                                              width: 48,
-                                              margin: const EdgeInsets.only(
-                                                  right: 16),
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: const BoxDecoration(
-                                                  color: primaryColor,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(3))),
-                                              child: Center(
-                                                child: ReusableText(
-                                                  title: homeController
-                                                      .languageParam
-                                                      .value
-                                                      .apply,
-                                                  size: 10,
-                                                  color: white,
-                                                  weight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                          )
+                                          cartController
+                                                  .couponText.value.isEmpty
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    AppUtils.navigateToPage(
+                                                        CouponScreen(
+                                                      amount: cartController
+                                                          .grandTotal.value
+                                                          .toString(),
+                                                    ));
+                                                  },
+                                                  child: Container(
+                                                    height: 22,
+                                                    width: 48,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 16),
+                                                    padding:
+                                                        const EdgeInsets.all(4),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color: primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            3))),
+                                                    child: Center(
+                                                      child: ReusableText(
+                                                        title: homeController
+                                                            .languageParam
+                                                            .value
+                                                            .apply,
+                                                        size: 10,
+                                                        color: white,
+                                                        weight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : InkWell(
+                                                  onTap: () {
+                                                    cartController
+                                                        .couponID.value = 0;
+                                                    cartController
+                                                        .couponText.value = "";
+                                                    cartController
+                                                        .discount.value = 0.00;
+                                                    cartController.setTotal();
+                                                  },
+                                                  child: Container(
+                                                    height: 22,
+                                                    width: 48,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 16),
+                                                    padding:
+                                                        const EdgeInsets.all(4),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color: primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            3))),
+                                                    child: Center(
+                                                      child: ReusableText(
+                                                        title: "Remove".tr,
+                                                        size: 10,
+                                                        color: white,
+                                                        weight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
                                         ]),
                                   ),
                                   const SizedBox(
@@ -642,8 +690,8 @@ class CartScreen extends StatelessWidget {
                                   homeController.isPickup.value
                                       ? Column(children: [
                                           Container(
-                                            padding:
-                                                const EdgeInsets.only(left: 18,right: 18),
+                                            padding: const EdgeInsets.only(
+                                                left: 18, right: 18),
                                             width: double.maxFinite,
                                             child: Row(
                                                 mainAxisAlignment:
@@ -713,9 +761,87 @@ class CartScreen extends StatelessWidget {
                                             width: double.maxFinite,
                                           ),
                                         ])
-                                      : SizedBox(),
+                                      : Column(children: [
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 18, right: 18),
+                                            width: double.maxFinite,
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      ReusableText(
+                                                        title: "Delivery Slot",
+                                                        size: 14,
+                                                        weight: FontWeight.w600,
+                                                        color: Colors.black,
+                                                      ),
+                                                      ReusableText(
+                                                        title: homeController
+                                                                .selectedStartTime
+                                                                .value +
+                                                            " - " +
+                                                            homeController
+                                                                .selectedEndTime
+                                                                .value,
+                                                        size: 10,
+                                                        weight: FontWeight.w600,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const Spacer(),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      AppUtils.navigateToPage(
+                                                          SelectSlotScreen());
+                                                    },
+                                                    child: Container(
+                                                      height: 22,
+                                                      width: 48,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 16),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              4),
+                                                      decoration: const BoxDecoration(
+                                                          color: primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          3))),
+                                                      child: Center(
+                                                        child: ReusableText(
+                                                          title: "Select",
+                                                          size: 10,
+                                                          color: white,
+                                                          weight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ]),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            color: silver,
+                                            height: 1,
+                                            width: double.maxFinite,
+                                          ),
+                                        ]),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 18, top: 6,right: 18),
+                                    padding: EdgeInsets.only(
+                                        left: 18, top: 6, right: 18),
                                     child: ReusableText(
                                       title: "Note".tr,
                                       size: 14,
@@ -723,7 +849,6 @@ class CartScreen extends StatelessWidget {
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 16, right: 16, bottom: 10),
@@ -837,7 +962,7 @@ class CartScreen extends StatelessWidget {
                                               title: "Discount".tr,
                                               size: 12,
                                               weight: FontWeight.w600,
-                                              color: Colors.black,
+                                              color: Colors.green,
                                             ),
                                             const Spacer(),
                                             ReusableText(
@@ -845,7 +970,7 @@ class CartScreen extends StatelessWidget {
                                                   "QAR- ${cartController.discount.value}",
                                               size: 10,
                                               weight: FontWeight.w600,
-                                              color: Colors.black,
+                                              color: Colors.green,
                                             ),
                                           ],
                                         ),

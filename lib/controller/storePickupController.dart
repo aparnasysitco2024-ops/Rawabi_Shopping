@@ -56,7 +56,7 @@ class StorePickupController extends GetxController {
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
-      // CommonUtils.showErrorDialog(error.toString());
+      CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

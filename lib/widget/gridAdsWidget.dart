@@ -30,13 +30,19 @@ class _GridAdsWidgetState extends State<GridAdsWidget> {
               ),
               Column(
                 children: [
-                  SizedBox(
-                      height: 250,
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: NetworkImageWidget(
-                        image: widget.itemGroup!.grpImages![0].image.toString(),
-                        fit: BoxFit.fill,
-                      )),
+                  InkWell(
+                    onTap: () {
+                      onClick(0);
+                    },
+                    child: SizedBox(
+                        height: 250,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: NetworkImageWidget(
+                          image:
+                              widget.itemGroup!.grpImages![0].image.toString(),
+                          fit: BoxFit.fill,
+                        )),
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
@@ -48,21 +54,33 @@ class _GridAdsWidgetState extends State<GridAdsWidget> {
               Flexible(
                   child: Column(
                 children: [
-                  SizedBox(
-                      height: 123,
-                      child: NetworkImageWidget(
-                        image: widget.itemGroup!.grpImages![1].image.toString(),
-                        fit: BoxFit.fill,
-                      )),
+                  InkWell(
+                    onTap: () {
+                      onClick(1);
+                    },
+                    child: SizedBox(
+                        height: 123,
+                        child: NetworkImageWidget(
+                          image:
+                              widget.itemGroup!.grpImages![1].image.toString(),
+                          fit: BoxFit.fill,
+                        )),
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
-                  SizedBox(
-                      height: 123,
-                      child: NetworkImageWidget(
-                        image: widget.itemGroup!.grpImages![2].image.toString(),
-                        fit: BoxFit.fill,
-                      )),
+                  InkWell(
+                    onTap: () {
+                      onClick(2);
+                    },
+                    child: SizedBox(
+                        height: 123,
+                        child: NetworkImageWidget(
+                          image:
+                              widget.itemGroup!.grpImages![2].image.toString(),
+                          fit: BoxFit.fill,
+                        )),
+                  ),
                 ],
               )),
               const SizedBox(
@@ -71,5 +89,19 @@ class _GridAdsWidgetState extends State<GridAdsWidget> {
             ],
           )
         : SizedBox();
+  }
+
+  onClick(int position) {
+    if (widget.itemGroup!.grpImages![position].linkType == "category") {
+      widget.homeController.moveToProductList(context,
+          widget.itemGroup!.grpImages![position].bannerPoint.toString(), "0");
+    } else if (widget.itemGroup!.grpImages![position].linkType ==
+        "sub_category") {
+      widget.homeController.moveToProductList(context, "0",
+          widget.itemGroup!.grpImages![position].bannerPoint.toString());
+    } else if (widget.itemGroup!.grpImages![position].linkType == "product") {
+      widget.homeController.moveToProductDetails(context,
+          widget.itemGroup!.grpImages![position].bannerPoint.toString());
+    }
   }
 }

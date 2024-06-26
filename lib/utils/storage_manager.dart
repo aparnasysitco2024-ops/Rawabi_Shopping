@@ -82,13 +82,11 @@ class StorageManager {
   }
 
   static Future<String> getGuestID() async {
-    String obj = "0";
+    // String obj = "0";
     final prefs = await SharedPreferences.getInstance();
-    String userID = prefs.getString(keyUserID) ?? '0';
-    if (userID == '0') {
-      obj = prefs.getString(keyGuestID) ?? '0';
-    }
-    return obj;
+    return prefs.getString(keyGuestID) ?? '0';
+
+    // return obj;
   }
 
   static Future<String> getStoreLat() async {

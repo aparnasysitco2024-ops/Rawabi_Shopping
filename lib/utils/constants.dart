@@ -36,21 +36,21 @@ const deletewishUrl = '${baseURL}deletewish';
 const myProfileUrl = '${baseURL}myprofile';
 const languageUrl = '${baseURL}language';
 const flyerListUrl = '${baseURL}flyerList';
-const lang_paramsUrl ='${baseURL}lang_params';
-const slotList ='${baseURL}slotList';
-const slotAvail ='${baseURL}slotAvail';
-const notificationList ='${baseURL}notificationList';
+const lang_paramsUrl = '${baseURL}lang_params';
+const slotList = '${baseURL}slotList';
+const slotAvail = '${baseURL}slotAvail';
+const notificationList = '${baseURL}notificationList';
 
-const couponList ='${baseURL}couponList';
-const couponValidate ='${baseURL}couponValidate';
-const deleteAccountUrl ='${baseURL}deleteaccount';
-const pushTokenUrl ='${baseURL}pushtoken';
-const discountProductsUrl ='${baseURL}discount_products';
-const popupBannerUrl ='${baseURL}popupbanner';
-
+const couponList = '${baseURL}couponList';
+const couponValidate = '${baseURL}couponValidate';
+const deleteAccountUrl = '${baseURL}deleteaccount';
+const pushTokenUrl = '${baseURL}pushtoken';
+const discountProductsUrl = '${baseURL}discount_products';
+const popupBannerUrl = '${baseURL}popupbanner';
+const order_cancelUrl = '${baseURL}order_cancel';
 
 //keys
 const token = "Rawabi_jc";
 const tokenDriver = "Rawabi_dc";
-const API_KEY="AIzaSyCz-UXchYfgsLByXYxYEpz7q7Dfto7tt7A";
+const API_KEY = "AIzaSyA-4hm6OP4VY9_Lr_LkxLpGDvlUvLFKV8I";
 const productItemHeight = 280.0;

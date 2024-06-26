@@ -57,6 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       });
     } else {
+      if (!homeController.isSavedAddressSlotLoaded)
+        homeController.getSavedAddressSlot();
       if (!homeController.isPopUpLoaded) getPopupBanner();
     }
     super.initState();
@@ -103,29 +105,38 @@ class _HomeScreenState extends State<HomeScreen> {
                             Get.back();
                             if (homeController.popUpBanners.value.linkType ==
                                 "category") {
-                              moveToProductList(
+                              homeController.moveToProductList(
+                                  context,
                                   homeController.popUpBanners.value.bannerPoint
                                       .toString(),
                                   "0");
                             } else if (homeController
                                     .popUpBanners.value.linkType ==
                                 "sub_category") {
-                              moveToProductList(
+                              homeController.moveToProductList(
+                                  context,
                                   "0",
+                                  homeController.popUpBanners.value.bannerPoint
+                                      .toString());
+                            } else if (homeController
+                                    .popUpBanners.value.linkType ==
+                                "product") {
+                              homeController.moveToProductDetails(
+                                  context,
                                   homeController.popUpBanners.value.bannerPoint
                                       .toString());
                             }
                           },
                           child: CachedNetworkImage(
                             imageUrl: homeController
-                                      .popUpBanners.value.bannerImage
-                                      .toString(),
+                                .popUpBanners.value.bannerImage
+                                .toString(),
                             placeholder: (context, url) => Center(
-                                child:
-                                new CircularProgressIndicator(color: primaryColor,)),
+                                child: new CircularProgressIndicator(
+                              color: primaryColor,
+                            )),
                             errorWidget: (context, url, error) =>
-                            new Image.asset(
-                                'assets/images/logo.png'),
+                                new Image.asset('assets/images/logo.png'),
                             fit: BoxFit.contain,
                           ),
                           // FadeInImage.assetNetwork(
@@ -472,19 +483,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   if (i.linkType ==
                                                       "category") {
                                                     if (i.bannerPoint != "0") {
-                                                      moveToProductList(
-                                                          i.bannerPoint
-                                                              .toString(),
-                                                          "0");
+                                                      homeController
+                                                          .moveToProductList(
+                                                              context,
+                                                              i.bannerPoint
+                                                                  .toString(),
+                                                              "0");
                                                     }
                                                   } else if (i.linkType ==
                                                       "sub_category") {
                                                     if (i.bannerPoint != "0") {
-                                                      moveToProductList(
-                                                          "0",
-                                                          i.bannerPoint
-                                                              .toString());
+                                                      homeController
+                                                          .moveToProductList(
+                                                              context,
+                                                              "0",
+                                                              i.bannerPoint
+                                                                  .toString());
                                                     }
+                                                  } else if (i.linkType ==
+                                                      "product") {
+                                                    homeController.moveToProductDetails(
+                                                        context,
+                                                        i.bannerPoint
+                                                            .toString());
                                                   }
                                                 },
                                                 child: Padding(
@@ -655,16 +676,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  moveToProductList(String catID, String subCatID) {
-    Navigator.pushNamed(
-      context,
-      '/ProductsByCategory',
-      arguments: {
-        'catId': catID,
-        'subCatId': subCatID,
-        'subSubCatId': "0",
-        'subSubSubCatId': "0"
-      },
-    );
-  }
+// moveToProductList(String catID, String subCatID) {
+//   Navigator.pushNamed(
+//     context,
+//     '/ProductsByCategory',
+//     arguments: {
+//       'catId': catID,
+//       'subCatId': subCatID,
+//       'subSubCatId': "0",
+//       'subSubSubCatId': "0"
+//     },
+//   );
+// }
 }

@@ -36,6 +36,7 @@ class CartController extends GetxController {
   var grandTotal = 0.00.obs;
   var totalItemCount = 0.obs;
   var couponID = 0.obs;
+  var couponText = "".obs;
   var selectedPickupSlot = "".obs;
   var noteTextController = TextEditingController();
 
@@ -66,9 +67,11 @@ class CartController extends GetxController {
           // cartProducts = responseData.products;
           totalItemCount.value = cartProducts.length;
 
-          delivery.value = homeController.isPickup.value
-              ? 0.0
-              : double.parse(responseData.deliveryFee.toString());
+          if (delivery.value == 0.00) {
+            delivery.value = homeController.isPickup.value
+                ? 0.0
+                : double.parse(responseData.deliveryFee.toString());
+          }
           bagFee.value = double.parse(responseData.bagFee.toString());
 
           for (var element in cartProducts) {
@@ -76,8 +79,7 @@ class CartController extends GetxController {
                 subTotal.value + double.parse(element.subtotal.toString());
           }
 
-          grandTotal.value =
-              subTotal.value + delivery.value + bagFee.value - discount.value;
+          setTotal();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -89,6 +91,12 @@ class CartController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+  }
+
+  void setTotal() {
+    grandTotal.value =
+        subTotal.value + delivery.value + bagFee.value - discount.value;
+    if (grandTotal.value < 0) grandTotal.value = 0.00;
   }
 
   Future<void> calculateDeliveryFee() async {
@@ -114,6 +122,7 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           if (responseData.fee != null) {
             delivery.value = double.parse(responseData.fee.toString());
+            setTotal();
           }
         } else {
           CommonUtils.showErrorDialog(responseData.message);
@@ -181,7 +190,7 @@ class CartController extends GetxController {
         "address_id":
             await StorageManager.readData(StorageManager.keyDefaultAddressId),
         "subtotal": subTotal.value,
-        "discount": "0",
+        "discount": discount.value,
         "payable": grandTotal.value,
         "order_type": homeController.isPickup.value ? "pickup" : "delivery",
         "delivery_type": homeController.isExpress.value ? "Express" : "Normal",

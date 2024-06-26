@@ -65,6 +65,7 @@ class _AdsImageWidgetState extends State<AdsImageWidget> {
 }
 
 class imageDesign1 extends StatelessWidget {
+  final homeController = Get.put(HomeController());
   ItemGroup? itemGroup;
 
   imageDesign1({super.key, this.itemGroup});
@@ -93,15 +94,30 @@ class imageDesign1 extends StatelessWidget {
           items: itemGroup!.grpImages!.map((i) {
             return Builder(
               builder: (BuildContext context) {
-                return Padding(
-                    padding: const EdgeInsets.only(right: 5, top: 5, bottom: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: FadeInImage.assetNetwork(
-                          fit: BoxFit.fill,
-                          placeholder: 'assets/images/logo.png',
-                          image: i.image.toString()),
-                    ));
+                return InkWell(
+                  onTap: () {
+                    if (i.linkType == "category") {
+                      homeController.moveToProductList(
+                          context, i.bannerPoint.toString(), "0");
+                    } else if (i.linkType == "sub_category") {
+                      homeController.moveToProductList(
+                          context, "0", i.bannerPoint.toString());
+                    } else if (i.linkType == "product") {
+                      homeController.moveToProductDetails(
+                          context, i.bannerPoint.toString());
+                    }
+                  },
+                  child: Padding(
+                      padding:
+                          const EdgeInsets.only(right: 5, top: 5, bottom: 5),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: FadeInImage.assetNetwork(
+                            fit: BoxFit.fill,
+                            placeholder: 'assets/images/logo.png',
+                            image: i.image.toString()),
+                      )),
+                );
               },
             );
           }).toList(),
@@ -111,6 +127,7 @@ class imageDesign1 extends StatelessWidget {
 
 class imageDesign2 extends StatelessWidget {
   ItemGroup? itemGroup;
+  final homeController = Get.put(HomeController());
 
   imageDesign2({super.key, this.itemGroup});
 
@@ -130,15 +147,29 @@ class imageDesign2 extends StatelessWidget {
       items: itemGroup!.grpImages!.map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return Padding(
-                padding: const EdgeInsets.only(right: 10, top: 0, bottom: 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: FadeInImage.assetNetwork(
-                      fit: BoxFit.fill,
-                      placeholder: 'assets/images/logo.png',
-                      image: i.image.toString()),
-                ));
+            return InkWell(
+              onTap: () {
+                if (i.linkType == "category") {
+                  homeController.moveToProductList(
+                      context, i.bannerPoint.toString(), "0");
+                } else if (i.linkType == "sub_category") {
+                  homeController.moveToProductList(
+                      context, "0", i.bannerPoint.toString());
+                } else if (i.linkType == "product") {
+                  homeController.moveToProductDetails(
+                      context, i.bannerPoint.toString());
+                }
+              },
+              child: Padding(
+                  padding: const EdgeInsets.only(right: 10, top: 0, bottom: 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: FadeInImage.assetNetwork(
+                        fit: BoxFit.fill,
+                        placeholder: 'assets/images/logo.png',
+                        image: i.image.toString()),
+                  )),
+            );
           },
         );
       }).toList(),
@@ -148,6 +179,7 @@ class imageDesign2 extends StatelessWidget {
 
 class imageDesign3 extends StatelessWidget {
   ItemGroup? itemGroup;
+  final homeController = Get.put(HomeController());
 
   imageDesign3({super.key, this.itemGroup});
 
@@ -167,15 +199,29 @@ class imageDesign3 extends StatelessWidget {
       items: itemGroup!.grpImages!.map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return Padding(
-                padding: const EdgeInsets.only(right: 10, top: 0, bottom: 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: FadeInImage.assetNetwork(
-                      fit: BoxFit.fill,
-                      placeholder: 'assets/images/logo.png',
-                      image: i.image.toString()),
-                ));
+            return InkWell(
+              onTap: () {
+                if (i.linkType == "category") {
+                  homeController.moveToProductList(
+                      context, i.bannerPoint.toString(), "0");
+                } else if (i.linkType == "sub_category") {
+                  homeController.moveToProductList(
+                      context, "0", i.bannerPoint.toString());
+                } else if (i.linkType == "brand") {
+                  homeController.moveToProductDetails(
+                      context, i.bannerPoint.toString());
+                }
+              },
+              child: Padding(
+                  padding: const EdgeInsets.only(right: 10, top: 0, bottom: 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: FadeInImage.assetNetwork(
+                        fit: BoxFit.fill,
+                        placeholder: 'assets/images/logo.png',
+                        image: i.image.toString()),
+                  )),
+            );
           },
         );
       }).toList(),
