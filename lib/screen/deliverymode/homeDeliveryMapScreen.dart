@@ -125,8 +125,8 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
     place = placeMarks.length > 1 ? placeMarks[2] : placeMarks.last;
     if (place.name!.contains("+")) place = placeMarks.last;
     setState(() {
-      address = "${place.name!}, ${place.subLocality!}";
-      // ", ${place.locality}";
+      address = "${place.name!}, ${place.subLocality!}"
+          ", ${place.locality}";
 
       print(address);
       // _currentAddress =
@@ -346,27 +346,29 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
           Align(
             alignment: Alignment.topLeft,
             child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
+                behavior: HitTestBehavior.translucent,
                 onTap: () {
                   _handlePressButton();
                 },
                 child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),color: blackTrans),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: blackTrans),
                   width: 40,
                   height: 40,
                   margin: const EdgeInsets.only(top: 50),
                   child: Icon(Icons.search),
                 )
-              // ReusableButton1(
-              //   backgroundColor: Colors.transparent,
-              //   txtColor: Colors.white,
-              //   title: "Search",
-              //   onPressed: () {
-              //     _handlePressButton();
-              //   },
-              // ),
-              // ),
-            ),
+                // ReusableButton1(
+                //   backgroundColor: Colors.transparent,
+                //   txtColor: Colors.white,
+                //   title: "Search",
+                //   onPressed: () {
+                //     _handlePressButton();
+                //   },
+                // ),
+                // ),
+                ),
           ),
         ],
       ),

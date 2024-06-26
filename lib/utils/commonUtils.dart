@@ -23,58 +23,61 @@ class CommonUtils {
   }
 
   static void showErrorDialog(message) {
-    showDialog(
-        context: Get.context!,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0)), //this right here
-            child: SizedBox(
-              height: 300,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/icons/cross.svg"),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ReusableText(
-                      title: 'Error'.tr,
-                      weight: FontWeight.w700,
-                      size: 14,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ReusableText(
-                      maxLine: 2,
-                      title: message,
-                      weight: FontWeight.w400,
-                      size: 14,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    SizedBox(
-                      width: 250.0,
-                      height: 45,
-                      child: ReusableButton1(
-                        backgroundColor: Colors.red,
-                        onPressed: () {
-                          Get.back();
-                        },
-                        title: "OK".tr,
+    if (!message
+        .contains("Connection closed before full header was received")) {
+      showDialog(
+          context: Get.context!,
+          builder: (BuildContext context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0)), //this right here
+              child: SizedBox(
+                height: 300,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset("assets/icons/cross.svg"),
+                      const SizedBox(
+                        height: 15,
                       ),
-                    )
-                  ],
+                      ReusableText(
+                        title: 'Error'.tr,
+                        weight: FontWeight.w700,
+                        size: 14,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      ReusableText(
+                        maxLine: 2,
+                        title: message,
+                        weight: FontWeight.w400,
+                        size: 14,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: 250.0,
+                        height: 45,
+                        child: ReusableButton1(
+                          backgroundColor: Colors.red,
+                          onPressed: () {
+                            Get.back();
+                          },
+                          title: "OK".tr,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        });
+            );
+          });
+    }
   }
 
   static void showSuccessDialog(title, message) {
@@ -137,7 +140,7 @@ class CommonUtils {
   void messageBox(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
       content: Text(message),
-      duration: Durations.extralong1,
+      duration: Durations.extralong4,
     ));
   }
 }

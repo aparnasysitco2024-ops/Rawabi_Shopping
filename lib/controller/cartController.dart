@@ -63,7 +63,8 @@ class CartController extends GetxController {
         var responseData =
             CartListResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          cartProducts.addAll(responseData.products as Iterable<Products>);
+          if (responseData.products != null)
+            cartProducts.addAll(responseData.products as Iterable<Products>);
           // cartProducts = responseData.products;
           totalItemCount.value = cartProducts.length;
 
@@ -194,7 +195,9 @@ class CartController extends GetxController {
         "payable": grandTotal.value,
         "order_type": homeController.isPickup.value ? "pickup" : "delivery",
         "delivery_type": homeController.isExpress.value ? "Express" : "Normal",
-        "start_time": homeController.selectedStartTime.value,
+        "start_time": homeController.isPickup.value
+            ? selectedPickupSlot.value
+            : homeController.selectedStartTime.value,
         "end_time": homeController.selectedEndTime.value,
         "date": homeController.selectedSlotDate.value,
         "coupon": couponID.value,

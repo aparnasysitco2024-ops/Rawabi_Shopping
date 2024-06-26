@@ -70,6 +70,7 @@ class Orders {
   String? order_type;
   String? order_delivery_type;
 
+
   Orders(
       {this.orderid,
       this.refno,
@@ -91,7 +92,8 @@ class Orders {
       this.payable,
       this.items,
       this.order_type,
-      this.order_delivery_type});
+      this.order_delivery_type,
+     });
 
   Orders.fromJson(Map<String, dynamic> json) {
     orderid = json['orderid'];
@@ -120,6 +122,7 @@ class Orders {
     }
     order_type = json['order_type'];
     order_delivery_type = json['order_delivery_type'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -147,6 +150,7 @@ class Orders {
     }
     data['order_type'] = order_type;
     data['order_delivery_type'] = order_delivery_type;
+
     return data;
   }
 }

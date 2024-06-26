@@ -52,6 +52,22 @@ class OrderDetailsTile extends StatelessWidget {
                   weight: FontWeight.w600,
                   color: darkGrey,
                 ),
+                items.delete == "yes"
+                    ? ReusableText(
+                        title: "(Item Deleted)",
+                        size: 10,
+                        weight: FontWeight.w600,
+                        color: darkGrey,
+                      )
+                    : items.alter == "yes"
+                        ? ReusableText(
+                            title: "(Item Replaced)",
+                            size: 10,
+                            weight: FontWeight.w600,
+                            color: darkGrey,
+                          )
+                        : SizedBox(),
+
                 // ReusableText(
                 //   title: "Order #23243",
                 //   size: 10,
@@ -90,7 +106,7 @@ class OrderDetailsTile extends StatelessWidget {
                   ],
                 ),
                 ReusableText(
-                  title:items.itemQty!+ "x QAR ${items.itemPrice}",
+                  title: items.itemQty! + "x QAR ${items.itemPrice}",
                   size: 10,
                   weight: FontWeight.w600,
                 ),

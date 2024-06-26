@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/screen/myOrder/trackOrderScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
+import 'package:rawabi/utils/commonUtils.dart';
+import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
+import 'package:rawabi/widget/commonWidget/reusable_textformfieldbox.dart';
 import 'package:rawabi/widget/orderDetailsTile.dart';
 
 import '../../controller/myOrderDetailsController.dart';
@@ -15,6 +18,71 @@ class OrderDetailsScreen extends StatelessWidget {
   final myOrderDetailController = Get.put(MyOrderDetailController());
 
   OrderDetailsScreen({super.key, required this.orderid});
+
+  Future<dynamic> cancelOrderDialog(BuildContext context) async {
+    return (showDialog(
+        useSafeArea: true,
+        context: context,
+        builder: (_) => new Dialog(
+              backgroundColor: Colors.white,
+              child: new Container(
+                  padding: EdgeInsets.all(10),
+                  // alignment: FractionalOffset.center,
+                  height: 190,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ReusableText(title: "Enter the cancellation reason"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: ReusableTextFormBox(
+                            keyboardType: TextInputType.multiline,
+                            hintText: "Reason",
+                            controller:
+                                myOrderDetailController.reasonController,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional.topEnd,
+                        child: SizedBox(
+                          width: 80,
+                          height: 30,
+                          child: ReusableButton1(
+                            onPressed: () {
+                              if (myOrderDetailController
+                                  .reasonController.value.text.isNotEmpty) {
+                                Get.back();
+                                myOrderDetailController.cancelOrder();
+                              } else {
+                                CommonUtils().messageBox(
+                                    "Please enter the cancellation reason");
+                              }
+                            },
+                            title: "Submit",
+                            fontSize: 12,
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+            )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +193,18 @@ class OrderDetailsScreen extends StatelessWidget {
                                         myOrderDetailController
                                                     .myOrder.status ==
                                                 "Processing"
-                                            ? ReusableText(
-                                                title: "Cancel Order".tr,
-                                                size: 12,
-                                                weight: FontWeight.w600,
+                                            ? InkWell(
+                                                onTap: () {
+                                                  cancelOrderDialog(context);
+                                                },
+                                                child: SizedBox(
+                                                  child: ReusableText(
+                                                    title: "Cancel Order".tr,
+                                                    size: 12,
+                                                    weight: FontWeight.w600,
+                                                  ),
+                                                  height: 25,
+                                                ),
                                               )
                                             : SizedBox(),
                                         const Spacer(),

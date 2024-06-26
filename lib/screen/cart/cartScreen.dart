@@ -27,7 +27,11 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     cartController.getCartList();
-    cartController.calculateDeliveryFee();
+    if (!homeController.isPickup.value) {
+      cartController.calculateDeliveryFee();
+    } else {
+      cartController.delivery.value = 0.0;
+    }
 
     // var result = DateTime.now().add(Duration(hours: 1));
     // print("now + 1 hr = ${result}");

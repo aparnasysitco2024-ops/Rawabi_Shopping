@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:pdf_render/pdf_render_widgets.dart';
 import 'package:rawabi/controller/flayerListController.dart';
 import 'package:rawabi/screen/home/pdfViewScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
+import 'package:rawabi/widget/commonWidget/networkImageWidget.dart';
 import 'package:rawabi/widget/headerWidget.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
@@ -50,48 +49,25 @@ class FlayerListScreen extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(5),
                         color: Colors.white,
-                        child: SfPdfViewer.network(
-                          flayerListController.flayersList[index].file
-                              .toString(),
-                          onTap: (details) {
+                        child: InkWell(
+                          onTap: () {
                             AppUtils.navigateToPage(PdfViewScreen(
                               file: flayerListController.flayersList[index].file
                                   .toString(),
                             ));
                           },
+                          child: NetworkImageWidget(
+                            image:
+                                flayerListController.flayersList[index].image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        // child: PdfViewer.openFutureFile(
-                        //   () async => (await DefaultCacheManager()
-                        //           .getSingleFile(flayerListController
-                        //               .flayersList[index].file
-                        //               .toString()))
-                        //       .path,
-                        //   // viewerController: controller,
-                        //   params: const PdfViewerParams(padding: 0),
-                        // ),
-                      )
-                      // Container(
-                      //   width: double.maxFinite,
-                      //   decoration: BoxDecoration(
-                      //     color: white,
-                      //     borderRadius: BorderRadius.circular(4),
-                      //   ),
-                      //   margin: const EdgeInsets.symmetric(
-                      //       horizontal: 14, vertical: 2),
-                      //   padding: const EdgeInsets.symmetric(
-                      //       horizontal: 10, vertical: 5),
-                      //   child: PdfThumbnail.fromFile("https://dev.rawabihypermarket.com/b2c/pdf/1.pdf",
-                      //     // flayerListController.flayersList[index].file
-                      //     //     .toString(),
-                      //     currentPage: 0,
-                      //   ),
-                      // ),
-                      ),
+                      )),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 12,
+                      mainAxisSpacing: 0,
                       mainAxisExtent: productItemHeight,
-                      crossAxisSpacing: 12,
+                      crossAxisSpacing: 0,
                       childAspectRatio: 0.5),
                 ))
         ],

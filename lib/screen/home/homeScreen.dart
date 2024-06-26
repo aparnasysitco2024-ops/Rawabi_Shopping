@@ -394,10 +394,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                       child: ReusableText(
-                        title: homeController.storeAddress.value +
-                            ", " +
-                            homeController.storeID.value,
-                        size: 10,
+                        maxLine: 1,
+                        title: homeController.storeAddress.value,
+                        // +
+                        // ", " +
+                        // homeController.storeID.value,
+                        size: 11,
                         weight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -405,7 +407,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       width: 5,
                     ),
-                    const Spacer(),
                     InkWell(
                       onTap: () =>
                           AppUtils.navigateToPage(DeliveryModeScreen()),
@@ -502,10 +503,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     }
                                                   } else if (i.linkType ==
                                                       "product") {
-                                                    homeController.moveToProductDetails(
-                                                        context,
-                                                        i.bannerPoint
-                                                            .toString());
+                                                    homeController
+                                                        .moveToProductDetails(
+                                                            context,
+                                                            i.bannerPoint
+                                                                .toString());
                                                   }
                                                 },
                                                 child: Padding(

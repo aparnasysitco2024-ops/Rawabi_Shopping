@@ -32,14 +32,16 @@ class Flayers {
   String? startDate;
   String? endDate;
   String? file;
+  String? image;
 
-  Flayers({this.title, this.startDate, this.endDate, this.file});
+  Flayers({this.title, this.startDate, this.endDate, this.file,this.image});
 
   Flayers.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     startDate = json['start_date'];
     endDate = json['end_date'];
     file = json['file'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +50,7 @@ class Flayers {
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;
     data['file'] = this.file;
+    data['image'] = this.image;
     return data;
   }
 }

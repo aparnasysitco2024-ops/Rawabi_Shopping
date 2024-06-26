@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/myorder/myOrderResponse.dart';
+import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
+import 'package:rawabi/utils/app_utils.dart';
 
 import '../model/response/myorder/items.dart';
 import '../model/response/myorder/orderDetailResponse.dart';
@@ -15,8 +19,8 @@ class MyOrderDetailController extends GetxController {
   MyOrderDetailController();
 
   var myOrderList = <Items>[].obs;
-  Orders myOrder =Orders();
-
+  Orders myOrder = Orders();
+  var reasonController = TextEditingController();
 
   @override
   onInit() async {
@@ -34,8 +38,37 @@ class MyOrderDetailController extends GetxController {
         var responseData =
             OrderDetailResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          myOrder=responseData.res!.first;
+          myOrder = responseData.res!.first;
           myOrderList.addAll(responseData.res?.first.items! as Iterable<Items>);
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> cancelOrder() async {
+    try {
+      loading.value = true;
+      var request = {
+        "order_id": myOrder.orderid,
+        "reason": reasonController.text,
+      };
+      var response = await BaseClient().post(order_cancelUrl, request);
+      loading.value = false;
+      if (response != null) {
+        myOrderList.clear();
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          CommonUtils().messageBox(responseData.message.toString());
+          // getMyOrderDetail("Processing");
+          AppUtils.navigateToPageReplace(MyOrdersTabScreen());
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
