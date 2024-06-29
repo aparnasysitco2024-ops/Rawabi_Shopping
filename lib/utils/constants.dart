@@ -48,6 +48,10 @@ const pushTokenUrl = '${baseURL}pushtoken';
 const discountProductsUrl = '${baseURL}discount_products';
 const popupBannerUrl = '${baseURL}popupbanner';
 const order_cancelUrl = '${baseURL}order_cancel';
+const autoSuggestUrl = '${baseURL}auto_suggest';
+const products_byBrandUrl = '${baseURL}products_bybrand';
+
+
 
 //keys
 const token = "Rawabi_jc";

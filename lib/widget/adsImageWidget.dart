@@ -98,13 +98,16 @@ class imageDesign1 extends StatelessWidget {
                   onTap: () {
                     if (i.linkType == "category") {
                       homeController.moveToProductList(
-                          context, i.bannerPoint.toString(), "0");
+                          context, i.bannerPoint.toString(), "0", "0");
                     } else if (i.linkType == "sub_category") {
                       homeController.moveToProductList(
-                          context, "0", i.bannerPoint.toString());
+                          context, "0", i.bannerPoint.toString(), "0");
                     } else if (i.linkType == "product") {
                       homeController.moveToProductDetails(
                           context, i.bannerPoint.toString());
+                    } else if (i.linkType == "brand") {
+                      homeController.moveToProductList(
+                          context, "0", "0", i.bannerPoint.toString());
                     }
                   },
                   child: Padding(
@@ -151,13 +154,16 @@ class imageDesign2 extends StatelessWidget {
               onTap: () {
                 if (i.linkType == "category") {
                   homeController.moveToProductList(
-                      context, i.bannerPoint.toString(), "0");
+                      context, i.bannerPoint.toString(), "0", "0");
                 } else if (i.linkType == "sub_category") {
                   homeController.moveToProductList(
-                      context, "0", i.bannerPoint.toString());
+                      context, "0", i.bannerPoint.toString(), "0");
                 } else if (i.linkType == "product") {
                   homeController.moveToProductDetails(
                       context, i.bannerPoint.toString());
+                } else if (i.linkType == "brand") {
+                  homeController.moveToProductList(
+                      context, "0", "0", i.bannerPoint.toString());
                 }
               },
               child: Padding(
@@ -203,13 +209,16 @@ class imageDesign3 extends StatelessWidget {
               onTap: () {
                 if (i.linkType == "category") {
                   homeController.moveToProductList(
-                      context, i.bannerPoint.toString(), "0");
+                      context, i.bannerPoint.toString(), "0","0");
                 } else if (i.linkType == "sub_category") {
                   homeController.moveToProductList(
-                      context, "0", i.bannerPoint.toString());
-                } else if (i.linkType == "brand") {
+                      context, "0", i.bannerPoint.toString(),"0");
+                }  else if (i.linkType == "product") {
                   homeController.moveToProductDetails(
                       context, i.bannerPoint.toString());
+                } else if (i.linkType == "brand") {
+                  homeController.moveToProductList(
+                      context, "0", "0", i.bannerPoint.toString());
                 }
               },
               child: Padding(

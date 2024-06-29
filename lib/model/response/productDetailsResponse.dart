@@ -41,6 +41,7 @@ class ProductDetails {
   int? wishlist;
   List<MultiImages>? multiImages;
   String? share_link;
+  String? item_status;
 
   ProductDetails(
       {this.productId,
@@ -59,7 +60,8 @@ class ProductDetails {
       this.cartCount,
       this.wishlist,
       this.multiImages,
-      this.share_link});
+      this.share_link,
+      this.item_status});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -89,6 +91,7 @@ class ProductDetails {
       });
     }
     share_link = json["share_link"];
+    item_status = json['item_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -114,6 +117,7 @@ class ProductDetails {
       data['multi_images'] = this.multiImages!.map((v) => v.toJson()).toList();
     }
     data["share_link"] = share_link;
+    data['item_status'] = item_status;
     return data;
   }
 }

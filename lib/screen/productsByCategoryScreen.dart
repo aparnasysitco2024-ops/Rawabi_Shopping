@@ -46,9 +46,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         productController.catID.value = arguments['catId'] ?? "0";
         productController.subCatID.value = arguments['subCatId'] ?? "0";
         productController.subSubCatID.value = arguments['subSubCatId'] ?? "0";
+        productController.brandId.value = arguments['brandId'] ?? "0";
         // final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
 
-        if (productController.subSubCatID.value != "0")
+        if (productController.brandId.value != "0")
+          productController.getProductsByBrand();
+        else if (productController.subSubCatID.value != "0")
           productController.getSubCategory();
         else
           productController.getProductsByCat();
@@ -365,7 +368,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 print("=------------load more---------------");
                                 productController.pageNumber.value =
                                     productController.pageNumber.value + 1;
-                                productController.getProductsByCat();
+                                if (productController.brandId.value != "0")
+                                  productController.getProductsByBrand();
+                                else if (productController.subSubCatID.value != "0")
+                                  productController.getSubCategory();
+                                else
+                                  productController.getProductsByCat();
                               },
                               child: GridView.builder(
                                   padding: const EdgeInsets.only(top: 10),

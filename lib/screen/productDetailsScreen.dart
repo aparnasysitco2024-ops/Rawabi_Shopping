@@ -52,7 +52,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: Colors.white,
         body: Obx(() => Column(children: [
               const SizedBox(
-                height: 60,
+                height: 50,
               ),
               Row(
                 children: [
@@ -76,9 +76,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     width: 10,
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 10,
               ),
               homeController.defaultAddress.value.isNotEmpty
                   ? Container(
@@ -373,20 +370,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ),
                               ],
                             ))
-                        : Flexible(
-                            child: SizedBox(
-                              // width: double.infinity,
-                              // height: double.infinity,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset("assets/icons/logo.svg"),
-                                    ReusableText(
-                                      title: "No Item Found!!".tr,
-                                    )
-                                  ]),
-                            ),
+                        : Padding(
+                  padding: EdgeInsets.only(top: 150),
+                            // width: double.infinity,
+                            // height: double.infinity,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset("assets/icons/logo.svg"),
+                                  ReusableText(
+                                    title: "No Item Found!!".tr,
+                                  )
+                                ]),
                           ),
               ))
             ])),
@@ -496,41 +492,47 @@ class _AddButtonState extends State<AddButton> {
         SizedBox(
           width: 10,
         ),
-        widget.productDetails.cartCount == 0
+        widget.productDetails.item_status != "1"
             ? Expanded(
                 child: SizedBox(
-                  height: 40,
-                  child: ReusableButton1(
-                    title: homeController.languageParam.value.addToCart,
-                    onPressed: () {
-                      cartController.addToCart(
-                          widget.productDetails.productId.toString(),
-                          widget.productDetails.storeId.toString(),
-                          widget.productDetails.offerPrice == "0.00"
-                              ? widget.productDetails.sellingPrice
-                              : widget.productDetails.offerPrice,
-                          "1",
-                          widget.note);
-                      setState(() {
-                        widget.productDetails.cartCount =
-                            (widget.productDetails.cartCount! + 1);
-                      });
-                      //cartController.itemCount++;
-                    },
-                  ),
-                ),
+                    height: 40,
+                    child: ReusableButton1(title: "Available Soon".tr)),
               )
-            : Expanded(
-                child: SizedBox(
-                  height: 40,
-                  child: ReusableButton1(
-                    title: "Got To Cart".tr,
-                    onPressed: () {
-                      widget.onCartSelected();
-                    },
+            : widget.productDetails.cartCount == 0
+                ? Expanded(
+                    child: SizedBox(
+                      height: 40,
+                      child: ReusableButton1(
+                        title: homeController.languageParam.value.addToCart,
+                        onPressed: () {
+                          cartController.addToCart(
+                              widget.productDetails.productId.toString(),
+                              widget.productDetails.storeId.toString(),
+                              widget.productDetails.offerPrice == "0.00"
+                                  ? widget.productDetails.sellingPrice
+                                  : widget.productDetails.offerPrice,
+                              "1",
+                              widget.note);
+                          setState(() {
+                            widget.productDetails.cartCount =
+                                (widget.productDetails.cartCount! + 1);
+                          });
+                          //cartController.itemCount++;
+                        },
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    child: SizedBox(
+                      height: 40,
+                      child: ReusableButton1(
+                        title: "Got To Cart".tr,
+                        onPressed: () {
+                          widget.onCartSelected();
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ),
       ],
     );
   }

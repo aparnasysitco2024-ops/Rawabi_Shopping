@@ -1,10 +1,13 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/searchResponse.dart';
 import 'package:rawabi/utils/constants.dart';
+
+import '../model/response/autoSuggestionResponse.dart';
 import '../model/response/products.dart';
 import '../utils/commonUtils.dart';
 import '../utils/http_client/base_client.dart';
@@ -15,6 +18,7 @@ class SearchResultController extends GetxController {
   var searchType = "word".obs;
   var searchString = "Search".obs;
   var searchProductList = <Products>[].obs;
+  var searchSuggestionList = <Words>[].obs;
   var searchTextController = TextEditingController();
 
   SearchResultController();
@@ -74,6 +78,45 @@ class SearchResultController extends GetxController {
       loading.value = false;
     } else {
       searchProductList.clear();
+    }
+  }
+
+  Future<void> getAutoSuggestion(String query) async {
+    if (query.length > 2) {
+      try {
+        loading.value = true;
+        var request = {"word": query};
+        var response = await BaseClient().post(autoSuggestUrl, request);
+        //loading.value = false;
+        searchSuggestionList.value = [];
+        if (response != null) {
+          var responseData =
+              AutoSuggestionResponse.fromJson(json.decode(response.toString()));
+          // print(responseData.res?.products.toString());
+          //searchProductList.clear();
+
+          if (responseData.code == "200") {
+            if (responseData.words != null) {
+              searchSuggestionList.addAll(responseData.words as List<Words>);
+            }
+            loading.value = false;
+            isLoaded = true;
+          } else {
+            searchSuggestionList.clear;
+            isLoaded = false;
+            // CommonUtils.showErrorDialog(responseData.toString());
+          }
+        } else {
+          isLoaded = false;
+        }
+      } catch (error) {
+        isLoaded = false;
+        error.printError();
+        // CommonUtils.showErrorDialog(error.toString());
+      }
+      loading.value = false;
+    } else {
+      searchSuggestionList.clear;
     }
   }
 

@@ -27,7 +27,7 @@ class Items {
     subtotal = json['subtotal'];
     deliveredBy = json['delivered_by'];
     deliveryDays = json['delivery_days'];
-    itemImage = json['itemImage'];
+    itemImage = json['item_image'];
     delete = json['delete'];
     alter = json['alter'];
   }

@@ -109,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   homeController.popUpBanners.value.bannerPoint
                                       .toString(),
+                                  "0",
                                   "0");
                             } else if (homeController
                                     .popUpBanners.value.linkType ==
@@ -117,12 +118,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   "0",
                                   homeController.popUpBanners.value.bannerPoint
-                                      .toString());
+                                      .toString(),
+                                  "0");
                             } else if (homeController
                                     .popUpBanners.value.linkType ==
                                 "product") {
                               homeController.moveToProductDetails(
                                   context,
+                                  homeController.popUpBanners.value.bannerPoint
+                                      .toString());
+                            } else if (homeController
+                                    .popUpBanners.value.linkType ==
+                                "brand") {
+                              homeController.moveToProductList(
+                                  context,
+                                  "0",
+                                  "0",
                                   homeController.popUpBanners.value.bannerPoint
                                       .toString());
                             }
@@ -395,10 +406,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: ReusableText(
                         maxLine: 1,
-                        title: homeController.storeAddress.value,
-                        // +
-                        // ", " +
-                        // homeController.storeID.value,
+                        title: homeController.storeAddress.value +
+                            ", " +
+                            homeController.storeID.value,
                         size: 11,
                         weight: FontWeight.bold,
                         color: Colors.black,
@@ -489,6 +499,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               context,
                                                               i.bannerPoint
                                                                   .toString(),
+                                                              "0",
                                                               "0");
                                                     }
                                                   } else if (i.linkType ==
@@ -499,13 +510,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               context,
                                                               "0",
                                                               i.bannerPoint
-                                                                  .toString());
+                                                                  .toString(),
+                                                              "0");
                                                     }
                                                   } else if (i.linkType ==
                                                       "product") {
                                                     homeController
                                                         .moveToProductDetails(
                                                             context,
+                                                            i.bannerPoint
+                                                                .toString());
+                                                  } else if (i.linkType ==
+                                                      "brand") {
+                                                    homeController
+                                                        .moveToProductList(
+                                                            context,
+                                                            "0",
+                                                            "0",
                                                             i.bannerPoint
                                                                 .toString());
                                                   }
@@ -677,17 +698,4 @@ class _HomeScreenState extends State<HomeScreen> {
           : SizedBox()),
     );
   }
-
-// moveToProductList(String catID, String subCatID) {
-//   Navigator.pushNamed(
-//     context,
-//     '/ProductsByCategory',
-//     arguments: {
-//       'catId': catID,
-//       'subCatId': subCatID,
-//       'subSubCatId': "0",
-//       'subSubSubCatId': "0"
-//     },
-//   );
-// }
 }

@@ -21,6 +21,7 @@ class ProductController extends GetxController {
   final homeController = Get.put(HomeController());
   final cartController = Get.put(CartController());
   var subCategoryList = <Category>[].obs;
+  var brandId = "0".obs;
   var catID = "0".obs;
   var subCatID = "0".obs;
   var subSubCatID = "0".obs;
@@ -56,6 +57,54 @@ class ProductController extends GetxController {
 
         if (responseData.code == "200") {
           catName.value = responseData.res!.category!.catName!;
+          if (responseData.res?.products != null) {
+            productList.addAll(responseData.res?.products as List<Products>);
+            if (responseData.res?.brands != null)
+              brandsList.addAll(responseData.res?.brands as List<Brands>);
+            if (responseData.res?.subcategory != null)
+              subCategoryListFilter.addAll(
+                  responseData.res?.subcategory as Iterable<Subcategory>);
+
+            if (responseData.res?.price != null)
+              price.value = responseData.res!.price!;
+          }
+
+          isLoaded = true;
+        } else {
+          isLoaded = false;
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        isLoaded = false;
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      isLoaded = false;
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> getProductsByBrand() async {
+    try {
+      if (!isLoaded) loading.value = true;
+      var request = {
+        "brandid": brandId.value,
+        "sort": sort.value,
+        "page": pageNumber.value.toString()
+      };
+      var response = await BaseClient().post(products_byBrandUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            ProductsResponse.fromJson(json.decode(response.toString()));
+        if (pageNumber.value == 1) productList.clear();
+        brandsList.clear();
+        subCategoryListFilter.clear();
+
+        if (responseData.code == "200") {
+          // catName.value = responseData.res!.category!.catName!;
           if (responseData.res?.products != null) {
             productList.addAll(responseData.res?.products as List<Products>);
             if (responseData.res?.brands != null)

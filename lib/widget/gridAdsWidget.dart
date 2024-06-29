@@ -93,14 +93,20 @@ class _GridAdsWidgetState extends State<GridAdsWidget> {
 
   onClick(int position) {
     if (widget.itemGroup!.grpImages![position].linkType == "category") {
-      widget.homeController.moveToProductList(context,
-          widget.itemGroup!.grpImages![position].bannerPoint.toString(), "0");
+      widget.homeController.moveToProductList(
+          context,
+          widget.itemGroup!.grpImages![position].bannerPoint.toString(),
+          "0",
+          "0");
     } else if (widget.itemGroup!.grpImages![position].linkType ==
         "sub_category") {
       widget.homeController.moveToProductList(context, "0",
-          widget.itemGroup!.grpImages![position].bannerPoint.toString());
+          widget.itemGroup!.grpImages![position].bannerPoint.toString(), "0");
     } else if (widget.itemGroup!.grpImages![position].linkType == "product") {
       widget.homeController.moveToProductDetails(context,
+          widget.itemGroup!.grpImages![position].bannerPoint.toString());
+    } else if (widget.itemGroup!.grpImages![position].linkType == "brand") {
+      widget.homeController.moveToProductList(context, "0", "0",
           widget.itemGroup!.grpImages![position].bannerPoint.toString());
     }
   }

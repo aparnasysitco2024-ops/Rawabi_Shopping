@@ -39,7 +39,7 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    searchController.getProductsByWordSearch(query,catID);
+    searchController.getProductsByWordSearch(query, catID);
     return Obx(() => Column(children: [
           searchController.loading.value
               ? const Flexible(
@@ -100,29 +100,30 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> suggestions = [
-      'Chicken'.tr,
-      'Oil'.tr,
-      'Soap'.tr,
-      'Fish'.tr,
-      'Sandwich'.tr
-    ];
-    return ListView.builder(
-      itemCount: 0,
-      itemBuilder: (BuildContext context, int index) {
-        final suggestion = suggestions[index];
+    if (query.length > 2) {
+      searchController.getAutoSuggestion(query);
+    } else {
+      searchController.searchSuggestionList.clear();
+    }
+    return Obx(
+      () => ListView.builder(
+        itemCount: searchController.searchSuggestionList.length,
+        itemBuilder: (BuildContext context, int index) {
+          final suggestion =
+              searchController.searchSuggestionList[index].product;
 
-        return ListTile(
-          title: Text(
-            suggestion,
-            style: TextStyle(fontSize: 15),
-          ),
-          onTap: () {
-            query = suggestion;
-            showResults(context);
-          },
-        );
-      },
+          return ListTile(
+            title: Text(
+              suggestion != null ? suggestion : "",
+              style: TextStyle(fontSize: 15),
+            ),
+            onTap: () {
+              query = suggestion!;
+              showResults(context);
+            },
+          );
+        },
+      ),
     );
   }
 }
