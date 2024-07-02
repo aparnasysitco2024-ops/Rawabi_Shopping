@@ -51,6 +51,11 @@ class StorePickupScreen extends StatelessWidget {
                           .storeList[index].storeName
                           .toString();
                       homeController.isPickup.value = true;
+                      if (homeController.storeID.value !=
+                          storePickupController.storeList[index].storeId) {
+                        homeController.clearCart();
+                      }
+
                       homeController.storeID.value =
                           storePickupController.storeList[index].storeId!;
                       homeController.getHomeData();

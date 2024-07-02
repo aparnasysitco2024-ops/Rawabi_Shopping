@@ -7,7 +7,7 @@ class CalculateFeeResponse {
 
   CalculateFeeResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
-    fee = json['fee'];
+    fee = json['fee'].toString();
     message = json['message'];
   }
 

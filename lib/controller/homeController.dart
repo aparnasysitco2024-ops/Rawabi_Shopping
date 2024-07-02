@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/languageParamResponse.dart';
 import 'package:rawabi/model/response/popupBannerResponse.dart';
 
@@ -14,8 +14,11 @@ import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 import '../utils/storage_manager.dart';
+import 'cartController.dart';
 
 class HomeController extends GetxController {
+  // final cartController = Get.put(CartController());
+
   @override
   void onInit() {
     super.onInit();
@@ -209,6 +212,27 @@ class HomeController extends GetxController {
     loading.value = false;
   }
 
+  Future<void> clearCart() async {
+    StorageManager.saveData(StorageManager.keyDefaultAddressId, "");
+    StorageManager.saveData(StorageManager.keyDefaultAddress, "");
+
+    try {
+      var response = await BaseClient().get(clearCartUrl);
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+
+        if (responseData.code == "200") {
+          final cartController = Get.put(CartController());
+          cartController.getCartList();
+        } else {}
+      }
+    } catch (error) {
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+  }
+
   Future<void> getLanguageParam(String language, String id) async {
     try {
       var params = {"id": id};
@@ -257,6 +281,9 @@ class HomeController extends GetxController {
           StorageManager.saveData(StorageManager.keyStoreLng, longitude);
 
           if (responseData.res != null && responseData.res!.isNotEmpty) {
+            if (storeID.value != responseData.res?.first?.storeid) {
+              clearCart();
+            }
             StorageManager.saveData(
                 StorageManager.keyStoreID, responseData.res?.first?.storeid);
 

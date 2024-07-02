@@ -50,6 +50,7 @@ const popupBannerUrl = '${baseURL}popupbanner';
 const order_cancelUrl = '${baseURL}order_cancel';
 const autoSuggestUrl = '${baseURL}auto_suggest';
 const products_byBrandUrl = '${baseURL}products_bybrand';
+const clearCartUrl = '${baseURL}clearcart';
 
 
 

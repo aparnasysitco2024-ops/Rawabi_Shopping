@@ -105,6 +105,10 @@ class StorePickupController extends GetxController {
             if (Get.isRegistered<HomeController>()) {
               final homeController = Get.put(HomeController());
               homeController.storeAddress.value = address;
+              if (homeController.storeID.value !=
+                  responseData.res?.first?.storeid) {
+                homeController.clearCart();
+              }
               homeController.storeID.value = responseData.res!.first!.storeid!;
               homeController.isPickup.value = false;
               homeController.getHomeData();
@@ -124,6 +128,9 @@ class StorePickupController extends GetxController {
             if (Get.isRegistered<HomeController>()) {
               final homeController = Get.put(HomeController());
               homeController.storeAddress.value = address;
+              if (homeController.storeID.value != "10") {
+                homeController.clearCart();
+              }
               homeController.storeID.value = "10";
               homeController.isPickup.value = false;
               homeController.getHomeData();
