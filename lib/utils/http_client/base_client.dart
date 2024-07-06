@@ -26,6 +26,7 @@ class BaseClient {
 
       // "Guestid": await StorageManager.readData(StorageManager.keyGuestID),
       "Lang": await StorageManager.getLanguage(),
+      "Useragent": Platform.isAndroid ? "Android" : "iOS"
     };
     log('header=$header');
     return header;
@@ -38,6 +39,7 @@ class BaseClient {
       "Guestid": await StorageManager.getGuestID(),
       "Storeid": await StorageManager.readData(StorageManager.keyStoreID),
       "Lang": await StorageManager.getLanguage(),
+      "Useragent": Platform.isAndroid ? "Android" : "iOS"
     };
     log('header=$headerDriver');
     return headerDriver;
@@ -67,7 +69,6 @@ class BaseClient {
   }
 
   Future<dynamic> post(String url_, dynamic payloadObj) async {
-
     var uri = Uri.parse(url_);
     var payload = json.encode(payloadObj);
     log('$url_ payloadObj= $payload');

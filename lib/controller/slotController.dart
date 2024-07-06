@@ -18,7 +18,9 @@ class SlotController extends GetxController {
 
   final homeController = Get.put(HomeController());
 
-  var slots = <Slot>[].obs;
+  var allSlots = <Slot>[].obs;
+  var availableSlots = <Slot>[].obs;
+  var selectedSlot = Slot().obs;
   var storeId;
   var storeLat;
 
@@ -32,7 +34,7 @@ class SlotController extends GetxController {
   Future<void> getStoreData() async {
     storeId = await StorageManager.readData(StorageManager.keyStoreID);
     // storeLat = await StorageManager.readData(StorageManager.keyStoreLat);
-    storeLat =await StorageManager.getStoreLat();
+    storeLat = await StorageManager.getStoreLat();
     storeLng = await StorageManager.readData(StorageManager.keyStoreLng);
     getSlot(storeLat.toString(), storeLng.toString());
   }
@@ -48,12 +50,22 @@ class SlotController extends GetxController {
       if (response != null) {
         var responseData =
             SlotResponse.fromJson(json.decode(response.toString()));
-        slots.clear();
+        allSlots.clear();
+        availableSlots.clear();
         if (responseData.code == "200") {
           if (responseData.res == null) {
-            slots.value = [];
+            allSlots.value = [];
+            availableSlots.value = [];
           } else {
-            slots.addAll(responseData.res?[0]?.slots as Iterable<Slot>);
+            allSlots.addAll(responseData.res?[0]?.slots as Iterable<Slot>);
+
+            allSlots.forEach(
+              (element) {
+                if (element.available!) {
+                  availableSlots.add(element);
+                }
+              },
+            );
           }
         } else {
           CommonUtils.showErrorDialog(response.message);
@@ -75,8 +87,8 @@ class SlotController extends GetxController {
       loading.value = true;
       var request = {
         "type": homeController.isExpress.value ? "Express" : "Normal",
-        "start": homeController.selectedStartTime.value,
-        "end": homeController.selectedEndTime.value,
+        "start": selectedSlot.value.starttime,
+        "end": selectedSlot.value.endtime,
         "date": homeController.selectedSlotDate.value
       };
       var response = await BaseClient().post(slotAvail, request);
@@ -85,12 +97,10 @@ class SlotController extends GetxController {
         var responseData =
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          homeController.selectedSlotID.value =
-              slots[selectedSlotIndex.toInt()].slotid!;
+          homeController.selectedSlotID.value = selectedSlot.value.slotid!;
           homeController.selectedStartTime.value =
-              slots[selectedSlotIndex.toInt()].starttime!;
-          homeController.selectedEndTime.value =
-              slots[selectedSlotIndex.toInt()].endtime!;
+              selectedSlot.value.starttime!;
+          homeController.selectedEndTime.value = selectedSlot.value.endtime!;
 
           CommonUtils().messageBox("Slot Updated Successfully");
           Get.back();

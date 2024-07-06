@@ -58,6 +58,7 @@ class StorePickupScreen extends StatelessWidget {
 
                       homeController.storeID.value =
                           storePickupController.storeList[index].storeId!;
+                      homeController.storeName.value = storePickupController.storeList[index].storeName!;
                       homeController.getHomeData();
                       Navigator.pop(context);
                     } else {

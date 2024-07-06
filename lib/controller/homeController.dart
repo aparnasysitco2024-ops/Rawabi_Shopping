@@ -1,10 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' as Mateial;
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/languageParamResponse.dart';
 import 'package:rawabi/model/response/popupBannerResponse.dart';
+import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
+import 'package:rawabi/widget/commonWidget/reusable_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/response/homeResponse.dart';
 import '../model/response/slotResponse.dart';
@@ -42,6 +47,7 @@ class HomeController extends GetxController {
   var defaultAddressId = "".obs;
   var defaultAddress = "".obs;
   var storeAddress = "".obs;
+  var storeName = "".obs;
   var storeID = "".obs;
   var userID = "0".obs;
 
@@ -72,6 +78,13 @@ class HomeController extends GetxController {
           await StorageManager.readData(StorageManager.keyDefaultAddressId);
       defaultAddress.value =
           await StorageManager.readData(StorageManager.keyDefaultAddress);
+      storeName.value =
+      await StorageManager.readData(StorageManager.keyStoreName);
+          // getSlot(
+          //     await StorageManager.readData(StorageManager.keyDefaultAddressLat),
+          //     await StorageManager.readData(StorageManager.keyDefaultAddressLng),
+          //     defaultAddress.value);
+
       //   if (defaultAddressId.value.isEmpty) {
       //     storeAddress.value =
       //         await StorageManager.readData(StorageManager.keyStoreAddress);
@@ -143,6 +156,8 @@ class HomeController extends GetxController {
             await StorageManager.readData(StorageManager.keyStoreAddress);
         storeID.value =
             await StorageManager.readData(StorageManager.keyStoreID);
+        storeName.value =
+            await StorageManager.readData(StorageManager.keyStoreName);
 
         // storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
         //     .toString();
@@ -154,6 +169,8 @@ class HomeController extends GetxController {
             await StorageManager.readData(StorageManager.keyDefaultAddress);
         storeID.value =
             await StorageManager.readData(StorageManager.keyStoreID);
+        storeName.value =
+            await StorageManager.readData(StorageManager.keyStoreName);
 
         getSlot(
             await StorageManager.readData(StorageManager.keyDefaultAddressLat),
@@ -167,6 +184,8 @@ class HomeController extends GetxController {
       storeAddress.value =
           await StorageManager.readData(StorageManager.keyStoreAddress);
       storeID.value = await StorageManager.readData(StorageManager.keyStoreID);
+      storeName.value =
+          await StorageManager.readData(StorageManager.keyStoreName);
     }
   }
 
@@ -288,13 +307,15 @@ class HomeController extends GetxController {
                 StorageManager.keyStoreID, responseData.res?.first?.storeid);
 
             StorageManager.saveData(
-                StorageManager.keyStoreID, responseData.res?.first?.storeid);
+                StorageManager.keyStoreName, responseData.res?.first?.storename);
             StorageManager.saveData(StorageManager.keyStoreAddress, address);
             StorageManager.saveData(StorageManager.keyIsPickup, false);
 
             storeAddress.value = address;
             storeID.value =
                 await StorageManager.readData(StorageManager.keyStoreID);
+            storeName.value =
+                await StorageManager.readData(StorageManager.keyStoreName);
             isPickup.value = false;
             getHomeData();
             // Navigator.pop(Get!.context);
@@ -320,5 +341,81 @@ class HomeController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+  }
+
+  Future<void> showUpdateVersionDialog(
+      BuildContext context) async {
+    Mateial.showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return PopScope(
+            onPopInvoked: (didPop) => Future.value(false),
+            canPop: false,
+            child: Mateial.AlertDialog(
+              title: new Text("New version available"),
+              content: new SingleChildScrollView(
+                child: ReusableText(
+                  title: "Please update to the latest version of the app.",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              actions: <Widget>[
+                new ReusableButton1(
+                  title: "Update",
+                  onPressed: () {
+                    _launchAppOrPlayStore();
+                  },
+                ),
+              ],
+            ));
+      },
+    );
+
+    // return Mateial.showDialog<void>(
+    //   context: context,
+    //   barrierDismissible: false,
+    //   builder: (BuildContext context) {
+    //     return Mateial.AlertDialog(
+    //       title: const Text("New version available"),
+    //       content: SingleChildScrollView(
+    //         child: ListBody(
+    //           children: <Widget>[
+    //             Text("Please update to the latest version of the app."),
+    //           ],
+    //         ),
+    //       ),
+    //       actions: <Widget>[
+    //         // A "skip" button is only shown if it's a recommended upgrade
+    //         isSkippable
+    //             ? Mateial.TextButton(
+    //           child: const Text('Skip'),
+    //           onPressed: () {
+    //           },
+    //         )
+    //             : Container(),
+    //         Mateial.TextButton(
+    //           child: const Text('Update'),
+    //           onPressed: () {
+    //             _launchAppOrPlayStore();
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
+  }
+
+  void _launchAppOrPlayStore() {
+    final appId = Platform.isAndroid ? 'com.app.rawabi' : 'com.app.alrawabi';
+    final url = Uri.parse(
+      Platform.isAndroid
+          ? "market://details?id=$appId"
+          : "https://apps.apple.com/app/id$appId",
+    );
+    launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
   }
 }

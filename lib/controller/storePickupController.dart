@@ -98,7 +98,7 @@ class StorePickupController extends GetxController {
                 StorageManager.keyStoreID, responseData.res?.first?.storeid);
 
             StorageManager.saveData(
-                StorageManager.keyStoreID, responseData.res?.first?.storeid);
+                StorageManager.keyStoreName, responseData.res?.first?.storename);
             StorageManager.saveData(StorageManager.keyStoreAddress, address);
             StorageManager.saveData(StorageManager.keyIsPickup, false);
 
@@ -110,6 +110,7 @@ class StorePickupController extends GetxController {
                 homeController.clearCart();
               }
               homeController.storeID.value = responseData.res!.first!.storeid!;
+              homeController.storeName.value = responseData.res!.first!.storename!;
               homeController.isPickup.value = false;
               homeController.getHomeData();
               Get.back();
@@ -132,6 +133,9 @@ class StorePickupController extends GetxController {
                 homeController.clearCart();
               }
               homeController.storeID.value = "10";
+              StorageManager.saveData(
+                  StorageManager.keyStoreName,"Rawabi HyperMarket Izghawa.");
+              homeController.storeName.value = "Rawabi HyperMarket Izghawa.";
               homeController.isPickup.value = false;
               homeController.getHomeData();
               Get.back();

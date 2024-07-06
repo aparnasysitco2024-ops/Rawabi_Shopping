@@ -80,14 +80,16 @@ class Slot {
   String? starttime;
   String? endtime;
   String? limit;
+  bool? available;
 
-  Slot({this.slotid, this.starttime, this.endtime, this.limit});
+  Slot({this.slotid, this.starttime, this.endtime, this.limit, this.available});
 
   Slot.fromJson(Map<String, dynamic> json) {
     slotid = json['slot_id'];
     starttime = json['start_time'];
     endtime = json['end_time'];
     limit = json['limit'];
+    available = bool.parse(json['available']);
   }
 
   Map<String, dynamic> toJson() {
@@ -96,6 +98,7 @@ class Slot {
     data['start_time'] = starttime;
     data['end_time'] = endtime;
     data['limit'] = limit;
+    data['available'] = available;
     return data;
   }
 }

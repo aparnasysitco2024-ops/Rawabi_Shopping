@@ -52,8 +52,6 @@ const autoSuggestUrl = '${baseURL}auto_suggest';
 const products_byBrandUrl = '${baseURL}products_bybrand';
 const clearCartUrl = '${baseURL}clearcart';
 
-
-
 //keys
 const token = "Rawabi_jc";
 const tokenDriver = "Rawabi_dc";

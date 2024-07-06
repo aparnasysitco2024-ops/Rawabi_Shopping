@@ -5,6 +5,7 @@ import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/utils/colors.dart';
 
 import '../../controller/slotController.dart';
+import '../../model/response/slotResponse.dart';
 import '../../widget/Commonwidget/reusable_text.dart';
 import '../../widget/commonWidget/reusable_button1.dart';
 
@@ -21,7 +22,9 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
   var selectedSlot;
 
   late int selectedDateIndex = 0;
-  late int? selectedSlotIndex = 0;
+  late int? selectedSlotIndex = null;
+
+  var displaySlots = <Slot>[];
   DateTime todayDate = DateTime.now();
   Map<int, String> weekdayName = {
     1: "MON",
@@ -52,6 +55,10 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
   @override
   Widget build(BuildContext context) {
     // slotController.getStoreData();
+    if (selectedDateIndex == 0)
+      displaySlots = slotController.availableSlots;
+    else
+      displaySlots = slotController.allSlots;
     return PopScope(
       onPopInvoked: (didPop) {
         Get.delete<SlotController>();
@@ -111,6 +118,7 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                                         if (mounted) {
                                           setState(() {
                                             selectedDateIndex = index;
+                                            selectedSlotIndex = null;
                                           });
                                         }
                                       },
@@ -193,7 +201,7 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                               size: 14,
                             ),
                             Divider(thickness: 6, color: lightGreyColor),
-                            slotController.slots.isEmpty
+                            displaySlots.isEmpty
                                 ? Column(
                                     children: [
                                       SizedBox(
@@ -215,7 +223,7 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                                       scrollDirection: Axis.vertical,
                                       padding:
                                           EdgeInsets.only(left: 16, right: 16),
-                                      itemCount: slotController.slots.length,
+                                      itemCount: displaySlots.length,
                                       itemBuilder:
                                           (BuildContext context, index) {
                                         return Padding(
@@ -226,20 +234,16 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                                                   activeColor:
                                                       (selectedSlotIndex ==
                                                                   index &&
-                                                              slotController
-                                                                      .slots[
-                                                                          index]
+                                                              displaySlots[index]
                                                                       .limit !=
                                                                   "0")
                                                           ? primaryColor
                                                           : white,
-                                                  fillColor:
-                                                      MaterialStateProperty
-                                                          .resolveWith(
-                                                              (Set states) {
+                                                  fillColor: WidgetStateProperty
+                                                      .resolveWith(
+                                                          (Set states) {
                                                     if (states.contains(
-                                                        MaterialState
-                                                            .disabled)) {
+                                                        WidgetState.disabled)) {
                                                       return white;
                                                     }
                                                     return primaryColor;
@@ -247,14 +251,18 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                                                   value: index,
                                                   groupValue: selectedSlotIndex,
                                                   onChanged: (value) {
-                                                    if (slotController
-                                                            .slots[index]
+                                                    if (displaySlots[index]
                                                             .limit !=
                                                         "0") {
                                                       if (mounted) {
                                                         setState(() {
                                                           selectedSlotIndex =
                                                               index;
+                                                          slotController
+                                                                  .selectedSlot
+                                                                  .value =
+                                                              displaySlots[
+                                                                  index];
                                                         });
                                                       }
                                                     }
@@ -264,24 +272,22 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                                               ),
                                               ReusableText(
                                                 title:
-                                                    "${slotController.slots[index].starttime} - ${slotController.slots[index].endtime}",
-                                                color: slotController
-                                                            .slots[index]
-                                                            .limit ==
-                                                        "0"
-                                                    ? grey
-                                                    : blackLight,
+                                                    "${displaySlots[index].starttime} - ${displaySlots[index].endtime}",
+                                                color:
+                                                    displaySlots[index].limit ==
+                                                            "0"
+                                                        ? grey
+                                                        : blackLight,
                                                 weight: FontWeight.w500,
                                                 size: 12,
                                               ),
                                               Spacer(),
                                               ReusableText(
-                                                title: slotController
-                                                            .slots[index]
-                                                            .limit ==
-                                                        "0"
-                                                    ? "Slot Full"
-                                                    : "",
+                                                title:
+                                                    displaySlots[index].limit ==
+                                                            "0"
+                                                        ? "Slot Full"
+                                                        : "",
                                                 color: Color(0xFFA41217),
                                                 weight: FontWeight.w700,
                                                 size: 12,
@@ -307,8 +313,9 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                             EdgeInsets.only(bottom: 30, left: 10, right: 10),
                         child: ReusableButton1(
                           onPressed: () {
-                            slotController.checkSlotAvailability(
-                                selectedSlotIndex!, selectedDateIndex);
+                            if (selectedSlotIndex != null)
+                              slotController.checkSlotAvailability(
+                                  selectedSlotIndex!, selectedDateIndex);
                           },
                           title: "Select Slot",
                         ),

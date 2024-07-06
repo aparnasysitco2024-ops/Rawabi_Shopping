@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/searchController.dart';
@@ -66,13 +67,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getPopupBanner() async {
     try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+      // String appName = packageInfo.appName;
+      // String packageName = packageInfo.packageName;
+      String version = packageInfo.version;
+      // String buildNumber = packageInfo.buildNumber;
+      print("Version:---- " + version);
+
       var response = await BaseClient().get(popupBannerUrl);
       if (response != null) {
         var responseData =
             PopupBannerResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          if (responseData.popUpBanners != null &&
+
+          if (responseData.update?.first.forceUpdate == "yes" &&
+              version != responseData.update?.first.version) {
+            //force update
+            homeController.showUpdateVersionDialog(context);
+          } else if (responseData.popUpBanners != null &&
               responseData.popUpBanners!.isNotEmpty) {
+            //popup banner
             homeController.popUpBanners.value =
                 responseData.popUpBanners!.first;
             showPopUpBannerDialog();
@@ -395,60 +410,76 @@ class _HomeScreenState extends State<HomeScreen> {
                         end: Alignment.bottomRight,
                         colors: [blue, lightBlue, pink]),
                   ),
-                  child: Row(children: [
-                    SvgPicture.asset(
-                      "assets/icons/location.svg",
-                      height: 15,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
-                      child: ReusableText(
-                        maxLine: 1,
-                        title: homeController.storeAddress.value +
-                            ", " +
-                            homeController.storeID.value,
-                        size: 11,
-                        weight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    InkWell(
-                      onTap: () =>
-                          AppUtils.navigateToPage(DeliveryModeScreen()),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(3))),
-                        child: ReusableText(
-                          title: homeController.languageParam.value.change,
-                          size: 10,
-                          color: blue,
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/location.svg",
+                          height: 15,
                         ),
-                      ),
-                    ),
-                    // const Spacer(),
-                    // Container(
-                    //   padding: const EdgeInsets.all(4),
-                    //   decoration: const BoxDecoration(
-                    //       color: Colors.white,
-                    //       borderRadius: BorderRadius.all(Radius.circular(3))),
-                    //   child: InkWell(
-                    //     onTap: () =>
-                    //         AppUtils.navigateToPage(SelectSlotScreen()),
-                    //     child: ReusableText(
-                    //       title: "Select Slot".tr,
-                    //       size: 9,
-                    //       color: blue,
-                    //     ),
-                    //   ),
-                    // ),
-                  ]),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: ReusableText(
+                                maxLine: 1,
+                                title: homeController.storeAddress.value,
+                                size: 11,
+                                weight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Expanded(
+                              child: ReusableText(
+                                maxLine: 1,
+                                title: homeController.storeName.value,
+                                size: 8,
+                                weight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: () =>
+                              AppUtils.navigateToPage(DeliveryModeScreen()),
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3))),
+                            child: ReusableText(
+                              title: homeController.languageParam.value.change,
+                              size: 10,
+                              color: blue,
+                            ),
+                          ),
+                        ),
+                        // const Spacer(),
+                        // Container(
+                        //   padding: const EdgeInsets.all(4),
+                        //   decoration: const BoxDecoration(
+                        //       color: Colors.white,
+                        //       borderRadius: BorderRadius.all(Radius.circular(3))),
+                        //   child: InkWell(
+                        //     onTap: () =>
+                        //         AppUtils.navigateToPage(SelectSlotScreen()),
+                        //     child: ReusableText(
+                        //       title: "Select Slot".tr,
+                        //       size: 9,
+                        //       color: blue,
+                        //     ),
+                        //   ),
+                        // ),
+                      ]),
                 ),
                 homeController.loading.value
                     ? Flexible(

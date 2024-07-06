@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
+    firebase();
     getLanguageData();
   }
 
@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    firebase();
+
     return Scaffold(
       body: Container(
           width: double.infinity,
@@ -162,7 +162,8 @@ class _SplashScreenState extends State<SplashScreen> {
         final fcmToken = await FirebaseMessaging.instance.getToken();
         updatePushToken(fcmToken.toString());
         print("token------------------------: " + fcmToken.toString());
-      }
+      }else
+        print("t------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;
@@ -180,7 +181,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 android: AndroidNotificationDetails(
                   channel.id,
                   channel.name,
-                  icon: android.smallIcon,
+                  icon: '@drawable/launcher_icon',
                   // other properties...
                 ),
               ));

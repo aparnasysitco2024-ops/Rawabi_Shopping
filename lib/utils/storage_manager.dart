@@ -19,6 +19,7 @@ class StorageManager {
   static String keyIsPickup = "keyIsPickup";
   static String keyStoreAddress = "keyStoreAddress";
   static String keyStoreID = "keyStoreID";
+  static String keyStoreName = "keyStoreName";
   static String keyStoreLat = "keyStoreLat";
   static String keyStoreLng = "keyStoreLng";
 

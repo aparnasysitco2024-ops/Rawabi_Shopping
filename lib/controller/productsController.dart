@@ -176,7 +176,7 @@ class ProductController extends GetxController {
         var responseData =
             ProductsResponse.fromJson(json.decode(response.toString()));
         productList.clear();
-        brandsList.clear();
+        // brandsList.clear();
 
         if (responseData.code == "200") {
           // catName.value = responseData.res!.category!.catName!;
