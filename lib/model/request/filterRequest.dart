@@ -7,16 +7,18 @@ class FilterRequest {
   String? subcatid;
   String? subSubcatid;
   String? subSubSubcatid;
+  String? selectedTopCategoryID;
 
   FilterRequest(
       {this.brand,
-        this.min,
-        this.price,
-        this.variables,
-        this.catid,
-        this.subcatid,
-        this.subSubcatid,
-        this.subSubSubcatid});
+      this.min,
+      this.price,
+      this.variables,
+      this.catid,
+      this.subcatid,
+      this.subSubcatid,
+      this.subSubSubcatid,
+      this.selectedTopCategoryID});
 
   FilterRequest.fromJson(Map<String, dynamic> json) {
     brand = json['brand'];

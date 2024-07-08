@@ -98,16 +98,23 @@ class imageDesign1 extends StatelessWidget {
                   onTap: () {
                     if (i.linkType == "category") {
                       homeController.moveToProductList(
-                          context, i.bannerPoint.toString(), "0", "0");
+                          context, i.bannerPoint.toString(), "0", "0", "0");
                     } else if (i.linkType == "sub_category") {
+                      homeController.moveToProductList(context,
+                          i.cat.toString(), i.bannerPoint.toString(), "0", "0");
+                    } else if (i.linkType == "sub_sub_category") {
                       homeController.moveToProductList(
-                          context, "0", i.bannerPoint.toString(), "0");
+                          context,
+                          i.cat.toString(),
+                          i.subcat.toString(),
+                          i.bannerPoint.toString(),
+                          "0");
                     } else if (i.linkType == "product") {
                       homeController.moveToProductDetails(
                           context, i.bannerPoint.toString());
                     } else if (i.linkType == "brand") {
                       homeController.moveToProductList(
-                          context, "0", "0", i.bannerPoint.toString());
+                          context, "0", "0", "0", i.bannerPoint.toString());
                     }
                   },
                   child: Padding(
@@ -154,16 +161,23 @@ class imageDesign2 extends StatelessWidget {
               onTap: () {
                 if (i.linkType == "category") {
                   homeController.moveToProductList(
-                      context, i.bannerPoint.toString(), "0", "0");
+                      context, i.bannerPoint.toString(), "0", "0","0");
                 } else if (i.linkType == "sub_category") {
                   homeController.moveToProductList(
-                      context, "0", i.bannerPoint.toString(), "0");
+                      context, i.cat.toString(), i.bannerPoint.toString(),"0", "0");
+                }else if (i.linkType == "sub_sub_category") {
+                  homeController.moveToProductList(
+                      context,
+                      i.cat.toString(),
+                      i.subcat.toString(),
+                      i.bannerPoint.toString(),
+                      "0");
                 } else if (i.linkType == "product") {
                   homeController.moveToProductDetails(
                       context, i.bannerPoint.toString());
                 } else if (i.linkType == "brand") {
                   homeController.moveToProductList(
-                      context, "0", "0", i.bannerPoint.toString());
+                      context, "0", "0","0", i.bannerPoint.toString());
                 }
               },
               child: Padding(
@@ -209,16 +223,23 @@ class imageDesign3 extends StatelessWidget {
               onTap: () {
                 if (i.linkType == "category") {
                   homeController.moveToProductList(
-                      context, i.bannerPoint.toString(), "0","0");
+                      context, i.bannerPoint.toString(), "0", "0","0");
                 } else if (i.linkType == "sub_category") {
                   homeController.moveToProductList(
-                      context, "0", i.bannerPoint.toString(),"0");
-                }  else if (i.linkType == "product") {
+                      context, i.cat.toString(), i.bannerPoint.toString(),"0", "0");
+                }else if (i.linkType == "sub_sub_category") {
+                  homeController.moveToProductList(
+                      context,
+                      i.cat.toString(),
+                      i.subcat.toString(),
+                      i.bannerPoint.toString(),
+                      "0");
+                } else if (i.linkType == "product") {
                   homeController.moveToProductDetails(
                       context, i.bannerPoint.toString());
                 } else if (i.linkType == "brand") {
                   homeController.moveToProductList(
-                      context, "0", "0", i.bannerPoint.toString());
+                      context, "0", "0","0", i.bannerPoint.toString());
                 }
               },
               child: Padding(

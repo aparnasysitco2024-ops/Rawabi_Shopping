@@ -23,6 +23,7 @@ class MainCategoryItem extends StatelessWidget {
           },
         );
 
+
         /*AppUtils.navigateToPage(ProductsByCategory(
           catID: category.catId,
         ));*/

@@ -31,6 +31,8 @@ class ProductController extends GetxController {
   var price = Price().obs;
   var pageNumber = 1.obs;
   bool isOffer = false;
+  var topSelectedCatId = "0".obs;
+  var topSelectedCategoryTypeID =category;
 
   ProductController({this.isOffer = false});
 
@@ -138,8 +140,17 @@ class ProductController extends GetxController {
     try {
       // loading.value = true;
       subCategoryList.clear();
+      String id = "";
+      if (subSubSubCatID.value != "0")
+        id = subSubSubCatID.value;
+      else if (subSubCatID.value != "0")
+        id = subSubCatID.value;
+      else if (subCatID.value != "0")
+        id = subCatID.value;
+      else
+        id = catID.value;
 
-      var request = {"catid": subSubCatID.value};
+      var request = {"catid": id};
       var response = await BaseClient().post(subcategoryUrl, request);
       if (response != null) {
         var responseData =
@@ -149,7 +160,23 @@ class ProductController extends GetxController {
           subCategoryList.addAll(responseData.res!.category as List<Category>);
 
           if (subCategoryList.isNotEmpty) {
-            subSubSubCatID.value = subCategoryList[0].catId.toString();
+            if (catID.value == "0") {
+              catID.value = subCategoryList[0].catId.toString();
+              topSelectedCatId.value = catID.value;
+              topSelectedCategoryTypeID =category;
+            } else if (subCatID.value == "0") {
+              subCatID.value = subCategoryList[0].catId.toString();
+              topSelectedCatId.value = subCatID.value;
+              topSelectedCategoryTypeID =subCategory;
+            } else if (subSubCatID.value == "0") {
+              subSubCatID.value = subCategoryList[0].catId.toString();
+              topSelectedCatId.value = subSubCatID.value;
+              topSelectedCategoryTypeID =subSubCategory;
+            } else if (subSubSubCatID.value == "0") {
+              subSubSubCatID.value = subCategoryList[0].catId.toString();
+              topSelectedCatId.value = subSubSubCatID.value;
+              topSelectedCategoryTypeID =subSubSubCategory;
+            }
           }
 
           getProductsByCat();

@@ -119,14 +119,14 @@ class HomeController extends GetxController {
   }
 
   moveToProductList(
-      BuildContext context, String catID, String subCatID, String brandID) {
+      BuildContext context, String catID, String subCatID,String subSubCatID, String brandID) {
     Navigator.pushNamed(
       context,
       '/ProductsByCategory',
       arguments: {
         'catId': catID,
         'subCatId': subCatID,
-        'subSubCatId': "0",
+        'subSubCatId': subSubCatID,
         'subSubSubCatId': "0",
         'brandId': brandID,
       },

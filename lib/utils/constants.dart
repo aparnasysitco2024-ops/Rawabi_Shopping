@@ -57,3 +57,8 @@ const token = "Rawabi_jc";
 const tokenDriver = "Rawabi_dc";
 const API_KEY = "AIzaSyA-4hm6OP4VY9_Lr_LkxLpGDvlUvLFKV8I";
 const productItemHeight = 280.0;
+
+const category = "category";
+const subCategory = "subCategory";
+const subSubCategory = "subSubCategory";
+const subSubSubCategory = "subSubSubCategory";

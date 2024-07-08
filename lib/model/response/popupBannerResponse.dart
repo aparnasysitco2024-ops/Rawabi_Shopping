@@ -41,6 +41,9 @@ class PopUpBanners {
   String? bannerPoint;
   String? bannerType;
   String? bannerImage;
+  String? cat;
+  String? subcat;
+  String? subsubcat;
 
   PopUpBanners(
       {this.bannerId,
@@ -48,7 +51,10 @@ class PopUpBanners {
         this.linkType,
         this.bannerPoint,
         this.bannerType,
-        this.bannerImage});
+        this.bannerImage,
+        this.cat,
+        this.subcat,
+        this.subsubcat});
 
   PopUpBanners.fromJson(Map<String, dynamic> json) {
     bannerId = json['banner_id'];
@@ -57,6 +63,9 @@ class PopUpBanners {
     bannerPoint = json['banner_point'];
     bannerType = json['banner_type'];
     bannerImage = json['banner_image'];
+    cat = json['cat'];
+    subcat = json['subcat'];
+    subsubcat = json['subsubcat'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +76,9 @@ class PopUpBanners {
     data['banner_point'] = this.bannerPoint;
     data['banner_type'] = this.bannerType;
     data['banner_image'] = this.bannerImage;
+    data['cat'] = cat;
+    data['subcat'] = subcat;
+    data['subsubcat'] = subsubcat;
     return data;
   }
 }

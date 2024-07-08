@@ -110,6 +110,9 @@ class Slider {
   String? bannerPoint;
   String? bannerImage;
   String? banner_type;
+  String? cat;
+  String? subcat;
+  String? subsubcat;
 
   Slider(
       {this.bannerId,
@@ -117,7 +120,10 @@ class Slider {
       this.linkType,
       this.bannerPoint,
       this.bannerImage,
-      this.banner_type});
+      this.banner_type,
+      this.cat,
+      this.subcat,
+      this.subsubcat});
 
   Slider.fromJson(Map<String, dynamic> json) {
     bannerId = json['banner_id'];
@@ -126,6 +132,9 @@ class Slider {
     bannerPoint = json['banner_point'];
     bannerImage = json['banner_image'];
     banner_type = json['banner_type'];
+    cat = json['cat'];
+    subcat = json['subcat'];
+    subsubcat = json['subsubcat'];
   }
 
   Map<String, dynamic> toJson() {
@@ -136,6 +145,9 @@ class Slider {
     data['banner_point'] = bannerPoint;
     data['banner_image'] = bannerImage;
     data['banner_type'] = banner_type;
+    data['cat'] = cat;
+    data['subcat'] = subcat;
+    data['subsubcat'] = subsubcat;
     return data;
   }
 }
@@ -218,13 +230,25 @@ class GrpImages {
   String? image;
   String? linkType;
   String? bannerPoint;
+  String? cat;
+  String? subcat;
+  String? subsubcat;
 
-  GrpImages({this.image, this.linkType, this.bannerPoint});
+  GrpImages(
+      {this.image,
+      this.linkType,
+      this.bannerPoint,
+      this.cat,
+      this.subcat,
+      this.subsubcat});
 
   GrpImages.fromJson(Map<String, dynamic> json) {
     image = json['image'];
     linkType = json['link_type'];
     bannerPoint = json['banner_point'];
+    cat = json['cat'];
+    subcat = json['subcat'];
+    subsubcat = json['subsubcat'];
   }
 
   Map<String, dynamic> toJson() {
@@ -232,6 +256,9 @@ class GrpImages {
     data['image'] = this.image;
     data['link_type'] = this.linkType;
     data['banner_point'] = this.bannerPoint;
+    data['cat'] = cat;
+    data['subcat'] = subcat;
+    data['subsubcat'] = subsubcat;
     return data;
   }
 }

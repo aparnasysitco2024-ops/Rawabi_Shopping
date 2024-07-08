@@ -4,7 +4,6 @@ import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/account/ourStoreScreen.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/emptyScreen.dart';
-import 'package:rawabi/screen/home/flayerListScreen.dart';
 import 'package:rawabi/screen/home/notificationListScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
@@ -165,99 +164,99 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 96,
-                    color: white,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF142158),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        Positioned(
-                          right: 10,
-                          child: Opacity(
-                            opacity: 0.32,
-                            child: Container(
-                              width: 80,
-                              height: 80,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      primaryColor,
-                                      Colors.transparent,
-                                      pink
-                                    ]),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 24,
-                          top: 14,
-                          right: 24,
-                          child: InkWell(
-                            onTap: () =>
-                                AppUtils.navigateToPage(FlayerListScreen()),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  "assets/images/promotion.png",
-                                  fit: BoxFit.fill,
-                                  width: 72,
-                                  height: 52,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      ReusableText(
-                                          title: homeController.languageParam
-                                              .value.ourLatestDealsHere,
-                                          size: 14,
-                                          color: white,
-                                          weight: FontWeight.bold),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(width: 5,),
-                                Container(
-                                  height: 22,
-                                  width: 48,
-                                  margin: const EdgeInsets.only(right: 16),
-                                  padding: const EdgeInsets.all(4),
-                                  decoration: const BoxDecoration(
-                                      color: primaryColor,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(3))),
-                                  child: Center(
-                                    child: ReusableText(
-                                      title: homeController
-                                          .languageParam.value.view,
-                                      size: 10,
-                                      color: white,
-                                      weight: FontWeight.w600,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   height: 96,
+                  //   color: white,
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                  //   child: Stack(
+                  //     children: [
+                  //       Container(
+                  //         padding: const EdgeInsets.only(left: 10, right: 10),
+                  //         height: 80,
+                  //         decoration: BoxDecoration(
+                  //           color: const Color(0xFF142158),
+                  //           borderRadius: BorderRadius.circular(10),
+                  //         ),
+                  //       ),
+                  //       Positioned(
+                  //         right: 10,
+                  //         child: Opacity(
+                  //           opacity: 0.32,
+                  //           child: Container(
+                  //             width: 80,
+                  //             height: 80,
+                  //             decoration: const BoxDecoration(
+                  //               gradient: LinearGradient(
+                  //                   begin: Alignment.topLeft,
+                  //                   end: Alignment.bottomRight,
+                  //                   colors: [
+                  //                     primaryColor,
+                  //                     Colors.transparent,
+                  //                     pink
+                  //                   ]),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Positioned(
+                  //         left: 24,
+                  //         top: 14,
+                  //         right: 24,
+                  //         child: InkWell(
+                  //           onTap: () =>
+                  //               AppUtils.navigateToPage(FlayerListScreen()),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Image.asset(
+                  //                 "assets/images/promotion.png",
+                  //                 fit: BoxFit.fill,
+                  //                 width: 72,
+                  //                 height: 52,
+                  //               ),
+                  //               Expanded(
+                  //                 child: Column(
+                  //                   mainAxisAlignment:
+                  //                       MainAxisAlignment.spaceBetween,
+                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     ReusableText(
+                  //                         title: homeController.languageParam
+                  //                             .value.ourLatestDealsHere,
+                  //                         size: 14,
+                  //                         color: white,
+                  //                         weight: FontWeight.bold),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               SizedBox(width: 5,),
+                  //               Container(
+                  //                 height: 22,
+                  //                 width: 48,
+                  //                 margin: const EdgeInsets.only(right: 16),
+                  //                 padding: const EdgeInsets.all(4),
+                  //                 decoration: const BoxDecoration(
+                  //                     color: primaryColor,
+                  //                     borderRadius:
+                  //                         BorderRadius.all(Radius.circular(3))),
+                  //                 child: Center(
+                  //                   child: ReusableText(
+                  //                     title: homeController
+                  //                         .languageParam.value.view,
+                  //                     size: 10,
+                  //                     color: white,
+                  //                     weight: FontWeight.w600,
+                  //                   ),
+                  //                 ),
+                  //               )
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Container(
                     color: white,
                     padding:

@@ -80,9 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
         var responseData =
             PopupBannerResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-
           if (responseData.update?.first.forceUpdate == "yes" &&
-              version != responseData.update?.first.version) {
+              getExtendedVersionNumber(version) <
+                  getExtendedVersionNumber(
+                      responseData.update!.first.version.toString())) {
             //force update
             homeController.showUpdateVersionDialog(context);
           } else if (responseData.popUpBanners != null &&
@@ -97,6 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (error) {
       error.printError();
     }
+  }
+
+  int getExtendedVersionNumber(String version) {
+    List versionCells = version.split('.');
+    versionCells = versionCells.map((i) => int.parse(i)).toList();
+    return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
   }
 
   Future<dynamic> showPopUpBannerDialog() async {
@@ -125,13 +132,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                   homeController.popUpBanners.value.bannerPoint
                                       .toString(),
                                   "0",
+                                  "0",
                                   "0");
                             } else if (homeController
                                     .popUpBanners.value.linkType ==
                                 "sub_category") {
                               homeController.moveToProductList(
                                   context,
+                                  homeController.popUpBanners.value.cat
+                                      .toString(),
+                                  homeController.popUpBanners.value.bannerPoint
+                                      .toString(),
                                   "0",
+                                  "0");
+                            } else if (homeController
+                                    .popUpBanners.value.linkType ==
+                                "sub_sub_category") {
+                              homeController.moveToProductList(
+                                  context,
+                                  homeController.popUpBanners.value.cat
+                                      .toString(),
+                                  homeController.popUpBanners.value.subcat
+                                      .toString(),
                                   homeController.popUpBanners.value.bannerPoint
                                       .toString(),
                                   "0");
@@ -147,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "brand") {
                               homeController.moveToProductList(
                                   context,
+                                  "0",
                                   "0",
                                   "0",
                                   homeController.popUpBanners.value.bannerPoint
@@ -423,6 +446,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(
+                              height: 3,
+                            ),
                             Expanded(
                               child: ReusableText(
                                 maxLine: 1,
@@ -435,7 +461,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Expanded(
                               child: ReusableText(
                                 maxLine: 1,
-                                title: homeController.storeName.value,
+                                title:
+                                    "(" + homeController.storeName.value + ")",
                                 size: 8,
                                 weight: FontWeight.bold,
                                 color: Colors.black,
@@ -531,6 +558,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               i.bannerPoint
                                                                   .toString(),
                                                               "0",
+                                                              "0",
                                                               "0");
                                                     }
                                                   } else if (i.linkType ==
@@ -539,7 +567,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       homeController
                                                           .moveToProductList(
                                                               context,
+                                                              i.cat.toString(),
+                                                              i.bannerPoint
+                                                                  .toString(),
                                                               "0",
+                                                              "0");
+                                                    }
+                                                  } else if (i.linkType ==
+                                                      "sub_sub_category") {
+                                                    if (i.bannerPoint != "0") {
+                                                      homeController
+                                                          .moveToProductList(
+                                                              context,
+                                                              i.cat.toString(),
+                                                              i.subcat
+                                                                  .toString(),
                                                               i.bannerPoint
                                                                   .toString(),
                                                               "0");
@@ -556,6 +598,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     homeController
                                                         .moveToProductList(
                                                             context,
+                                                            "0",
                                                             "0",
                                                             "0",
                                                             i.bannerPoint

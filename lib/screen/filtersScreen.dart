@@ -8,12 +8,13 @@ import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../controller/homeController.dart';
 import '../model/request/filterRequest.dart';
+import '../model/response/categoryResponse.dart';
 import '../model/response/productsResponse.dart';
 import '../widget/commonwidget/reusable_button1.dart';
 
 class FiltersScreen extends StatefulWidget {
   List<Brands> brandList;
-  List<Subcategory> subCategoryListFilter;
+  List<Category> subCategoryListFilter;
   Price price;
   List<String> selectedBrands = [];
   FilterRequest filterRequest = FilterRequest();
@@ -22,14 +23,17 @@ class FiltersScreen extends StatefulWidget {
   var maxController = TextEditingController();
   var minAmount = 0;
   var maxAmount = 200;
+  var selectedTopCategoryID = "0";
   RangeValues currentRangeValues = RangeValues(0, 200);
   final homeController = Get.put(HomeController());
+
   FiltersScreen(
       {super.key,
       required this.brandList,
       required this.selectedItem,
       required this.subCategoryListFilter,
-      required this.price});
+      required this.price,
+      required this.selectedTopCategoryID});
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -85,7 +89,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
                           children: [
                             Center(
                               child: ReusableText(
-                                title: widget.homeController.languageParam.value.filters,
+                                title: widget
+                                    .homeController.languageParam.value.filters,
                                 size: 18,
                                 weight: FontWeight.bold,
                                 textAlign: TextAlign.left,
@@ -124,32 +129,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     if (mounted) {
-                          //       setState(() {
-                          //         selectedIndex = 0;
-                          //         _controller.jumpToPage(0);
-                          //       });
-                          //     }
-                          //   },
-                          //   child: Container(
-                          //     alignment: Alignment.centerLeft,
-                          //     height: 50,
-                          //     width: 90,
-                          //     decoration: BoxDecoration(
-                          //       color: selectedIndex == 0 ? white : silver,
-                          //       border:
-                          //           Border.all(color: lightGreyColor, width: 1),
-                          //     ),
-                          //     child: Padding(
-                          //       padding: EdgeInsets.only(left: 15),
-                          //       child: ReusableText(
-                          //         title: "Category".tr,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                           GestureDetector(
                             onTap: () {
                               if (mounted) {
@@ -171,7 +150,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: widget.homeController.languageParam.value.brand,
+                                  title: "Category".tr,
                                 ),
                               ),
                             ),
@@ -197,7 +176,35 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 15),
                                 child: ReusableText(
-                                  title: widget.homeController.languageParam.value.price,
+                                  title: widget
+                                      .homeController.languageParam.value.brand,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (mounted) {
+                                setState(() {
+                                  selectedIndex = 2;
+                                  _controller.jumpToPage(2);
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              height: 50,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                color: selectedIndex == 2 ? white : silver,
+                                border:
+                                    Border.all(color: lightGreyColor, width: 1),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: ReusableText(
+                                  title: widget
+                                      .homeController.languageParam.value.price,
                                 ),
                               ),
                             ),
@@ -210,23 +217,36 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         child: PageView(
                           onPageChanged: (value) {
                             setState(() {
-                              selectedIndex=value;
+                              selectedIndex = value;
                             });
                           },
                           controller: _controller,
                           children: [
-                            // ListView.builder(
-                            //     padding: const EdgeInsets.only(top: 0),
-                            //     physics: const BouncingScrollPhysics(),
-                            //     shrinkWrap: true,
-                            //     itemCount: widget.subCategoryListFilter.length,
-                            //     itemBuilder: (BuildContext context, int index) {
-                            //       return ProductTypeFilterTile(
-                            //         title: widget.subCategoryListFilter[index].subcatName.toString(),
-                            //         isChecked: false,
-                            //         checked: (bool) {},
-                            //       );
-                            //     }),
+                            ListView.builder(
+                                padding: const EdgeInsets.only(top: 0),
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: widget.subCategoryListFilter.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ProductTypeFilterTile(
+                                    title: widget
+                                        .subCategoryListFilter[index].catName
+                                        .toString(),
+                                    isChecked: widget
+                                            .subCategoryListFilter[index]
+                                            .catId ==
+                                        widget.selectedTopCategoryID,
+                                    checked: (bool) {
+                                      if (bool) {
+                                        setState(() {
+                                          widget.selectedTopCategoryID = widget
+                                              .subCategoryListFilter[index]
+                                              .catId!;
+                                        });
+                                      }
+                                    },
+                                  );
+                                }),
                             ListView.builder(
                                 padding: const EdgeInsets.only(top: 0),
                                 physics: const BouncingScrollPhysics(),
@@ -263,7 +283,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        widget.homeController.languageParam.value.choosePriceRange.toString(),
+                                        widget.homeController.languageParam
+                                            .value.choosePriceRange
+                                            .toString(),
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 14,
@@ -289,7 +311,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                                 widget.maxAmount.toString();
                                           });
                                         },
-                                        title: widget.homeController.languageParam.value.reset,
+                                        title: widget.homeController
+                                            .languageParam.value.reset,
                                         size: Size(48, 22),
                                         fontSize: 10,
                                       ),
@@ -318,7 +341,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                           ),
                                         ),
                                       ),
-                                     SizedBox(width: 10,),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
                                       Expanded(
                                         child: Container(
                                           alignment: Alignment.centerLeft,
@@ -348,7 +373,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        widget.homeController.languageParam.value.min.toString(),
+                                        widget.homeController.languageParam
+                                            .value.min
+                                            .toString(),
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 10,
@@ -356,7 +383,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                         ),
                                       ),
                                       Text(
-                                        widget.homeController.languageParam.value.max.toString(),
+                                        widget.homeController.languageParam
+                                            .value.max
+                                            .toString(),
                                         style: const TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 10,
@@ -422,7 +451,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             backgroundColor: white,
                             txtColor: blackLight,
                             size: const Size(160, 44),
-                            title: widget.homeController.languageParam.value.clear,
+                            title:
+                                widget.homeController.languageParam.value.clear,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             isOutlineButton: true,
@@ -446,11 +476,15 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               widget.filterRequest.price =
                                   widget.maxController.text;
 
+                              widget.filterRequest.selectedTopCategoryID =
+                                  widget.selectedTopCategoryID;
+
                               widget.selectedItem(widget.filterRequest);
                               Navigator.of(context).pop(context);
                             },
                             size: const Size(200, 44),
-                            title: widget.homeController.languageParam.value.apply,
+                            title:
+                                widget.homeController.languageParam.value.apply,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),

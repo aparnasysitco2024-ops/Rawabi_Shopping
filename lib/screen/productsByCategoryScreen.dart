@@ -53,6 +53,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
           productController.getProductsByBrand();
         else if (productController.subSubCatID.value != "0")
           productController.getSubCategory();
+        else if (productController.catID.value != "0")
+          productController.getSubCategory();
         else
           productController.getProductsByCat();
       });
@@ -224,11 +226,43 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                               productController.subSubCatID.value;
                           filterRequest.subSubSubcatid =
                               productController.subSubSubCatID.value;
+                          productController.topSelectedCatId.value =
+                              filterRequest.selectedTopCategoryID!;
+
+                          if (productController.topSelectedCategoryTypeID ==
+                              category) {
+                            filterRequest.catid =
+                                filterRequest.selectedTopCategoryID;
+                          } else if (productController
+                                  .topSelectedCategoryTypeID ==
+                              subCategory) {
+                            productController.subCatID.value =
+                                productController.topSelectedCatId.value;
+                            filterRequest.subcatid =
+                                filterRequest.selectedTopCategoryID;
+                          } else if (productController
+                                  .topSelectedCategoryTypeID ==
+                              subSubCategory) {
+                            productController.subSubCatID.value =
+                                productController.topSelectedCatId.value;
+                            filterRequest.subSubcatid =
+                                filterRequest.selectedTopCategoryID;
+                          } else if (productController
+                                  .topSelectedCategoryTypeID ==
+                              subSubSubCategory) {
+                            productController.subSubSubCatID.value =
+                                productController.topSelectedCatId.value;
+                            filterRequest.subSubSubcatid =
+                                filterRequest.selectedTopCategoryID;
+                          }
+
                           productController.getFilterData(filterRequest);
                         },
                         brandList: productController.brandsList,
                         subCategoryListFilter:
-                            productController.subCategoryListFilter,
+                            productController.subCategoryList,
+                        selectedTopCategoryID:
+                            productController.topSelectedCatId.value,
                       ));
                     },
                     child: Row(
@@ -316,16 +350,42 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: productController
-                                                .subSubSubCatID.value ==
+                                                .topSelectedCatId.value ==
                                             productController
                                                 .subCategoryList[index].catId
                                         ? [blue, lightBlue, pink]
                                         : [silver, silver, silver]),
                                 onTap: () {
                                   productController.isLoaded = false;
-                                  productController.subSubSubCatID.value =
+                                  productController.topSelectedCatId.value =
                                       productController
                                           .subCategoryList[index].catId!;
+                                  if (productController
+                                          .topSelectedCategoryTypeID ==
+                                      category) {
+                                    productController.catID.value =
+                                        productController
+                                            .topSelectedCatId.value;
+                                  } else if (productController
+                                          .topSelectedCategoryTypeID ==
+                                      subCategory) {
+                                    productController.subCatID.value =
+                                        productController
+                                            .topSelectedCatId.value;
+                                  } else if (productController
+                                          .topSelectedCategoryTypeID ==
+                                      subSubCategory) {
+                                    productController.subSubCatID.value =
+                                        productController
+                                            .topSelectedCatId.value;
+                                  } else if (productController
+                                          .topSelectedCategoryTypeID ==
+                                      subSubSubCategory) {
+                                    productController.subSubSubCatID.value =
+                                        productController
+                                            .topSelectedCatId.value;
+                                  }
+
                                   productController.subCategoryList.refresh();
                                   productController.pageNumber.value = 1;
                                   productController.getProductsByCat();
@@ -370,8 +430,11 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                     productController.pageNumber.value + 1;
                                 if (productController.brandId.value != "0")
                                   productController.getProductsByBrand();
-                                else if (productController.subSubCatID.value != "0")
-                                  productController.getSubCategory();
+                                // else if (productController.subSubCatID.value !=
+                                //     "0")
+                                //   productController.getSubCategory();
+                                // else if (productController.catID.value != "0")
+                                //   productController.getSubCategory();
                                 else
                                   productController.getProductsByCat();
                               },
