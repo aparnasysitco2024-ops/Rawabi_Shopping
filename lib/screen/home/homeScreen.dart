@@ -443,37 +443,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           width: 5,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Expanded(
-                              child: ReusableText(
-                                maxLine: 1,
-                                title: homeController.storeAddress.value,
-                                size: 11,
-                                weight: FontWeight.bold,
-                                color: Colors.black,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 3,
                               ),
-                            ),
-                            Expanded(
-                              child: ReusableText(
-                                maxLine: 1,
-                                title:
-                                    "(" + homeController.storeName.value + ")",
-                                size: 8,
-                                weight: FontWeight.bold,
-                                color: Colors.black,
+                              Expanded(
+                                child: ReusableText(
+                                  maxLine: 1,
+                                  title: homeController.storeAddress.value,
+                                  size: 11,
+                                  weight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                          ],
+                              Expanded(
+                                child: ReusableText(
+                                  maxLine: 1,
+                                  title:
+                                      "(" + homeController.storeName.value + ")",
+                                  size: 8,
+                                  weight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           width: 5,
                         ),
-                        Spacer(),
                         InkWell(
                           onTap: () =>
                               AppUtils.navigateToPage(DeliveryModeScreen()),
@@ -704,8 +705,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: Image.asset(
-                                          'assets/images/ads2.png')),
+                                      child: ClipRRect(borderRadius:BorderRadius.all(Radius.circular(10)) ,
+                                        child: Image.asset(fit: BoxFit.cover,
+                                            'assets/images/flayer.jpg'),
+                                      )),
                                 ),
                                 const SizedBox(
                                   height: 10,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -90,60 +91,14 @@ class StorePickupController extends GetxController {
         var responseData =
             SlotResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          StorageManager.saveData(StorageManager.keyStoreLat, latitude);
-          StorageManager.saveData(StorageManager.keyStoreLng, longitude);
-
-          if (responseData.res != null && responseData.res!.isNotEmpty) {
-            StorageManager.saveData(
-                StorageManager.keyStoreID, responseData.res?.first?.storeid);
-
-            StorageManager.saveData(
-                StorageManager.keyStoreName, responseData.res?.first?.storename);
-            StorageManager.saveData(StorageManager.keyStoreAddress, address);
-            StorageManager.saveData(StorageManager.keyIsPickup, false);
-
-            if (Get.isRegistered<HomeController>()) {
-              final homeController = Get.put(HomeController());
-              homeController.storeAddress.value = address;
-              if (homeController.storeID.value !=
-                  responseData.res?.first?.storeid) {
-                homeController.clearCart();
-              }
-              homeController.storeID.value = responseData.res!.first!.storeid!;
-              homeController.storeName.value = responseData.res!.first!.storename!;
-              homeController.isPickup.value = false;
-              homeController.getHomeData();
-              Get.back();
-              // Navigator.pop(Get!.context);
-            } else {
-              AppUtils.navigateToPageRemoveUntil(BottomNavBar());
-            }
-          } else {
-            // StorageManager.saveData(
-            //     StorageManager.keyStoreID, responseData.res?.first?.storeid);
-
-            StorageManager.saveData(StorageManager.keyStoreID, "10");
-            StorageManager.saveData(StorageManager.keyStoreAddress, address);
-            StorageManager.saveData(StorageManager.keyIsPickup, false);
-
-            if (Get.isRegistered<HomeController>()) {
-              final homeController = Get.put(HomeController());
-              homeController.storeAddress.value = address;
-              if (homeController.storeID.value != "10") {
-                homeController.clearCart();
-              }
-              homeController.storeID.value = "10";
-              StorageManager.saveData(
-                  StorageManager.keyStoreName,"Rawabi HyperMarket Izghawa.");
-              homeController.storeName.value = "Rawabi HyperMarket Izghawa.";
-              homeController.isPickup.value = false;
-              homeController.getHomeData();
-              Get.back();
-              // Navigator.pop(Get!.context);
-            } else {
-              AppUtils.navigateToPageRemoveUntil(BottomNavBar());
-            }
-          }
+          if (Get.isRegistered<HomeController>()) {
+            final homeController = Get.put(HomeController());
+            if (homeController.storeID != responseData.res?.first?.storeid) {
+              showCartClearDialog(latitude, longitude, address, responseData);
+            } else
+              slotSuccess(latitude, longitude, address, responseData);
+          } else
+            slotSuccess(latitude, longitude, address, responseData);
         } else {
           CommonUtils.showErrorDialog(response.message);
         }
@@ -154,5 +109,88 @@ class StorePickupController extends GetxController {
       CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+  }
+
+  void slotSuccess(
+      String latitude, String longitude, String address, var responseData) {
+    StorageManager.saveData(StorageManager.keyStoreLat, latitude);
+    StorageManager.saveData(StorageManager.keyStoreLng, longitude);
+
+    if (responseData.res != null && responseData.res!.isNotEmpty) {
+      StorageManager.saveData(
+          StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+      StorageManager.saveData(
+          StorageManager.keyStoreName, responseData.res?.first?.storename);
+      StorageManager.saveData(StorageManager.keyStoreAddress, address);
+      StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+      if (Get.isRegistered<HomeController>()) {
+        final homeController = Get.put(HomeController());
+        homeController.storeAddress.value = address;
+        if (homeController.storeID.value != responseData.res?.first?.storeid) {
+          homeController.clearCart();
+        }
+        homeController.storeID.value = responseData.res!.first!.storeid!;
+        homeController.storeName.value = responseData.res!.first!.storename!;
+        homeController.isPickup.value = false;
+        homeController.getHomeData();
+        Get.back();
+        // Navigator.pop(Get!.context);
+      } else {
+        AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+      }
+    } else {
+      // StorageManager.saveData(
+      //     StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+      StorageManager.saveData(StorageManager.keyStoreID, "10");
+      StorageManager.saveData(StorageManager.keyStoreAddress, address);
+      StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+      if (Get.isRegistered<HomeController>()) {
+        final homeController = Get.put(HomeController());
+        homeController.storeAddress.value = address;
+        if (homeController.storeID.value != "10") {
+          homeController.clearCart();
+        }
+        homeController.storeID.value = "10";
+        StorageManager.saveData(
+            StorageManager.keyStoreName, "Rawabi HyperMarket Izghawa.");
+        homeController.storeName.value = "Rawabi HyperMarket Izghawa.";
+        homeController.isPickup.value = false;
+        homeController.getHomeData();
+        Get.back();
+        // Navigator.pop(Get!.context);
+      } else {
+        AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+      }
+    }
+  }
+
+  Future<bool> showCartClearDialog(String latitude, String longitude,
+      String address, var responseData) async {
+    return (await showDialog(
+          context: Get.context!,
+          builder: (context) => AlertDialog(
+            content: Text(
+                'This action may clear your cart. Do you want to continue?'.tr),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                //<-- SEE HERE
+                child: Text('No'.tr),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  slotSuccess(latitude, longitude, address, responseData);
+                }, // <-- SEE HERE
+                child: Text('Yes'.tr),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 }
