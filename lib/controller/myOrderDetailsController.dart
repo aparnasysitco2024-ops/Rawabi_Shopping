@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/myorder/myOrderResponse.dart';
 import 'package:rawabi/screen/myOrder/myOrdersTabScreen.dart';
@@ -62,13 +63,41 @@ class MyOrderDetailController extends GetxController {
       var response = await BaseClient().post(order_cancelUrl, request);
       loading.value = false;
       if (response != null) {
-        myOrderList.clear();
         var responseData =
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           CommonUtils().messageBox(responseData.message.toString());
           // getMyOrderDetail("Processing");
           AppUtils.navigateToPageReplace(MyOrdersTabScreen());
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> reOrder() async {
+    try {
+      loading.value = true;
+      var request = {
+        "order_id": myOrder.orderid,
+      };
+      var response = await BaseClient().post(reOrderUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          CommonUtils().messageBox(responseData.message.toString());
+          final cartController = Get.put(CartController());
+          cartController.getCartList();
+          Get.back();
+          Get.back();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

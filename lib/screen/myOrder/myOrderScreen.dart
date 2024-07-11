@@ -41,17 +41,17 @@ class MyOrderScreen extends StatelessWidget {
                       height: 5,
                     ))
             : SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset("assets/icons/logo.svg"),
-            ReusableText(
-              title: "No orders!!".tr,
-            )
-          ]),
-    ));
+                width: double.infinity,
+                height: double.infinity,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset("assets/icons/logo.svg"),
+                      ReusableText(
+                        title: "No orders!!".tr,
+                      )
+                    ]),
+              ));
   }
 }

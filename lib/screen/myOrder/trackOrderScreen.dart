@@ -481,11 +481,12 @@ class TrackOrderScreen extends StatelessWidget {
                                               ),
                                         Row(
                                           children: [
-                                            trackOrderController.status.value
-                                                        .delivering ==
-                                                    "yes"
-                                                ? Checking()
-                                                : trackOrderController.status
+                                            // trackOrderController.status.value
+                                            //             .delivering ==
+                                            //         "yes"
+                                            //     ? Checking()
+                                            //     :
+                                            trackOrderController.status
                                                             .value.delivered ==
                                                         "yes"
                                                     ? Checked()

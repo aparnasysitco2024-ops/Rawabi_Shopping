@@ -89,8 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (responseData.popUpBanners != null &&
               responseData.popUpBanners!.isNotEmpty) {
             //popup banner
-            homeController.popUpBanners.value =
-                responseData.popUpBanners!.first;
+            homeController.popUpBannersList.value = responseData.popUpBanners!;
             showPopUpBannerDialog();
           }
         }
@@ -120,82 +119,144 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Stack(
                     children: [
                       Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: InkWell(
-                          onTap: () {
-                            Get.back();
-                            if (homeController.popUpBanners.value.linkType ==
-                                "category") {
-                              homeController.moveToProductList(
-                                  context,
-                                  homeController.popUpBanners.value.bannerPoint
-                                      .toString(),
-                                  "0",
-                                  "0",
-                                  "0");
-                            } else if (homeController
-                                    .popUpBanners.value.linkType ==
-                                "sub_category") {
-                              homeController.moveToProductList(
-                                  context,
-                                  homeController.popUpBanners.value.cat
-                                      .toString(),
-                                  homeController.popUpBanners.value.bannerPoint
-                                      .toString(),
-                                  "0",
-                                  "0");
-                            } else if (homeController
-                                    .popUpBanners.value.linkType ==
-                                "sub_sub_category") {
-                              homeController.moveToProductList(
-                                  context,
-                                  homeController.popUpBanners.value.cat
-                                      .toString(),
-                                  homeController.popUpBanners.value.subcat
-                                      .toString(),
-                                  homeController.popUpBanners.value.bannerPoint
-                                      .toString(),
-                                  "0");
-                            } else if (homeController
-                                    .popUpBanners.value.linkType ==
-                                "product") {
-                              homeController.moveToProductDetails(
-                                  context,
-                                  homeController.popUpBanners.value.bannerPoint
-                                      .toString());
-                            } else if (homeController
-                                    .popUpBanners.value.linkType ==
-                                "brand") {
-                              homeController.moveToProductList(
-                                  context,
-                                  "0",
-                                  "0",
-                                  "0",
-                                  homeController.popUpBanners.value.bannerPoint
-                                      .toString());
-                            }
-                          },
-                          child: CachedNetworkImage(
-                            imageUrl: homeController
-                                .popUpBanners.value.bannerImage
-                                .toString(),
-                            placeholder: (context, url) => Center(
-                                child: new CircularProgressIndicator(
-                              color: primaryColor,
-                            )),
-                            errorWidget: (context, url, error) =>
-                                new Image.asset('assets/images/logo.png'),
-                            fit: BoxFit.contain,
-                          ),
-                          // FadeInImage.assetNetwork(
-                          //     fit: BoxFit.contain,
-                          //     placeholder: 'assets/images/logo.png',
-                          //     image: homeController
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: FlutterCarousel(
+                            options: CarouselOptions(
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              viewportFraction: 1,
+                              showIndicator: true,
+                            ),
+                            items: homeController.popUpBannersList.map((i) {
+                              return InkWell(
+                                onTap: () {
+                                  Get.back();
+                                  if (i.linkType == "category") {
+                                    homeController.moveToProductList(
+                                        context,
+                                        i.bannerPoint.toString(),
+                                        "0",
+                                        "0",
+                                        "0");
+                                  } else if (i.linkType == "sub_category") {
+                                    homeController.moveToProductList(
+                                        context,
+                                        i.cat.toString(),
+                                        i.bannerPoint.toString(),
+                                        "0",
+                                        "0");
+                                  } else if (i.linkType == "sub_sub_category") {
+                                    homeController.moveToProductList(
+                                        context,
+                                        i.cat.toString(),
+                                        i.subcat.toString(),
+                                        i.bannerPoint.toString(),
+                                        "0");
+                                  } else if (i.linkType == "product") {
+                                    homeController.moveToProductDetails(
+                                        context, i.bannerPoint.toString());
+                                  } else if (i.linkType == "brand") {
+                                    homeController.moveToProductList(
+                                        context,
+                                        "0",
+                                        "0",
+                                        "0",
+                                        i.bannerPoint.toString());
+                                  }
+                                },
+                                child: Builder(
+                                  builder: (BuildContext context) {
+                                    return CachedNetworkImage(
+                                        fit: BoxFit.fill,
+                                        placeholder: (context, url) => Center(
+                                                child:
+                                                    new CircularProgressIndicator(
+                                              color: primaryColor,
+                                            )),
+                                        imageUrl: i.bannerImage.toString());
+                                    // return FadeInImage.assetNetwork(
+                                    //     placeholder: 'assets/images/logo.png',
+                                    //     image: i.bannerImage.toString());
+                                  },
+                                ),
+                              );
+                            }).toList(),
+                          )
+                          // InkWell(
+                          //   onTap: () {
+                          //     Get.back();
+                          //     if (homeController.popUpBanners.value.linkType ==
+                          //         "category") {
+                          //       homeController.moveToProductList(
+                          //           context,
+                          //           homeController.popUpBanners.value.bannerPoint
+                          //               .toString(),
+                          //           "0",
+                          //           "0",
+                          //           "0");
+                          //     } else if (homeController
+                          //             .popUpBanners.value.linkType ==
+                          //         "sub_category") {
+                          //       homeController.moveToProductList(
+                          //           context,
+                          //           homeController.popUpBanners.value.cat
+                          //               .toString(),
+                          //           homeController.popUpBanners.value.bannerPoint
+                          //               .toString(),
+                          //           "0",
+                          //           "0");
+                          //     } else if (homeController
+                          //             .popUpBanners.value.linkType ==
+                          //         "sub_sub_category") {
+                          //       homeController.moveToProductList(
+                          //           context,
+                          //           homeController.popUpBanners.value.cat
+                          //               .toString(),
+                          //           homeController.popUpBanners.value.subcat
+                          //               .toString(),
+                          //           homeController.popUpBanners.value.bannerPoint
+                          //               .toString(),
+                          //           "0");
+                          //     } else if (homeController
+                          //             .popUpBanners.value.linkType ==
+                          //         "product") {
+                          //       homeController.moveToProductDetails(
+                          //           context,
+                          //           homeController.popUpBanners.value.bannerPoint
+                          //               .toString());
+                          //     } else if (homeController
+                          //             .popUpBanners.value.linkType ==
+                          //         "brand") {
+                          //       homeController.moveToProductList(
+                          //           context,
+                          //           "0",
+                          //           "0",
+                          //           "0",
+                          //           homeController.popUpBanners.value.bannerPoint
+                          //               .toString());
+                          //     }
+                          //   },
+                          //   child: CachedNetworkImage(
+                          //     imageUrl: homeController
                           //         .popUpBanners.value.bannerImage
-                          //         .toString()),
-                        ),
-                      ),
+                          //         .toString(),
+                          //     placeholder: (context, url) => Center(
+                          //         child: new CircularProgressIndicator(
+                          //       color: primaryColor,
+                          //     )),
+                          //     errorWidget: (context, url, error) =>
+                          //         new Image.asset('assets/images/logo.png'),
+                          //     fit: BoxFit.contain,
+                          //   ),
+                          //   // FadeInImage.assetNetwork(
+                          //   //     fit: BoxFit.contain,
+                          //   //     placeholder: 'assets/images/logo.png',
+                          //   //     image: homeController
+                          //   //         .popUpBanners.value.bannerImage
+                          //   //         .toString()),
+                          // ),
+                          ),
                       Align(
                           alignment: Alignment.topRight,
                           child: Padding(
@@ -209,7 +270,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textColor: Colors.black,
                                   width: 70.0,
                                   onTap: () {
-                                    print("Skip");
                                     // AppUtils.navigateToPageReplace(
                                     //      BottomNavBar());
                                     Get.back();
@@ -462,8 +522,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Expanded(
                                 child: ReusableText(
                                   maxLine: 1,
-                                  title:
-                                      "(" + homeController.storeName.value + ")",
+                                  title: "(" +
+                                      homeController.storeName.value +
+                                      ")",
                                   size: 8,
                                   weight: FontWeight.bold,
                                   color: Colors.black,
@@ -705,8 +766,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: ClipRRect(borderRadius:BorderRadius.all(Radius.circular(10)) ,
-                                        child: Image.asset(fit: BoxFit.cover,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        child: Image.asset(
+                                            fit: BoxFit.cover,
                                             'assets/images/flayer.jpg'),
                                       )),
                                 ),

@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/searchResponse.dart';
 import 'package:rawabi/utils/constants.dart';
+import 'package:rawabi/utils/storage_manager.dart';
 
 import '../model/response/autoSuggestionResponse.dart';
 import '../model/response/products.dart';
@@ -19,13 +19,25 @@ class SearchResultController extends GetxController {
   var searchString = "Search".obs;
   var searchProductList = <Products>[].obs;
   var searchSuggestionList = <Words>[].obs;
+  var searchSuggestionCategoryList = <Categories>[].obs;
   var searchTextController = TextEditingController();
+  var recentSearch = <String>[].obs;
 
   SearchResultController();
 
   @override
   onInit() async {
     super.onInit();
+
+    var recentSearchData =
+        await StorageManager.readData(StorageManager.keyRecentSearch);
+
+    if (recentSearchData.isNotEmpty) recentSearch.clear();
+    recentSearchData.split(",").forEach(
+      (element) {
+        recentSearch.add(element);
+      },
+    );
   }
 
   Future<void> scanBarcodeNormal() async {
@@ -42,7 +54,7 @@ class SearchResultController extends GetxController {
     await getProductsByBarcodeSearch();
   }
 
-  Future<void> getProductsByWordSearch(String query, catID) async {
+  Future<void> getProductsByWordSearch(String query, String catID) async {
     if (query.isNotEmpty) {
       try {
         loading.value = true;
@@ -81,14 +93,15 @@ class SearchResultController extends GetxController {
     }
   }
 
-  Future<void> getAutoSuggestion(String query) async {
+  Future<void> getAutoSuggestion(String query, String catID) async {
     if (query.length > 2) {
       try {
         loading.value = true;
-        var request = {"word": query};
+        var request = {"word": query, "catid": catID};
         var response = await BaseClient().post(autoSuggestUrl, request);
         //loading.value = false;
-        searchSuggestionList.value = [];
+        searchSuggestionList.clear();
+        searchSuggestionCategoryList.clear();
         if (response != null) {
           var responseData =
               AutoSuggestionResponse.fromJson(json.decode(response.toString()));
@@ -99,10 +112,27 @@ class SearchResultController extends GetxController {
             if (responseData.words != null) {
               searchSuggestionList.addAll(responseData.words as List<Words>);
             }
+            if (responseData.categories != null) {
+              searchSuggestionCategoryList
+                  .addAll(responseData.categories as List<Categories>);
+            }
+            if (responseData.recentWords != null) {
+              StorageManager.saveData(
+                  StorageManager.keyRecentSearch, responseData.recentWords);
+
+              var splitList = responseData.recentWords!.split(",");
+              recentSearch.clear();
+              splitList.forEach(
+                (element) {
+                  recentSearch.add(element);
+                },
+              );
+            }
             loading.value = false;
             isLoaded = true;
           } else {
             searchSuggestionList.clear;
+            searchSuggestionCategoryList.clear;
             isLoaded = false;
             // CommonUtils.showErrorDialog(responseData.toString());
           }
@@ -117,6 +147,7 @@ class SearchResultController extends GetxController {
       loading.value = false;
     } else {
       searchSuggestionList.clear;
+      searchSuggestionCategoryList.clear();
     }
   }
 

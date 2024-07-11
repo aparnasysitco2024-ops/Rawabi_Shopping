@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
 import '../../controller/searchController.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
@@ -10,6 +11,7 @@ import '../../widget/productItem.dart';
 class MySearchDelegate extends SearchDelegate {
   var searchController = Get.put(SearchResultController());
   var catID;
+  var searchCatID = "";
 
   MySearchDelegate({this.catID = ""});
 
@@ -21,6 +23,13 @@ class MySearchDelegate extends SearchDelegate {
   @override
   TextStyle? get searchFieldStyle {
     return TextStyle(fontSize: 15.0);
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context).copyWith(
+      scaffoldBackgroundColor: Colors.white,
+    );
   }
 
   @override
@@ -39,7 +48,7 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    searchController.getProductsByWordSearch(query, catID);
+    searchController.getProductsByWordSearch(query, searchCatID);
     return Obx(() => Column(children: [
           searchController.loading.value
               ? const Flexible(
@@ -100,29 +109,197 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    searchCatID = catID;
     if (query.length > 2) {
-      searchController.getAutoSuggestion(query);
+      searchController.getAutoSuggestion(query, catID);
     } else {
       searchController.searchSuggestionList.clear();
+      searchController.searchSuggestionCategoryList.clear();
     }
     return Obx(
-      () => ListView.builder(
-        itemCount: searchController.searchSuggestionList.length,
-        itemBuilder: (BuildContext context, int index) {
-          final suggestion =
-              searchController.searchSuggestionList[index].product;
-
-          return ListTile(
-            title: Text(
-              suggestion != null ? suggestion : "",
-              style: TextStyle(fontSize: 15),
+      () => SingleChildScrollView(
+        child: Column(
+          children: [
+            searchController.searchSuggestionCategoryList.isEmpty &&
+                    searchController.searchSuggestionList.isEmpty
+                ? ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: searchController.recentSearch.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          query = searchController.recentSearch[index];
+                          showResults(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 45,
+                                    height: 45,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: SvgPicture.asset(
+                                        'assets/icons/search.svg',
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Flexible(
+                                    child: ReusableText(
+                                      title:
+                                          searchController.recentSearch[index],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(
+                                height: 0.5,
+                                thickness: 0.5,
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : SizedBox(),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: searchController.searchSuggestionCategoryList.length,
+              itemBuilder: (BuildContext context, int index) {
+                // final suggestion =
+                //     searchController.searchSuggestionCategoryList[index].product;
+                //
+                return InkWell(
+                  onTap: () {
+                    // searchController.getProductsByWordSearch(query, searchController.searchSuggestionCategoryList[index].categoryId);
+                    // query = suggestion!;
+                    searchCatID = searchController
+                        .searchSuggestionCategoryList[index].categoryId!;
+                    showResults(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 45,
+                              height: 45,
+                              child: Image.asset(
+                                'assets/images/logo.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ReusableText(
+                                    title: query,
+                                  ),
+                                  ReusableText(
+                                    color: primaryColor,
+                                    title: searchController
+                                        .searchSuggestionCategoryList[index]
+                                        .categoryName,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Divider(
+                          height: 0.5,
+                          thickness: 0.5,
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-            onTap: () {
-              query = suggestion!;
-              showResults(context);
-            },
-          );
-        },
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: searchController.searchSuggestionList.length,
+              itemBuilder: (BuildContext context, int index) {
+                final suggestion =
+                    searchController.searchSuggestionList[index].product;
+
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/ProductDetailsScreen',
+                      arguments: {
+                        'productID': searchController
+                            .searchSuggestionList[index].productId,
+                      },
+                    );
+                    // searchController.getProductsByWordSearch(suggestion!, catID);
+                    // query = suggestion!;
+                    // showResults(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: FadeInImage.assetNetwork(
+                                  fit: BoxFit.cover,
+                                  placeholder: 'assets/images/logo.png',
+                                  image: searchController
+                                      .searchSuggestionList[index].image
+                                      .toString()),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Flexible(
+                              child: ReusableText(
+                                title: suggestion,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Divider(
+                          height: 0.5,
+                          thickness: 0.5,
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

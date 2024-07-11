@@ -162,8 +162,9 @@ class _SplashScreenState extends State<SplashScreen> {
         final fcmToken = await FirebaseMessaging.instance.getToken();
         updatePushToken(fcmToken.toString());
         print("token------------------------: " + fcmToken.toString());
-      }else
-        print("t------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
+      }
+      // else
+        // print("t------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;

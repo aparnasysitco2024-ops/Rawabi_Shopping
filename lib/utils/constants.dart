@@ -51,6 +51,8 @@ const order_cancelUrl = '${baseURL}order_cancel';
 const autoSuggestUrl = '${baseURL}auto_suggest';
 const products_byBrandUrl = '${baseURL}products_bybrand';
 const clearCartUrl = '${baseURL}clearcart';
+const reOrderUrl = '${baseURL}reOrder';
+
 
 //keys
 const token = "Rawabi_jc";

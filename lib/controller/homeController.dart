@@ -57,7 +57,7 @@ class HomeController extends GetxController {
   var languageParam = LanguageParam().obs;
   var languageParamString = "";
   var storeLat, storeLng;
-  var popUpBanners = PopUpBanners().obs;
+  var popUpBannersList = <PopUpBanners>[].obs;
   bool isPopUpLoaded = false;
   bool isSavedAddressSlotLoaded = false;
 
@@ -79,11 +79,11 @@ class HomeController extends GetxController {
       defaultAddress.value =
           await StorageManager.readData(StorageManager.keyDefaultAddress);
       storeName.value =
-      await StorageManager.readData(StorageManager.keyStoreName);
-          // getSlot(
-          //     await StorageManager.readData(StorageManager.keyDefaultAddressLat),
-          //     await StorageManager.readData(StorageManager.keyDefaultAddressLng),
-          //     defaultAddress.value);
+          await StorageManager.readData(StorageManager.keyStoreName);
+      // getSlot(
+      //     await StorageManager.readData(StorageManager.keyDefaultAddressLat),
+      //     await StorageManager.readData(StorageManager.keyDefaultAddressLng),
+      //     defaultAddress.value);
 
       //   if (defaultAddressId.value.isEmpty) {
       //     storeAddress.value =
@@ -118,8 +118,8 @@ class HomeController extends GetxController {
     }
   }
 
-  moveToProductList(
-      BuildContext context, String catID, String subCatID,String subSubCatID, String brandID) {
+  moveToProductList(BuildContext context, String catID, String subCatID,
+      String subSubCatID, String brandID) {
     Navigator.pushNamed(
       context,
       '/ProductsByCategory',
@@ -306,8 +306,8 @@ class HomeController extends GetxController {
             StorageManager.saveData(
                 StorageManager.keyStoreID, responseData.res?.first?.storeid);
 
-            StorageManager.saveData(
-                StorageManager.keyStoreName, responseData.res?.first?.storename);
+            StorageManager.saveData(StorageManager.keyStoreName,
+                responseData.res?.first?.storename);
             StorageManager.saveData(StorageManager.keyStoreAddress, address);
             StorageManager.saveData(StorageManager.keyIsPickup, false);
 
@@ -343,8 +343,7 @@ class HomeController extends GetxController {
     loading.value = false;
   }
 
-  Future<void> showUpdateVersionDialog(
-      BuildContext context) async {
+  Future<void> showUpdateVersionDialog(BuildContext context) async {
     Mateial.showDialog(
       barrierDismissible: false,
       context: context,

@@ -7,7 +7,9 @@ import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 
 class MyOrdersTabScreen extends StatefulWidget {
-   MyOrdersTabScreen({super.key});
+
+  MyOrdersTabScreen({super.key});
+
   final homeController = Get.put(HomeController());
 
   @override
@@ -44,7 +46,8 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                         children: [
                           Center(
                             child: ReusableText(
-                              title: widget.homeController.languageParam.value.myOrders,
+                              title: widget
+                                  .homeController.languageParam.value.myOrders,
                               size: 18,
                               weight: FontWeight.bold,
                               textAlign: TextAlign.left,
@@ -67,7 +70,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                         ],
                       ),
                     ),
-                     // SearchOrdersWidget(hintText: widget.homeController.languageParam.value.searchOrders,),
+                    // SearchOrdersWidget(hintText: widget.homeController.languageParam.value.searchOrders,),
                     const Divider(
                       thickness: 1,
                       color: lightGreyColor,
@@ -86,7 +89,8 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: widget.homeController.languageParam.value.orders,
+                                title: widget
+                                    .homeController.languageParam.value.orders,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -95,7 +99,8 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: widget.homeController.languageParam.value.delivered,
+                                title: widget.homeController.languageParam.value
+                                    .delivered,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -104,7 +109,8 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: widget.homeController.languageParam.value.cancelled,
+                                title: widget.homeController.languageParam.value
+                                    .cancelled,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -113,7 +119,8 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
-                                title: widget.homeController.languageParam.value.returns,
+                                title: widget
+                                    .homeController.languageParam.value.returns,
                                 size: 13,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
@@ -133,10 +140,18 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      MyOrderScreen(status: "Processing",),
-                      MyOrderScreen(status: "Delivered",),
-                      MyOrderScreen(status: "Cancelled",),
-                      MyOrderScreen(status: "Return",),
+                      MyOrderScreen(
+                        status: "Processing",
+                      ),
+                      MyOrderScreen(
+                        status: "Delivered",
+                      ),
+                      MyOrderScreen(
+                        status: "Cancelled",
+                      ),
+                      MyOrderScreen(
+                        status: "Return",
+                      ),
                     ],
                   ),
                 ),

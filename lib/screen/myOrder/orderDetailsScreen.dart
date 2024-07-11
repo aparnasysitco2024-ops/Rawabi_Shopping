@@ -17,7 +17,8 @@ class OrderDetailsScreen extends StatelessWidget {
 
   final myOrderDetailController = Get.put(MyOrderDetailController());
 
-  OrderDetailsScreen({super.key, required this.orderid});
+  OrderDetailsScreen(
+      {super.key, required this.orderid});
 
   Future<dynamic> cancelOrderDialog(BuildContext context) async {
     return (showDialog(
@@ -68,7 +69,8 @@ class OrderDetailsScreen extends StatelessWidget {
                               if (myOrderDetailController
                                   .reasonController.value.text.isNotEmpty) {
                                 Get.back();
-                                myOrderDetailController.cancelOrder();
+                                myOrderDetailController
+                                    .cancelOrder();
                               } else {
                                 CommonUtils().messageBox(
                                     "Please enter the cancellation reason");
@@ -208,33 +210,46 @@ class OrderDetailsScreen extends StatelessWidget {
                                               )
                                             : SizedBox(),
                                         const Spacer(),
-                                        GestureDetector(
-                                          onTap: () {
-                                            AppUtils.navigateToPage(
-                                                TrackOrderScreen(
-                                              myOrder: myOrderDetailController
-                                                  .myOrder,
-                                              id: orderid.toString(),
-                                            ));
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 30,
-                                            width: 125,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 3, vertical: 2),
-                                            decoration: const BoxDecoration(
-                                                color: pink,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(100))),
-                                            child: ReusableText(
-                                              title: "Track Your Order".tr,
-                                              color: primaryColor,
-                                              size: 12,
-                                              weight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        )
+                                        myOrderDetailController
+                                                        .myOrder.status ==
+                                                    "Ondelivery" ||
+                                                myOrderDetailController
+                                                        .myOrder.status ==
+                                                    "Processing"
+                                            ? SizedBox(
+                                                width: 140,
+                                                height: 30,
+                                                child: ReusableButton1(
+                                                  onPressed: () {
+                                                    AppUtils.navigateToPage(
+                                                        TrackOrderScreen(
+                                                      myOrder:
+                                                          myOrderDetailController
+                                                              .myOrder,
+                                                      id: orderid.toString(),
+                                                    ));
+                                                  },
+                                                  fontSize: 12,
+                                                  title: "Track Your Order".tr,
+                                                ))
+                                            : SizedBox(),
+                                        myOrderDetailController
+                                                        .myOrder.status ==
+                                                    "Delivered" ||
+                                                myOrderDetailController
+                                                        .myOrder.status ==
+                                                    "Cancelled"
+                                            ? SizedBox(
+                                                width: 100,
+                                                height: 30,
+                                                child: ReusableButton1(
+                                                  onPressed: () =>
+                                                      myOrderDetailController
+                                                          .reOrder(),
+                                                  fontSize: 12,
+                                                  title: "Re Order".tr,
+                                                ))
+                                            : SizedBox()
                                       ],
                                     ),
                                   )
