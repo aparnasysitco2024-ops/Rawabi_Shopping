@@ -123,11 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: double.infinity,
                           child: FlutterCarousel(
                             options: CarouselOptions(
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              viewportFraction: 1,
-                              showIndicator: true,
-                            ),
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                enlargeCenterPage: true,
+                                viewportFraction: 1,
+                                showIndicator: true,
+                                height: double.infinity),
                             items: homeController.popUpBannersList.map((i) {
                               return InkWell(
                                 onTap: () {
@@ -138,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         i.bannerPoint.toString(),
                                         "0",
                                         "0",
+                                        "0",
                                         "0");
                                   } else if (i.linkType == "sub_category") {
                                     homeController.moveToProductList(
@@ -145,12 +147,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         i.cat.toString(),
                                         i.bannerPoint.toString(),
                                         "0",
+                                        "0",
                                         "0");
                                   } else if (i.linkType == "sub_sub_category") {
                                     homeController.moveToProductList(
                                         context,
                                         i.cat.toString(),
                                         i.subcat.toString(),
+                                        i.bannerPoint.toString(),
+                                        "0",
+                                        "0");
+                                  } else if (i.linkType ==
+                                      "sub_sub_sub_category") {
+                                    homeController.moveToProductList(
+                                        context,
+                                        i.cat.toString(),
+                                        i.subcat.toString(),
+                                        i.subsubcat.toString(),
                                         i.bannerPoint.toString(),
                                         "0");
                                   } else if (i.linkType == "product") {
@@ -162,101 +175,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "0",
                                         "0",
                                         "0",
+                                        "0",
                                         i.bannerPoint.toString());
                                   }
                                 },
                                 child: Builder(
                                   builder: (BuildContext context) {
                                     return CachedNetworkImage(
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.contain,
+                                        height: double.infinity,
+                                        width: double.infinity,
                                         placeholder: (context, url) => Center(
                                                 child:
                                                     new CircularProgressIndicator(
                                               color: primaryColor,
                                             )),
                                         imageUrl: i.bannerImage.toString());
-                                    // return FadeInImage.assetNetwork(
-                                    //     placeholder: 'assets/images/logo.png',
-                                    //     image: i.bannerImage.toString());
                                   },
                                 ),
                               );
                             }).toList(),
-                          )
-                          // InkWell(
-                          //   onTap: () {
-                          //     Get.back();
-                          //     if (homeController.popUpBanners.value.linkType ==
-                          //         "category") {
-                          //       homeController.moveToProductList(
-                          //           context,
-                          //           homeController.popUpBanners.value.bannerPoint
-                          //               .toString(),
-                          //           "0",
-                          //           "0",
-                          //           "0");
-                          //     } else if (homeController
-                          //             .popUpBanners.value.linkType ==
-                          //         "sub_category") {
-                          //       homeController.moveToProductList(
-                          //           context,
-                          //           homeController.popUpBanners.value.cat
-                          //               .toString(),
-                          //           homeController.popUpBanners.value.bannerPoint
-                          //               .toString(),
-                          //           "0",
-                          //           "0");
-                          //     } else if (homeController
-                          //             .popUpBanners.value.linkType ==
-                          //         "sub_sub_category") {
-                          //       homeController.moveToProductList(
-                          //           context,
-                          //           homeController.popUpBanners.value.cat
-                          //               .toString(),
-                          //           homeController.popUpBanners.value.subcat
-                          //               .toString(),
-                          //           homeController.popUpBanners.value.bannerPoint
-                          //               .toString(),
-                          //           "0");
-                          //     } else if (homeController
-                          //             .popUpBanners.value.linkType ==
-                          //         "product") {
-                          //       homeController.moveToProductDetails(
-                          //           context,
-                          //           homeController.popUpBanners.value.bannerPoint
-                          //               .toString());
-                          //     } else if (homeController
-                          //             .popUpBanners.value.linkType ==
-                          //         "brand") {
-                          //       homeController.moveToProductList(
-                          //           context,
-                          //           "0",
-                          //           "0",
-                          //           "0",
-                          //           homeController.popUpBanners.value.bannerPoint
-                          //               .toString());
-                          //     }
-                          //   },
-                          //   child: CachedNetworkImage(
-                          //     imageUrl: homeController
-                          //         .popUpBanners.value.bannerImage
-                          //         .toString(),
-                          //     placeholder: (context, url) => Center(
-                          //         child: new CircularProgressIndicator(
-                          //       color: primaryColor,
-                          //     )),
-                          //     errorWidget: (context, url, error) =>
-                          //         new Image.asset('assets/images/logo.png'),
-                          //     fit: BoxFit.contain,
-                          //   ),
-                          //   // FadeInImage.assetNetwork(
-                          //   //     fit: BoxFit.contain,
-                          //   //     placeholder: 'assets/images/logo.png',
-                          //   //     image: homeController
-                          //   //         .popUpBanners.value.bannerImage
-                          //   //         .toString()),
-                          // ),
-                          ),
+                          )),
                       Align(
                           alignment: Alignment.topRight,
                           child: Padding(
@@ -600,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           enableInfiniteScroll: true,
                                           enlargeCenterPage: true,
                                           viewportFraction: 0.8,
-                                          height: 170.0,
+                                          height: 140.0,
                                           showIndicator: false,
                                           slideIndicator:
                                               const CircularSlideIndicator(),
@@ -621,6 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   .toString(),
                                                               "0",
                                                               "0",
+                                                              "0",
                                                               "0");
                                                     }
                                                   } else if (i.linkType ==
@@ -633,6 +573,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               i.bannerPoint
                                                                   .toString(),
                                                               "0",
+                                                              "0",
                                                               "0");
                                                     }
                                                   } else if (i.linkType ==
@@ -643,6 +584,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               context,
                                                               i.cat.toString(),
                                                               i.subcat
+                                                                  .toString(),
+                                                              i.bannerPoint
+                                                                  .toString(),
+                                                              "0",
+                                                              "0");
+                                                    }
+                                                  } else if (i.linkType ==
+                                                      "sub_sub_sub_category") {
+                                                    if (i.bannerPoint != "0") {
+                                                      homeController
+                                                          .moveToProductList(
+                                                              context,
+                                                              i.cat.toString(),
+                                                              i.subcat
+                                                                  .toString(),
+                                                              i.subsubcat
                                                                   .toString(),
                                                               i.bannerPoint
                                                                   .toString(),
@@ -660,6 +617,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     homeController
                                                         .moveToProductList(
                                                             context,
+                                                            "0",
                                                             "0",
                                                             "0",
                                                             "0",

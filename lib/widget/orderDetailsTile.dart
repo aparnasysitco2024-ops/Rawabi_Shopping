@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/utils/colors.dart';
+import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusableNetworkImage.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
+import '../controller/myOrderDetailsController.dart';
 import '../model/response/myorder/items.dart';
 import '../model/response/myorder/myOrderResponse.dart';
 
@@ -11,6 +13,7 @@ import '../model/response/myorder/myOrderResponse.dart';
 class OrderDetailsTile extends StatelessWidget {
   Items items;
   Orders myOrder;
+  final myOrderDetailController = Get.put(MyOrderDetailController());
 
   OrderDetailsTile({super.key, required this.items, required this.myOrder});
 
@@ -110,6 +113,31 @@ class OrderDetailsTile extends StatelessWidget {
                   size: 10,
                   weight: FontWeight.w600,
                 ),
+                myOrder.status == "Delivered" && items.returnEligible == 1
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            height: 5,
+                            width: double.infinity,
+                          ),
+                          Container(
+                            width: 70,
+                            height: 25,
+                            margin: EdgeInsets.only(right: 10, left: 10),
+                            child: ReusableButton1(
+                              onPressed: () =>
+                                  myOrderDetailController.returnItem(
+                                      items.itemId.toString(),
+                                      items.detailId.toString()),
+                              title: "Return".tr,
+                              fontSize: 10,
+                            ),
+                          )
+                        ],
+                      )
+                    : SizedBox()
               ],
             ),
           ),

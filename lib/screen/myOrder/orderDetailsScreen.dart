@@ -17,8 +17,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
   final myOrderDetailController = Get.put(MyOrderDetailController());
 
-  OrderDetailsScreen(
-      {super.key, required this.orderid});
+  OrderDetailsScreen({super.key, required this.orderid});
 
   Future<dynamic> cancelOrderDialog(BuildContext context) async {
     return (showDialog(
@@ -69,8 +68,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               if (myOrderDetailController
                                   .reasonController.value.text.isNotEmpty) {
                                 Get.back();
-                                myOrderDetailController
-                                    .cancelOrder();
+                                myOrderDetailController.cancelOrder();
                               } else {
                                 CommonUtils().messageBox(
                                     "Please enter the cancellation reason");
@@ -210,29 +208,25 @@ class OrderDetailsScreen extends StatelessWidget {
                                               )
                                             : SizedBox(),
                                         const Spacer(),
-                                        myOrderDetailController
-                                                        .myOrder.status ==
-                                                    "Ondelivery" ||
-                                                myOrderDetailController
-                                                        .myOrder.status ==
-                                                    "Processing"
-                                            ? SizedBox(
-                                                width: 140,
-                                                height: 30,
-                                                child: ReusableButton1(
-                                                  onPressed: () {
-                                                    AppUtils.navigateToPage(
-                                                        TrackOrderScreen(
-                                                      myOrder:
-                                                          myOrderDetailController
-                                                              .myOrder,
-                                                      id: orderid.toString(),
-                                                    ));
-                                                  },
-                                                  fontSize: 12,
-                                                  title: "Track Your Order".tr,
-                                                ))
-                                            : SizedBox(),
+                                        SizedBox(
+                                            width: 140,
+                                            height: 30,
+                                            child: ReusableButton1(
+                                              onPressed: () {
+                                                AppUtils.navigateToPage(
+                                                    TrackOrderScreen(
+                                                  myOrder:
+                                                      myOrderDetailController
+                                                          .myOrder,
+                                                  id: orderid.toString(),
+                                                ));
+                                              },
+                                              fontSize: 12,
+                                              title: "Track Your Order".tr,
+                                            )),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
                                         myOrderDetailController
                                                         .myOrder.status ==
                                                     "Delivered" ||

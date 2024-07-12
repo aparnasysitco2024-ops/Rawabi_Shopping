@@ -123,26 +123,59 @@ class MyAddressesScreen extends StatelessWidget {
                                     ]),
                               ),
                             ),
-                  Expanded(
-                    flex: 0,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                          height: 87,
-                          color: white,
-                          padding: const EdgeInsets.only(
-                              left: 18, top: 10, right: 18, bottom: 33),
-                          child: ReusableButton1(
-                            onPressed: () {
-                              AppUtils.navigateToPage(
-                                  AddNewAddressesMapScreen());
-                            },
-                            title: "Add New Address".tr,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                  )
+                  myAddressController.loading.value
+                      ? SizedBox()
+                      : Row(
+                          children: [
+                            myAddressController.defaultAddressId.isNotEmpty
+                                ? Expanded(
+                                    flex: 1,
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                          height: 87,
+                                          color: white,
+                                          padding: const EdgeInsets.only(
+                                              left: 15,
+                                              top: 10,
+                                              right: 5,
+                                              bottom: 33),
+                                          child: ReusableButton1(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            title: "Deliver To This Address".tr,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                  )
+                                : SizedBox(),
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                    height: 87,
+                                    color: white,
+                                    padding: const EdgeInsets.only(
+                                        left: 15,
+                                        top: 10,
+                                        right: 15,
+                                        bottom: 33),
+                                    child: ReusableButton1(
+                                      onPressed: () {
+                                        AppUtils.navigateToPage(
+                                            AddNewAddressesMapScreen());
+                                      },
+                                      title: "Add New Address".tr,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                            )
+                          ],
+                        )
                 ],
               ),
             ),

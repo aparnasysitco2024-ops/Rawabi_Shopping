@@ -109,4 +109,32 @@ class MyOrderDetailController extends GetxController {
     }
     loading.value = false;
   }
+
+  Future<void> returnItem(String item_id, String detail_id) async {
+    try {
+      loading.value = true;
+      var request = {
+        "order_id": myOrder.orderid,
+        "detail_id": detail_id,
+        "item_id": item_id,
+      };
+      var response = await BaseClient().post(returnUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          CommonUtils().messageBox(responseData.message.toString());
+          getMyOrderDetail(myOrder.orderid.toString());
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
 }

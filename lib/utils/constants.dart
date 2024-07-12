@@ -52,6 +52,8 @@ const autoSuggestUrl = '${baseURL}auto_suggest';
 const products_byBrandUrl = '${baseURL}products_bybrand';
 const clearCartUrl = '${baseURL}clearcart';
 const reOrderUrl = '${baseURL}reOrder';
+const returnUrl = '${baseURL}return';
+
 
 
 //keys

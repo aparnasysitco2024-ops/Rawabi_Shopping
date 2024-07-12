@@ -46,6 +46,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         productController.catID.value = arguments['catId'] ?? "0";
         productController.subCatID.value = arguments['subCatId'] ?? "0";
         productController.subSubCatID.value = arguments['subSubCatId'] ?? "0";
+        productController.subSubSubCatID.value =
+            arguments['subSubSubCatId'] ?? "0";
         productController.brandId.value = arguments['brandId'] ?? "0";
         // final subSubSubCatID = arguments['subSubSubCatId'] ?? "0";
 
@@ -214,80 +216,82 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   const SizedBox(
                     width: 15,
                   ),
-                  InkWell(
-                    onTap: () {
-                      AppUtils.navigateToPage(FiltersScreen(
-                        price: productController.price.value,
-                        selectedItem: (filterRequest) {
-                          filterRequest.catid = productController.catID.value;
-                          filterRequest.subcatid =
-                              productController.subCatID.value;
-                          filterRequest.subSubcatid =
-                              productController.subSubCatID.value;
-                          filterRequest.subSubSubcatid =
-                              productController.subSubSubCatID.value;
-                          productController.topSelectedCatId.value =
-                              filterRequest.selectedTopCategoryID!;
-
-                          if (productController.topSelectedCategoryTypeID ==
-                              category) {
-                            filterRequest.catid =
-                                filterRequest.selectedTopCategoryID;
-                          } else if (productController
-                                  .topSelectedCategoryTypeID ==
-                              subCategory) {
-                            productController.subCatID.value =
-                                productController.topSelectedCatId.value;
+                  if (productController.brandId.value == "0")
+                    Row(children: [  InkWell(
+                      onTap: () {
+                        AppUtils.navigateToPage(FiltersScreen(
+                          price: productController.price.value,
+                          selectedItem: (filterRequest) {
+                            filterRequest.catid = productController.catID.value;
                             filterRequest.subcatid =
-                                filterRequest.selectedTopCategoryID;
-                          } else if (productController
-                                  .topSelectedCategoryTypeID ==
-                              subSubCategory) {
-                            productController.subSubCatID.value =
-                                productController.topSelectedCatId.value;
+                                productController.subCatID.value;
                             filterRequest.subSubcatid =
-                                filterRequest.selectedTopCategoryID;
-                          } else if (productController
-                                  .topSelectedCategoryTypeID ==
-                              subSubSubCategory) {
-                            productController.subSubSubCatID.value =
-                                productController.topSelectedCatId.value;
+                                productController.subSubCatID.value;
                             filterRequest.subSubSubcatid =
-                                filterRequest.selectedTopCategoryID;
-                          }
+                                productController.subSubSubCatID.value;
+                            productController.topSelectedCatId.value =
+                            filterRequest.selectedTopCategoryID!;
 
-                          productController.getFilterData(filterRequest);
-                        },
-                        brandList: productController.brandsList,
-                        subCategoryListFilter:
-                            productController.subCategoryList,
-                        selectedTopCategoryID:
-                            productController.topSelectedCatId.value,
-                      ));
-                    },
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/filter.svg",
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ReusableText(
-                          title: homeController.languageParam.value.filter,
-                          size: 12,
-                          weight: FontWeight.w800,
-                        )
-                      ],
+                            if (productController.topSelectedCategoryTypeID ==
+                                category) {
+                              filterRequest.catid =
+                                  filterRequest.selectedTopCategoryID;
+                            } else if (productController
+                                .topSelectedCategoryTypeID ==
+                                subCategory) {
+                              productController.subCatID.value =
+                                  productController.topSelectedCatId.value;
+                              filterRequest.subcatid =
+                                  filterRequest.selectedTopCategoryID;
+                            } else if (productController
+                                .topSelectedCategoryTypeID ==
+                                subSubCategory) {
+                              productController.subSubCatID.value =
+                                  productController.topSelectedCatId.value;
+                              filterRequest.subSubcatid =
+                                  filterRequest.selectedTopCategoryID;
+                            } else if (productController
+                                .topSelectedCategoryTypeID ==
+                                subSubSubCategory) {
+                              productController.subSubSubCatID.value =
+                                  productController.topSelectedCatId.value;
+                              filterRequest.subSubSubcatid =
+                                  filterRequest.selectedTopCategoryID;
+                            }
+
+                            productController.getFilterData(filterRequest);
+                          },
+                          brandList: productController.brandsList,
+                          subCategoryListFilter:
+                          productController.subCategoryList,
+                          selectedTopCategoryID:
+                          productController.topSelectedCatId.value,
+                        ));
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/filter.svg",
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          ReusableText(
+                            title: homeController.languageParam.value.filter,
+                            size: 12,
+                            weight: FontWeight.w800,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/line.svg",
-                    height: 30,
-                  ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      SvgPicture.asset(
+                        "assets/icons/line.svg",
+                        height: 30,
+                      ),],),
+
                   const SizedBox(
                     width: 15,
                   ),
@@ -301,7 +305,16 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 Navigator.pop(context);
                                 productController.sort.value = val;
                                 productController.pageNumber.value = 1;
-                                productController.getProductsByCat();
+
+                                if (productController.brandId.value != "0")
+                                  productController.getProductsByBrand();
+                                else if (productController.subSubCatID.value !=
+                                    "0")
+                                  productController.getSubCategory();
+                                else if (productController.catID.value != "0")
+                                  productController.getSubCategory();
+                                else
+                                  productController.getProductsByCat();
                               },
                             );
                           }));
