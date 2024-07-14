@@ -32,12 +32,16 @@ class ProductController extends GetxController {
   var pageNumber = 1.obs;
   bool isOffer = false;
   var topSelectedCatId = "0".obs;
-  var topSelectedCategoryTypeID =category;
+  var topSelectedCategoryTypeID = category;
+  List<String> selectedBrands = [];
+  bool isFiltered = false;
+  FilterRequest? filterRequest;
 
   ProductController({this.isOffer = false});
 
   Future<void> getProductsByCat() async {
     try {
+      isFiltered = false;
       if (!isLoaded) loading.value = true;
       var request = {
         "catid": catID.value,
@@ -163,19 +167,19 @@ class ProductController extends GetxController {
             if (catID.value == "0") {
               catID.value = subCategoryList[0].catId.toString();
               topSelectedCatId.value = catID.value;
-              topSelectedCategoryTypeID =category;
+              topSelectedCategoryTypeID = category;
             } else if (subCatID.value == "0") {
               subCatID.value = subCategoryList[0].catId.toString();
               topSelectedCatId.value = subCatID.value;
-              topSelectedCategoryTypeID =subCategory;
+              topSelectedCategoryTypeID = subCategory;
             } else if (subSubCatID.value == "0") {
               subSubCatID.value = subCategoryList[0].catId.toString();
               topSelectedCatId.value = subSubCatID.value;
-              topSelectedCategoryTypeID =subSubCategory;
+              topSelectedCategoryTypeID = subSubCategory;
             } else if (subSubSubCatID.value == "0") {
               subSubSubCatID.value = subCategoryList[0].catId.toString();
               topSelectedCatId.value = subSubSubCatID.value;
-              topSelectedCategoryTypeID =subSubSubCategory;
+              topSelectedCategoryTypeID = subSubSubCategory;
             }
           }
 
@@ -196,18 +200,22 @@ class ProductController extends GetxController {
 
   Future<void> getFilterData(FilterRequest filterRequest) async {
     try {
-      loading.value = true;
+      this.filterRequest = filterRequest;
+      isFiltered = true;
+      if (pageNumber.value == 1) loading.value = true;
+      filterRequest.page = pageNumber.value.toString();
       var response = await BaseClient().post(filterUrl, filterRequest);
       loading.value = false;
       if (response != null) {
         var responseData =
             ProductsResponse.fromJson(json.decode(response.toString()));
-        productList.clear();
+        if (pageNumber.value == 1) productList.clear();
         // brandsList.clear();
 
         if (responseData.code == "200") {
           // catName.value = responseData.res!.category!.catName!;
-          if (responseData.res?.products != null) {
+          if (responseData.res?.products != null &&
+              responseData.res!.products!.isNotEmpty) {
             productList.addAll(responseData.res?.products as List<Products>);
             if (responseData.res?.brands != null)
               brandsList.addAll(responseData.res?.brands as List<Brands>);

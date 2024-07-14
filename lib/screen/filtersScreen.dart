@@ -7,6 +7,7 @@ import 'package:rawabi/widget/productTypeFilterTile.dart';
 import '../../utils/colors.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../controller/homeController.dart';
+import '../controller/productsController.dart';
 import '../model/request/filterRequest.dart';
 import '../model/response/categoryResponse.dart';
 import '../model/response/productsResponse.dart';
@@ -16,7 +17,7 @@ class FiltersScreen extends StatefulWidget {
   List<Brands> brandList;
   List<Category> subCategoryListFilter;
   Price price;
-  List<String> selectedBrands = [];
+  // List<String> selectedBrands = [];
   FilterRequest filterRequest = FilterRequest();
   Function(FilterRequest) selectedItem;
   var minController = TextEditingController();
@@ -26,6 +27,7 @@ class FiltersScreen extends StatefulWidget {
   var selectedTopCategoryID = "0";
   RangeValues currentRangeValues = RangeValues(0, 200);
   final homeController = Get.put(HomeController());
+  bool isOffer;
 
   FiltersScreen(
       {super.key,
@@ -33,7 +35,8 @@ class FiltersScreen extends StatefulWidget {
       required this.selectedItem,
       required this.subCategoryListFilter,
       required this.price,
-      required this.selectedTopCategoryID});
+      required this.selectedTopCategoryID,
+      required this.isOffer});
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -61,6 +64,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var productController = Get.put(ProductController(isOffer: widget.isOffer));
     return Scaffold(
         backgroundColor: silver,
         body: SingleChildScrollView(
@@ -257,18 +261,18 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                     checked: (p0) {
                                       setState(() {
                                         if (p0)
-                                          widget.selectedBrands.add(widget
+                                          productController.selectedBrands.add(widget
                                               .brandList[index].id
                                               .toString());
                                         else
-                                          widget.selectedBrands.remove(widget
+                                          productController.selectedBrands.remove(widget
                                               .brandList[index].id
                                               .toString());
                                       });
                                     },
                                     title:
                                         widget.brandList[index].name.toString(),
-                                    isChecked: widget.selectedBrands
+                                    isChecked: productController.selectedBrands
                                         .contains(widget.brandList[index].id),
                                   );
                                 }),
@@ -437,7 +441,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                           child: ReusableButton1(
                             onPressed: () {
                               setState(() {
-                                widget.selectedBrands.clear();
+                                productController.selectedBrands.clear();
                                 //resret price
                                 widget.currentRangeValues = RangeValues(
                                     double.parse(widget.minAmount.toString()),
@@ -465,7 +469,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                           flex: 3,
                           child: ReusableButton1(
                             onPressed: () {
-                              widget.filterRequest.brand = widget.selectedBrands
+                              // productController.selectedBrands =
+                              //     productController.selectedBrands;
+                              widget.filterRequest.brand = productController.selectedBrands
                                   .toString()
                                   .replaceAll("[", "")
                                   .replaceAll("]", "");
