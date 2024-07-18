@@ -9,6 +9,7 @@ class FilterRequest {
   String? subSubSubcatid;
   String? selectedTopCategoryID;
   String? page;
+  String? sort;
 
   FilterRequest(
       {this.brand,
@@ -20,7 +21,8 @@ class FilterRequest {
       this.subSubcatid,
       this.subSubSubcatid,
       this.selectedTopCategoryID,
-      this.page});
+      this.page,
+      this.sort});
 
   FilterRequest.fromJson(Map<String, dynamic> json) {
     brand = json['brand'];
@@ -32,6 +34,7 @@ class FilterRequest {
     subSubcatid = json['sub-subcatid'];
     subSubSubcatid = json['sub-sub-subcatid'];
     page = json['page'];
+    sort = json['sort'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +48,7 @@ class FilterRequest {
     data['sub-subcatid'] = this.subSubcatid;
     data['sub-sub-subcatid'] = this.subSubSubcatid;
     data['page'] = this.page;
+    data['sort'] = this.sort;
     return data;
   }
 }

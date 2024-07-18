@@ -15,6 +15,7 @@ import 'homeController.dart';
 class ProductController extends GetxController {
   var isLoaded = false;
   var loading = false.obs;
+  var isLoadMoreLoading = false.obs;
   var productList = <Products>[].obs;
   var catName = "".obs;
   var sort = "0".obs;
@@ -42,7 +43,10 @@ class ProductController extends GetxController {
   Future<void> getProductsByCat() async {
     try {
       isFiltered = false;
-      if (!isLoaded) loading.value = true;
+      if (!isLoaded)
+        loading.value = true;
+      else
+        isLoadMoreLoading.value = true;
       var request = {
         "catid": catID.value,
         "subcatid": subCatID.value,
@@ -54,6 +58,7 @@ class ProductController extends GetxController {
       var response = await BaseClient()
           .post(isOffer ? discount_products : products, request);
       loading.value = false;
+      isLoadMoreLoading.value = false;
       if (response != null) {
         var responseData =
             ProductsResponse.fromJson(json.decode(response.toString()));
@@ -90,11 +95,12 @@ class ProductController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+    isLoadMoreLoading.value = false;
   }
 
   Future<void> getProductsByBrand() async {
     try {
-      if (!isLoaded) loading.value = true;
+      if (!isLoaded) loading.value = true; else isLoadMoreLoading.value = true;
       var request = {
         "brandid": brandId.value,
         "sort": sort.value,
@@ -102,6 +108,7 @@ class ProductController extends GetxController {
       };
       var response = await BaseClient().post(products_byBrandUrl, request);
       loading.value = false;
+      isLoadMoreLoading.value = false;
       if (response != null) {
         var responseData =
             ProductsResponse.fromJson(json.decode(response.toString()));
@@ -138,6 +145,7 @@ class ProductController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+    isLoadMoreLoading.value = false;
   }
 
   Future<void> getSubCategory() async {
@@ -202,10 +210,15 @@ class ProductController extends GetxController {
     try {
       this.filterRequest = filterRequest;
       isFiltered = true;
-      if (pageNumber.value == 1) loading.value = true;
+      if (pageNumber.value == 1)
+        loading.value = true;
+      else
+        isLoadMoreLoading.value = true;
       filterRequest.page = pageNumber.value.toString();
+      filterRequest.sort = sort.value;
       var response = await BaseClient().post(filterUrl, filterRequest);
       loading.value = false;
+      isLoadMoreLoading.value = false;
       if (response != null) {
         var responseData =
             ProductsResponse.fromJson(json.decode(response.toString()));
@@ -236,5 +249,6 @@ class ProductController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+    isLoadMoreLoading.value = false;
   }
 }

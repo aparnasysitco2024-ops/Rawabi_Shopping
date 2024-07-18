@@ -321,7 +321,10 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 //   productController.getSubCategory();
                                 // else if (productController.catID.value != "0")
                                 //   productController.getSubCategory();
-                                else
+                                else if (productController.isFiltered) {
+                                  productController.getFilterData(
+                                      productController.filterRequest!);
+                                } else
                                   productController.getProductsByCat();
                               },
                             );
@@ -497,6 +500,19 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 ]),
                           ),
                         ),
+              productController.isLoadMoreLoading.value
+                  ? Container(
+                      width: double.infinity,
+                      color: silver,
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                          backgroundColor: skyBlue,
+                        ),
+                      ),
+                    )
+                  : SizedBox(),
             ])),
       ),
     );
