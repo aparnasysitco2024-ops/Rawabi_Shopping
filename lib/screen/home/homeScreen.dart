@@ -754,6 +754,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               products: homeController
                                                   .itemGroupList[index]
                                                   .grpItems,
+                                              groupImage: homeController
+                                                  .itemGroupList[index]
+                                                  .grpImage,
                                             )
                                           : homeController.itemGroupList[index]
                                                       .grpType ==

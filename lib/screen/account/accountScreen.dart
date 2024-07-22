@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/account/ourStoreScreen.dart';
+import 'package:rawabi/screen/account/returnScreen.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/home/notificationListScreen.dart';
@@ -379,6 +380,11 @@ class _AccountScreenState extends State<AccountScreen> {
                             : Column(
                                 children: [
                                   ProfileTile(
+                                      onPressed: () {
+                                        AppUtils.navigateToPage(ReturnScreen(
+                                          status: "Return",
+                                        ));
+                                      },
                                       image: "assets/icons/returns.svg",
                                       title: homeController
                                           .languageParam.value.myReturns

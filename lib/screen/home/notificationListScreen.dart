@@ -39,20 +39,24 @@ class NotificationListScreen extends StatelessWidget {
                     ),
                   )
                 : notificationListController.notifications.isNotEmpty
-                    ? ListView.separated(
-                        padding: const EdgeInsets.only(top: 10),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount:
-                            notificationListController.notifications.length,
-                        itemBuilder: (context, index) => NotificationItemTile(
-                              notifications: notificationListController
-                                  .notifications[index],
-                            ),
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(
-                              height: 5,
-                            ))
+                    ? Flexible(
+                        child: ListView.separated(
+                            padding: const EdgeInsets.only(top: 10),
+                            shrinkWrap: true,
+                            // physics: const NeverScrollableScrollPhysics(),
+                            itemCount:
+                                notificationListController.notifications.length,
+                            itemBuilder: (context, index) =>
+                                NotificationItemTile(
+                                  notifications: notificationListController
+                                      .notifications[index],
+                                ),
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const SizedBox(
+                                      height: 5,
+                                    )),
+                      )
                     : Flexible(
                         child: SizedBox(
                           width: double.infinity,

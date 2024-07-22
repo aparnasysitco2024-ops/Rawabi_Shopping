@@ -22,6 +22,7 @@ class MyOrderDetailController extends GetxController {
   var myOrderList = <Items>[].obs;
   Orders myOrder = Orders();
   var reasonController = TextEditingController();
+  var returnReasonController = TextEditingController();
 
   @override
   onInit() async {
@@ -110,15 +111,41 @@ class MyOrderDetailController extends GetxController {
     loading.value = false;
   }
 
-  Future<void> returnItem(String item_id, String detail_id) async {
+  Future<void> returnItem(
+      String item_id, String detail_id, String reason) async {
     try {
       loading.value = true;
       var request = {
         "order_id": myOrder.orderid,
         "detail_id": detail_id,
         "item_id": item_id,
+        "reason": reason
       };
       var response = await BaseClient().post(returnUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          CommonUtils().messageBox(responseData.message.toString());
+          getMyOrderDetail(myOrder.orderid.toString());
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> rating(String item_id, String rate, String review) async {
+    try {
+      loading.value = true;
+      var request = {"item_id": item_id, "rate": rate, "review": review};
+      var response = await BaseClient().post(ratingUrl, request);
       loading.value = false;
       if (response != null) {
         var responseData =

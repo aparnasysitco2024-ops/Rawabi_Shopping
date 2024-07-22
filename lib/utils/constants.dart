@@ -53,6 +53,8 @@ const products_byBrandUrl = '${baseURL}products_bybrand';
 const clearCartUrl = '${baseURL}clearcart';
 const reOrderUrl = '${baseURL}reOrder';
 const returnUrl = '${baseURL}return';
+const ratingUrl = '${baseURL}rating';
+
 
 
 

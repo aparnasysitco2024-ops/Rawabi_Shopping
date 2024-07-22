@@ -24,6 +24,7 @@ class ProductsFromHomeScreen extends StatefulWidget {
 class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
   final homeController = Get.put(HomeController());
   final searchController = Get.put(SearchResultController());
+
   /* String _scanBarcode = '';
 
   Future<void> scanBarcodeNormal() async {
@@ -65,10 +66,12 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
           Row(
             children: [
               const SizedBox(
-                width: 20,
+                width: 5,
               ),
               InkWell(
-                child: SvgPicture.asset("assets/icons/back.svg"),
+                child: SizedBox(
+                    width: 30,
+                    child: SvgPicture.asset("assets/icons/back.svg")),
                 onTap: () {
                   Navigator.of(context).popUntil(ModalRoute.withName('/'));
                   // Get.delete<ProductController>();
@@ -107,27 +110,26 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                           ReusableText(
                             title: title,
                           ),
-
                         ]),
                       ),
                       const Spacer(),
                       InkWell(
-                          onTap:() async {
+                          onTap: () async {
                             searchController.searchType.value = "barcode";
                             await searchController
                                 .scanBarcodeNormal()
                                 .whenComplete(() {
                               searchController.searchProductList.isNotEmpty
                                   ? Navigator.pushNamed(
-                                context,
-                                '/ProductDetailsScreen',
-                                arguments: {
-                                  'productID': searchController
-                                      .searchProductList[0].productId,
-                                },
-                              )
-                                  : CommonUtils().messageBox(
-                                  "Unable to identify item!");
+                                      context,
+                                      '/ProductDetailsScreen',
+                                      arguments: {
+                                        'productID': searchController
+                                            .searchProductList[0].productId,
+                                      },
+                                    )
+                                  : CommonUtils()
+                                      .messageBox("Unable to identify item!");
                             });
                           },
                           child: SvgPicture.asset("assets/icons/scan.svg"))
@@ -149,46 +151,46 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
           ),
           products.isNotEmpty
               ? Flexible(
-            child: Container(
-              height: double.infinity,
-              color: silver,
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: GridView.builder(
-                  padding: const EdgeInsets.only(top: 15),
-                  shrinkWrap: true,
-                  itemCount: products.length,
-                  // physics: const BouncingScrollPhysics(),
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12,
-                      mainAxisExtent: productItemHeight,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 0.5),
-                  itemBuilder: (_, index) {
-                    return InkWell(
-                        onTap: () async {},
-                        child: ProductItem(
-                          products: products[index],
-                        ));
-                  }),
-            ),
-          )
+                  child: Container(
+                    height: double.infinity,
+                    color: silver,
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: GridView.builder(
+                        padding: const EdgeInsets.only(top: 15),
+                        shrinkWrap: true,
+                        itemCount: products.length,
+                        // physics: const BouncingScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 12,
+                                mainAxisExtent: productItemHeight,
+                                crossAxisSpacing: 12,
+                                childAspectRatio: 0.5),
+                        itemBuilder: (_, index) {
+                          return InkWell(
+                              onTap: () async {},
+                              child: ProductItem(
+                                products: products[index],
+                              ));
+                        }),
+                  ),
+                )
               : Flexible(
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/icons/logo.svg"),
-                    ReusableText(
-                      title: "No Item Found!!".tr,
-                    )
-                  ]),
-            ),
-          ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/icons/logo.svg"),
+                          ReusableText(
+                            title: "No Item Found!!".tr,
+                          )
+                        ]),
+                  ),
+                ),
         ]),
       ),
     );

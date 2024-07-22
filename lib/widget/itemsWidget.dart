@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
@@ -7,15 +8,21 @@ import 'package:rawabi/widget/productItem.dart';
 
 import '../controller/cartController.dart';
 import '../model/response/products.dart';
+import '../utils/colors.dart';
 import '../utils/constants.dart';
 
 class ItemsWidget extends StatefulWidget {
-  String? title;
+  String? title, groupImage;
   List<Products>? products;
   bool hideViewAll;
   final cartController = Get.put(CartController());
 
-  ItemsWidget({super.key, this.title, this.products, this.hideViewAll = false});
+  ItemsWidget(
+      {super.key,
+      this.title,
+      this.products,
+      this.hideViewAll = false,
+      this.groupImage});
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
@@ -77,32 +84,65 @@ class _ItemsWidgetState extends State<ItemsWidget> {
           const SizedBox(
             height: 10,
           ),
+          widget.groupImage != null && widget.groupImage!.isNotEmpty
+              ? Container(
+                  height: 150,
+                  width: double.infinity,
+                  padding: EdgeInsets.only(left: 5, right: 5),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/ProductsFromHomeScreen',
+                        arguments: {
+                          'title': widget.title,
+                          'products': widget.products,
+                        },
+                      );
+                    },
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            height: double.infinity,
+                            width: double.infinity,
+                            placeholder: (context, url) => Center(
+                                    child: new CircularProgressIndicator(
+                                  color: primaryColor,
+                                )),
+                            imageUrl: widget.groupImage.toString())),
+                  ),
+                )
+              : SizedBox(),
+          const SizedBox(
+            height: 5,
+          ),
           SizedBox(
-              height: productItemHeight,
-              child: ListView.builder(
-
-                  shrinkWrap: true,
-                  itemCount: widget.products?.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => GestureDetector(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ProductItem(
-                          products: widget.products![index],
-                        ),
+            height: productItemHeight,
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: widget.products?.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: ProductItem(
+                        products: widget.products![index],
                       ),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/ProductDetailsScreen',
-                          arguments: {
-                            'productID': widget.products![index].productId,
-                          },
-                        );
-                        /*AppUtils.navigateToPage(
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/ProductDetailsScreen',
+                        arguments: {
+                          'productID': widget.products![index].productId,
+                        },
+                      );
+                      /*AppUtils.navigateToPage(
                               ProductDetailsScreen(
                                   productID: widget.products![index].productId));*/
-                      })),)
+                    })),
+          )
         ],
       ),
     );

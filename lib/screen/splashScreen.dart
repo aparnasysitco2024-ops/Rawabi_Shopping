@@ -13,7 +13,6 @@ import 'package:rawabi/utils/app_utils.dart';
 import '../model/response/languageParamResponse.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
-import '../utils/http_client/base_client.dart';
 import '../utils/storage_manager.dart';
 import '../widget/commonWidget/reusable_text.dart';
 import 'deliverymode/deliveryModeScreen.dart';
@@ -76,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
           width: double.infinity,
@@ -105,8 +103,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 ReusableText(
                     textAlign: TextAlign.center,
                     title:
-                    "The best delivery app in town for delivering your daily fresh groceries"
-                        .tr,
+                        "The best delivery app in town for delivering your daily fresh groceries"
+                            .tr,
                     size: 16,
                     color: grey,
                     weight: FontWeight.w400),
@@ -160,11 +158,14 @@ class _SplashScreenState extends State<SplashScreen> {
       if (await StorageManager.readData(StorageManager.keyFirebaseToken) ==
           "") {
         final fcmToken = await FirebaseMessaging.instance.getToken();
-        updatePushToken(fcmToken.toString());
+
+        StorageManager.saveData(StorageManager.keyFirebaseToken, token);
+        // updatePushToken(fcmToken.toString());
+        await FirebaseMessaging.instance.subscribeToTopic("all");
         print("token------------------------: " + fcmToken.toString());
       }
       // else
-        // print("t------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
+      // print("t------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;
@@ -201,19 +202,19 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  Future<void> updatePushToken(String token) async {
-    try {
-      var params = {"pushtoken": token};
-      var response = await BaseClient().post(pushTokenUrl, params);
-      if (response != null) {
-        var responseData =
-            LanguageParamResponse.fromJson(json.decode(response.toString()));
-        if (responseData.code == "200") {
-          StorageManager.saveData(StorageManager.keyFirebaseToken, token);
-        }
-      }
-    } catch (error) {
-      error.printError();
-    }
-  }
+  // Future<void> updatePushToken(String token) async {
+  //   try {
+  //     var params = {"pushtoken": token};
+  //     var response = await BaseClient().post(pushTokenUrl, params);
+  //     if (response != null) {
+  //       var responseData =
+  //           LanguageParamResponse.fromJson(json.decode(response.toString()));
+  //       if (responseData.code == "200") {
+  //         StorageManager.saveData(StorageManager.keyFirebaseToken, token);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     error.printError();
+  //   }
+  // }
 }

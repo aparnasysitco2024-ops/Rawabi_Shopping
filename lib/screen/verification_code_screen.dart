@@ -12,6 +12,7 @@ import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import '../controller/verification_controller.dart';
 import '../utils/commonUtils.dart';
 import '../utils/http_client/base_client.dart';
+import '../utils/storage_manager.dart';
 import '../widget/commonwidget/otp_text_field.dart';
 import '../widget/commonwidget/reusable_text.dart';
 
@@ -27,7 +28,6 @@ class VerificationCode extends StatelessWidget {
 
     final verificationController = Get.put(VerificationController());
 
-
     Future<void> verify() async {
       CommonUtils.showLoader();
 
@@ -35,7 +35,9 @@ class VerificationCode extends StatelessWidget {
         "otp": value1.text.toString() +
             value2.text.toString() +
             value3.text.toString() +
-            value4.text.toString()
+            value4.text.toString(),
+        "pushtoken":
+            await StorageManager.readData(StorageManager.keyFirebaseToken)
       };
 
       try {
@@ -45,15 +47,14 @@ class VerificationCode extends StatelessWidget {
           var responseData =
               BaseResponse.fromJson(json.decode(response.toString()));
           if (responseData.code == "200") {
-           AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+            AppUtils.navigateToPageRemoveUntil(BottomNavBar());
           } else {
             CommonUtils.showErrorDialog(responseData.message);
           }
         } else {
           CommonUtils.showErrorDialog(response.message);
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
 
     return Scaffold(
@@ -73,7 +74,8 @@ class VerificationCode extends StatelessWidget {
               height: 5,
             ),
             ReusableText(
-                title: "An 4 digit code has been sent to your phone number".tr + "\n" +
+                title: "An 4 digit code has been sent to your phone number".tr +
+                    "\n" +
                     verificationController.mobile.toString(),
                 weight: FontWeight.w400,
                 color: Colors.black),
@@ -146,7 +148,7 @@ class VerificationCode extends StatelessWidget {
               height: 30,
             ),
             ReusableButton1(
-                onPressed:  () {
+                onPressed: () {
                   verify();
                 },
                 title: "Submit".tr),

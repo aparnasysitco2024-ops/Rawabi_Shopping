@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/guestLoginResponse.dart';
 import 'package:rawabi/screen/deliverymode/homeDeliveryMapScreen.dart';
 import 'package:rawabi/screen/deliverymode/storePickupScreen.dart';
@@ -35,12 +36,32 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
           if (responseData.code == "200") {
             StorageManager.saveData(
                 StorageManager.keyGuestID, responseData.guestId);
+            updatePushToken();
           } else {}
         } else {}
       } catch (error) {
         error.printError();
         // CommonUtils.showErrorDialog(error.toString());
       }
+    }
+  }
+
+  Future<void> updatePushToken() async {
+    try {
+      var params = {
+        "pushtoken":
+            await StorageManager.readData(StorageManager.keyFirebaseToken)
+      };
+      var response = await BaseClient().post(pushTokenUrl, params);
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          StorageManager.saveData(StorageManager.keyFirebaseToken, token);
+        }
+      }
+    } catch (error) {
+      error.printError();
     }
   }
 
