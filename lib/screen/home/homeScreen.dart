@@ -550,16 +550,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Flexible(
                   child: RefreshIndicator(
-                    child: homeController.loading.value
+                    child: homeController.loading.value ||
+                            !homeController.isHomeLoaded.value
                         ? SizedBox(
-                          height: double.infinity,
-                          width: double.infinity,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: primaryColor,
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: primaryColor,
+                              ),
                             ),
-                          ),
-                        )
+                          )
                         : Container(
                             color: silver,
                             child: SingleChildScrollView(
@@ -773,12 +774,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          child: Image.asset(
-                                              fit: BoxFit.cover,
-                                              'assets/images/flayer.jpg'),
-                                        )),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            child: CachedNetworkImage(
+                                                fit: BoxFit.contain,
+                                                width: double.infinity,
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                        child:
+                                                            new CircularProgressIndicator(
+                                                      color: primaryColor,
+                                                    )),
+                                                imageUrl:
+                                                    "https://rawabihypermarket.com/assets/flyer-banner.jpg")
+                                            // Image.asset(
+                                            //   fit: BoxFit.cover,
+                                            //   'assets/images/flayer.jpg'),
+                                            )),
                                   ),
                                   const SizedBox(
                                     height: 10,

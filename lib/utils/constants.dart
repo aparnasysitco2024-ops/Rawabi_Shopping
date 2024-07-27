@@ -1,8 +1,6 @@
 // const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/'; //dev
 const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
-
-const baseURLDriver = '${baseURL}/Driverapi/';
-
+const baseURLDriver = 'https://rawabihypermarket.com/rawabi/rwbapi/Driverapi/';
 
 //APis
 

@@ -51,7 +51,7 @@ class HomeController extends GetxController {
   var storeID = "".obs;
   var userID = "0".obs;
 
-  var isHomeLoaded = false;
+  var isHomeLoaded = false.obs;
   var loading = false.obs;
   var isPickup = false.obs;
   var languageParam = LanguageParam().obs;
@@ -119,7 +119,7 @@ class HomeController extends GetxController {
   }
 
   moveToProductList(BuildContext context, String catID, String subCatID,
-      String subSubCatID,String subSubSubCatID, String brandID) {
+      String subSubCatID, String subSubSubCatID, String brandID) {
     Navigator.pushNamed(
       context,
       '/ProductsByCategory',
@@ -191,7 +191,7 @@ class HomeController extends GetxController {
 
   Future<void> getHomeData() async {
     try {
-      if (!isHomeLoaded) loading.value = true;
+      if (!isHomeLoaded.value) loading.value = true;
       var response = await BaseClient().get(home);
       loading.value = false;
       if (response != null) {
@@ -214,18 +214,18 @@ class HomeController extends GetxController {
 
           itemGroupList.addAll(responseData.res!.itemGroup as List<ItemGroup>);
 
-          isHomeLoaded = true;
+          isHomeLoaded.value = true;
         } else {
-          isHomeLoaded = false;
+          isHomeLoaded.value = false;
           CommonUtils.showErrorDialog(responseData.message);
         }
       } else {
-        isHomeLoaded = false;
+        isHomeLoaded.value = false;
         CommonUtils.showErrorDialog(response.message);
       }
     } catch (error) {
       error.printError();
-      isHomeLoaded = false;
+      isHomeLoaded.value = false;
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;

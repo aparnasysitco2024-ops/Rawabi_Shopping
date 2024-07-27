@@ -12,7 +12,6 @@ import 'package:rawabi/utils/app_utils.dart';
 
 import '../model/response/languageParamResponse.dart';
 import '../utils/colors.dart';
-import '../utils/constants.dart';
 import '../utils/storage_manager.dart';
 import '../widget/commonWidget/reusable_text.dart';
 import 'deliverymode/deliveryModeScreen.dart';
@@ -35,6 +34,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    initialize();
+
+  }
+
+  Future<void> initialize() async {
+    var prefValue =
+        await StorageManager.readData(StorageManager.sharedPrfValue);
+    if (prefValue.isEmpty) {
+      StorageManager.clearData();
+      StorageManager.saveData(StorageManager.sharedPrfValue, "1");
+    }
+
     firebase();
     getLanguageData();
   }
@@ -154,12 +165,11 @@ class _SplashScreenState extends State<SplashScreen> {
       // To handle Error(Red screen of death) globally.
       // If there is any red screen will appear app will rederict to the login screen .. temp solution
       ErrorWidget.builder = (FlutterErrorDetails details) => SplashScreen();
-
       if (await StorageManager.readData(StorageManager.keyFirebaseToken) ==
           "") {
         final fcmToken = await FirebaseMessaging.instance.getToken();
 
-        StorageManager.saveData(StorageManager.keyFirebaseToken, token);
+        StorageManager.saveData(StorageManager.keyFirebaseToken, fcmToken);
         // updatePushToken(fcmToken.toString());
         await FirebaseMessaging.instance.subscribeToTopic("all");
         print("token------------------------: " + fcmToken.toString());
@@ -202,19 +212,19 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  // Future<void> updatePushToken(String token) async {
-  //   try {
-  //     var params = {"pushtoken": token};
-  //     var response = await BaseClient().post(pushTokenUrl, params);
-  //     if (response != null) {
-  //       var responseData =
-  //           LanguageParamResponse.fromJson(json.decode(response.toString()));
-  //       if (responseData.code == "200") {
-  //         StorageManager.saveData(StorageManager.keyFirebaseToken, token);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     error.printError();
-  //   }
-  // }
+// Future<void> updatePushToken(String token) async {
+//   try {
+//     var params = {"pushtoken": token};
+//     var response = await BaseClient().post(pushTokenUrl, params);
+//     if (response != null) {
+//       var responseData =
+//           LanguageParamResponse.fromJson(json.decode(response.toString()));
+//       if (responseData.code == "200") {
+//         StorageManager.saveData(StorageManager.keyFirebaseToken, token);
+//       }
+//     }
+//   } catch (error) {
+//     error.printError();
+//   }
+// }
 }

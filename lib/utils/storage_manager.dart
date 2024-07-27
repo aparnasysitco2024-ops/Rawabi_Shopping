@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageManager {
+  static String sharedPrfValue = "sharedPrfValue";
   static String keyIsLogin = "keyIsLogin";
   static String keyGuestID = "keyGuestID";
   static String keyUserID = "keyUserID";
