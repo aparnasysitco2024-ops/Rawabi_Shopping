@@ -13,6 +13,7 @@ import 'package:vibration/vibration.dart';
 
 import '../model/response/calculateFeeResponse.dart';
 import '../model/response/cartListResponse.dart';
+import '../screen/address/myAddressesScreen.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
@@ -185,40 +186,47 @@ class CartController extends GetxController {
   }
 
   Future<void> checkoutCart() async {
+    var addressID =
+        await StorageManager.readData(StorageManager.keyDefaultAddressId);
+
     try {
-      loading.value = true;
-      var request = {
-        "address_id":
-            await StorageManager.readData(StorageManager.keyDefaultAddressId),
-        "subtotal": subTotal.value,
-        "discount": discount.value,
-        "payable": grandTotal.value,
-        "order_type": homeController.isPickup.value ? "pickup" : "delivery",
-        "delivery_type": homeController.isExpress.value ? "Express" : "Normal",
-        "start_time": homeController.isPickup.value
-            ? selectedPickupSlot.value
-            : homeController.selectedStartTime.value,
-        "end_time": homeController.selectedEndTime.value,
-        "date": homeController.selectedSlotDate.value,
-        "coupon": couponID.value,
-        "payment_method": paymentValue.value,
-        "order_note": noteTextController.text
-      };
-      var response = await BaseClient().post(checkout, request);
-      loading.value = false;
-      if (response != null) {
-        var responseData =
-            CheckoutResponse.fromJson(json.decode(response.toString()));
-        if (responseData.code == "200") {
-          getCartList();
-          AppUtils.navigateToPage(OrderPlacedScreen(
-            orderId: responseData.orderId,
-          ));
-        } else {
-          CommonUtils.showErrorDialog(responseData.message);
-        }
+      if (addressID.isEmpty) {
+        AppUtils.navigateToPage(MyAddressesScreen());
       } else {
-        CommonUtils.showErrorDialog(response.message);
+        loading.value = true;
+        var request = {
+          "address_id": addressID,
+          "subtotal": subTotal.value,
+          "discount": discount.value,
+          "payable": grandTotal.value,
+          "order_type": homeController.isPickup.value ? "pickup" : "delivery",
+          "delivery_type":
+              homeController.isExpress.value ? "Express" : "Normal",
+          "start_time": homeController.isPickup.value
+              ? selectedPickupSlot.value
+              : homeController.selectedStartTime.value,
+          "end_time": homeController.selectedEndTime.value,
+          "date": homeController.selectedSlotDate.value,
+          "coupon": couponID.value,
+          "payment_method": paymentValue.value,
+          "order_note": noteTextController.text
+        };
+        var response = await BaseClient().post(checkout, request);
+        loading.value = false;
+        if (response != null) {
+          var responseData =
+              CheckoutResponse.fromJson(json.decode(response.toString()));
+          if (responseData.code == "200") {
+            getCartList();
+            AppUtils.navigateToPage(OrderPlacedScreen(
+              orderId: responseData.orderId,
+            ));
+          } else {
+            CommonUtils.showErrorDialog(responseData.message);
+          }
+        } else {
+          CommonUtils.showErrorDialog(response.message);
+        }
       }
     } catch (error) {
       print(error.toString());

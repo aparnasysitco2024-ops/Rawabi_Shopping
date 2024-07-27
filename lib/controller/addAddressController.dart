@@ -45,8 +45,7 @@ class AddAddressController extends GetxController {
       addAddressRequest.addressInstruction = addressController.text;
       addAddressRequest.address = addressController.text;
       addAddressRequest.type = selectedOption.value == 1 ? "Work" : "Home";
-      // addAddressRequest.lat_long = lat.toString() + "," + lng.toString();
-      addAddressRequest.lat_long = "25.3510625,51.4282376";
+      addAddressRequest.lat_long = lat.toString() + "," + lng.toString();
 
       var response = await BaseClient().post(addaddressUrl, addAddressRequest);
       loading.value = false;

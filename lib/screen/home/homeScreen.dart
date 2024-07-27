@@ -397,17 +397,56 @@ class _HomeScreenState extends State<HomeScreen> {
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            Expanded(
-                                              child: ReusableText(
-                                                title: homeController
-                                                    .languageParam
-                                                    .value
-                                                    .scheduledDelivery,
-                                                size: 11,
-                                                weight: FontWeight.bold,
-                                                color: Colors.black,
-                                              ),
-                                            ),
+                                            homeController.selectedStartTime
+                                                    .value.isEmpty
+                                                ? Expanded(
+                                                    child: ReusableText(
+                                                      title: homeController
+                                                          .languageParam
+                                                          .value
+                                                          .scheduledDelivery,
+                                                      size: 10,
+                                                      weight: FontWeight.bold,
+                                                      color: Colors.black,
+                                                    ),
+                                                  )
+                                                : Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Expanded(
+                                                        child: ReusableText(
+                                                          title: homeController
+                                                              .languageParam
+                                                              .value
+                                                              .scheduledDelivery,
+                                                          size: 10,
+                                                          weight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: ReusableText(
+                                                          title: homeController
+                                                                  .selectedStartTime
+                                                                  .value +
+                                                              " - " +
+                                                              homeController
+                                                                  .selectedEndTime
+                                                                  .value,
+                                                          size: 10,
+                                                          weight:
+                                                              FontWeight.w600,
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                           ]),
                                         ),
                                       ),
@@ -509,9 +548,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         // ),
                       ]),
                 ),
-                homeController.loading.value
-                    ? Flexible(
-                        child: SizedBox(
+                Flexible(
+                  child: RefreshIndicator(
+                    child: homeController.loading.value
+                        ? SizedBox(
                           height: double.infinity,
                           width: double.infinity,
                           child: Center(
@@ -519,118 +559,167 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: primaryColor,
                             ),
                           ),
-                        ),
-                      )
-                    : Expanded(
-                        child: Container(
-                          color: silver,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                //Top banner
-                                homeController.bannerListTop.isNotEmpty
-                                    ? FlutterCarousel(
-                                        options: CarouselOptions(
-                                          initialPage: 1,
-                                          autoPlay: true,
-                                          enableInfiniteScroll: true,
-                                          enlargeCenterPage: true,
-                                          viewportFraction: 0.8,
-                                          height: 140.0,
-                                          showIndicator: false,
-                                          slideIndicator:
-                                              const CircularSlideIndicator(),
-                                        ),
-                                        items: homeController.bannerListTop
-                                            .map((i) {
-                                          return Builder(
-                                            builder: (BuildContext context) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  if (i.linkType ==
-                                                      "category") {
-                                                    if (i.bannerPoint != "0") {
+                        )
+                        : Container(
+                            color: silver,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  //Top banner
+                                  homeController.bannerListTop.isNotEmpty
+                                      ? FlutterCarousel(
+                                          options: CarouselOptions(
+                                            initialPage: 1,
+                                            autoPlay: true,
+                                            enableInfiniteScroll: true,
+                                            enlargeCenterPage: true,
+                                            viewportFraction: 0.8,
+                                            height: 140.0,
+                                            showIndicator: false,
+                                            slideIndicator:
+                                                const CircularSlideIndicator(),
+                                          ),
+                                          items: homeController.bannerListTop
+                                              .map((i) {
+                                            return Builder(
+                                              builder: (BuildContext context) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    if (i.linkType ==
+                                                        "category") {
+                                                      if (i.bannerPoint !=
+                                                          "0") {
+                                                        homeController
+                                                            .moveToProductList(
+                                                                context,
+                                                                i.bannerPoint
+                                                                    .toString(),
+                                                                "0",
+                                                                "0",
+                                                                "0",
+                                                                "0");
+                                                      }
+                                                    } else if (i.linkType ==
+                                                        "sub_category") {
+                                                      if (i.bannerPoint !=
+                                                          "0") {
+                                                        homeController
+                                                            .moveToProductList(
+                                                                context,
+                                                                i.cat
+                                                                    .toString(),
+                                                                i.bannerPoint
+                                                                    .toString(),
+                                                                "0",
+                                                                "0",
+                                                                "0");
+                                                      }
+                                                    } else if (i.linkType ==
+                                                        "sub_sub_category") {
+                                                      if (i.bannerPoint !=
+                                                          "0") {
+                                                        homeController
+                                                            .moveToProductList(
+                                                                context,
+                                                                i.cat
+                                                                    .toString(),
+                                                                i.subcat
+                                                                    .toString(),
+                                                                i.bannerPoint
+                                                                    .toString(),
+                                                                "0",
+                                                                "0");
+                                                      }
+                                                    } else if (i.linkType ==
+                                                        "sub_sub_sub_category") {
+                                                      if (i.bannerPoint !=
+                                                          "0") {
+                                                        homeController
+                                                            .moveToProductList(
+                                                                context,
+                                                                i.cat
+                                                                    .toString(),
+                                                                i.subcat
+                                                                    .toString(),
+                                                                i.subsubcat
+                                                                    .toString(),
+                                                                i.bannerPoint
+                                                                    .toString(),
+                                                                "0");
+                                                      }
+                                                    } else if (i.linkType ==
+                                                        "product") {
+                                                      homeController
+                                                          .moveToProductDetails(
+                                                              context,
+                                                              i.bannerPoint
+                                                                  .toString());
+                                                    } else if (i.linkType ==
+                                                        "brand") {
                                                       homeController
                                                           .moveToProductList(
                                                               context,
+                                                              "0",
+                                                              "0",
+                                                              "0",
+                                                              "0",
                                                               i.bannerPoint
-                                                                  .toString(),
-                                                              "0",
-                                                              "0",
-                                                              "0",
-                                                              "0");
+                                                                  .toString());
                                                     }
-                                                  } else if (i.linkType ==
-                                                      "sub_category") {
-                                                    if (i.bannerPoint != "0") {
-                                                      homeController
-                                                          .moveToProductList(
-                                                              context,
-                                                              i.cat.toString(),
-                                                              i.bannerPoint
-                                                                  .toString(),
-                                                              "0",
-                                                              "0",
-                                                              "0");
-                                                    }
-                                                  } else if (i.linkType ==
-                                                      "sub_sub_category") {
-                                                    if (i.bannerPoint != "0") {
-                                                      homeController
-                                                          .moveToProductList(
-                                                              context,
-                                                              i.cat.toString(),
-                                                              i.subcat
-                                                                  .toString(),
-                                                              i.bannerPoint
-                                                                  .toString(),
-                                                              "0",
-                                                              "0");
-                                                    }
-                                                  } else if (i.linkType ==
-                                                      "sub_sub_sub_category") {
-                                                    if (i.bannerPoint != "0") {
-                                                      homeController
-                                                          .moveToProductList(
-                                                              context,
-                                                              i.cat.toString(),
-                                                              i.subcat
-                                                                  .toString(),
-                                                              i.subsubcat
-                                                                  .toString(),
-                                                              i.bannerPoint
-                                                                  .toString(),
-                                                              "0");
-                                                    }
-                                                  } else if (i.linkType ==
-                                                      "product") {
-                                                    homeController
-                                                        .moveToProductDetails(
-                                                            context,
-                                                            i.bannerPoint
-                                                                .toString());
-                                                  } else if (i.linkType ==
-                                                      "brand") {
-                                                    homeController
-                                                        .moveToProductList(
-                                                            context,
-                                                            "0",
-                                                            "0",
-                                                            "0",
-                                                            "0",
-                                                            i.bannerPoint
-                                                                .toString());
-                                                  }
-                                                },
-                                                child: Padding(
+                                                  },
+                                                  child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 5,
+                                                              top: 5,
+                                                              bottom: 5),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                        child: FadeInImage
+                                                            .assetNetwork(
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                placeholder:
+                                                                    'assets/images/logo.png',
+                                                                image: i
+                                                                    .bannerImage
+                                                                    .toString()),
+                                                      )),
+                                                );
+                                              },
+                                            );
+                                          }).toList(),
+                                        )
+                                      : const SizedBox(),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  //top ads
+                                  homeController.bannerListTop2.isNotEmpty
+                                      ? FlutterCarousel(
+                                          options: CarouselOptions(
+                                            initialPage: 0,
+                                            enableInfiniteScroll: true,
+                                            viewportFraction: 1,
+                                            showIndicator: false,
+                                            height: 60.0,
+                                          ),
+                                          items: homeController.bannerListTop2
+                                              .map((i) {
+                                            return Builder(
+                                              builder: (BuildContext context) {
+                                                return Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             right: 5,
                                                             top: 5,
-                                                            bottom: 5),
+                                                            bottom: 5,
+                                                            left: 5),
                                                     child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -643,158 +732,124 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               image: i
                                                                   .bannerImage
                                                                   .toString()),
-                                                    )),
-                                              );
-                                            },
-                                          );
-                                        }).toList(),
-                                      )
-                                    : const SizedBox(),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                //top ads
-                                homeController.bannerListTop2.isNotEmpty
-                                    ? FlutterCarousel(
-                                        options: CarouselOptions(
-                                          initialPage: 0,
-                                          enableInfiniteScroll: true,
-                                          viewportFraction: 1,
-                                          showIndicator: false,
-                                          height: 60.0,
-                                        ),
-                                        items: homeController.bannerListTop2
-                                            .map((i) {
-                                          return Builder(
-                                            builder: (BuildContext context) {
-                                              return Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 5,
-                                                          top: 5,
-                                                          bottom: 5,
-                                                          left: 5),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    child: FadeInImage.assetNetwork(
-                                                        fit: BoxFit.fill,
-                                                        placeholder:
-                                                            'assets/images/logo.png',
-                                                        image: i.bannerImage
-                                                            .toString()),
-                                                  ));
-                                              // return FadeInImage.assetNetwork(
-                                              //     placeholder: 'assets/images/logo.png',
-                                              //     image: i.bannerImage.toString());
-                                            },
-                                          );
-                                        }).toList(),
-                                      )
-                                    : const SizedBox(),
+                                                    ));
+                                                // return FadeInImage.assetNetwork(
+                                                //     placeholder: 'assets/images/logo.png',
+                                                //     image: i.bannerImage.toString());
+                                              },
+                                            );
+                                          }).toList(),
+                                        )
+                                      : const SizedBox(),
 
-                                //Category
-                                GridView.builder(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, top: 10, right: 10),
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    physics: const ClampingScrollPhysics(),
+                                  //Category
+                                  GridView.builder(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, top: 10, right: 10),
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount:
+                                          homeController.categoryList.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisSpacing: 15,
+                                              mainAxisSpacing: 5,
+                                              mainAxisExtent: 130,
+                                              crossAxisCount: 4),
+                                      itemBuilder: (_, index) {
+                                        return MainCategoryItem(
+                                            category: homeController
+                                                .categoryList[index]);
+                                      }),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  //Flayer
+                                  InkWell(
+                                    onTap: () => AppUtils.navigateToPage(
+                                        FlayerListScreen()),
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          child: Image.asset(
+                                              fit: BoxFit.cover,
+                                              'assets/images/flayer.jpg'),
+                                        )),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+
+                                  //Item group
+                                  ListView.builder(
+                                    padding: const EdgeInsets.only(top: 0.0),
                                     itemCount:
-                                        homeController.categoryList.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisSpacing: 15,
-                                            mainAxisSpacing: 5,
-                                            mainAxisExtent: 130,
-                                            crossAxisCount: 4),
-                                    itemBuilder: (_, index) {
-                                      return MainCategoryItem(
-                                          category: homeController
-                                              .categoryList[index]);
-                                    }),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                //Flayer
-                                InkWell(
-                                  onTap: () => AppUtils.navigateToPage(
-                                      FlayerListScreen()),
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        child: Image.asset(
-                                            fit: BoxFit.cover,
-                                            'assets/images/flayer.jpg'),
-                                      )),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                        homeController.itemGroupList.length,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) =>
+                                        homeController.itemGroupList[index]
+                                                    .grpType ==
+                                                homeController.grpTypeProduct
+                                            ? ItemsWidget(
+                                                title: homeController
+                                                    .itemGroupList[index]
+                                                    .grpName,
+                                                products: homeController
+                                                    .itemGroupList[index]
+                                                    .grpItems,
+                                                groupImage: homeController
+                                                    .itemGroupList[index]
+                                                    .grpImage,
+                                              )
+                                            : homeController
+                                                        .itemGroupList[index]
+                                                        .grpType ==
+                                                    homeController.grpTypeImage
+                                                ? AdsImageWidget(
+                                                    grpDesign: homeController
+                                                        .itemGroupList[index]
+                                                        .grpDesign
+                                                        .toString(),
+                                                    title: homeController
+                                                        .itemGroupList[index]
+                                                        .grpName,
+                                                    itemGroup: homeController
+                                                        .itemGroupList[index],
+                                                  )
+                                                : CategoryWidget(
+                                                    title: homeController
+                                                        .itemGroupList[index]
+                                                        .grpName,
+                                                    itemGroup: homeController
+                                                        .itemGroupList[index],
+                                                  ),
+                                  ),
 
-                                //Item group
-                                ListView.builder(
-                                  padding: const EdgeInsets.only(top: 0.0),
-                                  itemCount:
-                                      homeController.itemGroupList.length,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder: (context, index) =>
-                                      homeController.itemGroupList[index]
-                                                  .grpType ==
-                                              homeController.grpTypeProduct
-                                          ? ItemsWidget(
-                                              title: homeController
-                                                  .itemGroupList[index].grpName,
-                                              products: homeController
-                                                  .itemGroupList[index]
-                                                  .grpItems,
-                                              groupImage: homeController
-                                                  .itemGroupList[index]
-                                                  .grpImage,
-                                            )
-                                          : homeController.itemGroupList[index]
-                                                      .grpType ==
-                                                  homeController.grpTypeImage
-                                              ? AdsImageWidget(
-                                                  grpDesign: homeController
-                                                      .itemGroupList[index]
-                                                      .grpDesign
-                                                      .toString(),
-                                                  title: homeController
-                                                      .itemGroupList[index]
-                                                      .grpName,
-                                                  itemGroup: homeController
-                                                      .itemGroupList[index],
-                                                )
-                                              : CategoryWidget(
-                                                  title: homeController
-                                                      .itemGroupList[index]
-                                                      .grpName,
-                                                  itemGroup: homeController
-                                                      .itemGroupList[index],
-                                                ),
-                                ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
 
-                                const SizedBox(
-                                  height: 5,
-                                ),
-
-                                // GridAdsWidget(),
-                                //
-                                // const SizedBox(
-                                //   height: 5,
-                                // ),
-                              ],
+                                  // GridAdsWidget(),
+                                  //
+                                  // const SizedBox(
+                                  //   height: 5,
+                                  // ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                    onRefresh: () async {
+                      homeController.getHomeData();
+                    },
+                  ),
+                ),
               ],
             )
           : SizedBox()),

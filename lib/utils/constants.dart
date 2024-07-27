@@ -1,5 +1,8 @@
-const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/';
-const baseURLDriver = 'https://dev.rawabihypermarket.com/rwbapi/Driverapi/';
+// const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/'; //dev
+const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
+
+const baseURLDriver = '${baseURL}/Driverapi/';
+
 
 //APis
 
@@ -54,9 +57,6 @@ const clearCartUrl = '${baseURL}clearcart';
 const reOrderUrl = '${baseURL}reOrder';
 const returnUrl = '${baseURL}return';
 const ratingUrl = '${baseURL}rating';
-
-
-
 
 //keys
 const token = "Rawabi_jc";

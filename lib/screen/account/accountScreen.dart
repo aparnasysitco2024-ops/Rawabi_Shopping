@@ -394,13 +394,13 @@ class _AccountScreenState extends State<AccountScreen> {
                                   ),
                                 ],
                               ),
-                        ProfileTile(
-                            image: "assets/icons/feedback.svg",
-                            title: homeController.languageParam.value.feedback
-                                .toString()),
-                        const Divider(
-                          thickness: 1,
-                        ),
+                        // ProfileTile(
+                        //     image: "assets/icons/feedback.svg",
+                        //     title: homeController.languageParam.value.feedback
+                        //         .toString()),
+                        // const Divider(
+                        //   thickness: 1,
+                        // ),
                         ProfileTile(
                             onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                                 url:
