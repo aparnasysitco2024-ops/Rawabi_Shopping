@@ -237,7 +237,7 @@ class OrderDetailsTile extends StatelessWidget {
                             width: double.infinity,
                           ),
                           Container(
-                            width: 70,
+                            width: 80,
                             height: 25,
                             margin: EdgeInsets.only(right: 10, left: 10),
                             child: ReusableButton1(

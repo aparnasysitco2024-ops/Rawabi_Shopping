@@ -22,7 +22,7 @@ class FlayerListScreen extends StatelessWidget {
       body: Column(
         children: [
           HeaderWidget(
-            title: "Flayer",
+            title: "Flyer",
             onBack: () {},
           ),
           Obx(() => flayerListController.loading.value

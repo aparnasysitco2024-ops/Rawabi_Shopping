@@ -209,7 +209,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                             : SizedBox(),
                                         const Spacer(),
                                         SizedBox(
-                                            width: 140,
+                                            width: 150,
                                             height: 30,
                                             child: ReusableButton1(
                                               onPressed: () {
