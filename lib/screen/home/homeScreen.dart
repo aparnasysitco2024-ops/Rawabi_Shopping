@@ -32,8 +32,13 @@ import '../../widget/commonWidget/reusable_button.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
   String? productId;
+  final VoidCallback onOffersSelected;
 
-  HomeScreen({super.key, this.productId = ""});
+  HomeScreen({
+    super.key,
+    this.productId = "",
+    required this.onOffersSelected,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -669,6 +674,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               "0",
                                                               i.bannerPoint
                                                                   .toString());
+                                                    } else if (i.linkType ==
+                                                        "offer") {
+                                                      widget.onOffersSelected();
                                                     }
                                                   },
                                                   child: Padding(

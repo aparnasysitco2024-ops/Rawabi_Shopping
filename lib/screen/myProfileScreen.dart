@@ -18,7 +18,7 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    profileController.getMyProfile();
+    // profileController.getMyProfile();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: silver,
@@ -218,6 +218,9 @@ class MyProfileScreen extends StatelessWidget {
                   left: 18, right: 18, top: 10, bottom: 20),
               child: ReusableButton1(
                 title: homeController.languageParam.value.saveAndUpdate,
+                onPressed: () {
+
+                },
               ),
             ),
             Container(

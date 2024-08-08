@@ -165,44 +165,92 @@ class TrackOrderScreen extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : Container(
-                              decoration: BoxDecoration(
-                                color: white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 5),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                          : Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: white,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      ReusableText(
-                                        title: "Deliver To ".tr,
-                                        size: 12,
-                                        weight: FontWeight.w600,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ReusableText(
+                                            title: "Deliver To ".tr,
+                                            size: 12,
+                                            weight: FontWeight.w600,
+                                          ),
+                                          ReusableText(
+                                            title:
+                                                myOrder.addressName.toString() +
+                                                    ", " +
+                                                    myOrder.address.toString() +
+                                                    ", " +
+                                                    myOrder.phone.toString(),
+                                            size: 12,
+                                            weight: FontWeight.w400,
+                                          ),
+                                        ],
                                       ),
-                                      ReusableText(
-                                        title: myOrder.addressName.toString() +
-                                            ", " +
-                                            myOrder.address.toString() +
-                                            ", " +
-                                            myOrder.phone.toString(),
-                                        size: 12,
-                                        weight: FontWeight.w400,
-                                      ),
+                                      // ReusableText(
+                                      //   title: "Change".tr,
+                                      //   size: 10,
+                                      //   color: blue,
+                                      // ),
                                     ],
                                   ),
-                                  // ReusableText(
-                                  //   title: "Change".tr,
-                                  //   size: 10,
-                                  //   color: blue,
-                                  // ),
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: white,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ReusableText(
+                                            title: "Deliver From ".tr,
+                                            size: 12,
+                                            weight: FontWeight.w600,
+                                          ),
+                                          ReusableText(
+                                            title: trackOrderController
+                                                .status.value.store_name,
+                                            size: 12,
+                                            weight: FontWeight.w400,
+                                          ),
+                                        ],
+                                      ),
+                                      // ReusableText(
+                                      //   title: "Change".tr,
+                                      //   size: 10,
+                                      //   color: blue,
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                       const SizedBox(
                         height: 6,
@@ -486,11 +534,11 @@ class TrackOrderScreen extends StatelessWidget {
                                             //         "yes"
                                             //     ? Checking()
                                             //     :
-                                            trackOrderController.status
-                                                            .value.delivered ==
-                                                        "yes"
-                                                    ? Checked()
-                                                    : EmptyChecked(),
+                                            trackOrderController.status.value
+                                                        .delivered ==
+                                                    "yes"
+                                                ? Checked()
+                                                : EmptyChecked(),
                                             const SizedBox(
                                               width: 10,
                                             ),

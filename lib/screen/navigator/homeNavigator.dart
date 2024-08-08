@@ -12,10 +12,14 @@ GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 // ignore: must_be_immutable
 class HomeNavigator extends StatefulWidget {
   final VoidCallback onCartSelected;
+  final VoidCallback onOffersSelected;
   String? productId;
 
   HomeNavigator(
-      {super.key, required this.onCartSelected, this.productId = ""});
+      {super.key,
+      required this.onCartSelected,
+      required this.onOffersSelected,
+      this.productId = ""});
 
   @override
   State<HomeNavigator> createState() => _HomeNavigatorState();
@@ -34,6 +38,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                 case '/':
                   return HomeScreen(
                     productId: widget.productId,
+                    onOffersSelected: widget.onOffersSelected,
                   );
                 case '/ProductsByCategory':
                   return ProductsByCategory();

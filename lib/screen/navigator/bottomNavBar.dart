@@ -47,6 +47,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       /*HomeScreen(),*/
       HomeNavigator(
         onCartSelected: () => currentIndex.value = 3,
+        onOffersSelected: () => currentIndex.value = 2,
         productId: widget.productId,
       ),
       CategoryNavigator(

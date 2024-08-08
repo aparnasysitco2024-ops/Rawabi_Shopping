@@ -85,6 +85,11 @@ class CartController extends GetxController {
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
+        if (!homeController.isPickup.value) {
+          calculateDeliveryFee();
+        } else {
+          delivery.value = 0.0;
+        }
       } else {
         CommonUtils.showErrorDialog(response.message);
       }
@@ -174,7 +179,8 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           getCartList();
         } else {
-          CommonUtils.showErrorDialog(responseData.message);
+          if (responseData.message != "There is no change, Please Try Agan")
+            CommonUtils.showErrorDialog(responseData.message);
         }
       } else {
         CommonUtils.showErrorDialog(response.message);
@@ -209,7 +215,8 @@ class CartController extends GetxController {
           "date": homeController.selectedSlotDate.value,
           "coupon": couponID.value,
           "payment_method": paymentValue.value,
-          "order_note": noteTextController.text
+          "order_note": noteTextController.text,
+          "delivery_fee": delivery.value
         };
         var response = await BaseClient().post(checkout, request);
         loading.value = false;

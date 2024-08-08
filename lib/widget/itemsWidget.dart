@@ -121,7 +121,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
             height: productItemHeight,
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: widget.products?.length,
+                itemCount:
+                    widget.products!.length > 10 ? 10 : widget.products?.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => GestureDetector(
                     child: Padding(

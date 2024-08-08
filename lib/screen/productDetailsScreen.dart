@@ -260,6 +260,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 //   size: 14.0,
                                 //   weight: FontWeight.w600,
                                 // ),
+                                productDetailsController.productDetails.value.offerPrice == "0.00"
+                                    ? SizedBox()
+                                    : ReusableText(
+                                  title: "QAR " +
+                                      productDetailsController.productDetails.value.sellingPrice.toString(),
+                                  size: 18,
+                                  strike: true,
+                                  color: grey1,
+                                ),
                                 ReusableText(
                                   title:
                                       "QAR ${productDetailsController.productDetails.value.offerPrice == "0.00" ? productDetailsController.productDetails.value.sellingPrice : productDetailsController.productDetails.value.offerPrice}",
