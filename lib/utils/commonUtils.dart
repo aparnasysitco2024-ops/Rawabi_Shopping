@@ -23,8 +23,9 @@ class CommonUtils {
   }
 
   static void showErrorDialog(message) {
-    if (!message
-        .contains("Connection closed before full header was received")) {
+    if (message.contains("Connection closed before full header was received") ||
+        message.contains("There is no change, Please Try Agan")) {
+    } else {
       showDialog(
           context: Get.context!,
           builder: (BuildContext context) {

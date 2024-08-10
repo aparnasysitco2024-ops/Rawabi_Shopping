@@ -87,7 +87,8 @@ class StorageManager {
   static Future<String> getGuestID() async {
     // String obj = "0";
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getString(keyUserID)!.isEmpty ||
+    if (prefs.getString(keyUserID) == null ||
+        prefs.getString(keyUserID)!.isEmpty ||
         prefs.getString(keyUserID) == '0')
       return prefs.getString(keyGuestID) ?? '0';
     else

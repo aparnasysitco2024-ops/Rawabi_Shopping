@@ -179,7 +179,6 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           getCartList();
         } else {
-          if (responseData.message != "There is no change, Please Try Agan")
             CommonUtils.showErrorDialog(responseData.message);
         }
       } else {
