@@ -6,8 +6,10 @@ import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/checkoutResponse.dart';
+import 'package:rawabi/model/response/onlinePaymentResponse.dart';
 import 'package:rawabi/screen/home/selectSlotScreen.dart';
 import 'package:rawabi/screen/orderPlacedScreen.dart';
+import 'package:rawabi/screen/payment_screen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:vibration/vibration.dart';
 
@@ -179,7 +181,7 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           getCartList();
         } else {
-            CommonUtils.showErrorDialog(responseData.message);
+          CommonUtils.showErrorDialog(responseData.message);
         }
       } else {
         CommonUtils.showErrorDialog(response.message);
@@ -217,21 +219,42 @@ class CartController extends GetxController {
           "order_note": noteTextController.text,
           "delivery_fee": delivery.value
         };
-        var response = await BaseClient().post(checkout, request);
-        loading.value = false;
-        if (response != null) {
-          var responseData =
-              CheckoutResponse.fromJson(json.decode(response.toString()));
-          if (responseData.code == "200") {
-            getCartList();
-            AppUtils.navigateToPage(OrderPlacedScreen(
-              orderId: responseData.orderId,
-            ));
+
+        var response;
+        if (paymentValue.value == online) {
+          response = await BaseClient().post(onlineCheckout, request);
+          loading.value = false;
+          if (response != null) {
+            var responseData = OnlinePaymentResponse.fromJson(
+                json.decode(response.toString()));
+            if (responseData.code == "200") {
+              getCartList();
+              AppUtils.navigateToPage(PaymentScreen(
+                  url: responseData.payurl.toString(),
+                  confirmUrl: responseData.confirmUrl.toString()));
+            } else {
+              CommonUtils.showErrorDialog(responseData.message);
+            }
           } else {
-            CommonUtils.showErrorDialog(responseData.message);
+            CommonUtils.showErrorDialog(response.message);
           }
         } else {
-          CommonUtils.showErrorDialog(response.message);
+          response = await BaseClient().post(checkout, request);
+          loading.value = false;
+          if (response != null) {
+            var responseData =
+                CheckoutResponse.fromJson(json.decode(response.toString()));
+            if (responseData.code == "200") {
+              getCartList();
+              AppUtils.navigateToPage(OrderPlacedScreen(
+                orderId: responseData.orderId,
+              ));
+            } else {
+              CommonUtils.showErrorDialog(responseData.message);
+            }
+          } else {
+            CommonUtils.showErrorDialog(response.message);
+          }
         }
       }
     } catch (error) {

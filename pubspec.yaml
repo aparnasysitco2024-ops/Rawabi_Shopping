@@ -76,6 +76,8 @@ dependencies:
   flutter_typeahead: ^5.2.0
   package_info_plus: ^4.2.0
   rating_dialog: ^2.0.4
+#  flutter_inappwebview: ^6.0.0
+  flutter_inappwebview: ^5.7.2+3
 
 
 dev_dependencies:

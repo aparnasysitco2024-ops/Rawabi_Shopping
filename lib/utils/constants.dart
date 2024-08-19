@@ -1,5 +1,9 @@
-// const baseURL = 'https://dev.rawabihypermarket.com/rwbapi/Api/'; //dev
+// const baseURL = 'https://rawabihypermarket.com/dev/rwbapi/Api/'; //dev
+
 const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
+// const baseURL_onlinePayment = 'https://rawabihypermarket.com/dev/rwbapi/Onlinepay/'; //dev
+const baseURL_onlinePayment = 'https://rawabihypermarket.com/rawabi/rwbapi/onlinepay/'; //production
+
 const baseURLDriver = 'https://rawabihypermarket.com/rawabi/rwbapi/Driverapi/';
 
 //APis
@@ -19,6 +23,7 @@ const calculate = '${baseURL}calculate';
 const deletecart = '${baseURL}deletecart';
 const update_qty = '${baseURL}update_qty';
 const checkout = '${baseURL}checkout';
+const onlineCheckout = '${baseURL_onlinePayment}checkout';
 const addressList = '${baseURL}addressList';
 const addaddressUrl = '${baseURL}addaddress';
 const deleteaddress = '${baseURL}deleteaddress';

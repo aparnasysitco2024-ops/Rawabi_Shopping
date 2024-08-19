@@ -562,6 +562,38 @@ class CartScreen extends StatelessWidget {
                                                   })
                                             ],
                                           ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Divider(),
+                                          Row(
+                                            children: [
+                                              RoundCard(
+                                                image:
+                                                'assets/icons/online.png',
+                                                isPng: true,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              ReusableText(
+                                                title: "Online Payment",
+                                                weight: FontWeight.w400,
+                                              ),
+                                              const Spacer(),
+                                              Radio(
+                                                  value: cartController.online,
+                                                  groupValue: cartController
+                                                      .paymentValue.value,
+                                                  activeColor: WidgetStateColor
+                                                      .resolveWith((states) =>
+                                                  primaryColor),
+                                                  onChanged: (v) {
+                                                    cartController
+                                                        .paymentValue.value = v!;
+                                                  })
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ),

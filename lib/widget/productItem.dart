@@ -159,8 +159,10 @@ class _ProductItemState extends State<ProductItem> {
                                 ),
                           ReusableText(
                             title: widget.products.offerPrice == "0.00"
-                                ?"QAR " + widget.products.sellingPrice.toString()
-                                : "QAR " +widget.products.offerPrice.toString(),
+                                ? "QAR " +
+                                    widget.products.sellingPrice.toString()
+                                : "QAR " +
+                                    widget.products.offerPrice.toString(),
                             size: 12,
                             weight: FontWeight.bold,
                           ),
@@ -174,7 +176,8 @@ class _ProductItemState extends State<ProductItem> {
                                       widget.cartController.addToCart(
                                           widget.products.productId.toString(),
                                           widget.products.storeId.toString(),
-                                          widget.products.offerPrice.toString() ==
+                                          widget.products.offerPrice
+                                                      .toString() ==
                                                   "0.00"
                                               ? widget.products.sellingPrice
                                                   .toString()
@@ -193,10 +196,10 @@ class _ProductItemState extends State<ProductItem> {
                                     fontWeight: FontWeight.bold,
                                   )
                                 : Container(
-                                    margin:
-                                        const EdgeInsets.only(bottom: 5, top: 5),
+                                    margin: const EdgeInsets.only(
+                                        bottom: 5, top: 5),
                                     height: 30,
-                                    width: 60,
+                                    width: 65,
                                     padding: const EdgeInsets.all(1),
                                     decoration: BoxDecoration(
                                         color: pink,
@@ -204,7 +207,8 @@ class _ProductItemState extends State<ProductItem> {
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         InkWell(
                                           onTap: () {
@@ -253,7 +257,8 @@ class _ProductItemState extends State<ProductItem> {
                                                 widget.products.offerPrice
                                                             .toString() ==
                                                         "0.00"
-                                                    ? widget.products.sellingPrice
+                                                    ? widget
+                                                        .products.sellingPrice
                                                         .toString()
                                                     : widget.products.offerPrice
                                                         .toString(),
@@ -274,13 +279,13 @@ class _ProductItemState extends State<ProductItem> {
                                     ),
                                   )
                             : Expanded(
-                              child: ReusableText(
+                                child: ReusableText(
                                   title: "Available Soon".tr,
                                   textAlign: TextAlign.center,
                                   size: 12,
                                   color: primaryColor,
                                 ),
-                            ),
+                              ),
                       )
                     ],
                   )
