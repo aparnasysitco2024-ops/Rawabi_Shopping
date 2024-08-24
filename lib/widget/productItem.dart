@@ -8,8 +8,8 @@ import 'package:rawabi/model/response/products.dart';
 import '../controller/cartController.dart';
 import '../controller/productsController.dart';
 import '../utils/colors.dart';
+import 'commonWidget/outlinedButton.dart';
 import 'commonWidget/reusableNetworkImage.dart';
-import 'commonWidget/reusable_button1.dart';
 import 'commonWidget/reusable_text.dart';
 
 class ProductItem extends StatefulWidget {
@@ -171,7 +171,7 @@ class _ProductItemState extends State<ProductItem> {
                       Flexible(
                         child: widget.products.item_status == "1"
                             ? widget.products.cartCount == 0
-                                ? ReusableButton1(
+                                ? OutLinedButton(
                                     onPressed: () {
                                       widget.cartController.addToCart(
                                           widget.products.productId.toString(),
@@ -191,6 +191,7 @@ class _ProductItemState extends State<ProductItem> {
                                       });
                                     },
                                     title: "Add".tr,
+                                    txtColor: primaryColor,
                                     size: const Size(60, 27),
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -202,7 +203,7 @@ class _ProductItemState extends State<ProductItem> {
                                     width: 65,
                                     padding: const EdgeInsets.all(1),
                                     decoration: BoxDecoration(
-                                        color: pink,
+                                        color: primaryColor,
                                         borderRadius: BorderRadius.circular(5)),
                                     child: Row(
                                       crossAxisAlignment:

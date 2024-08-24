@@ -247,7 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       width: 20,
                     ),
-                    SvgPicture.asset("assets/icons/logo.svg", height: 60),
+                    SvgPicture.asset("assets/icons/logo.svg", height: 47),
+                    SizedBox(width: 5,),
                     Flexible(
                       child: Container(
                         width: double.infinity,
@@ -338,9 +339,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 40,
                                   decoration: const BoxDecoration(
                                       gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [blue, lightBlue, pink]),
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [primaryColor, lightGreen]),
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(7))),
                                   child: Row(children: [
@@ -364,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Transform.scale(
                                       scale: 0.7,
                                       child: Switch(
-                                        activeColor: primaryColor,
+                                        activeColor: orange,
                                         value: homeController.isExpress.value,
                                         onChanged: (value) {
                                           homeController.isExpress.value =
@@ -472,9 +473,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 36,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [blue, lightBlue, pink]),
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [orange, yellow]),
                   ),
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -525,13 +526,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(4),
                             decoration: const BoxDecoration(
-                                color: Colors.white,
+                                color: primaryColor,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(3))),
                             child: ReusableText(
                               title: homeController.languageParam.value.change,
                               size: 10,
-                              color: blue,
+                              color: Colors.white,
                             ),
                           ),
                         ),

@@ -98,14 +98,15 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Padding(
             padding: const EdgeInsets.all(50),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SvgPicture.asset("assets/icons/logo.svg"),
+                SvgPicture.asset("assets/icons/logo.svg",height: 80,),
+                SizedBox(height: 10,),
                 ReusableText(
                     textAlign: TextAlign.center,
                     title: "Get your groceries delivered to your home".tr,
-                    size: 28,
+                    size: 20,
                     color: blackLight,
                     weight: FontWeight.bold),
                 const SizedBox(
@@ -120,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: grey,
                     weight: FontWeight.w400),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 // ReusableButton(
                 //     width: 200.0,

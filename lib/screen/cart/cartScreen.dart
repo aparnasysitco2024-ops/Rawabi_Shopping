@@ -186,9 +186,9 @@ class CartScreen extends StatelessWidget {
                         height: 30,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [blue, lightBlue, pink]),
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [orange, yellow]),
                         ),
                         child: Row(children: [
                           SvgPicture.asset(
@@ -209,7 +209,7 @@ class CartScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(4),
                             decoration: const BoxDecoration(
-                                color: Colors.white,
+                                color: primaryColor,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(3))),
                             child: InkWell(
@@ -219,7 +219,7 @@ class CartScreen extends StatelessWidget {
                                 title:
                                     homeController.languageParam.value.change,
                                 size: 8,
-                                color: blue,
+                                color:white,
                               ),
                             ),
                           )
@@ -310,13 +310,9 @@ class CartScreen extends StatelessWidget {
                                             width: double.maxFinite,
                                             decoration: const BoxDecoration(
                                               gradient: LinearGradient(
-                                                  begin: Alignment.topLeft,
-                                                  end: Alignment.bottomRight,
-                                                  colors: [
-                                                    blue,
-                                                    lightBlue,
-                                                    pink
-                                                  ]),
+                                                  begin: Alignment.centerLeft,
+                                                  end: Alignment.centerRight,
+                                                  colors: [orange, yellow]),
                                             ),
                                             child: Center(
                                               child: Padding(
@@ -1159,7 +1155,7 @@ class CartScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SvgPicture.asset("assets/icons/logo.svg"),
+                                    SvgPicture.asset("assets/icons/logo.svg",height: 80,),
                                     ReusableText(
                                       title: "Your cart is empty!!".tr,
                                     )

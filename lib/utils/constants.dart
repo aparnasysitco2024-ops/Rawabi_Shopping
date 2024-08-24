@@ -1,5 +1,4 @@
 // const baseURL = 'https://rawabihypermarket.com/dev/rwbapi/Api/'; //dev
-
 const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
 // const baseURL_onlinePayment = 'https://rawabihypermarket.com/dev/rwbapi/Onlinepay/'; //dev
 const baseURL_onlinePayment = 'https://rawabihypermarket.com/rawabi/rwbapi/onlinepay/'; //production

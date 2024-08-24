@@ -387,7 +387,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset("assets/icons/logo.svg"),
+                                  SvgPicture.asset("assets/icons/logo.svg",height: 80,),
                                   ReusableText(
                                     title: "No Item Found!!".tr,
                                   )
@@ -432,7 +432,7 @@ class _AddButtonState extends State<AddButton> {
                 width: 90,
                 padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                    color: pink, borderRadius: BorderRadius.circular(5)),
+                    color: primaryColor, borderRadius: BorderRadius.circular(5)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,

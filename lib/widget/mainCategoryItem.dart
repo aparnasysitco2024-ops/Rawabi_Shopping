@@ -37,9 +37,8 @@ class MainCategoryItem extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color(0x332BAAE2),
-                        Color(0x339EB9E0),
-                        Color(0x33F1C4DE)
+                        Color(0x33249046),
+                        Color(0x338EC340),
                       ]),
                   borderRadius: BorderRadius.circular(10)),
               height: 90,

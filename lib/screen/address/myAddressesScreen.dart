@@ -116,7 +116,7 @@ class MyAddressesScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset("assets/icons/logo.svg"),
+                                      SvgPicture.asset("assets/icons/logo.svg",height: 80,),
                                       ReusableText(
                                         title: "No address added!!".tr,
                                       )

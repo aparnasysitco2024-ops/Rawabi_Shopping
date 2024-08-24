@@ -71,9 +71,9 @@ class _AccountScreenState extends State<AccountScreen> {
               height: 113,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [blue, lightBlue, pink]),
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [primaryColor, lightGreen]),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

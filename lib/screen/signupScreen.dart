@@ -62,7 +62,7 @@ class SignupScreen extends StatelessWidget {
                         const SizedBox(
                           height: 70,
                         ),
-                        SvgPicture.asset("assets/icons/logo.svg"),
+                        SvgPicture.asset("assets/icons/logo.svg",height: 80,),
                       ],
                     ),
                   ),

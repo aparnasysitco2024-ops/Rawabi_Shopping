@@ -159,7 +159,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             crossPlatform: InAppWebViewOptions(
                           clearCache: true,
                           cacheEnabled: false,
-                          useShouldOverrideUrlLoading: true,
+                          useShouldOverrideUrlLoading: false,
                         )),
                         onWebViewCreated: (InAppWebViewController controller) {
                           // webView = controller;

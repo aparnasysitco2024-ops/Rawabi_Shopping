@@ -163,7 +163,7 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SvgPicture.asset("assets/icons/logo.svg"),
+                          SvgPicture.asset("assets/icons/logo.svg",height: 80,),
                           const ReusableText(
                             title: "No Item Found!!",
                           )

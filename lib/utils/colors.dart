@@ -2,7 +2,8 @@
 
 import 'dart:ui';
 
-const primaryColor = Color(0xFFD20F8C);
+const primaryColor = Color(0xFF249046);
+const lightGreen = Color(0xFF8EC340);
 const blackLight = Color(0xFF06161C);
 const black = Color(0xFF000000);
 const blackTrans = Color(0x2F000000);
@@ -17,4 +18,8 @@ const lightPink=Color(0xFFFAD3EB);
 const skyBlue =Color(0x3329AAE2);
 const white = Color(0xFFFFFFFF);
 const lightGreyColor = Color(0xFFF3F3F3);
+const orange = Color(0xFFFAAD1C);
+const yellow = Color(0xFFF8D808);
+
+
 

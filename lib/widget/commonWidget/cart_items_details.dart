@@ -67,10 +67,10 @@ class CartItemDetails extends StatelessWidget {
                 child: const SizedBox(
                   width: 25,
                   child: CircleAvatar(
-                    backgroundColor: pink,
+                    backgroundColor: lightGreen,
                     radius: 15,
                     child:
-                        ClipOval(child: Icon(size: 15, Icons.remove_outlined)),
+                        ClipOval(child: Icon(size: 15, Icons.remove_outlined,color: Colors.white,)),
                   ),
                 ),
               ),
@@ -95,7 +95,7 @@ class CartItemDetails extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: primaryColor,
                     radius: 15,
-                    child: ClipOval(child: Icon(size: 15, Icons.add)),
+                    child: ClipOval(child: Icon(size: 15, Icons.add,color: Colors.white,)),
                   ),
                 ),
               ),

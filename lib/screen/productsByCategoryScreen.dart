@@ -170,9 +170,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             height: 40,
                             decoration: const BoxDecoration(
                                 gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [blue, lightBlue, pink]),
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [primaryColor, lightGreen]),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(7))),
                             child: Row(children: [
@@ -369,7 +369,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 radius: Radius.circular(5),
                                 padding: EdgeInsets.all(5),
                                 strokeWidth: 1.5,
-                                backgroundColor: silver,
+                                backgroundColor:
+                                    productController.topSelectedCatId.value ==
+                                            productController
+                                                .subCategoryList[index].catId
+                                        ? yellow
+                                        : silver,
                                 gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
@@ -377,7 +382,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                                 .topSelectedCatId.value ==
                                             productController
                                                 .subCategoryList[index].catId
-                                        ? [blue, lightBlue, pink]
+                                        ? [yellow, yellow, yellow]
                                         : [silver, silver, silver]),
                                 onTap: () {
                                   productController.isLoaded = false;
@@ -493,7 +498,10 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset("assets/icons/logo.svg"),
+                                  SvgPicture.asset(
+                                    "assets/icons/logo.svg",
+                                    height: 80,
+                                  ),
                                   ReusableText(
                                     title: "No Item Found!!".tr,
                                   )

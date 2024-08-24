@@ -47,7 +47,7 @@ class MyOrderScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset("assets/icons/logo.svg"),
+                      SvgPicture.asset("assets/icons/logo.svg",height: 80,),
                       ReusableText(
                         title: "No orders!!".tr,
                       )

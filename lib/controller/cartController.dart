@@ -28,10 +28,10 @@ class CartController extends GetxController {
   var paymentValue = "cod".obs;
 
   var cartProducts = <Products>[].obs;
-  String masterCard = "Master Card";
+  // String masterCard = "Master Card";
   String online = "online";
   String cash = "cod";
-  String card = "card";
+  String card = "ccod";
   var subTotal = 0.00.obs;
   var delivery = 0.00.obs;
   var bagFee = 0.00.obs;

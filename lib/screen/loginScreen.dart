@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/loginController.dart';
 import 'package:rawabi/utils/commonUtils.dart';
@@ -28,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/images/splash.png"),
+                        image: AssetImage("assets/images/login_bg.png"),
                         fit: BoxFit.cover),
                   ),
                   child: Column(children: [
@@ -55,19 +54,19 @@ class LoginScreen extends StatelessWidget {
                                 title: "Skip".tr),
                           ),
                         )),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 70,
-                          ),
-                          SvgPicture.asset("assets/icons/logo.svg"),
-                        ],
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.topCenter,
+                    //   child: Column(
+                    //     children: [
+                    //       const SizedBox(
+                    //         height: 70,
+                    //       ),
+                    //       SvgPicture.asset("assets/icons/logo.svg",height: 80,),
+                    //     ],
+                    //   ),
+                    // ),
                     const SizedBox(
-                      height: 30,
+                      height: 250,
                     ),
                   ]),
                 ),
