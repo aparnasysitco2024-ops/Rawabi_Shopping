@@ -12,7 +12,7 @@ import '../utils/colors.dart';
 import '../utils/constants.dart';
 
 class ItemsWidget extends StatefulWidget {
-  String? title, groupImage;
+  String? title, groupImage, grp_id;
   List<Products>? products;
   bool hideViewAll;
   final cartController = Get.put(CartController());
@@ -22,7 +22,8 @@ class ItemsWidget extends StatefulWidget {
       this.title,
       this.products,
       this.hideViewAll = false,
-      this.groupImage});
+      this.groupImage,
+      this.grp_id});
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
@@ -68,6 +69,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                           arguments: {
                             'title': widget.title,
                             'products': widget.products,
+                            "grp_id":widget.grp_id
                           },
                         );
                       },
@@ -97,6 +99,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         arguments: {
                           'title': widget.title,
                           'products': widget.products,
+
                         },
                       );
                     },

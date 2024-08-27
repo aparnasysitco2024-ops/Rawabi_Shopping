@@ -45,6 +45,7 @@ const lang_paramsUrl = '${baseURL}lang_params';
 const slotList = '${baseURL}slotList';
 const slotAvail = '${baseURL}slotAvail';
 const notificationList = '${baseURL}notificationList';
+const itemgroup_details = '${baseURL}itemgroup_details';
 
 const couponList = '${baseURL}couponList';
 const couponValidate = '${baseURL}couponValidate';

@@ -78,10 +78,11 @@ class CartController extends GetxController {
           }
           bagFee.value = double.parse(responseData.bagFee.toString());
 
-          for (var element in cartProducts) {
-            subTotal.value =
-                subTotal.value + double.parse(element.subtotal.toString());
-          }
+          subTotal.value = double.parse(responseData.cart_total.toString());
+          // for (var element in cartProducts) {
+          //   subTotal.value =
+          //       subTotal.value + double.parse(element.subtotal.toString());
+          // }
 
           setTotal();
         } else {

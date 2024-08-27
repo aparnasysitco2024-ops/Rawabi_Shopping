@@ -322,12 +322,12 @@ class TrackOrderScreen extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 3, vertical: 2),
                                 decoration: const BoxDecoration(
-                                    color: pink,
+                                    color: primaryColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(100))),
                                 child: ReusableText(
                                   title: "Track Your Order".tr,
-                                  color: primaryColor,
+                                  color: Colors.white,
                                   size: 12,
                                   weight: FontWeight.w600,
                                 ),
@@ -611,7 +611,7 @@ class Checked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FDottedLine(
-        color: pink,
+        color: primaryColor,
         strokeWidth: 0.0,
         dottedLength: 8.0,
         space: 3.0,
@@ -620,10 +620,10 @@ class Checked extends StatelessWidget {
           width: 38,
           height: 38,
           alignment: Alignment.center,
-          color: pink,
+          color: primaryColor,
           child: CircleAvatar(
             radius: 15,
-            backgroundColor: lightPink,
+            backgroundColor: lightGreen,
             child: SvgPicture.asset("assets/icons/Tick.svg"),
           ),
         ));
@@ -655,7 +655,7 @@ class Checking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FDottedLine(
-        color: pink,
+        color: primaryColor,
         strokeWidth: 0.0,
         dottedLength: 8.0,
         space: 3.0,
@@ -664,10 +664,10 @@ class Checking extends StatelessWidget {
           width: 38,
           height: 38,
           alignment: Alignment.center,
-          color: pink,
+          color: primaryColor,
           child: const CircleAvatar(
             radius: 15,
-            backgroundColor: primaryColor,
+            backgroundColor: lightGreen,
             child: SvgIcon(
               image: "assets/icons/Tick.svg",
               color: white,

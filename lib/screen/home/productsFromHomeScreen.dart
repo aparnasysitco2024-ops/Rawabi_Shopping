@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/controller/productFromItemGroupController.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
@@ -13,9 +14,9 @@ import '../../utils/constants.dart';
 
 // ignore: must_be_immutable
 class ProductsFromHomeScreen extends StatefulWidget {
-  const ProductsFromHomeScreen({
-    super.key,
-  });
+  String? grp_id;
+
+  ProductsFromHomeScreen({super.key, required this.grp_id});
 
   @override
   State<ProductsFromHomeScreen> createState() => _ProductsFromHomeScreenState();
@@ -23,6 +24,8 @@ class ProductsFromHomeScreen extends StatefulWidget {
 
 class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
   final homeController = Get.put(HomeController());
+  final productFromItemGroupController =
+      Get.put(ProductFromItemGroupController());
   final searchController = Get.put(SearchResultController());
 
   /* String _scanBarcode = '';
@@ -48,14 +51,17 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
-    final products = arguments['products'];
+    // final products = arguments['products'];
     final title = arguments['title'];
+
+    if (productFromItemGroupController.productList.isEmpty)
+      productFromItemGroupController.getItemGroupDetails(arguments['grp_id']);
 
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
         // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        // Get.delete<ProductController>();
+        Get.delete<ProductFromItemGroupController>();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -149,48 +155,67 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          products.isNotEmpty
-              ? Flexible(
-                  child: Container(
-                    height: double.infinity,
-                    color: silver,
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: GridView.builder(
-                        padding: const EdgeInsets.only(top: 15),
-                        shrinkWrap: true,
-                        itemCount: products.length,
-                        // physics: const BouncingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 12,
-                                mainAxisExtent: productItemHeight,
-                                crossAxisSpacing: 12,
-                                childAspectRatio: 0.5),
-                        itemBuilder: (_, index) {
-                          return InkWell(
-                              onTap: () async {},
-                              child: ProductItem(
-                                products: products[index],
-                              ));
-                        }),
-                  ),
-                )
-              : Flexible(
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset("assets/icons/logo.svg",height: 80,),
-                          ReusableText(
-                            title: "No Item Found!!".tr,
-                          )
-                        ]),
-                  ),
-                ),
+          Obx(
+            () {
+              return productFromItemGroupController.loading.value
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height - 250,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
+                      ),
+                    )
+                  : productFromItemGroupController.productList.isNotEmpty
+                      ? Flexible(
+                          child: Container(
+                            height: double.infinity,
+                            color: silver,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: GridView.builder(
+                                padding: const EdgeInsets.only(top: 15),
+                                shrinkWrap: true,
+                                itemCount: productFromItemGroupController
+                                    .productList.length,
+                                // physics: const BouncingScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 12,
+                                        mainAxisExtent: productItemHeight,
+                                        crossAxisSpacing: 12,
+                                        childAspectRatio: 0.5),
+                                itemBuilder: (_, index) {
+                                  return InkWell(
+                                      onTap: () async {},
+                                      child: ProductItem(
+                                        products: productFromItemGroupController
+                                            .productList[index],
+                                      ));
+                                }),
+                          ),
+                        )
+                      : Flexible(
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/logo.svg",
+                                    height: 80,
+                                  ),
+                                  ReusableText(
+                                    title: "No Item Found!!".tr,
+                                  )
+                                ]),
+                          ),
+                        );
+            },
+          ),
         ]),
       ),
     );

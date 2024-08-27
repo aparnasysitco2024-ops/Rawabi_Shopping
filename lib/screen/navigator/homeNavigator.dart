@@ -14,6 +14,7 @@ class HomeNavigator extends StatefulWidget {
   final VoidCallback onCartSelected;
   final VoidCallback onOffersSelected;
   String? productId;
+  String? grp_id;
 
   HomeNavigator(
       {super.key,
@@ -52,7 +53,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   return ProductDetailsScreen(
                       onCartSelected: widget.onCartSelected);
                 case '/ProductsFromHomeScreen':
-                  return ProductsFromHomeScreen();
+                  return ProductsFromHomeScreen(grp_id: widget.grp_id,);
                 case '/CategoryFromHomeScreen':
                   return CategoryFromHomeScreen();
               }

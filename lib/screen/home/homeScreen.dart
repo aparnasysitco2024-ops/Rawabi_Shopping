@@ -828,6 +828,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 groupImage: homeController
                                                     .itemGroupList[index]
                                                     .grpImage,
+                                            grp_id:homeController
+                                                .itemGroupList[index]
+                                                .grpId
                                               )
                                             : homeController
                                                         .itemGroupList[index]
