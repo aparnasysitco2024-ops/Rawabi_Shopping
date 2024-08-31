@@ -99,7 +99,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         arguments: {
                           'title': widget.title,
                           'products': widget.products,
-
+                          "grp_id":widget.grp_id
                         },
                       );
                     },

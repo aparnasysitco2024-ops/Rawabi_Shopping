@@ -182,6 +182,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "0",
                                         "0",
                                         i.bannerPoint.toString());
+                                  } else if (i.linkType ==
+                                      "itemgroup") {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/ProductsFromHomeScreen',
+                                      arguments: {
+                                        'title': i.bannerName,
+                                        "grp_id":
+                                        i.bannerPoint
+                                      },
+                                    );
                                   }
                                 },
                                 child: Builder(
@@ -248,7 +259,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 20,
                     ),
                     SvgPicture.asset("assets/icons/logo.svg", height: 47),
-                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Flexible(
                       child: Container(
                         width: double.infinity,
@@ -678,6 +691,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     } else if (i.linkType ==
                                                         "offer") {
                                                       widget.onOffersSelected();
+                                                    } else if (i.linkType ==
+                                                        "itemgroup") {
+                                                      Navigator.pushNamed(
+                                                        context,
+                                                        '/ProductsFromHomeScreen',
+                                                        arguments: {
+                                                          'title': i.bannerName,
+                                                          "grp_id":
+                                                              i.bannerPoint
+                                                        },
+                                                      );
                                                     }
                                                   },
                                                   child: Padding(
@@ -828,10 +852,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 groupImage: homeController
                                                     .itemGroupList[index]
                                                     .grpImage,
-                                            grp_id:homeController
-                                                .itemGroupList[index]
-                                                .grpId
-                                              )
+                                                grp_id: homeController
+                                                    .itemGroupList[index].grpId)
                                             : homeController
                                                         .itemGroupList[index]
                                                         .grpType ==

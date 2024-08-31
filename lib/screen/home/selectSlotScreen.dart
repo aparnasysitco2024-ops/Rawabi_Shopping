@@ -111,7 +111,7 @@ class _SelectSlotScreenState extends State<SelectSlotScreen> {
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   padding: EdgeInsets.only(left: 16, right: 16),
-                                  itemCount: 7,
+                                  itemCount: 2,
                                   itemBuilder: (BuildContext context, index) {
                                     return InkWell(
                                       onTap: () {
