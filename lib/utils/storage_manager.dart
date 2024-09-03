@@ -24,6 +24,8 @@ class StorageManager {
   static String keyStoreLat = "keyStoreLat";
   static String keyStoreLng = "keyStoreLng";
 
+  static String keyLastSearchSlotAddress = "keyLastSearchSlotAddress";
+
   static String keyDefaultAddressId = "keyDefaultAddressId";
   static String keyDefaultAddress = "keyDefaultAddress";
   static String keyDefaultAddressLat = "keyDefaultAddressLat";

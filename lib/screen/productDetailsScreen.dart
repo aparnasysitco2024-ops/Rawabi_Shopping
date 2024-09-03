@@ -260,15 +260,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 //   size: 14.0,
                                 //   weight: FontWeight.w600,
                                 // ),
-                                productDetailsController.productDetails.value.offerPrice == "0.00"
+                                productDetailsController
+                                            .productDetails.value.offerPrice ==
+                                        "0.00"
                                     ? SizedBox()
                                     : ReusableText(
-                                  title: "QAR " +
-                                      productDetailsController.productDetails.value.sellingPrice.toString(),
-                                  size: 18,
-                                  strike: true,
-                                  color: grey1,
-                                ),
+                                        title: "QAR " +
+                                            productDetailsController
+                                                .productDetails
+                                                .value
+                                                .sellingPrice
+                                                .toString(),
+                                        size: 18,
+                                        strike: true,
+                                        color: grey1,
+                                      ),
                                 ReusableText(
                                   title:
                                       "QAR ${productDetailsController.productDetails.value.offerPrice == "0.00" ? productDetailsController.productDetails.value.sellingPrice : productDetailsController.productDetails.value.offerPrice}",
@@ -380,14 +386,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ],
                             ))
                         : Padding(
-                  padding: EdgeInsets.only(top: 150),
+                            padding: EdgeInsets.only(top: 150),
                             // width: double.infinity,
                             // height: double.infinity,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset("assets/icons/logo.svg",height: 80,),
+                                  SvgPicture.asset(
+                                    "assets/icons/logo.svg",
+                                    height: 80,
+                                  ),
                                   ReusableText(
                                     title: "No Item Found!!".tr,
                                   )
@@ -432,7 +441,8 @@ class _AddButtonState extends State<AddButton> {
                 width: 90,
                 padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                    color: primaryColor, borderRadius: BorderRadius.circular(5)),
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(5)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -535,7 +545,7 @@ class _AddButtonState extends State<AddButton> {
                     child: SizedBox(
                       height: 40,
                       child: ReusableButton1(
-                        title: "Got To Cart".tr,
+                        title: "Go To Cart".tr,
                         onPressed: () {
                           widget.onCartSelected();
                         },

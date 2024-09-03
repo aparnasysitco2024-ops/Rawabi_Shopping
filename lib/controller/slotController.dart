@@ -42,9 +42,9 @@ class SlotController extends GetxController {
   Future<void> getSlot(String latitude, String longitude) async {
     try {
       loading.value = true;
-      var request = {"latitude": latitude, "longitude": longitude};
+      // var request = {"latitude": latitude, "longitude": longitude};
 
-      var response = await BaseClient().post(slotList, request);
+      var response = await BaseClient().get(slotList_new);
       loading.value = false;
 
       if (response != null) {

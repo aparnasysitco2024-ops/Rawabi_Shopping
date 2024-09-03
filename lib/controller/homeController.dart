@@ -285,60 +285,67 @@ class HomeController extends GetxController {
 
   Future<void> getSlot(
       String latitude, String longitude, String address) async {
-    try {
-      loading.value = true;
-      var request = {"latitude": latitude, "longitude": longitude};
+    if (await StorageManager.readData(
+            StorageManager.keyLastSearchSlotAddress) ==
+        address) {
+    } else {
+      try {
+        loading.value = true;
+        var request = {"latitude": latitude, "longitude": longitude};
 
-      var response = await BaseClient().post(slotList, request);
-      loading.value = false;
+        var response = await BaseClient().post(slotList, request);
+        loading.value = false;
 
-      if (response != null) {
-        var responseData =
-            SlotResponse.fromJson(json.decode(response.toString()));
-        if (responseData.code == "200") {
-          StorageManager.saveData(StorageManager.keyStoreLat, latitude);
-          StorageManager.saveData(StorageManager.keyStoreLng, longitude);
+        if (response != null) {
+          var responseData =
+              SlotResponse.fromJson(json.decode(response.toString()));
+          if (responseData.code == "200") {
+            StorageManager.saveData(
+                StorageManager.keyLastSearchSlotAddress, address);
+            StorageManager.saveData(StorageManager.keyStoreLat, latitude);
+            StorageManager.saveData(StorageManager.keyStoreLng, longitude);
 
-          if (responseData.res != null && responseData.res!.isNotEmpty) {
-            if (storeID.value != responseData.res?.first?.storeid) {
-              clearCart();
+            if (responseData.res != null && responseData.res!.isNotEmpty) {
+              if (storeID.value != responseData.res?.first?.storeid) {
+                clearCart();
+              }
+              StorageManager.saveData(
+                  StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+              StorageManager.saveData(StorageManager.keyStoreName,
+                  responseData.res?.first?.storename);
+              StorageManager.saveData(StorageManager.keyStoreAddress, address);
+              StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+              storeAddress.value = address;
+              storeID.value =
+                  await StorageManager.readData(StorageManager.keyStoreID);
+              storeName.value =
+                  await StorageManager.readData(StorageManager.keyStoreName);
+              isPickup.value = false;
+              getHomeData();
+              // Navigator.pop(Get!.context);
+            } else {
+              StorageManager.saveData(
+                  StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+              StorageManager.saveData(StorageManager.keyStoreID, "10");
+              StorageManager.saveData(StorageManager.keyStoreAddress, address);
+              StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+              storeAddress.value = address;
+              isPickup.value = false;
+              getHomeData();
             }
-            StorageManager.saveData(
-                StorageManager.keyStoreID, responseData.res?.first?.storeid);
-
-            StorageManager.saveData(StorageManager.keyStoreName,
-                responseData.res?.first?.storename);
-            StorageManager.saveData(StorageManager.keyStoreAddress, address);
-            StorageManager.saveData(StorageManager.keyIsPickup, false);
-
-            storeAddress.value = address;
-            storeID.value =
-                await StorageManager.readData(StorageManager.keyStoreID);
-            storeName.value =
-                await StorageManager.readData(StorageManager.keyStoreName);
-            isPickup.value = false;
-            getHomeData();
-            // Navigator.pop(Get!.context);
           } else {
-            StorageManager.saveData(
-                StorageManager.keyStoreID, responseData.res?.first?.storeid);
-
-            StorageManager.saveData(StorageManager.keyStoreID, "10");
-            StorageManager.saveData(StorageManager.keyStoreAddress, address);
-            StorageManager.saveData(StorageManager.keyIsPickup, false);
-
-            storeAddress.value = address;
-            isPickup.value = false;
-            getHomeData();
+            CommonUtils.showErrorDialog(response.message);
           }
         } else {
           CommonUtils.showErrorDialog(response.message);
         }
-      } else {
-        CommonUtils.showErrorDialog(response.message);
+      } catch (error) {
+        // CommonUtils.showErrorDialog(error.toString());
       }
-    } catch (error) {
-      // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
   }

@@ -79,8 +79,10 @@ class _AddressTileState extends State<AddressTile> {
                         widget.addressList.addressId!);
                     widget.homeController.defaultAddress.value =
                         "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}";
-                    StorageManager.saveData(StorageManager.keyDefaultAddress,
-                        "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}");
+                    var address =
+                        "${widget.addressList.addressType!}, ${widget.addressList.addressName}, ${widget.addressList.address}";
+                    StorageManager.saveData(
+                        StorageManager.keyDefaultAddress, address);
                     StorageManager.saveData(StorageManager.keyDefaultAddressLat,
                         widget.addressList.lat);
                     StorageManager.saveData(StorageManager.keyDefaultAddressLng,
@@ -88,6 +90,10 @@ class _AddressTileState extends State<AddressTile> {
 
                     widget.myAddressController.addressListData.refresh();
                     widget.homeController.getStorageData();
+                    // widget.homeController.getSlot(
+                    //     widget.addressList.lat.toString(),
+                    //     widget.addressList.long.toString(),
+                    //     address);
                   });
                 },
               ),
