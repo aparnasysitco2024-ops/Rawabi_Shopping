@@ -3,6 +3,9 @@ const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
 // const baseURL_onlinePayment = 'https://rawabihypermarket.com/dev/rwbapi/Onlinepay/'; //dev
 const baseURL_onlinePayment = 'https://rawabihypermarket.com/rawabi/rwbapi/onlinepay/'; //production
 
+// const baseURL_onlinePayment_Pre = 'https://rawabihypermarket.com/dev/rwbapi/onlineprepay/'; //dev
+const baseURL_onlinePayment_Pre = 'https://rawabihypermarket.com/rawabi/rwbapi/onlineprepay/'; //production
+
 const baseURLDriver = 'https://rawabihypermarket.com/rawabi/rwbapi/Driverapi/';
 
 //APis
@@ -61,6 +64,17 @@ const clearCartUrl = '${baseURL}clearcart';
 const reOrderUrl = '${baseURL}reOrder';
 const returnUrl = '${baseURL}return';
 const ratingUrl = '${baseURL}rating';
+
+//pre order
+const addtocart_preUrl = '${baseURL}addtocart_pre';
+const update_qty_preUrl = '${baseURL}update_qty_pre';
+const cartList_preUrl = '${baseURL}cartList_pre';
+const deletecart_preUrl = '${baseURL}deletecart_pre';
+const checkout_preUrl = '${baseURL}checkout_pre';
+const myorders_preUrl = '${baseURL}myorders_pre';
+const order_detail_preUrl = '${baseURL}order_detail_pre';
+const onlineCheckout_preUrl = '${baseURL_onlinePayment_Pre}checkout';
+
 
 //keys
 const token = "Rawabi_jc";

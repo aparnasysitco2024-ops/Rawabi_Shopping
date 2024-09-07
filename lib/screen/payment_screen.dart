@@ -16,9 +16,10 @@ import 'orderPlacedScreen.dart';
 // ignore: must_be_immutable
 class PaymentScreen extends StatefulWidget {
   String url, confirmUrl;
+  bool isPreOrder;
   final cartController = Get.put(CartController());
 
-  PaymentScreen({super.key, required this.url, required this.confirmUrl});
+  PaymentScreen({super.key, required this.url, required this.confirmUrl,required this.isPreOrder});
 
   @override
   // ignore: no_logic_in_create_state
@@ -179,7 +180,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                               if (responseData.code == "200") {
                                 widget.cartController.getCartList();
-                                AppUtils.navigateToPage(OrderPlacedScreen(
+                                AppUtils.navigateToPage(OrderPlacedScreen(isPreOrder: widget.isPreOrder,
                                   orderId: responseData.orderId,
                                 ));
                               } else {

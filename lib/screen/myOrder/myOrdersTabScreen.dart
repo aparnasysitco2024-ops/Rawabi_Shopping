@@ -20,7 +20,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 4, vsync: this);
+    TabController _tabController = TabController(length: 5, vsync: this);
     return Scaffold(
         backgroundColor: silver,
         body: SingleChildScrollView(
@@ -76,7 +76,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                       color: lightGreyColor,
                     ),
                     SizedBox(
-                      height: 33,
+                      height: 35,
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: TabBar(
@@ -91,7 +91,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget
                                     .homeController.languageParam.value.orders,
-                                size: 13,
+                                size: 10,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -101,7 +101,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget.homeController.languageParam.value
                                     .delivered,
-                                size: 13,
+                                size: 10,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -111,7 +111,16 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget.homeController.languageParam.value
                                     .cancelled,
-                                size: 13,
+                                size: 10,
+                                weight: FontWeight.w600,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: ReusableText(
+                                title: "PreOrder",
+                                size: 10,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -121,7 +130,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget
                                     .homeController.languageParam.value.returns,
-                                size: 13,
+                                size: 10,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -148,6 +157,9 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                       ),
                       MyOrderScreen(
                         status: "Cancelled",
+                      ),
+                      MyOrderScreen(
+                        status: "preOrder",
                       ),
                       MyOrderScreen(
                         status: "Return",

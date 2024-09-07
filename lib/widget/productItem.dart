@@ -279,14 +279,23 @@ class _ProductItemState extends State<ProductItem> {
                                       ],
                                     ),
                                   )
-                            : Expanded(
-                                child: ReusableText(
-                                  title: "Available Soon".tr,
-                                  textAlign: TextAlign.center,
-                                  size: 12,
-                                  color: primaryColor,
-                                ),
-                              ),
+                            : widget.products.item_status == "4"
+                                ? Expanded(
+                                    child: ReusableText(
+                                      title: "PreOrder".tr,
+                                      textAlign: TextAlign.center,
+                                      size: 12,
+                                      color: primaryColor,
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: ReusableText(
+                                      title: "Available Soon".tr,
+                                      textAlign: TextAlign.center,
+                                      size: 12,
+                                      color: primaryColor,
+                                    ),
+                                  ),
                       )
                     ],
                   )

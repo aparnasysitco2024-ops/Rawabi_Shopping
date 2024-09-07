@@ -14,10 +14,12 @@ import '../../widget/commonwidget/reusable_text.dart';
 // ignore: must_be_immutable
 class OrderDetailsScreen extends StatelessWidget {
   var orderid;
+  bool isPreOrder;
 
   final myOrderDetailController = Get.put(MyOrderDetailController());
 
-  OrderDetailsScreen({super.key, required this.orderid});
+  OrderDetailsScreen(
+      {super.key, required this.orderid, required this.isPreOrder});
 
   Future<dynamic> cancelOrderDialog(BuildContext context) async {
     return (showDialog(
@@ -86,7 +88,10 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myOrderDetailController.getMyOrderDetail(orderid.toString());
+    if (isPreOrder)
+      myOrderDetailController.getMyOrderDetailPreOrder(orderid.toString());
+    else
+      myOrderDetailController.getMyOrderDetail(orderid.toString());
     return PopScope(
       onPopInvoked: (didPop) {
         Get.delete<MyOrderDetailController>();
@@ -186,67 +191,73 @@ class OrderDetailsScreen extends StatelessWidget {
                                   const Divider(
                                     thickness: 1,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        myOrderDetailController
-                                                    .myOrder.status ==
-                                                "Processing"
-                                            ? InkWell(
-                                                onTap: () {
-                                                  cancelOrderDialog(context);
-                                                },
-                                                child: SizedBox(
-                                                  child: ReusableText(
-                                                    title: "Cancel Order".tr,
-                                                    size: 12,
-                                                    weight: FontWeight.w600,
-                                                  ),
-                                                  height: 25,
-                                                ),
-                                              )
-                                            : SizedBox(),
-                                        const Spacer(),
-                                        SizedBox(
-                                            width: 150,
-                                            height: 30,
-                                            child: ReusableButton1(
-                                              onPressed: () {
-                                                AppUtils.navigateToPage(
-                                                    TrackOrderScreen(
-                                                  myOrder:
+                                  isPreOrder
+                                      ? SizedBox()
+                                      : Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              myOrderDetailController
+                                                          .myOrder.status ==
+                                                      "Processing"
+                                                  ? InkWell(
+                                                      onTap: () {
+                                                        cancelOrderDialog(
+                                                            context);
+                                                      },
+                                                      child: SizedBox(
+                                                        child: ReusableText(
+                                                          title:
+                                                              "Cancel Order".tr,
+                                                          size: 12,
+                                                          weight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                        height: 25,
+                                                      ),
+                                                    )
+                                                  : SizedBox(),
+                                              const Spacer(),
+                                              SizedBox(
+                                                  width: 150,
+                                                  height: 30,
+                                                  child: ReusableButton1(
+                                                    onPressed: () {
+                                                      AppUtils.navigateToPage(
+                                                          TrackOrderScreen(
+                                                        myOrder:
+                                                            myOrderDetailController
+                                                                .myOrder,
+                                                        id: orderid.toString(),
+                                                      ));
+                                                    },
+                                                    fontSize: 12,
+                                                    title:
+                                                        "Track Your Order".tr,
+                                                  )),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              myOrderDetailController
+                                                              .myOrder.status ==
+                                                          "Delivered" ||
                                                       myOrderDetailController
-                                                          .myOrder,
-                                                  id: orderid.toString(),
-                                                ));
-                                              },
-                                              fontSize: 12,
-                                              title: "Track Your Order".tr,
-                                            )),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        myOrderDetailController
-                                                        .myOrder.status ==
-                                                    "Delivered" ||
-                                                myOrderDetailController
-                                                        .myOrder.status ==
-                                                    "Cancelled"
-                                            ? SizedBox(
-                                                width: 100,
-                                                height: 30,
-                                                child: ReusableButton1(
-                                                  onPressed: () =>
-                                                      myOrderDetailController
-                                                          .reOrder(),
-                                                  fontSize: 12,
-                                                  title: "Re Order".tr,
-                                                ))
-                                            : SizedBox()
-                                      ],
-                                    ),
-                                  )
+                                                              .myOrder.status ==
+                                                          "Cancelled"
+                                                  ? SizedBox(
+                                                      width: 100,
+                                                      height: 30,
+                                                      child: ReusableButton1(
+                                                        onPressed: () =>
+                                                            myOrderDetailController
+                                                                .reOrder(),
+                                                        fontSize: 12,
+                                                        title: "Re Order".tr,
+                                                      ))
+                                                  : SizedBox()
+                                            ],
+                                          ),
+                                        )
                                 ],
                               ),
                             ),

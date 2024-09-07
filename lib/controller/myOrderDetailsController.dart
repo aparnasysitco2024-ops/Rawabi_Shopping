@@ -54,6 +54,31 @@ class MyOrderDetailController extends GetxController {
     loading.value = false;
   }
 
+  Future<void> getMyOrderDetailPreOrder(String id) async {
+    try {
+      loading.value = true;
+      var request = {"id": id};
+      var response = await BaseClient().post(order_detail_preUrl, request);
+      loading.value = false;
+      if (response != null) {
+        myOrderList.clear();
+        var responseData =
+        OrderDetailResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          myOrder = responseData.res!.first;
+          myOrderList.addAll(responseData.res?.first.items! as Iterable<Items>);
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
   Future<void> cancelOrder() async {
     try {
       loading.value = true;

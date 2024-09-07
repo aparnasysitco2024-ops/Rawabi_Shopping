@@ -53,6 +53,7 @@ class CommonUtils {
                         height: 15,
                       ),
                       ReusableText(
+                        textAlign: TextAlign.center,
                         maxLine: 2,
                         title: message,
                         weight: FontWeight.w400,

@@ -12,8 +12,8 @@ import 'myOrder/orderDetailsScreen.dart';
 // ignore: must_be_immutable
 class OrderPlacedScreen extends StatelessWidget {
   var orderId;
-
-  OrderPlacedScreen({super.key, this.orderId});
+  bool isPreOrder;
+  OrderPlacedScreen({super.key, this.orderId,required this.isPreOrder});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class OrderPlacedScreen extends StatelessWidget {
                 ),
                 ReusableButton1(
                   onPressed: () {
-                    AppUtils.navigateToPageReplace(OrderDetailsScreen(
+                    AppUtils.navigateToPageReplace(OrderDetailsScreen(isPreOrder: isPreOrder,
                       orderid: orderId,
                     ));
                   },

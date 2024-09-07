@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
+import 'package:rawabi/controller/productsController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/checkoutResponse.dart';
@@ -28,6 +29,8 @@ class CartController extends GetxController {
   var paymentValue = "cod".obs;
 
   var cartProducts = <Products>[].obs;
+  var cartProductsPreOrder = <Products>[].obs;
+
   // String masterCard = "Master Card";
   String online = "online";
   String cash = "cod";
@@ -38,6 +41,7 @@ class CartController extends GetxController {
   var discount = 0.00.obs;
   var grandTotal = 0.00.obs;
   var totalItemCount = 0.obs;
+  var totalItemCountPreOrder = 0.obs;
   var couponID = 0.obs;
   var couponText = "".obs;
   var selectedPickupSlot = "".obs;
@@ -83,6 +87,53 @@ class CartController extends GetxController {
           //   subTotal.value =
           //       subTotal.value + double.parse(element.subtotal.toString());
           // }
+
+          setTotal();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+        if (!homeController.isPickup.value) {
+          calculateDeliveryFee();
+        } else {
+          delivery.value = 0.0;
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> getCartListPreOrder() async {
+    try {
+      if (isLoadedFirst.value) {
+        loading.value = true;
+        isLoadedFirst.value = true;
+      }
+      var response = await BaseClient().get(cartList_preUrl);
+      loading.value = false;
+      subTotal.value = 0.00;
+      cartProductsPreOrder.clear();
+      if (response != null) {
+        var responseData =
+            CartListResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          if (responseData.products != null)
+            cartProductsPreOrder
+                .addAll(responseData.products as Iterable<Products>);
+          totalItemCountPreOrder.value = cartProductsPreOrder.length;
+
+          if (delivery.value == 0.00) {
+            delivery.value = homeController.isPickup.value
+                ? 0.0
+                : double.parse(responseData.deliveryFee.toString());
+          }
+          bagFee.value = double.parse(responseData.bagFee.toString());
+
+          subTotal.value = double.parse(responseData.cart_total.toString());
 
           setTotal();
         } else {
@@ -169,6 +220,29 @@ class CartController extends GetxController {
     loading.value = false;
   }
 
+  Future<void> removeCartItemPreOrder(var id) async {
+    try {
+      loading.value = true;
+      var request = {"id": id};
+      var response = await BaseClient().post(deletecart_preUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartListPreOrder();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
   Future<void> updateQty(var id, var qty) async {
     try {
       Vibration.vibrate(duration: 5);
@@ -181,6 +255,30 @@ class CartController extends GetxController {
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> updateQtyPreOrder(var id, var qty) async {
+    try {
+      Vibration.vibrate(duration: 5);
+      loading.value = true;
+      var request = {"id": id, "qty": qty};
+      var response = await BaseClient().post(update_qty_preUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartListPreOrder();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -231,6 +329,7 @@ class CartController extends GetxController {
             if (responseData.code == "200") {
               getCartList();
               AppUtils.navigateToPage(PaymentScreen(
+                  isPreOrder: false,
                   url: responseData.payurl.toString(),
                   confirmUrl: responseData.confirmUrl.toString()));
             } else {
@@ -248,6 +347,80 @@ class CartController extends GetxController {
             if (responseData.code == "200") {
               getCartList();
               AppUtils.navigateToPage(OrderPlacedScreen(
+                isPreOrder: false,
+                orderId: responseData.orderId,
+              ));
+            } else {
+              CommonUtils.showErrorDialog(responseData.message);
+            }
+          } else {
+            CommonUtils.showErrorDialog(response.message);
+          }
+        }
+      }
+    } catch (error) {
+      print(error.toString());
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> checkoutCartPreOrder() async {
+    var addressID =
+        await StorageManager.readData(StorageManager.keyDefaultAddressId);
+
+    try {
+      if (addressID.isEmpty) {
+        AppUtils.navigateToPage(MyAddressesScreen());
+      } else {
+        loading.value = true;
+        var request = {
+          "address_id": addressID,
+          "subtotal": subTotal.value,
+          "discount": discount.value,
+          "payable": grandTotal.value,
+          "order_type": homeController.isPickup.value ? "pickup" : "delivery",
+          "delivery_type": "Preorder",
+          "start_time": homeController.isPickup.value
+              ? selectedPickupSlot.value
+              : homeController.selectedStartTime.value,
+          "end_time": homeController.selectedEndTime.value,
+          "date": homeController.selectedSlotDate.value,
+          "coupon": couponID.value,
+          "payment_method": paymentValue.value,
+          "order_note": noteTextController.text,
+          "delivery_fee": delivery.value
+        };
+
+        var response;
+        if (paymentValue.value == online) {
+          response = await BaseClient().post(onlineCheckout_preUrl, request);
+          loading.value = false;
+          if (response != null) {
+            var responseData = OnlinePaymentResponse.fromJson(
+                json.decode(response.toString()));
+            if (responseData.code == "200") {
+              getCartListPreOrder();
+              AppUtils.navigateToPage(PaymentScreen(
+                  isPreOrder: true,
+                  url: responseData.payurl.toString(),
+                  confirmUrl: responseData.confirmUrl.toString()));
+            } else {
+              CommonUtils.showErrorDialog(responseData.message);
+            }
+          } else {
+            CommonUtils.showErrorDialog(response.message);
+          }
+        } else {
+          response = await BaseClient().post(checkout_preUrl, request);
+          loading.value = false;
+          if (response != null) {
+            var responseData =
+                CheckoutResponse.fromJson(json.decode(response.toString()));
+            if (responseData.code == "200") {
+              getCartListPreOrder();
+              AppUtils.navigateToPage(OrderPlacedScreen(
+                isPreOrder: true,
                 orderId: responseData.orderId,
               ));
             } else {
@@ -290,6 +463,45 @@ class CartController extends GetxController {
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+          if (Get.isRegistered<ProductController>()) {
+            final productController = Get.put(ProductController());
+            if (productController.brandId.value != "0")
+              productController.getProductsByBrand();
+            else
+              productController.getProductsByCat();
+          }
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> addToCartPreOrder(String itemID, String storeID,
+      String? itemPrice, String itemQty, String note) async {
+    Vibration.vibrate(duration: 5);
+    try {
+      loading.value = true;
+      var request = {
+        "item_id": itemID,
+        "store_id": storeID,
+        "item_price": itemPrice,
+        "item_qty": itemQty,
+        "item_note": note
+      };
+      var response = await BaseClient().post(addtocart_preUrl, request);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            BaseResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          getCartListPreOrder();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }

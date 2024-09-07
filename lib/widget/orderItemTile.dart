@@ -10,14 +10,16 @@ import '../model/response/myorder/myOrderResponse.dart';
 // ignore: must_be_immutable
 class OrderItemTile extends StatelessWidget {
   Orders myOrder;
+  bool isPreOrder;
 
-  OrderItemTile({super.key, required this.myOrder});
+  OrderItemTile({super.key, required this.myOrder, required this.isPreOrder});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         AppUtils.navigateToPage(OrderDetailsScreen(
+          isPreOrder: isPreOrder,
           orderid: myOrder.orderid,
         ));
       },
@@ -44,11 +46,13 @@ class OrderItemTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReusableText(
-                    title: "Order #".tr +
-                        "${myOrder.refno}" +
-                        " (" +
-                        myOrder.order_type.toString() +
-                        ")",
+                    title: myOrder.order_type.toString() != "null"
+                        ? "Order #".tr +
+                            "${myOrder.refno}" +
+                            " (" +
+                            myOrder.order_type.toString() +
+                            ")"
+                        : "Order #".tr + "${myOrder.refno}",
                     size: 10,
                     weight: FontWeight.w600,
                     color: darkGrey,

@@ -47,4 +47,30 @@ class MyOrdersController extends GetxController {
     }
     loading.value = false;
   }
+
+  Future<void> getMyPreOrder() async {
+    try {
+      defaultAddressId.value =
+      await StorageManager.readData(StorageManager.keyDefaultAddressId);
+      loading.value = true;
+
+      var response = await BaseClient().get(myorders_preUrl);
+      loading.value = false;
+      if (response != null) {
+        myOrderList.clear();
+        var responseData =
+        MyOrderResponse.fromJson(json.decode(response.toString()));
+        if (responseData.code == "200") {
+          myOrderList.addAll(responseData.res!.orders as Iterable<Orders>);
+        } else {
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
 }

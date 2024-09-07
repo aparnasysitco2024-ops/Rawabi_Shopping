@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/model/response/productDetailsResponse.dart';
+import 'package:rawabi/screen/cart/cartScreenPreOrder.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import 'package:rawabi/widget/heartIcon.dart';
 import 'package:share_plus/share_plus.dart';
@@ -83,9 +85,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       height: 40,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [blue, lightBlue, pink]),
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [orange, yellow]),
                       ),
                       child: Row(children: [
                         SvgPicture.asset(
@@ -449,22 +451,23 @@ class _AddButtonState extends State<AddButton> {
                   children: [
                     InkWell(
                       onTap: () {
-                        // if (productDetailsController
-                        //         .productDetails!.cartCount ==
-                        //     1) {
-                        //   cartController.removeCartItem(productDetailsController
-                        //       .productDetails!.productId);
-                        // } else {
-                        cartController.updateQty(
-                            widget.productDetails.productId,
-                            int.parse(widget.productDetails.cartCount
-                                    .toString()) -
-                                1);
+                        if (widget.productDetails.item_status == "4") {
+                          cartController.updateQtyPreOrder(
+                              widget.productDetails.productId,
+                              int.parse(widget.productDetails.cartCount
+                                      .toString()) -
+                                  1);
+                        } else {
+                          cartController.updateQty(
+                              widget.productDetails.productId,
+                              int.parse(widget.productDetails.cartCount
+                                      .toString()) -
+                                  1);
+                        }
                         setState(() {
                           widget.productDetails.cartCount =
                               (widget.productDetails.cartCount! - 1);
                         });
-                        // }
                       },
                       child: SvgPicture.asset(
                         "assets/icons/minus_item.svg",
@@ -485,15 +488,30 @@ class _AddButtonState extends State<AddButton> {
                     ),
                     InkWell(
                       onTap: () {
-                        cartController.addToCart(
-                            widget.productDetails.productId.toString(),
-                            widget.productDetails.storeId.toString(),
-                            widget.productDetails.offerPrice.toString() ==
-                                    "0.00"
-                                ? widget.productDetails.sellingPrice.toString()
-                                : widget.productDetails.offerPrice.toString(),
-                            "1",
-                            widget.note);
+                        if (widget.productDetails.item_status == "4") {
+                          cartController.addToCartPreOrder(
+                              widget.productDetails.productId.toString(),
+                              widget.productDetails.storeId.toString(),
+                              widget.productDetails.offerPrice.toString() ==
+                                      "0.00"
+                                  ? widget.productDetails.sellingPrice
+                                      .toString()
+                                  : widget.productDetails.offerPrice.toString(),
+                              "1",
+                              widget.note);
+                        } else {
+                          cartController.addToCart(
+                              widget.productDetails.productId.toString(),
+                              widget.productDetails.storeId.toString(),
+                              widget.productDetails.offerPrice.toString() ==
+                                      "0.00"
+                                  ? widget.productDetails.sellingPrice
+                                      .toString()
+                                  : widget.productDetails.offerPrice.toString(),
+                              "1",
+                              widget.note);
+                        }
+
                         setState(() {
                           widget.productDetails.cartCount =
                               (widget.productDetails.cartCount! + 1);
@@ -511,47 +529,81 @@ class _AddButtonState extends State<AddButton> {
         SizedBox(
           width: 10,
         ),
-        widget.productDetails.item_status != "1"
-            ? Expanded(
-                child: SizedBox(
-                    height: 40,
-                    child: ReusableButton1(title: "Available Soon".tr)),
-              )
-            : widget.productDetails.cartCount == 0
+        widget.productDetails.item_status == "4"
+            ? widget.productDetails.cartCount == 0
                 ? Expanded(
                     child: SizedBox(
-                      height: 40,
-                      child: ReusableButton1(
-                        title: homeController.languageParam.value.addToCart,
-                        onPressed: () {
-                          cartController.addToCart(
-                              widget.productDetails.productId.toString(),
-                              widget.productDetails.storeId.toString(),
-                              widget.productDetails.offerPrice == "0.00"
-                                  ? widget.productDetails.sellingPrice
-                                  : widget.productDetails.offerPrice,
-                              "1",
-                              widget.note);
-                          setState(() {
-                            widget.productDetails.cartCount =
-                                (widget.productDetails.cartCount! + 1);
-                          });
-                          //cartController.itemCount++;
-                        },
-                      ),
-                    ),
+                        height: 40,
+                        child: ReusableButton1(
+                          title: "PreOrder".tr,
+                          onPressed: () {
+                            cartController.addToCartPreOrder(
+                                widget.productDetails.productId.toString(),
+                                widget.productDetails.storeId.toString(),
+                                widget.productDetails.offerPrice == "0.00"
+                                    ? widget.productDetails.sellingPrice
+                                    : widget.productDetails.offerPrice,
+                                "1",
+                                widget.note);
+                            setState(() {
+                              widget.productDetails.cartCount =
+                                  (widget.productDetails.cartCount! + 1);
+                            });
+                          },
+                        )),
                   )
                 : Expanded(
                     child: SizedBox(
                       height: 40,
                       child: ReusableButton1(
-                        title: "Go To Cart".tr,
+                        title: "Go To PreOrder Cart".tr,
                         onPressed: () {
-                          widget.onCartSelected();
+                          AppUtils.navigateToPage(CartScreenPreOrder());
                         },
                       ),
                     ),
-                  ),
+                  )
+            : widget.productDetails.item_status != "1"
+                ? Expanded(
+                    child: SizedBox(
+                        height: 40,
+                        child: ReusableButton1(title: "Available Soon".tr)),
+                  )
+                : widget.productDetails.cartCount == 0
+                    ? Expanded(
+                        child: SizedBox(
+                          height: 40,
+                          child: ReusableButton1(
+                            title: homeController.languageParam.value.addToCart,
+                            onPressed: () {
+                              cartController.addToCart(
+                                  widget.productDetails.productId.toString(),
+                                  widget.productDetails.storeId.toString(),
+                                  widget.productDetails.offerPrice == "0.00"
+                                      ? widget.productDetails.sellingPrice
+                                      : widget.productDetails.offerPrice,
+                                  "1",
+                                  widget.note);
+                              setState(() {
+                                widget.productDetails.cartCount =
+                                    (widget.productDetails.cartCount! + 1);
+                              });
+                              //cartController.itemCount++;
+                            },
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: SizedBox(
+                          height: 40,
+                          child: ReusableButton1(
+                            title: "Go To Cart".tr,
+                            onPressed: () {
+                              widget.onCartSelected();
+                            },
+                          ),
+                        ),
+                      ),
       ],
     );
   }

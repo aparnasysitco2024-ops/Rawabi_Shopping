@@ -9,10 +9,12 @@ import '../commonwidget/reusableNetworkImage.dart';
 
 class CartItemDetails extends StatelessWidget {
   final Products products;
+  final bool isPreOrder;
 
   final cartController = Get.put(CartController());
 
-  CartItemDetails({super.key, required this.products});
+  CartItemDetails(
+      {super.key, required this.products, required this.isPreOrder});
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +60,17 @@ class CartItemDetails extends StatelessWidget {
               InkWell(
                 onTap: () {
                   if (products.quantity == "1" || products.quantity == "0") {
-                    cartController.removeCartItem(products.cartId);
+                    if (isPreOrder)
+                      cartController.removeCartItemPreOrder(products.cartId);
+                    else
+                      cartController.removeCartItem(products.cartId);
                   } else {
-                    cartController.updateQty(products.productId,
-                        int.parse(products.quantity.toString()) - 1);
+                    if (isPreOrder)
+                      cartController.updateQtyPreOrder(products.productId,
+                          int.parse(products.quantity.toString()) - 1);
+                    else
+                      cartController.updateQty(products.productId,
+                          int.parse(products.quantity.toString()) - 1);
                   }
                 },
                 child: const SizedBox(
@@ -69,8 +78,12 @@ class CartItemDetails extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: lightGreen,
                     radius: 15,
-                    child:
-                        ClipOval(child: Icon(size: 15, Icons.remove_outlined,color: Colors.white,)),
+                    child: ClipOval(
+                        child: Icon(
+                      size: 15,
+                      Icons.remove_outlined,
+                      color: Colors.white,
+                    )),
                   ),
                 ),
               ),
@@ -87,15 +100,32 @@ class CartItemDetails extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  cartController.addToCart(products.productId.toString(),
-                      products.storeId.toString(), products.itemPrice, "1", "");
+                  if (isPreOrder)
+                    cartController.addToCartPreOrder(
+                        products.productId.toString(),
+                        products.storeId.toString(),
+                        products.itemPrice,
+                        "1",
+                        "");
+                  else
+                    cartController.addToCart(
+                        products.productId.toString(),
+                        products.storeId.toString(),
+                        products.itemPrice,
+                        "1",
+                        "");
                 },
                 child: const SizedBox(
                   width: 25,
                   child: CircleAvatar(
                     backgroundColor: primaryColor,
                     radius: 15,
-                    child: ClipOval(child: Icon(size: 15, Icons.add,color: Colors.white,)),
+                    child: ClipOval(
+                        child: Icon(
+                      size: 15,
+                      Icons.add,
+                      color: Colors.white,
+                    )),
                   ),
                 ),
               ),
