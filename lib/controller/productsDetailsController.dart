@@ -12,6 +12,7 @@ class ProductDetailsController extends GetxController {
   var loading = false.obs;
   var isKeyboardRefresh = false.obs;
   var productDetails = ProductDetails().obs;
+  String productID="";
 
   // ProductDetails? productDetails;
   var noteTextController = TextEditingController();
@@ -24,6 +25,7 @@ class ProductDetailsController extends GetxController {
   }
 
   Future<void> getProductDetails(String productID) async {
+    this.productID = productID;
     if (!isKeyboardRefresh.value) {
       try {
         // if (!isKeyboardRefresh.value) {

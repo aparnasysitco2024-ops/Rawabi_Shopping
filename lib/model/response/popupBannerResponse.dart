@@ -47,14 +47,14 @@ class PopUpBanners {
 
   PopUpBanners(
       {this.bannerId,
-        this.bannerName,
-        this.linkType,
-        this.bannerPoint,
-        this.bannerType,
-        this.bannerImage,
-        this.cat,
-        this.subcat,
-        this.subsubcat});
+      this.bannerName,
+      this.linkType,
+      this.bannerPoint,
+      this.bannerType,
+      this.bannerImage,
+      this.cat,
+      this.subcat,
+      this.subsubcat});
 
   PopUpBanners.fromJson(Map<String, dynamic> json) {
     bannerId = json['banner_id'];
@@ -86,18 +86,21 @@ class PopUpBanners {
 class Update {
   String? version;
   String? forceUpdate;
+  String? url;
 
   Update({this.version, this.forceUpdate});
 
   Update.fromJson(Map<String, dynamic> json) {
     version = json['version'];
     forceUpdate = json['force_update'];
+    url = json['url'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['version'] = this.version;
     data['force_update'] = this.forceUpdate;
+    data['url'] = this.url;
     return data;
   }
 }

@@ -293,7 +293,7 @@ class HomeController extends GetxController {
         loading.value = true;
         var request = {"latitude": latitude, "longitude": longitude};
 
-        var response = await BaseClient().post(slotList, request);
+        var response = await BaseClient().post(storeListUrl, request);
         loading.value = false;
 
         if (response != null) {
@@ -350,7 +350,8 @@ class HomeController extends GetxController {
     loading.value = false;
   }
 
-  Future<void> showUpdateVersionDialog(BuildContext context) async {
+  Future<void> showUpdateVersionDialog(
+      BuildContext context, String? iOSUrl) async {
     Mateial.showDialog(
       barrierDismissible: false,
       context: context,
@@ -370,7 +371,7 @@ class HomeController extends GetxController {
                 new ReusableButton1(
                   title: "Update",
                   onPressed: () {
-                    _launchAppOrPlayStore();
+                    _launchAppOrPlayStore(iOSUrl);
                   },
                 ),
               ],
@@ -412,12 +413,11 @@ class HomeController extends GetxController {
     // );
   }
 
-  void _launchAppOrPlayStore() {
+  void _launchAppOrPlayStore(String? iOSUrl) {
     final appId = Platform.isAndroid ? 'com.app.rawabi' : 'com.app.alrawabi';
     final url = Uri.parse(
-      Platform.isAndroid
-          ? "market://details?id=$appId"
-          : "https://apps.apple.com/app/id$appId",
+      Platform.isAndroid ? "market://details?id=$appId" : iOSUrl.toString(),
+      // : "https://apps.apple.com/app/id$appId",
     );
     launchUrl(
       url,

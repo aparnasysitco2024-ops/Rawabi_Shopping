@@ -819,7 +819,7 @@ class CartScreenPreOrder extends StatelessWidget {
                                                   const Spacer(),
                                                   ReusableText(
                                                     title:
-                                                        "QAR- ${cartController.delivery.value}",
+                                                        "QAR- ${cartController.deliveryPre.value}",
                                                     size: 10,
                                                     weight: FontWeight.w600,
                                                     color: Colors.black,

@@ -90,7 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   getExtendedVersionNumber(
                       responseData.update!.first.version.toString())) {
             //force update
-            homeController.showUpdateVersionDialog(context);
+            homeController.showUpdateVersionDialog(
+                context, responseData.update?.first.url);
           } else if (responseData.popUpBanners != null &&
               responseData.popUpBanners!.isNotEmpty) {
             //popup banner
@@ -182,15 +183,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "0",
                                         "0",
                                         i.bannerPoint.toString());
-                                  } else if (i.linkType ==
-                                      "itemgroup") {
+                                  } else if (i.linkType == "itemgroup") {
                                     Navigator.pushNamed(
                                       context,
                                       '/ProductsFromHomeScreen',
                                       arguments: {
                                         'title': i.bannerName,
-                                        "grp_id":
-                                        i.bannerPoint
+                                        "grp_id": i.bannerPoint
                                       },
                                     );
                                   }

@@ -80,6 +80,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: TabBar(
+                          isScrollable: true,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorColor: primaryColor,
                           unselectedLabelColor: blackLight,
@@ -91,7 +92,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget
                                     .homeController.languageParam.value.orders,
-                                size: 10,
+                                size: 11,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -101,7 +102,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget.homeController.languageParam.value
                                     .delivered,
-                                size: 10,
+                                size: 11,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -111,7 +112,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget.homeController.languageParam.value
                                     .cancelled,
-                                size: 10,
+                                size: 11,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -120,7 +121,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               padding: const EdgeInsets.only(bottom: 5.0),
                               child: ReusableText(
                                 title: "PreOrder",
-                                size: 10,
+                                size: 11,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),
@@ -130,7 +131,7 @@ class _MyOrdersTabScreenState extends State<MyOrdersTabScreen>
                               child: ReusableText(
                                 title: widget
                                     .homeController.languageParam.value.returns,
-                                size: 10,
+                                size: 11,
                                 weight: FontWeight.w600,
                                 textAlign: TextAlign.center,
                               ),

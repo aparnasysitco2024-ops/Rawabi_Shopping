@@ -84,7 +84,7 @@ class StorePickupController extends GetxController {
       loading.value = true;
       var request = {"latitude": latitude, "longitude": longitude};
 
-      var response = await BaseClient().post(slotList, request);
+      var response = await BaseClient().post(storeListUrl, request);
       loading.value = false;
 
       if (response != null) {

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/controller/productsController.dart';
+import 'package:rawabi/controller/productsDetailsController.dart';
 import 'package:rawabi/controller/wishlistController.dart';
 import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/checkoutResponse.dart';
@@ -37,6 +38,7 @@ class CartController extends GetxController {
   String card = "ccod";
   var subTotal = 0.00.obs;
   var delivery = 0.00.obs;
+  var deliveryPre = 0.00.obs;
   var bagFee = 0.00.obs;
   var discount = 0.00.obs;
   var grandTotal = 0.00.obs;
@@ -126,8 +128,8 @@ class CartController extends GetxController {
                 .addAll(responseData.products as Iterable<Products>);
           totalItemCountPreOrder.value = cartProductsPreOrder.length;
 
-          if (delivery.value == 0.00) {
-            delivery.value = homeController.isPickup.value
+          if (deliveryPre.value == 0.00) {
+            deliveryPre.value = homeController.isPickup.value
                 ? 0.0
                 : double.parse(responseData.deliveryFee.toString());
           }
@@ -135,14 +137,14 @@ class CartController extends GetxController {
 
           subTotal.value = double.parse(responseData.cart_total.toString());
 
-          setTotal();
+          setTotalPre();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
         if (!homeController.isPickup.value) {
-          calculateDeliveryFee();
+          // calculateDeliveryFee();
         } else {
-          delivery.value = 0.0;
+          deliveryPre.value = 0.0;
         }
       } else {
         CommonUtils.showErrorDialog(response.message);
@@ -157,6 +159,12 @@ class CartController extends GetxController {
   void setTotal() {
     grandTotal.value =
         subTotal.value + delivery.value + bagFee.value - discount.value;
+    if (grandTotal.value < 0) grandTotal.value = 0.00;
+  }
+
+  void setTotalPre() {
+    grandTotal.value =
+        subTotal.value + deliveryPre.value + bagFee.value - discount.value;
     if (grandTotal.value < 0) grandTotal.value = 0.00;
   }
 
@@ -389,7 +397,7 @@ class CartController extends GetxController {
           "coupon": couponID.value,
           "payment_method": paymentValue.value,
           "order_note": noteTextController.text,
-          "delivery_fee": delivery.value
+          "delivery_fee": deliveryPre.value
         };
 
         var response;
@@ -465,13 +473,19 @@ class CartController extends GetxController {
           getCartList();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
-          if (Get.isRegistered<ProductController>()) {
+          if (Get.isRegistered<ProductDetailsController>()) {
+            final productDetailsController =
+                Get.put(ProductDetailsController());
+            productDetailsController
+                .getProductDetails(productDetailsController.productID);
+          } else if (Get.isRegistered<ProductController>()) {
             final productController = Get.put(ProductController());
             if (productController.brandId.value != "0")
               productController.getProductsByBrand();
             else
               productController.getProductsByCat();
-          }
+          } else
+            homeController.getHomeData();
         }
       } else {
         CommonUtils.showErrorDialog(response.message);
