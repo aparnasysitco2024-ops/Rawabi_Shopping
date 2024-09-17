@@ -31,6 +31,7 @@ class CouponScreen extends StatelessWidget {
           double.parse(amount) * offPercentage / 100;
     }
     cartController.couponText.value = couponController.codeController.text;
+    print("-----------4-------------"  );
     cartController.setTotal();
     Get.back();
   }

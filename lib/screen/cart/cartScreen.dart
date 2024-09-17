@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
+import 'package:rawabi/screen/cart/cartScreenPreOrder.dart';
 import 'package:rawabi/screen/home/selectSlotScreen.dart';
 import 'package:rawabi/screen/loginScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
@@ -27,6 +28,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     cartController.getCartList();
+    cartController.getCartListPreOrder();
 
     // var result = DateTime.now().add(Duration(hours: 1));
     // print("now + 1 hr = ${result}");
@@ -171,12 +173,32 @@ class CartScreen extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ReusableText(
-                      title: homeController.languageParam.value.cart,
-                      size: 18,
-                      weight: FontWeight.bold),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ReusableText(
+                          title: homeController.languageParam.value.cart,
+                          size: 18,
+                          weight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    cartController.cartProductsPreOrder.isNotEmpty
+                        ? InkWell(
+                            onTap: () {
+                              AppUtils.navigateToPage(CartScreenPreOrder());
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, right: 10, bottom: 10),
+                              child: Image.asset(
+                                "assets/icons/preorder.png",
+                                height: 26,
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
+                  ],
                 ),
                 cartController.cartProducts.isNotEmpty &&
                         !homeController.isPickup.value
@@ -676,6 +698,7 @@ class CartScreen extends StatelessWidget {
                                                         .couponText.value = "";
                                                     cartController
                                                         .discount.value = 0.00;
+                                                    print("-----------3-------------" );
                                                     cartController.setTotal();
                                                   },
                                                   child: Container(

@@ -37,11 +37,13 @@ class CartController extends GetxController {
   String cash = "cod";
   String card = "ccod";
   var subTotal = 0.00.obs;
+  var subTotalPre = 0.00.obs;
   var delivery = 0.00.obs;
   var deliveryPre = 0.00.obs;
   var bagFee = 0.00.obs;
   var discount = 0.00.obs;
   var grandTotal = 0.00.obs;
+  var grandTotalPre = 0.00.obs;
   var totalItemCount = 0.obs;
   var totalItemCountPreOrder = 0.obs;
   var couponID = 0.obs;
@@ -66,7 +68,7 @@ class CartController extends GetxController {
       }
       var response = await BaseClient().get(cartList);
       loading.value = false;
-      subTotal.value = 0.00;
+      // subTotal.value = 0.00;
       cartProducts.clear();
       if (response != null) {
         var responseData =
@@ -89,7 +91,7 @@ class CartController extends GetxController {
           //   subTotal.value =
           //       subTotal.value + double.parse(element.subtotal.toString());
           // }
-
+          print("-----------1-------------" + subTotal.value.toString());
           setTotal();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
@@ -117,7 +119,7 @@ class CartController extends GetxController {
       }
       var response = await BaseClient().get(cartList_preUrl);
       loading.value = false;
-      subTotal.value = 0.00;
+      // subTotal.value = 0.00;
       cartProductsPreOrder.clear();
       if (response != null) {
         var responseData =
@@ -135,7 +137,7 @@ class CartController extends GetxController {
           }
           bagFee.value = double.parse(responseData.bagFee.toString());
 
-          subTotal.value = double.parse(responseData.cart_total.toString());
+          subTotalPre.value = double.parse(responseData.cart_total.toString());
 
           setTotalPre();
         } else {
@@ -160,12 +162,13 @@ class CartController extends GetxController {
     grandTotal.value =
         subTotal.value + delivery.value + bagFee.value - discount.value;
     if (grandTotal.value < 0) grandTotal.value = 0.00;
+    print("-----------2-------------" + grandTotal.value.toString());
   }
 
   void setTotalPre() {
-    grandTotal.value =
-        subTotal.value + deliveryPre.value + bagFee.value - discount.value;
-    if (grandTotal.value < 0) grandTotal.value = 0.00;
+    grandTotalPre.value =
+        subTotalPre.value + deliveryPre.value + bagFee.value - discount.value;
+    if (grandTotalPre.value < 0) grandTotalPre.value = 0.00;
   }
 
   Future<void> calculateDeliveryFee() async {
@@ -191,6 +194,7 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           if (responseData.fee != null) {
             delivery.value = double.parse(responseData.fee.toString());
+            print("-----------2-------------" + subTotal.value.toString());
             setTotal();
           }
         } else {
@@ -384,9 +388,9 @@ class CartController extends GetxController {
         loading.value = true;
         var request = {
           "address_id": addressID,
-          "subtotal": subTotal.value,
+          "subtotal": subTotalPre.value,
           "discount": discount.value,
-          "payable": grandTotal.value,
+          "payable": grandTotalPre.value,
           "order_type": homeController.isPickup.value ? "pickup" : "delivery",
           "delivery_type": "Preorder",
           "start_time": homeController.isPickup.value

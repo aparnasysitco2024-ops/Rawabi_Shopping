@@ -135,11 +135,14 @@ class _ProductItemState extends State<ProductItem> {
                   const SizedBox(
                     height: 1,
                   ),
-                  // const ReusableText(
-                  //   title: "30 gm",
-                  //   size: 10,
-                  //   weight: FontWeight.w400,
-                  // ),
+                  // int.parse(widget.products.stock.toString()) < 5
+                  //     ?  ReusableText(
+                  //         title: "Only "+ widget.products.stock.toString() +" left",
+                  //         size: 9,
+                  //         color: Colors.red,
+                  //         weight: FontWeight.w400,
+                  //       )
+                  //     : SizedBox(),
                   const Spacer(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,

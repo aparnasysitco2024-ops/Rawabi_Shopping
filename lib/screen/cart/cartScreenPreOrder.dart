@@ -796,7 +796,7 @@ class CartScreenPreOrder extends StatelessWidget {
                                             const Spacer(),
                                             ReusableText(
                                               title:
-                                                  "QAR- ${cartController.subTotal.value}",
+                                                  "QAR- ${cartController.subTotalPre.value}",
                                               size: 10,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -881,7 +881,7 @@ class CartScreenPreOrder extends StatelessWidget {
                                             const Spacer(),
                                             ReusableText(
                                               title:
-                                                  "QAR- ${cartController.grandTotal.value}",
+                                                  "QAR- ${cartController.grandTotalPre.value}",
                                               size: 10,
                                               weight: FontWeight.w600,
                                               color: Colors.black,
@@ -924,7 +924,7 @@ class CartScreenPreOrder extends StatelessWidget {
                                           children: [
                                             ReusableText(
                                               title:
-                                                  "QAR- ${cartController.grandTotal.value}",
+                                                  "QAR- ${cartController.grandTotalPre.value}",
                                               size: 14,
                                               weight: FontWeight.bold,
                                               color: Colors.black,
