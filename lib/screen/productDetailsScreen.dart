@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
@@ -303,11 +303,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             thickness: .5,
                                             height: 20,
                                           ),
-                                          Html(
-                                              data: productDetailsController
-                                                  .productDetails
-                                                  .value
-                                                  .shortDesc),
+                                          HtmlWidget(productDetailsController
+                                              .productDetails
+                                              .value
+                                              .shortDesc.toString()),
                                           const Divider(
                                             color: lightGreyColor,
                                             thickness: 3,
@@ -331,11 +330,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             thickness: .5,
                                             height: 20,
                                           ),
-                                          Html(
-                                              data: productDetailsController
-                                                  .productDetails
-                                                  .value
-                                                  .detailedDesc),
+                                          HtmlWidget(productDetailsController
+                                              .productDetails
+                                              .value
+                                              .detailedDesc.toString()),
                                         ],
                                       )
                                     : SizedBox(),

@@ -91,7 +91,6 @@ class CartController extends GetxController {
           //   subTotal.value =
           //       subTotal.value + double.parse(element.subtotal.toString());
           // }
-          print("-----------1-------------" + subTotal.value.toString());
           setTotal();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
@@ -162,7 +161,6 @@ class CartController extends GetxController {
     grandTotal.value =
         subTotal.value + delivery.value + bagFee.value - discount.value;
     if (grandTotal.value < 0) grandTotal.value = 0.00;
-    print("-----------2-------------" + grandTotal.value.toString());
   }
 
   void setTotalPre() {
@@ -194,7 +192,6 @@ class CartController extends GetxController {
         if (responseData.code == "200") {
           if (responseData.fee != null) {
             delivery.value = double.parse(responseData.fee.toString());
-            print("-----------2-------------" + subTotal.value.toString());
             setTotal();
           }
         } else {

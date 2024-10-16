@@ -21,19 +21,23 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.33</string>
+	<string>1.0.34</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationUsageDescription</key>
+	<string>Rawabi Shopping app needs to access your current location to show stores closest to you</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Rawabi Shopping app needs to access your current location to show courts closest to you</string>
+	<string>Rawabi Shopping app needs to access your current location to show stores closest to you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Rawabi Shopping app needs to access your current location to show courts closest to you</string>
+	<string>Rawabi Shopping app needs to access your current location to show stores closest to you</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Rawabi Shopping app needs access to the camera to upload the selected photos and scan QR code</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Rawabi Shopping app needs access to the Microphone for searech</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -268,42 +268,64 @@ class CartScreen extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     width: double.maxFinite,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                    child: Row(
                                       children: [
-                                        const SizedBox(
-                                          height: 5,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10.0,
+                                                      vertical: 2),
+                                              child: ReusableText(
+                                                  title: homeController
+                                                      .languageParam
+                                                      .value
+                                                      .yourOrders,
+                                                  size: 14,
+                                                  weight: FontWeight.w600),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10.0,
+                                                      vertical: 2),
+                                              child: ReusableText(
+                                                title: cartController
+                                                        .cartProducts.length
+                                                        .toString() +
+                                                    " " +
+                                                    homeController.languageParam
+                                                        .value.items
+                                                        .toString(),
+                                                size: 10,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                          ],
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0, vertical: 2),
-                                          child: ReusableText(
-                                              title: homeController
-                                                  .languageParam
-                                                  .value
-                                                  .yourOrders,
-                                              size: 14,
-                                              weight: FontWeight.w600),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0, vertical: 2),
-                                          child: ReusableText(
-                                            title: cartController
-                                                    .cartProducts.length
-                                                    .toString() +
-                                                " " +
-                                                homeController
-                                                    .languageParam.value.items
-                                                    .toString(),
-                                            size: 10,
+                                        const Spacer(),
+                                        InkWell(
+                                          onTap: () {
+                                            homeController.clearCart();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10.0, vertical: 2),
+                                            child: ReusableText(
+                                                title: "Clear Cart".tr,
+                                                size: 14,
+                                                weight: FontWeight.w600),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
                                         ),
                                       ],
                                     ),
@@ -698,7 +720,8 @@ class CartScreen extends StatelessWidget {
                                                         .couponText.value = "";
                                                     cartController
                                                         .discount.value = 0.00;
-                                                    print("-----------3-------------" );
+                                                    print(
+                                                        "-----------3-------------");
                                                     cartController.setTotal();
                                                   },
                                                   child: Container(

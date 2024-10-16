@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rawabi/utils/app_utils.dart';
 
 import '../model/response/languageParamResponse.dart';
@@ -38,6 +39,39 @@ class _SplashScreenState extends State<SplashScreen> {
 
   }
 
+  permission() async {
+
+    await Permission.location
+        .onDeniedCallback(() {
+          print("-----------1------------");
+      // Your code
+    })
+        .onGrantedCallback(() {
+      // Your code
+      print("----------6-------------");
+      firebase();
+
+    })
+        .onPermanentlyDeniedCallback(() {
+      print("----------2-------------");
+      firebase();
+      // Your code
+    })
+        .onRestrictedCallback(() {
+      print("---------3--------------");
+      // Your code
+    })
+        .onLimitedCallback(() {
+      print("----------4-------------");
+      // Your code
+    })
+        .onProvisionalCallback(() {
+      print("----------5-------------");
+      // Your code
+    })
+        .request();
+  }
+
   Future<void> initialize() async {
     var prefValue =
         await StorageManager.readData(StorageManager.sharedPrfValue);
@@ -46,8 +80,9 @@ class _SplashScreenState extends State<SplashScreen> {
       StorageManager.saveData(StorageManager.sharedPrfValue, "1");
     }
 
-    firebase();
-    getLanguageData();
+
+    permission();
+    // getLanguageData();
   }
 
   moveToPage() {
@@ -207,9 +242,11 @@ class _SplashScreenState extends State<SplashScreen> {
         badge: true,
         sound: true,
       );
+      getLanguageData();
     } catch (e) {
       print("-------------------firebase error-------------------");
       print(e..printError());
+      getLanguageData();
     }
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
@@ -22,7 +22,6 @@ class NotificationItemTile extends StatelessWidget {
       child: Column(
         children: [
           Container(
-
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 1),
             //alignment: Alignment.center,
@@ -50,7 +49,9 @@ class NotificationItemTile extends StatelessWidget {
                         weight: FontWeight.w600,
                         color: blue,
                       ),
-                      Html(data: notifications.message,),
+                      HtmlWidget(
+                        notifications.message.toString(),
+                      ),
                     ],
                   ),
                 ),

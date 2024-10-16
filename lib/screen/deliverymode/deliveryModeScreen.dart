@@ -6,9 +6,12 @@ import 'package:rawabi/model/response/baseResponse.dart';
 import 'package:rawabi/model/response/guestLoginResponse.dart';
 import 'package:rawabi/screen/deliverymode/homeDeliveryMapScreen.dart';
 import 'package:rawabi/screen/deliverymode/storePickupScreen.dart';
+import 'package:rawabi/screen/splashScreen.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 
+import '../../controller/homeController.dart';
 import '../../controller/storePickupController.dart';
 import '../../utils/constants.dart';
 import '../../utils/http_client/base_client.dart';
@@ -113,7 +116,11 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                                   top: 0,
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.pop(context);
+                                      if (Get.isRegistered<HomeController>()) {
+                                        Navigator.pop(context);
+                                      } else
+                                        AppUtils.navigateToPageReplace(
+                                            SplashScreen());
                                     },
                                     child: const Icon(
                                       Icons.arrow_back_ios,

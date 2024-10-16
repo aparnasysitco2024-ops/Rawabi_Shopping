@@ -56,11 +56,13 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                     const SizedBox(
                       width: 10,
                     ),
-                    ReusableText(
-                      title: widget.title,
-                      weight: FontWeight.bold,
+                    Expanded(
+                      child: ReusableText(
+                        title: widget.title,
+                        weight: FontWeight.bold,
+                      ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     InkWell(
                       onTap: () {
                         Navigator.pushNamed(
@@ -69,7 +71,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                           arguments: {
                             'title': widget.title,
                             'products': widget.products,
-                            "grp_id":widget.grp_id
+                            "grp_id": widget.grp_id
                           },
                         );
                       },
@@ -88,7 +90,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
           ),
           widget.groupImage != null && widget.groupImage!.isNotEmpty
               ? Container(
-                  height: 150,
+                  height: 90,
                   width: double.infinity,
                   padding: EdgeInsets.only(left: 5, right: 5),
                   child: InkWell(
@@ -99,7 +101,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         arguments: {
                           'title': widget.title,
                           'products': widget.products,
-                          "grp_id":widget.grp_id
+                          "grp_id": widget.grp_id
                         },
                       );
                     },

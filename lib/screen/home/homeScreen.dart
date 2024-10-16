@@ -596,7 +596,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             enableInfiniteScroll: true,
                                             enlargeCenterPage: true,
                                             viewportFraction: 0.8,
-                                            height: 140.0,
+                                            height: 110.0,
                                             showIndicator: false,
                                             slideIndicator:
                                                 const CircularSlideIndicator(),
