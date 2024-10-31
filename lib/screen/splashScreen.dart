@@ -43,30 +43,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
     await Permission.location
         .onDeniedCallback(() {
-          print("-----------1------------");
       // Your code
     })
         .onGrantedCallback(() {
       // Your code
-      print("----------6-------------");
       firebase();
 
     })
         .onPermanentlyDeniedCallback(() {
-      print("----------2-------------");
       firebase();
       // Your code
     })
         .onRestrictedCallback(() {
-      print("---------3--------------");
       // Your code
     })
         .onLimitedCallback(() {
-      print("----------4-------------");
       // Your code
     })
         .onProvisionalCallback(() {
-      print("----------5-------------");
       // Your code
     })
         .request();

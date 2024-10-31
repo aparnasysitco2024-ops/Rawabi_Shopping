@@ -316,7 +316,32 @@ class CartScreen extends StatelessWidget {
                                         const Spacer(),
                                         InkWell(
                                           onTap: () {
-                                            homeController.clearCart();
+                                            showDialog(
+                                              context: Get.context!,
+                                              builder: (context) => AlertDialog(
+                                                content: Text(
+                                                    'Do you want to clear cart ?'
+                                                        .tr),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(false),
+                                                    //<-- SEE HERE
+                                                    child: Text('No'.tr),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop(false);
+                                                      homeController
+                                                          .clearCart();
+                                                    }, // <-- SEE HERE
+                                                    child: Text('Yes'.tr),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(

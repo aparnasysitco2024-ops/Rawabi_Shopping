@@ -327,7 +327,7 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
                                   address.isEmpty ? silver : primaryColor,
                               onPressed: () {
                                 if (address.isNotEmpty) {
-                                  widget.storePickupController.getSlot(
+                                  widget.storePickupController.getStoreList(
                                       lat.toString(), lng.toString(), address);
                                 }
                               },

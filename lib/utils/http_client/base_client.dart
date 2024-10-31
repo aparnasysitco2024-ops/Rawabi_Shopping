@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -28,7 +27,7 @@ class BaseClient {
       "Lang": await StorageManager.getLanguage(),
       "Useragent": Platform.isAndroid ? "Android" : "iOS"
     };
-    log('header=$header');
+    // log('header=$header');
     return header;
   }
 
@@ -41,13 +40,13 @@ class BaseClient {
       "Lang": await StorageManager.getLanguage(),
       "Useragent": Platform.isAndroid ? "Android" : "iOS"
     };
-    log('header=$headerDriver');
+    // log('header=$headerDriver');
     return headerDriver;
   }
 
   //GET
   Future<dynamic> get(String url_) async {
-    log('URL = $url_');
+    // log('URL = $url_');
     var uri = Uri.parse(url_);
     try {
       var response = await _ioClient
@@ -56,7 +55,7 @@ class BaseClient {
       // log(response.body);
       if ((response.body.contains('"messageCode": 401') ||
           response.body.contains('"Status": 401'))) {
-        log(response.body);
+        // log(response.body);
         throw UnAuthorizedException(response.body, url_);
       }
       return _processResponse(response);
@@ -72,13 +71,13 @@ class BaseClient {
   Future<dynamic> post(String url_, dynamic payloadObj) async {
     var uri = Uri.parse(url_);
     var payload = json.encode(payloadObj);
-    log('$url_ payloadObj= $payload');
+    // log('$url_ payloadObj= $payload');
     try {
-      log('URL = $url_');
+      // log('URL = $url_');
       var response = await _ioClient
           .post(uri, headers: await getHeader(), body: payload)
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
-      log(response.body);
+      // log(response.body);
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(
@@ -90,16 +89,16 @@ class BaseClient {
   }
 
   Future<dynamic> postDriver(String url_, dynamic payloadObj) async {
-    log('$url_ payloadObj= $payloadObj');
+    // log('$url_ payloadObj= $payloadObj');
     var uri = Uri.parse(url_);
     var payload = json.encode(payloadObj);
-    log(payload);
+    // log(payload);
     try {
-      log('URL = $url_');
+      // log('URL = $url_');
       var response = await _ioClient
           .post(uri, headers: await getHeaderDriver(), body: payload)
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
-      log(response.body);
+      // log(response.body);
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(

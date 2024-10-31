@@ -78,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
       // String packageName = packageInfo.packageName;
       String version = packageInfo.version;
       // String buildNumber = packageInfo.buildNumber;
-      print("Version:---- " + version);
 
       var response = await BaseClient().get(popupBannerUrl);
       if (response != null) {

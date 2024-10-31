@@ -88,7 +88,7 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
               const SizedBox(
                 width: 10,
               ),
-              Flexible(
+              Expanded(
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.only(left: 10, right: 10),
@@ -98,27 +98,30 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(7))),
                   child: Row(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          showSearch(
-                            context: context,
-                            delegate: MySearchDelegate(),
-                          );
-                        },
-                        /*onTap: () async {
-                              AppUtils.navigateToPage(const SearchScreen());
-                            },*/
-                        child: Row(children: [
-                          SvgPicture.asset("assets/icons/search.svg"),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          ReusableText(
-                            title: title,
-                          ),
-                        ]),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            showSearch(
+                              context: context,
+                              delegate: MySearchDelegate(),
+                            );
+                          },
+                          child: Row(children: [
+                            SvgPicture.asset("assets/icons/search.svg"),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: ReusableText(
+                                title: title,
+                              ),
+                            ),
+                          ]),
+                        ),
                       ),
-                      const Spacer(),
+                      const SizedBox(
+                        width: 1,
+                      ),
                       InkWell(
                           onTap: () async {
                             searchController.searchType.value = "barcode";

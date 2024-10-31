@@ -395,6 +395,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 ],
                               ),
                         // ProfileTile(
+                        //     onPressed: () {},
                         //     image: "assets/icons/feedback.svg",
                         //     title: homeController.languageParam.value.feedback
                         //         .toString()),
@@ -404,7 +405,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ProfileTile(
                             onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                                 url:
-                                    "https://dev.rawabihypermarket.com/b2c/other/faq.php",
+                                    "https://rawabihypermarket.com/other/faq.php",
                                 title: "Help")),
                             image: "assets/icons/Help.svg",
                             title: homeController.languageParam.value.help
@@ -415,7 +416,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ProfileTile(
                             onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                                 url:
-                                    "https://dev.rawabihypermarket.com/b2c/other/about.php",
+                                    "https://rawabihypermarket.com/other/about.php",
                                 title: "About Us")),
                             image: "assets/icons/information.svg",
                             title: homeController.languageParam.value.aboutUs
@@ -426,7 +427,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ProfileTile(
                           onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                               url:
-                                  "https://dev.rawabihypermarket.com/b2c/other/terms.php",
+                                  "https://rawabihypermarket.com/other/terms.php",
                               title: "Terms & Conditions")),
                           image: "assets/icons/contract.svg",
                           title: "Terms & Conditions".tr,
@@ -437,7 +438,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ProfileTile(
                             onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                                 url:
-                                    "https://dev.rawabihypermarket.com/b2c/other/return.php",
+                                    "https://rawabihypermarket.com/other/return.php",
                                 title: "Return Policy")),
                             image: "assets/icons/turn-back.svg",
                             title: homeController
@@ -449,7 +450,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ProfileTile(
                             onPressed: () => AppUtils.navigateToPage(WebViewScreen(
                                 url:
-                                    "https://dev.rawabihypermarket.com/b2c/other/service.php",
+                                    "https://rawabihypermarket.com/other/service.php",
                                 title: "Service & Warranty".tr)),
                             image: "assets/icons/verified2.svg",
                             title: "Service & Warranty".tr),

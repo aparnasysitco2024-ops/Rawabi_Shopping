@@ -454,7 +454,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                             child: LazyLoadScrollView(
                               scrollOffset: 100,
                               onEndOfPage: () {
-                                print("=------------load more---------------");
                                 productController.pageNumber.value =
                                     productController.pageNumber.value + 1;
                                 if (productController.isFiltered) {

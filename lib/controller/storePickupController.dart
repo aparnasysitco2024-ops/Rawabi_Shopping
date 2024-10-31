@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../model/response/languageParamResponse.dart';
-import '../model/response/slotResponse.dart';
 import '../model/response/storeResponse.dart';
 import '../screen/navigator/bottomNavBar.dart';
 import '../utils/app_utils.dart';
@@ -13,6 +12,8 @@ import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
 import '../utils/storage_manager.dart';
+import '../widget/Commonwidget/reusable_text.dart';
+import '../widget/storeTile.dart';
 import 'homeController.dart';
 
 class StorePickupController extends GetxController {
@@ -76,10 +77,8 @@ class StorePickupController extends GetxController {
     }
   }
 
-  Future<void> getSlot(
+  Future<void> getStoreList(
       String latitude, String longitude, String address) async {
-    // latitude = "25.179864";
-    // longitude = "51.5678239";
     try {
       loading.value = true;
       var request = {"latitude": latitude, "longitude": longitude};
@@ -89,16 +88,17 @@ class StorePickupController extends GetxController {
 
       if (response != null) {
         var responseData =
-            SlotResponse.fromJson(json.decode(response.toString()));
+            StoreResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
-          if (Get.isRegistered<HomeController>()) {
-            final homeController = Get.put(HomeController());
-            if (homeController.storeID != responseData.res?.first?.storeid) {
-              showCartClearDialog(latitude, longitude, address, responseData);
-            } else
-              slotSuccess(latitude, longitude, address, responseData);
-          } else
-            slotSuccess(latitude, longitude, address, responseData);
+          chooseNearStore(responseData.res, address);
+          // if (Get.isRegistered<HomeController>()) {
+          //   final homeController = Get.put(HomeController());
+          //   if (homeController.storeID != responseData.res?.first.storeId) {
+          //     showCartClearDialog(latitude, longitude, address, responseData);
+          //   } else
+          //     slotSuccess(latitude, longitude, address, responseData);
+          // } else
+          //   slotSuccess(latitude, longitude, address, responseData);
         } else {
           CommonUtils.showErrorDialog(response.message);
         }
@@ -111,65 +111,66 @@ class StorePickupController extends GetxController {
     loading.value = false;
   }
 
-  void slotSuccess(
-      String latitude, String longitude, String address, var responseData) {
-    StorageManager.saveData(StorageManager.keyStoreLat, latitude);
-    StorageManager.saveData(StorageManager.keyStoreLng, longitude);
+  void slotSuccess(StoreList storeList, String address) {
+    StorageManager.saveData(
+        StorageManager.keyStoreLat, storeList.latitude.toString());
+    StorageManager.saveData(
+        StorageManager.keyStoreLng, storeList.longitude.toString());
 
-    if (responseData.res != null && responseData.res!.isNotEmpty) {
-      StorageManager.saveData(
-          StorageManager.keyStoreID, responseData.res?.first?.storeid);
+    // if (responseData.res != null && responseData.res!.isNotEmpty) {
+    StorageManager.saveData(
+        StorageManager.keyStoreID, storeList.storeId.toString());
 
-      StorageManager.saveData(
-          StorageManager.keyStoreName, responseData.res?.first?.storename);
-      StorageManager.saveData(StorageManager.keyStoreAddress, address);
-      StorageManager.saveData(StorageManager.keyIsPickup, false);
+    StorageManager.saveData(
+        StorageManager.keyStoreName, storeList.storeName.toString());
+    StorageManager.saveData(StorageManager.keyStoreAddress, address);
+    StorageManager.saveData(StorageManager.keyIsPickup, false);
 
-      if (Get.isRegistered<HomeController>()) {
-        final homeController = Get.put(HomeController());
-        homeController.storeAddress.value = address;
-        if (homeController.storeID.value != responseData.res?.first?.storeid) {
-          homeController.clearCart();
-        }
-        homeController.storeID.value = responseData.res!.first!.storeid!;
-        homeController.storeName.value = responseData.res!.first!.storename!;
-        homeController.isPickup.value = false;
-        homeController.getHomeData();
-        Get.back();
-        // Navigator.pop(Get!.context);
-      } else {
-        AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+    if (Get.isRegistered<HomeController>()) {
+      final homeController = Get.put(HomeController());
+      homeController.storeAddress.value = address;
+      if (homeController.storeID.value != storeList.storeId) {
+        homeController.clearCart();
       }
+      homeController.storeID.value = storeList.storeId!;
+      homeController.storeName.value = storeList.storeName!;
+      homeController.isPickup.value = false;
+      homeController.getHomeData();
+      Get.back();
+      // Navigator.pop(Get!.context);
     } else {
-      // StorageManager.saveData(
-      //     StorageManager.keyStoreID, responseData.res?.first?.storeid);
-
-      StorageManager.saveData(StorageManager.keyStoreID, "10");
-      StorageManager.saveData(StorageManager.keyStoreAddress, address);
-      StorageManager.saveData(StorageManager.keyIsPickup, false);
-
-      if (Get.isRegistered<HomeController>()) {
-        final homeController = Get.put(HomeController());
-        homeController.storeAddress.value = address;
-        if (homeController.storeID.value != "10") {
-          homeController.clearCart();
-        }
-        homeController.storeID.value = "10";
-        StorageManager.saveData(
-            StorageManager.keyStoreName, "Rawabi HyperMarket Izghawa.");
-        homeController.storeName.value = "Rawabi HyperMarket Izghawa.";
-        homeController.isPickup.value = false;
-        homeController.getHomeData();
-        Get.back();
-        // Navigator.pop(Get!.context);
-      } else {
-        AppUtils.navigateToPageRemoveUntil(BottomNavBar());
-      }
+      AppUtils.navigateToPageRemoveUntil(BottomNavBar());
     }
+    // } else {
+    // StorageManager.saveData(
+    //     StorageManager.keyStoreID, responseData.res?.first?.storeid);
+
+    // StorageManager.saveData(StorageManager.keyStoreID, "10");
+    // StorageManager.saveData(
+    //     StorageManager.keyStoreAddress, storeList.address.toString());
+    // StorageManager.saveData(StorageManager.keyIsPickup, false);
+
+    // if (Get.isRegistered<HomeController>()) {
+    //   final homeController = Get.put(HomeController());
+    //   homeController.storeAddress.value = storeList.address.toString();
+    //   if (homeController.storeID.value != "10") {
+    //     homeController.clearCart();
+    //   }
+    //   homeController.storeID.value = "10";
+    //   StorageManager.saveData(
+    //       StorageManager.keyStoreName, "Rawabi HyperMarket Izghawa.");
+    //   homeController.storeName.value = "Rawabi HyperMarket Izghawa.";
+    //   homeController.isPickup.value = false;
+    //   homeController.getHomeData();
+    //   Get.back();
+    //   // Navigator.pop(Get!.context);
+    // }
+    // else {
+    //   AppUtils.navigateToPageRemoveUntil(BottomNavBar());
+    // }
   }
 
-  Future<bool> showCartClearDialog(String latitude, String longitude,
-      String address, var responseData) async {
+  Future<bool> showCartClearDialog(StoreList storeList, String address) async {
     return (await showDialog(
           context: Get.context!,
           builder: (context) => AlertDialog(
@@ -184,7 +185,7 @@ class StorePickupController extends GetxController {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(false);
-                  slotSuccess(latitude, longitude, address, responseData);
+                  slotSuccess(storeList, address);
                 }, // <-- SEE HERE
                 child: Text('Yes'.tr),
               ),
@@ -192,5 +193,66 @@ class StorePickupController extends GetxController {
           ),
         )) ??
         false;
+  }
+
+  void chooseNearStore(List<StoreList>? storeList, String address) {
+    showDialog(
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)), //this right here
+            child: SizedBox(
+              height: 185,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ReusableText(
+                      title: "Select a store",
+                      weight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ListView.separated(
+                        padding: const EdgeInsets.all(0),
+                        shrinkWrap: true,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        itemCount: storeList!.length > 2 ? 2 : storeList.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                if (Get.isRegistered<HomeController>()) {
+                                  final homeController =
+                                      Get.put(HomeController());
+                                  if (homeController.storeID !=
+                                      storeList[index].storeId) {
+                                    Get.back();
+                                    showCartClearDialog(
+                                        storeList[index], address);
+                                  } else {
+                                    Get.back();
+                                    slotSuccess(storeList[index], address);
+                                  }
+                                } else {
+                                  Get.back();
+                                  slotSuccess(storeList[index], address);
+                                }
+                              },
+                              child: StoreTile(
+                                  title: storeList[index].storeName.toString()),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 5,
+                            ))
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
