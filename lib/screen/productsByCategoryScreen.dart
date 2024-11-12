@@ -16,6 +16,7 @@ import '../controller/homeController.dart';
 import '../controller/searchController.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
+import 'home/notificationListScreen.dart';
 
 // ignore: must_be_immutable
 class ProductsByCategory extends StatefulWidget {
@@ -148,7 +149,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   const SizedBox(
                     width: 10,
                   ),
-                  SvgPicture.asset("assets/icons/notification.svg"),
+                  InkWell(
+                      onTap: () =>
+                          AppUtils.navigateToPage(NotificationListScreen(
+                            title: "Notification",
+                          )),
+                      child: SvgPicture.asset("assets/icons/notification.svg")),
                   const SizedBox(
                     width: 10,
                   ),

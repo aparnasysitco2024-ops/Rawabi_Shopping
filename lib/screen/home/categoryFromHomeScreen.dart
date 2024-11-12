@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/screen/home/notificationListScreen.dart';
 import 'package:rawabi/screen/search/mySearchDelegate.dart';
+import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
@@ -120,7 +122,11 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
               const SizedBox(
                 width: 10,
               ),
-              SvgPicture.asset("assets/icons/notification.svg"),
+              InkWell(
+                  onTap: () => AppUtils.navigateToPage(NotificationListScreen(
+                        title: "Notification",
+                      )),
+                  child: SvgPicture.asset("assets/icons/notification.svg")),
               const SizedBox(
                 width: 10,
               ),
@@ -163,7 +169,10 @@ class _CategoryFromHomeScreenState extends State<CategoryFromHomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SvgPicture.asset("assets/icons/logo.svg",height: 80,),
+                          SvgPicture.asset(
+                            "assets/icons/logo.svg",
+                            height: 80,
+                          ),
                           const ReusableText(
                             title: "No Item Found!!",
                           )

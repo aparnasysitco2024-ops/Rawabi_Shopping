@@ -9,8 +9,10 @@ import 'package:rawabi/widget/productItem.dart';
 
 import '../../controller/homeController.dart';
 import '../../controller/searchController.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/commonUtils.dart';
 import '../../utils/constants.dart';
+import 'notificationListScreen.dart';
 
 // ignore: must_be_immutable
 class ProductsFromHomeScreen extends StatefulWidget {
@@ -149,7 +151,11 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
               const SizedBox(
                 width: 10,
               ),
-              SvgPicture.asset("assets/icons/notification.svg"),
+              InkWell(
+                  onTap: () => AppUtils.navigateToPage(NotificationListScreen(
+                        title: "Notification",
+                      )),
+                  child: SvgPicture.asset("assets/icons/notification.svg")),
               const SizedBox(
                 width: 10,
               ),
