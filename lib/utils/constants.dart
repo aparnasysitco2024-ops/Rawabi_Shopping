@@ -12,6 +12,9 @@ const baseURLDriver = 'https://rawabihypermarket.com/rawabi/rwbapi/Driverapi/';
 
 const guestUrl = '${baseURL}guest';
 const home = '${baseURL}home_api';
+const homeCategory = '${baseURL}home_cat';
+const homeGroup = '${baseURL}home_group';
+
 const check_user = '${baseURL}check_user';
 const signup = '${baseURL}signup';
 const signin = '${baseURL}signin';

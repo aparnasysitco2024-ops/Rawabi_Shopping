@@ -42,6 +42,7 @@ class CartController extends GetxController {
   var deliveryPre = 0.00.obs;
   var bagFee = 0.00.obs;
   var discount = 0.00.obs;
+  var totalSave = 0.00.obs;
   var grandTotal = 0.00.obs;
   var grandTotalPre = 0.00.obs;
   var totalItemCount = 0.obs;
@@ -50,6 +51,7 @@ class CartController extends GetxController {
   var couponText = "".obs;
   var selectedPickupSlot = "".obs;
   var noteTextController = TextEditingController();
+  var displayMessage = "".obs;
 
   CartController();
 
@@ -85,6 +87,8 @@ class CartController extends GetxController {
                 : double.parse(responseData.deliveryFee.toString());
           }
           bagFee.value = double.parse(responseData.bagFee.toString());
+          totalSave.value = double.parse(responseData.cart_save.toString());
+          displayMessage.value = responseData.message.toString();
 
           subTotal.value = double.parse(responseData.cart_total.toString());
           // for (var element in cartProducts) {

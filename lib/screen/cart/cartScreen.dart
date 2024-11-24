@@ -38,9 +38,9 @@ class CartScreen extends StatelessWidget {
     // DateTime dateTime = format.parse(dateString);
     // print(dateTime);
 
-    DateFormat dateFormat = DateFormat("HH:mm");
-    String currentTime = dateFormat.format(DateTime.now());
-    print(currentTime);
+    // DateFormat dateFormat = DateFormat("HH:mm");
+    // String currentTime = dateFormat.format(DateTime.now());
+    // print(currentTime);
     DateTime todayDate = DateTime.now();
 
     void PickupSlot() {
@@ -372,6 +372,38 @@ class CartScreen extends StatelessWidget {
                                                 products: cartController
                                                     .cartProducts[index],
                                               ))),
+
+                                  Container(
+                                    width: double.maxFinite,
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [skyBlue, skyBlue]),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0, vertical: 15),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Icon(Icons.info_outline),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              ReusableText(
+                                                title: cartController
+                                                    .displayMessage.value,
+                                                size: 10,
+                                                weight: FontWeight.w600,
+                                                color: Colors.black,
+                                              ),
+                                            ]),
+                                      ),
+                                    ),
+                                  ),
                                   homeController.isPickup.value
                                       ? SizedBox()
                                       : Container(
@@ -1057,24 +1089,48 @@ class CartScreen extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                        Row(
-                                          children: [
-                                            ReusableText(
-                                              title: "Discount".tr,
-                                              size: 12,
-                                              weight: FontWeight.w600,
-                                              color: Colors.green,
-                                            ),
-                                            const Spacer(),
-                                            ReusableText(
-                                              title:
-                                                  "QAR- ${cartController.discount.value}",
-                                              size: 10,
-                                              weight: FontWeight.w600,
-                                              color: Colors.green,
-                                            ),
-                                          ],
-                                        ),
+                                        cartController.discount.value > 0
+                                            ? Row(
+                                                children: [
+                                                  ReusableText(
+                                                    title: "Discount".tr,
+                                                    size: 12,
+                                                    weight: FontWeight.w600,
+                                                    color: Colors.green,
+                                                  ),
+                                                  const Spacer(),
+                                                  ReusableText(
+                                                    title:
+                                                        "QAR- ${cartController.discount.value}",
+                                                    size: 10,
+                                                    weight: FontWeight.w600,
+                                                    color: Colors.green,
+                                                  ),
+                                                ],
+                                              )
+                                            : SizedBox(),
+                                        cartController.totalSave.value > 0
+                                            ? Row(
+                                                children: [
+                                                  ReusableText(
+                                                    title:
+                                                        "Total savings on this order"
+                                                            .tr,
+                                                    size: 12,
+                                                    weight: FontWeight.w600,
+                                                    color: Colors.green,
+                                                  ),
+                                                  const Spacer(),
+                                                  ReusableText(
+                                                    title:
+                                                        "QAR- ${cartController.totalSave.value}",
+                                                    size: 10,
+                                                    weight: FontWeight.w600,
+                                                    color: Colors.green,
+                                                  ),
+                                                ],
+                                              )
+                                            : SizedBox(),
                                         const Divider(
                                           thickness: 1,
                                         ),
@@ -1102,16 +1158,16 @@ class CartScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 18.0),
-                                    child: ReusableText(
-                                      title: homeController.languageParam.value
-                                          .inclusiveOfAllTaxes,
-                                      size: 10,
-                                      weight: FontWeight.w400,
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(left: 18.0),
+                                  //   child: ReusableText(
+                                  //     title: homeController.languageParam.value
+                                  //         .inclusiveOfAllTaxes,
+                                  //     size: 10,
+                                  //     weight: FontWeight.w400,
+                                  //     color: Colors.black,
+                                  //   ),
+                                  // ),
                                   const SizedBox(
                                     height: 5,
                                   ),

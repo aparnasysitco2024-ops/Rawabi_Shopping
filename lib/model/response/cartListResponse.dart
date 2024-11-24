@@ -5,6 +5,7 @@ class CartListResponse {
   String? deliveryFee;
   String? bagFee;
   String? cart_total;
+  String? cart_save;
 
   CartListResponse({this.code, this.message, this.products});
 
@@ -14,6 +15,7 @@ class CartListResponse {
     deliveryFee = json['delivery_fee'];
     bagFee = json['bag_fee'];
     cart_total = json['cart_total'].toString();
+    cart_save = json['cart_save'].toString();
     if (json['res'] != null) {
       products = <Products>[];
       json['res'].forEach((v) {
@@ -29,6 +31,7 @@ class CartListResponse {
     data['delivery_fee'] = deliveryFee;
     data['bag_fee'] = bagFee;
     data['cart_total'] = cart_total.toString();
+    data['cart_save'] = cart_save.toString();
     if (products != null) {
       data['res'] = products!.map((v) => v.toJson()).toList();
     }

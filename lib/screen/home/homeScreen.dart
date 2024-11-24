@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rawabi/controller/cartController.dart';
 import 'package:rawabi/controller/homeController.dart';
@@ -19,6 +20,7 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/commonUtils.dart';
 import 'package:rawabi/widget/adsImageWidget.dart';
 import 'package:rawabi/widget/categoryWidget.dart';
+import 'package:rawabi/widget/commonWidget/networkImageWidget.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
@@ -66,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (!homeController.isSavedAddressSlotLoaded)
         homeController.getSavedAddressSlot();
       if (!homeController.isPopUpLoaded) getPopupBanner();
+      homeController.getHomeCategory();
     }
     super.initState();
   }
@@ -238,7 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     if (!homeController.isPickup.value) homeController.getStorageData();
-    homeController.getHomeData();
+    // homeController.getHomeData();
+    homeController.page = 0;
+    homeController.getHomeGroup();
     cartController.getCartList();
 
     // homeController.getLanguageParam("en","1");
@@ -580,134 +585,193 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : Container(
                             color: silver,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  //Top banner
-                                  homeController.bannerListTop.isNotEmpty
-                                      ? FlutterCarousel(
-                                          options: CarouselOptions(
-                                            initialPage: 1,
-                                            autoPlay: true,
-                                            enableInfiniteScroll: true,
-                                            enlargeCenterPage: true,
-                                            viewportFraction: 0.8,
-                                            height: 110.0,
-                                            showIndicator: false,
-                                            slideIndicator:
-                                                const CircularSlideIndicator(),
-                                          ),
-                                          items: homeController.bannerListTop
-                                              .map((i) {
-                                            return Builder(
-                                              builder: (BuildContext context) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    if (i.linkType ==
-                                                        "category") {
-                                                      if (i.bannerPoint !=
-                                                          "0") {
+                            child: LazyLoadScrollView(
+                              scrollOffset: 300,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    //Top banner
+                                    homeController.bannerListTop.isNotEmpty
+                                        ? FlutterCarousel(
+                                            options: CarouselOptions(
+                                              initialPage: 1,
+                                              autoPlay: true,
+                                              enableInfiniteScroll: true,
+                                              enlargeCenterPage: true,
+                                              viewportFraction: 0.8,
+                                              height: 110.0,
+                                              showIndicator: false,
+                                              slideIndicator:
+                                                  const CircularSlideIndicator(),
+                                            ),
+                                            items: homeController.bannerListTop
+                                                .map((i) {
+                                              return Builder(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      if (i.linkType ==
+                                                          "category") {
+                                                        if (i.bannerPoint !=
+                                                            "0") {
+                                                          homeController
+                                                              .moveToProductList(
+                                                                  context,
+                                                                  i.bannerPoint
+                                                                      .toString(),
+                                                                  "0",
+                                                                  "0",
+                                                                  "0",
+                                                                  "0");
+                                                        }
+                                                      } else if (i.linkType ==
+                                                          "sub_category") {
+                                                        if (i.bannerPoint !=
+                                                            "0") {
+                                                          homeController
+                                                              .moveToProductList(
+                                                                  context,
+                                                                  i.cat
+                                                                      .toString(),
+                                                                  i.bannerPoint
+                                                                      .toString(),
+                                                                  "0",
+                                                                  "0",
+                                                                  "0");
+                                                        }
+                                                      } else if (i.linkType ==
+                                                          "sub_sub_category") {
+                                                        if (i.bannerPoint !=
+                                                            "0") {
+                                                          homeController
+                                                              .moveToProductList(
+                                                                  context,
+                                                                  i.cat
+                                                                      .toString(),
+                                                                  i.subcat
+                                                                      .toString(),
+                                                                  i.bannerPoint
+                                                                      .toString(),
+                                                                  "0",
+                                                                  "0");
+                                                        }
+                                                      } else if (i.linkType ==
+                                                          "sub_sub_sub_category") {
+                                                        if (i.bannerPoint !=
+                                                            "0") {
+                                                          homeController
+                                                              .moveToProductList(
+                                                                  context,
+                                                                  i.cat
+                                                                      .toString(),
+                                                                  i.subcat
+                                                                      .toString(),
+                                                                  i.subsubcat
+                                                                      .toString(),
+                                                                  i.bannerPoint
+                                                                      .toString(),
+                                                                  "0");
+                                                        }
+                                                      } else if (i.linkType ==
+                                                          "product") {
+                                                        homeController
+                                                            .moveToProductDetails(
+                                                                context,
+                                                                i.bannerPoint
+                                                                    .toString());
+                                                      } else if (i.linkType ==
+                                                          "brand") {
                                                         homeController
                                                             .moveToProductList(
                                                                 context,
+                                                                "0",
+                                                                "0",
+                                                                "0",
+                                                                "0",
                                                                 i.bannerPoint
-                                                                    .toString(),
-                                                                "0",
-                                                                "0",
-                                                                "0",
-                                                                "0");
-                                                      }
-                                                    } else if (i.linkType ==
-                                                        "sub_category") {
-                                                      if (i.bannerPoint !=
-                                                          "0") {
-                                                        homeController
-                                                            .moveToProductList(
-                                                                context,
-                                                                i.cat
-                                                                    .toString(),
+                                                                    .toString());
+                                                      } else if (i.linkType ==
+                                                          "offer") {
+                                                        widget
+                                                            .onOffersSelected();
+                                                      } else if (i.linkType ==
+                                                          "itemgroup") {
+                                                        Navigator.pushNamed(
+                                                          context,
+                                                          '/ProductsFromHomeScreen',
+                                                          arguments: {
+                                                            'title':
+                                                                i.bannerName,
+                                                            "grp_id":
                                                                 i.bannerPoint
-                                                                    .toString(),
-                                                                "0",
-                                                                "0",
-                                                                "0");
+                                                          },
+                                                        );
                                                       }
-                                                    } else if (i.linkType ==
-                                                        "sub_sub_category") {
-                                                      if (i.bannerPoint !=
-                                                          "0") {
-                                                        homeController
-                                                            .moveToProductList(
-                                                                context,
-                                                                i.cat
-                                                                    .toString(),
-                                                                i.subcat
-                                                                    .toString(),
-                                                                i.bannerPoint
-                                                                    .toString(),
-                                                                "0",
-                                                                "0");
-                                                      }
-                                                    } else if (i.linkType ==
-                                                        "sub_sub_sub_category") {
-                                                      if (i.bannerPoint !=
-                                                          "0") {
-                                                        homeController
-                                                            .moveToProductList(
-                                                                context,
-                                                                i.cat
-                                                                    .toString(),
-                                                                i.subcat
-                                                                    .toString(),
-                                                                i.subsubcat
-                                                                    .toString(),
-                                                                i.bannerPoint
-                                                                    .toString(),
-                                                                "0");
-                                                      }
-                                                    } else if (i.linkType ==
-                                                        "product") {
-                                                      homeController
-                                                          .moveToProductDetails(
-                                                              context,
-                                                              i.bannerPoint
-                                                                  .toString());
-                                                    } else if (i.linkType ==
-                                                        "brand") {
-                                                      homeController
-                                                          .moveToProductList(
-                                                              context,
-                                                              "0",
-                                                              "0",
-                                                              "0",
-                                                              "0",
-                                                              i.bannerPoint
-                                                                  .toString());
-                                                    } else if (i.linkType ==
-                                                        "offer") {
-                                                      widget.onOffersSelected();
-                                                    } else if (i.linkType ==
-                                                        "itemgroup") {
-                                                      Navigator.pushNamed(
-                                                        context,
-                                                        '/ProductsFromHomeScreen',
-                                                        arguments: {
-                                                          'title': i.bannerName,
-                                                          "grp_id":
-                                                              i.bannerPoint
-                                                        },
-                                                      );
-                                                    }
-                                                  },
-                                                  child: Padding(
+                                                    },
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                right: 5,
+                                                                top: 5,
+                                                                bottom: 5),
+                                                        child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                            child:
+                                                                NetworkImageWidget(
+                                                              image: i
+                                                                  .bannerImage
+                                                                  .toString(),
+                                                              fit: BoxFit.fill,
+                                                            )
+                                                            // FadeInImage
+                                                            //     .assetNetwork(
+                                                            //         fit: BoxFit
+                                                            //             .fill,
+                                                            //         placeholder:
+                                                            //             'assets/images/logo.png',
+                                                            //         image: i
+                                                            //             .bannerImage
+                                                            //             .toString()),
+                                                            )),
+                                                  );
+                                                },
+                                              );
+                                            }).toList(),
+                                          )
+                                        : const SizedBox(),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    //top ads
+                                    homeController.bannerListTop2.isNotEmpty
+                                        ? FlutterCarousel(
+                                            options: CarouselOptions(
+                                              initialPage: 0,
+                                              enableInfiniteScroll: true,
+                                              viewportFraction: 1,
+                                              showIndicator: false,
+                                              height: 60.0,
+                                            ),
+                                            items: homeController.bannerListTop2
+                                                .map((i) {
+                                              return Builder(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Padding(
                                                       padding:
                                                           const EdgeInsets.only(
                                                               right: 5,
                                                               top: 5,
-                                                              bottom: 5),
+                                                              bottom: 5,
+                                                              left: 5),
                                                       child: ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
@@ -721,176 +785,141 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 image: i
                                                                     .bannerImage
                                                                     .toString()),
+                                                      ));
+                                                  // return FadeInImage.assetNetwork(
+                                                  //     placeholder: 'assets/images/logo.png',
+                                                  //     image: i.bannerImage.toString());
+                                                },
+                                              );
+                                            }).toList(),
+                                          )
+                                        : const SizedBox(),
+
+                                    //Category
+                                    GridView.builder(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, top: 10, right: 10),
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        physics: const ClampingScrollPhysics(),
+                                        itemCount:
+                                            homeController.categoryList.length,
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisSpacing: 15,
+                                                mainAxisSpacing: 5,
+                                                mainAxisExtent: 130,
+                                                crossAxisCount: 4),
+                                        itemBuilder: (_, index) {
+                                          return MainCategoryItem(
+                                              category: homeController
+                                                  .categoryList[index]);
+                                        }),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    //Flayer
+                                    InkWell(
+                                      onTap: () => AppUtils.navigateToPage(
+                                          FlayerListScreen()),
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              child: CachedNetworkImage(
+                                                  fit: BoxFit.contain,
+                                                  width: double.infinity,
+                                                  placeholder: (context, url) =>
+                                                      Center(
+                                                          child:
+                                                              new CircularProgressIndicator(
+                                                        color: primaryColor,
                                                       )),
-                                                );
-                                              },
-                                            );
-                                          }).toList(),
-                                        )
-                                      : const SizedBox(),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  //top ads
-                                  homeController.bannerListTop2.isNotEmpty
-                                      ? FlutterCarousel(
-                                          options: CarouselOptions(
-                                            initialPage: 0,
-                                            enableInfiniteScroll: true,
-                                            viewportFraction: 1,
-                                            showIndicator: false,
-                                            height: 60.0,
-                                          ),
-                                          items: homeController.bannerListTop2
-                                              .map((i) {
-                                            return Builder(
-                                              builder: (BuildContext context) {
-                                                return Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 5,
-                                                            top: 5,
-                                                            bottom: 5,
-                                                            left: 5),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                      child: FadeInImage
-                                                          .assetNetwork(
-                                                              fit: BoxFit.fill,
-                                                              placeholder:
-                                                                  'assets/images/logo.png',
-                                                              image: i
-                                                                  .bannerImage
-                                                                  .toString()),
-                                                    ));
-                                                // return FadeInImage.assetNetwork(
-                                                //     placeholder: 'assets/images/logo.png',
-                                                //     image: i.bannerImage.toString());
-                                              },
-                                            );
-                                          }).toList(),
-                                        )
-                                      : const SizedBox(),
+                                                  imageUrl:
+                                                      "https://rawabihypermarket.com/assets/flyer-banner.jpg")
+                                              // Image.asset(
+                                              //   fit: BoxFit.cover,
+                                              //   'assets/images/flayer.jpg'),
+                                              )),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
 
-                                  //Category
-                                  GridView.builder(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 10, right: 10),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      physics: const ClampingScrollPhysics(),
+                                    //Item group
+                                    ListView.builder(
+                                      padding: const EdgeInsets.only(top: 0.0),
                                       itemCount:
-                                          homeController.categoryList.length,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisSpacing: 15,
-                                              mainAxisSpacing: 5,
-                                              mainAxisExtent: 130,
-                                              crossAxisCount: 4),
-                                      itemBuilder: (_, index) {
-                                        return MainCategoryItem(
-                                            category: homeController
-                                                .categoryList[index]);
-                                      }),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  //Flayer
-                                  InkWell(
-                                    onTap: () => AppUtils.navigateToPage(
-                                        FlayerListScreen()),
-                                    child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
-                                            child: CachedNetworkImage(
-                                                fit: BoxFit.contain,
-                                                width: double.infinity,
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                        child:
-                                                            new CircularProgressIndicator(
-                                                      color: primaryColor,
-                                                    )),
-                                                imageUrl:
-                                                    "https://rawabihypermarket.com/assets/flyer-banner.jpg")
-                                            // Image.asset(
-                                            //   fit: BoxFit.cover,
-                                            //   'assets/images/flayer.jpg'),
-                                            )),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                          homeController.itemGroupList.length,
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) =>
+                                          homeController.itemGroupList[index]
+                                                      .grpType ==
+                                                  homeController.grpTypeProduct
+                                              ? ItemsWidget(
+                                                  title: homeController
+                                                      .itemGroupList[index]
+                                                      .grpName,
+                                                  products: homeController
+                                                      .itemGroupList[index]
+                                                      .grpItems,
+                                                  groupImage: homeController
+                                                      .itemGroupList[index]
+                                                      .grpImage,
+                                                  grp_id: homeController
+                                                      .itemGroupList[index]
+                                                      .grpId)
+                                              : homeController
+                                                          .itemGroupList[index]
+                                                          .grpType ==
+                                                      homeController
+                                                          .grpTypeImage
+                                                  ? AdsImageWidget(
+                                                      grpDesign: homeController
+                                                          .itemGroupList[index]
+                                                          .grpDesign
+                                                          .toString(),
+                                                      title: homeController
+                                                          .itemGroupList[index]
+                                                          .grpName,
+                                                      itemGroup: homeController
+                                                          .itemGroupList[index],
+                                                    )
+                                                  : CategoryWidget(
+                                                      title: homeController
+                                                          .itemGroupList[index]
+                                                          .grpName,
+                                                      itemGroup: homeController
+                                                          .itemGroupList[index],
+                                                    ),
+                                    ),
 
-                                  //Item group
-                                  ListView.builder(
-                                    padding: const EdgeInsets.only(top: 0.0),
-                                    itemCount:
-                                        homeController.itemGroupList.length,
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder: (context, index) =>
-                                        homeController.itemGroupList[index]
-                                                    .grpType ==
-                                                homeController.grpTypeProduct
-                                            ? ItemsWidget(
-                                                title: homeController
-                                                    .itemGroupList[index]
-                                                    .grpName,
-                                                products: homeController
-                                                    .itemGroupList[index]
-                                                    .grpItems,
-                                                groupImage: homeController
-                                                    .itemGroupList[index]
-                                                    .grpImage,
-                                                grp_id: homeController
-                                                    .itemGroupList[index].grpId)
-                                            : homeController
-                                                        .itemGroupList[index]
-                                                        .grpType ==
-                                                    homeController.grpTypeImage
-                                                ? AdsImageWidget(
-                                                    grpDesign: homeController
-                                                        .itemGroupList[index]
-                                                        .grpDesign
-                                                        .toString(),
-                                                    title: homeController
-                                                        .itemGroupList[index]
-                                                        .grpName,
-                                                    itemGroup: homeController
-                                                        .itemGroupList[index],
-                                                  )
-                                                : CategoryWidget(
-                                                    title: homeController
-                                                        .itemGroupList[index]
-                                                        .grpName,
-                                                    itemGroup: homeController
-                                                        .itemGroupList[index],
-                                                  ),
-                                  ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
 
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-
-                                  // GridAdsWidget(),
-                                  //
-                                  // const SizedBox(
-                                  //   height: 5,
-                                  // ),
-                                ],
+                                    // GridAdsWidget(),
+                                    //
+                                    // const SizedBox(
+                                    //   height: 5,
+                                    // ),
+                                  ],
+                                ),
                               ),
+                              onEndOfPage: () {
+                                homeController.getHomeGroup();
+                              },
                             ),
                           ),
                     onRefresh: () async {
-                      homeController.getHomeData();
+                      // homeController.getHomeData();
+                      homeController.page = 0;
+                      homeController.getHomeGroup();
                     },
                   ),
                 ),

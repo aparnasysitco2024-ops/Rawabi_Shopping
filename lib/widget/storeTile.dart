@@ -22,8 +22,8 @@ class StoreTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ReusableText(title: title.tr, size: 12, weight: FontWeight.w600),
-          const Spacer(),
+          Flexible(child: ReusableText(title: title.tr, size: 12, weight: FontWeight.w600)),
+          // const Spacer(),
           const Padding(
             padding: EdgeInsets.only(right: 8.0),
             child: Icon(

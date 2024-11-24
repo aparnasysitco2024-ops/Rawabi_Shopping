@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 import '../model/response/homeResponse.dart';
 import 'commonwidget/reusable_text.dart';
 
@@ -23,7 +25,6 @@ class MainCategoryItem extends StatelessWidget {
           },
         );
 
-
         /*AppUtils.navigateToPage(ProductsByCategory(
           catID: category.catId,
         ));*/
@@ -44,14 +45,15 @@ class MainCategoryItem extends StatelessWidget {
               height: 90,
               width: double.infinity,
               child: Container(
-                padding: const EdgeInsets.all(15),
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.white),
-                child: FadeInImage.assetNetwork(
-                    fit: BoxFit.cover,
-                    placeholder: 'assets/images/logo.png',
-                    image: category.catIcon.toString()),
-              )
+                  padding: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      placeholder: (context, url) =>
+                          Center(child: Image.asset('assets/images/logo.png')),
+                      imageUrl: category.catIcon.toString()))
 
               // Image.network(homeController.categoryList[index].catIcon.toString()),
               ),

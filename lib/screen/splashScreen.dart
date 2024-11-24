@@ -36,44 +36,37 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     initialize();
-
   }
 
   permission() async {
-
-    await Permission.location
-        .onDeniedCallback(() {
+    await Permission.location.onDeniedCallback(() {
       // Your code
-    })
-        .onGrantedCallback(() {
+    }).onGrantedCallback(() {
       // Your code
       firebase();
-
-    })
-        .onPermanentlyDeniedCallback(() {
+    }).onPermanentlyDeniedCallback(() {
       firebase();
       // Your code
-    })
-        .onRestrictedCallback(() {
+    }).onRestrictedCallback(() {
       // Your code
-    })
-        .onLimitedCallback(() {
+    }).onLimitedCallback(() {
       // Your code
-    })
-        .onProvisionalCallback(() {
+    }).onProvisionalCallback(() {
       // Your code
-    })
-        .request();
+    }).request();
   }
 
   Future<void> initialize() async {
     var prefValue =
         await StorageManager.readData(StorageManager.sharedPrfValue);
-    if (prefValue.isEmpty) {
+    if (prefValue != "2") {
       StorageManager.clearData();
-      StorageManager.saveData(StorageManager.sharedPrfValue, "1");
+      StorageManager.saveData(StorageManager.sharedPrfValue, "2");
     }
 
+    if (!await StorageManager.readDataBool(StorageManager.keyIsLogin)) {
+      StorageManager.saveData(StorageManager.keyUserID, "0");
+    }
 
     permission();
     // getLanguageData();
@@ -130,8 +123,13 @@ class _SplashScreenState extends State<SplashScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SvgPicture.asset("assets/icons/logo.svg",height: 80,),
-                SizedBox(height: 10,),
+                SvgPicture.asset(
+                  "assets/icons/logo.svg",
+                  height: 80,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 ReusableText(
                     textAlign: TextAlign.center,
                     title: "Get your groceries delivered to your home".tr,

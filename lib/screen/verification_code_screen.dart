@@ -47,6 +47,7 @@ class VerificationCode extends StatelessWidget {
           var responseData =
               BaseResponse.fromJson(json.decode(response.toString()));
           if (responseData.code == "200") {
+             StorageManager.saveData(StorageManager.keyIsLogin,true);
             AppUtils.navigateToPageRemoveUntil(BottomNavBar());
           } else {
             CommonUtils.showErrorDialog(responseData.message);

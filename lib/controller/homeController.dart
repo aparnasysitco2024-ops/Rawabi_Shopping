@@ -60,6 +60,7 @@ class HomeController extends GetxController {
   var popUpBannersList = <PopUpBanners>[].obs;
   bool isPopUpLoaded = false;
   bool isSavedAddressSlotLoaded = false;
+  int page = 0;
 
   Future<void> getStorageData() async {
     userID.value = await StorageManager.getUserID();
@@ -229,6 +230,70 @@ class HomeController extends GetxController {
       // CommonUtils.showErrorDialog(error.toString());
     }
     loading.value = false;
+  }
+
+  Future<void> getHomeCategory() async {
+    try {
+      if (!isHomeLoaded.value) loading.value = true;
+      var response = await BaseClient().get(homeCategory);
+      loading.value = false;
+      if (response != null) {
+        var responseData =
+            HomeResponse.fromJson(json.decode(response.toString()));
+        categoryList.clear();
+        bannerListTop.clear();
+        bannerListTop2.clear();
+        // itemGroupList.clear();
+
+        if (responseData.code == "200") {
+          categoryList.addAll(responseData.res!.category as List<Category>);
+
+          responseData.res!.slider!.forEach((element) {
+            if (element.banner_type == "Top")
+              bannerListTop.add(element);
+            else if (element.banner_type == "Below Slider")
+              bannerListTop2.add(element);
+          });
+
+
+          isHomeLoaded.value = true;
+        } else {
+          isHomeLoaded.value = false;
+          CommonUtils.showErrorDialog(responseData.message);
+        }
+      } else {
+        isHomeLoaded.value = false;
+        CommonUtils.showErrorDialog(response.message);
+      }
+    } catch (error) {
+      error.printError();
+      isHomeLoaded.value = false;
+      // CommonUtils.showErrorDialog(error.toString());
+    }
+    loading.value = false;
+  }
+
+  Future<void> getHomeGroup() async {
+    try {
+      if (page == 0) {
+        itemGroupList.clear();
+      }
+      page = page + 1;
+      // print("============="+page.toString());
+      var params = {"page": page};
+      var response = await BaseClient().post(homeGroup, params);
+      if (response != null) {
+        var responseData =
+            HomeResponse.fromJson(json.decode(response.toString()));
+
+        if (responseData.code == "200") {
+          itemGroupList.addAll(responseData.res!.itemGroup as List<ItemGroup>);
+        }
+      }
+    } catch (error) {
+      error.printError();
+      // CommonUtils.showErrorDialog(error.toString());
+    }
   }
 
   Future<void> clearCart() async {
