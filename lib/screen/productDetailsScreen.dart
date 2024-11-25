@@ -158,10 +158,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               showIndicator: true,
                                               slideIndicator:
                                                   const CircularSlideIndicator(
-                                                      currentIndicatorColor:
-                                                          primaryColor,
-                                                      indicatorBorderColor:
-                                                          Colors.grey),
+                                                slideIndicatorOptions:
+                                                    SlideIndicatorOptions(
+                                                        currentIndicatorColor:
+                                                            primaryColor,
+                                                        indicatorBorderColor:
+                                                            Colors.grey),
+                                              ),
                                             ),
                                             items: productDetailsController
                                                 .productDetails
@@ -304,9 +307,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             height: 20,
                                           ),
                                           HtmlWidget(productDetailsController
-                                              .productDetails
-                                              .value
-                                              .shortDesc.toString()),
+                                              .productDetails.value.shortDesc
+                                              .toString()),
                                           const Divider(
                                             color: lightGreyColor,
                                             thickness: 3,
@@ -331,9 +333,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             height: 20,
                                           ),
                                           HtmlWidget(productDetailsController
-                                              .productDetails
-                                              .value
-                                              .detailedDesc.toString()),
+                                              .productDetails.value.detailedDesc
+                                              .toString()),
                                         ],
                                       )
                                     : SizedBox(),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -112,9 +113,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/splash.png"),
+                image: AssetImage(Platform.isAndroid ?"assets/images/splash.png":"assets/images/splash_iphone.jpg"),
                 fit: BoxFit.cover),
           ),
           child: Padding(
