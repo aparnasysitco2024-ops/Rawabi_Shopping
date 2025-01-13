@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
 import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
@@ -69,7 +70,9 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
       print(
           "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
       // });
-    } catch (error) {}
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   Future<dynamic> _determinePosition() async {
@@ -82,6 +85,11 @@ class HomeDeliveryMapScreenState extends State<HomeDeliveryMapScreen> {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
+      AppSettings.openAppSettings(type: AppSettingsType.location);
+      // final AndroidIntent intent = AndroidIntent(
+      //     action: 'android.settings.LOCATION_SOURCE_SETTINGS');
+      // intent.launch();
+      // Navigator.of(context, rootNavigator: true).pop();
       return Future.error('Location services are disabled.');
     }
 

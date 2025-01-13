@@ -47,23 +47,21 @@ class _ItemsWidgetState extends State<ItemsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          widget.hideViewAll
-              ? const SizedBox(
-                  width: double.infinity,
-                )
-              : Row(
-                  children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: ReusableText(
-                        title: widget.title,
-                        weight: FontWeight.bold,
-                      ),
-                    ),
-                    // const Spacer(),
-                    InkWell(
+          Row(
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: ReusableText(
+                  title: widget.title,
+                  weight: FontWeight.bold,
+                ),
+              ),
+              // const Spacer(),
+              widget.hideViewAll
+                  ? const SizedBox()
+                  : InkWell(
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -80,11 +78,11 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         color: Colors.grey,
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                ),
+              const SizedBox(
+                width: 10,
+              ),
+            ],
+          ),
           const SizedBox(
             height: 10,
           ),

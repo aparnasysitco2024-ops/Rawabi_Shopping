@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -77,7 +78,7 @@ class BaseClient {
       var response = await _ioClient
           .post(uri, headers: await getHeader(), body: payload)
           .timeout(const Duration(seconds: TIME_OUT_DURATION));
-      // log(response.body);
+      log(response.body);
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(

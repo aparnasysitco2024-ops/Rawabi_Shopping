@@ -134,7 +134,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ReusableText(
                     textAlign: TextAlign.center,
                     title: "Get your groceries delivered to your home".tr,
-                    size: 20,
+                    size: 19,
                     color: blackLight,
                     weight: FontWeight.bold),
                 const SizedBox(
@@ -145,11 +145,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     title:
                         "The best delivery app in town for delivering your daily fresh groceries"
                             .tr,
-                    size: 16,
+                    size: 15,
                     color: grey,
                     weight: FontWeight.w400),
                 const SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
                 // ReusableButton(
                 //     width: 200.0,

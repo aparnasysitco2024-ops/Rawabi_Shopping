@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:rawabi/model/response/products.dart';
 
 import '../model/response/productDetailsResponse.dart';
 import '../utils/commonUtils.dart';
@@ -12,6 +13,7 @@ class ProductDetailsController extends GetxController {
   var loading = false.obs;
   var isKeyboardRefresh = false.obs;
   var productDetails = ProductDetails().obs;
+  var similarProducts = <Products>[].obs;
   String productID="";
 
   // ProductDetails? productDetails;
@@ -40,6 +42,7 @@ class ProductDetailsController extends GetxController {
               ProductDetailsResponse.fromJson(json.decode(response.toString()));
           if (responseData.code == "200") {
             productDetails.value = responseData.productDetails!;
+            similarProducts.value =responseData.products!;
           } else {
             CommonUtils.showErrorDialog(responseData.message);
           }

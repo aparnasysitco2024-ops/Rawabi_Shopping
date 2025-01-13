@@ -82,7 +82,7 @@ class CommonUtils {
     }
   }
 
-  static void showSuccessDialog(title, message) {
+  static void showSuccessDialog(message) {
     showDialog(
         context: Get.context!,
         builder: (BuildContext context) {
@@ -97,25 +97,25 @@ class CommonUtils {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset("assets/icons/tick.svg"),
+                    SvgPicture.asset("assets/icons/success.svg"),
                     const SizedBox(
                       height: 15,
                     ),
                     ReusableText(
-                      title: title,
+                      title: message,
                       maxLine: 1,
                       weight: FontWeight.w700,
                       size: 14,
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ReusableText(
-                      maxLine: 2,
-                      title: message,
-                      weight: FontWeight.w400,
-                      size: 14,
-                    ),
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // ReusableText(
+                    //   maxLine: 2,
+                    //   title: message,
+                    //   weight: FontWeight.w400,
+                    //   size: 14,
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/screen/account/ourStoreScreen.dart';
 import 'package:rawabi/screen/account/returnScreen.dart';
+import 'package:rawabi/screen/account/reviewScreen.dart';
 import 'package:rawabi/screen/address/myAddressesScreen.dart';
 import 'package:rawabi/screen/emptyScreen.dart';
 import 'package:rawabi/screen/home/notificationListScreen.dart';
@@ -454,6 +455,16 @@ class _AccountScreenState extends State<AccountScreen> {
                                 title: "Service & Warranty".tr)),
                             image: "assets/icons/verified2.svg",
                             title: "Service & Warranty".tr),
+                        const Divider(
+                          thickness: 1,
+                        ),
+
+                        ProfileTile(
+                          onPressed: () =>
+                              AppUtils.navigateToPage(ReviewScreen()),
+                          image: "assets/icons/contract.svg",
+                          title: "Review".tr,
+                        ),
                         const Divider(
                           thickness: 1,
                         ),

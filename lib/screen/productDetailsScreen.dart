@@ -18,6 +18,7 @@ import '../controller/productsDetailsController.dart';
 import '../utils/colors.dart';
 import '../widget/commonWidget/reusableNetworkImage.dart';
 import '../widget/commonWidget/reusable_text.dart';
+import '../widget/itemsWidget.dart';
 
 // ignore: must_be_immutable
 class ProductDetailsScreen extends StatefulWidget {
@@ -384,6 +385,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 const SizedBox(
                                   height: 20,
                                 ),
+                                ItemsWidget(
+                                  title: "Similar Products",
+                                  products:
+                                      productDetailsController.similarProducts,
+                                  hideViewAll: true,
+                                )
                               ],
                             ))
                         : Padding(
@@ -403,7 +410,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   )
                                 ]),
                           ),
-              ))
+              )),
             ])),
       ),
     );

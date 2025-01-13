@@ -1,15 +1,25 @@
+import 'package:rawabi/model/response/products.dart';
+
 class ProductDetailsResponse {
   String? code;
   String? message;
   ProductDetails? productDetails;
+  List<Products>? products;
 
-  ProductDetailsResponse({this.code, this.message, this.productDetails});
+  ProductDetailsResponse({this.code, this.message, this.productDetails,this.products,});
 
   ProductDetailsResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
+
     productDetails =
         json['res'] != null ? ProductDetails.fromJson(json['res']) : null;
+    if (json['products'] != null) {
+      products = <Products>[];
+      json['products'].forEach((v) {
+        products!.add(new Products.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -18,6 +28,9 @@ class ProductDetailsResponse {
     data['message'] = message;
     if (productDetails != null) {
       data['res'] = productDetails!.toJson();
+    }
+    if (this.products != null) {
+      data['products'] = this.products!.map((v) => v.toJson()).toList();
     }
     return data;
   }

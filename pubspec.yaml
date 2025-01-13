@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.26+27
+version: 1.0.29+30
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -51,10 +51,10 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   badges: ^3.1.2
   flutter_launcher_icons: ^0.13.1
-#  syncfusion_flutter_pdfviewer: ^24.2.8
+  #  syncfusion_flutter_pdfviewer: ^24.2.8
   syncfusion_flutter_pdfviewer: ^26.1.38
   webview_flutter: ^4.7.0
-#  pdf_render: ^1.4.6
+  #  pdf_render: ^1.4.6
   flutter_cache_manager: ^3.3.2
   outline_gradient_button: ^2.0.1+1
   lazy_load_scrollview: ^1.3.0
@@ -63,7 +63,7 @@ dependencies:
   firebase_core: ^2.30.0
   firebase_messaging: ^14.9.3
   firebase_analytics: ^10.10.7
-#  flutter_local_notifications: ^14.0.0+1
+  #  flutter_local_notifications: ^14.0.0+1
   flutter_local_notifications: ^17.2.1
   flutter_polyline_points: ^2.1.0
   vibration: ^1.8.4
@@ -76,9 +76,11 @@ dependencies:
   flutter_typeahead: ^5.2.0
   package_info_plus: ^4.2.0
   rating_dialog: ^2.0.4
-#  flutter_inappwebview: ^6.0.0
+  #  flutter_inappwebview: ^6.0.0
   flutter_inappwebview: ^5.7.2+3
   permission_handler: ^11.3.1
+  radio_group_v2: ^3.2.1
+  app_settings: ^5.1.1
 
 
 dev_dependencies:

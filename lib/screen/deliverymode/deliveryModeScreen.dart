@@ -73,8 +73,12 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
     TabController _tabController = TabController(length: 2, vsync: this);
     getGuestData();
     return PopScope(
-      onPopInvoked: (didPop) {
-        Get.delete<StorePickupController>();
+      onPopInvokedWithResult: (didPop, result) {
+        // print("android back............");
+        if (Get.isRegistered<HomeController>()) {
+          Navigator.pop(context);
+        } else
+          AppUtils.navigateToPageReplace(SplashScreen());
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -116,11 +120,11 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
                                   top: 0,
                                   child: InkWell(
                                     onTap: () {
+                                      print("button back............");
                                       if (Get.isRegistered<HomeController>()) {
                                         Navigator.pop(context);
                                       } else
-                                        AppUtils.navigateToPageReplace(
-                                            SplashScreen());
+                                        AppUtils.navigateToPageReplace(SplashScreen());
                                     },
                                     child: const Icon(
                                       Icons.arrow_back_ios,
