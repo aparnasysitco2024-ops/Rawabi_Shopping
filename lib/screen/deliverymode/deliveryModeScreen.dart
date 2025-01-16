@@ -75,10 +75,10 @@ class _DeliveryModeScreenState extends State<DeliveryModeScreen>
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
         // print("android back............");
-        if (Get.isRegistered<HomeController>()) {
-          Navigator.pop(context);
-        } else
-          AppUtils.navigateToPageReplace(SplashScreen());
+        // if (Get.isRegistered<HomeController>()) {
+        //   Navigator.pop(context);
+        // } else
+        //   AppUtils.navigateToPageReplace(SplashScreen());
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
