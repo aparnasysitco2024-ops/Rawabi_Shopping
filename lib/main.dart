@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/router.dart' as router;
+import 'package:rawabi/screen/home/productsFromHomeScreen.dart';
+import 'package:rawabi/screen/productDetailsScreen.dart';
+import 'package:rawabi/screen/splashScreen.dart';
 import 'package:rawabi/utils/firebase_options.dart';
 
 Future<void> main() async {
@@ -47,6 +50,15 @@ class MyApp extends StatelessWidget {
           statusBarBrightness: Brightness.light,
         ),
         child: GetMaterialApp(
+          routes: {
+            '/': (context) => SplashScreen(),
+            '/ProductDetailsScreen': (context) => ProductDetailsScreen(
+                  onCartSelected: () {
+                    Get.back();
+                  },
+                ),
+            '/ProductsFromHomeScreen': (context) => ProductsFromHomeScreen(),
+          },
           onGenerateRoute: router.Router.generateRoute,
           // translations: AppTranslations(),
           debugShowCheckedModeBanner: false,
@@ -57,15 +69,16 @@ class MyApp extends StatelessWidget {
                     .copyWith(textScaler: TextScaler.noScaling),
                 child: child!);
           },
-          theme: ThemeData(fontFamily:
-          Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',),
+          theme: ThemeData(
+            fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
+          ),
           // translations: LocalizationService(),
           supportedLocales: const [
             Locale('en', 'US'), // English, no country code
             Locale('ar', 'SA'), // Arabic, no country code
           ],
 
-          localizationsDelegates:  [
+          localizationsDelegates: [
             // AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

@@ -5,6 +5,7 @@ import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/utils/storage_manager.dart';
 import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 
+import '../controller/cartController.dart';
 import '../controller/homeController.dart';
 import '../controller/myAddressController.dart';
 import 'commonwidget/reusable_text.dart';
@@ -15,6 +16,7 @@ class AddressTile extends StatefulWidget {
 
   final myAddressController = Get.put(MyAddressController());
   final homeController = Get.put(HomeController());
+  final cartController = Get.put(CartController());
 
   AddressTile({super.key, required this.addressList});
 
@@ -94,6 +96,7 @@ class _AddressTileState extends State<AddressTile> {
                     //     widget.addressList.lat.toString(),
                     //     widget.addressList.long.toString(),
                     //     address);
+                    widget.cartController.calculateDeliveryFee();
                   });
                 },
               ),

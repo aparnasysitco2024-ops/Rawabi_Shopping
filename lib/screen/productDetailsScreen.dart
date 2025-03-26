@@ -23,9 +23,11 @@ import '../widget/itemsWidget.dart';
 // ignore: must_be_immutable
 class ProductDetailsScreen extends StatefulWidget {
   final VoidCallback onCartSelected;
+  var id;
 
   ProductDetailsScreen({super.key, required this.onCartSelected});
 
+  ProductDetailsScreen.fromId({required this.id, required this.onCartSelected});
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }

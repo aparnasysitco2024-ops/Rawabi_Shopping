@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       '/ProductsFromHomeScreen',
                                       arguments: {
-                                        'title': i.bannerName,
+                                        'title': "i.bannerName",
                                         "grp_id": i.bannerPoint
                                       },
                                     );

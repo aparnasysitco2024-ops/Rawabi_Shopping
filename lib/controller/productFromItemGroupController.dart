@@ -11,6 +11,7 @@ import '../utils/http_client/base_client.dart';
 class ProductFromItemGroupController extends GetxController {
   var loading = false.obs;
   var productList = <Products>[].obs;
+  var groupName = "".obs;
 
   ProductFromItemGroupController();
 
@@ -32,6 +33,7 @@ class ProductFromItemGroupController extends GetxController {
         var responseData =
             ItemGroupDetailsResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
+          groupName.value = responseData.itemGroup![0].grpName.toString();
           productList.addAll(
               responseData.itemGroup![0].grpItems as Iterable<Products>);
         } else {

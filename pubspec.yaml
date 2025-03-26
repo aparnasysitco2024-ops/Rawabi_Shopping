@@ -63,8 +63,8 @@ dependencies:
   firebase_core: ^2.30.0
   firebase_messaging: ^14.9.3
   firebase_analytics: ^10.10.7
-  #  flutter_local_notifications: ^14.0.0+1
-  flutter_local_notifications: ^17.2.1
+#  flutter_local_notifications: ^17.2.1
+  flutter_local_notifications: ^18.0.1
   flutter_polyline_points: ^2.1.0
   vibration: ^1.8.4
   maps_launcher: ^2.2.1

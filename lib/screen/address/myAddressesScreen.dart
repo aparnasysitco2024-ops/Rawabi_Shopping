@@ -5,6 +5,7 @@ import 'package:rawabi/screen/address/addNewAddressMapScreen.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/colors.dart';
 
+import '../../controller/cartController.dart';
 import '../../controller/myAddressController.dart';
 import '../../widget/addressTile.dart';
 import '../../widget/commonwidget/reusable_button1.dart';
@@ -14,6 +15,7 @@ class MyAddressesScreen extends StatelessWidget {
   MyAddressesScreen({super.key});
 
   final myAddressController = Get.put(MyAddressController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class MyAddressesScreen extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.pop(context);
+                                    cartController.calculateDeliveryFee();
                                   },
                                   child: const Icon(
                                     Icons.arrow_back_ios,
@@ -143,6 +146,7 @@ class MyAddressesScreen extends StatelessWidget {
                                           child: ReusableButton1(
                                             onPressed: () {
                                               Get.back();
+                                              cartController.calculateDeliveryFee();
                                             },
                                             title: "Deliver To This Address".tr,
                                             fontSize: 12,

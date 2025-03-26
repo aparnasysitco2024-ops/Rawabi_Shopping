@@ -53,7 +53,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   return ProductDetailsScreen(
                       onCartSelected: widget.onCartSelected);
                 case '/ProductsFromHomeScreen':
-                  return ProductsFromHomeScreen(grp_id: widget.grp_id,);
+                  return ProductsFromHomeScreen();
                 case '/CategoryFromHomeScreen':
                   return CategoryFromHomeScreen();
               }

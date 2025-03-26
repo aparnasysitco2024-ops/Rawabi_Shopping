@@ -15,19 +15,16 @@ import '../../utils/constants.dart';
 import 'notificationListScreen.dart';
 
 // ignore: must_be_immutable
-class ProductsFromHomeScreen extends StatefulWidget {
-  String? grp_id;
+class ProductsFromHomeScreen extends StatelessWidget {
+  // String? grp_id;
 
-  ProductsFromHomeScreen({super.key, required this.grp_id});
+  ProductsFromHomeScreen({super.key});
 
-  @override
-  State<ProductsFromHomeScreen> createState() => _ProductsFromHomeScreenState();
-}
-
-class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
   final homeController = Get.put(HomeController());
+
   final productFromItemGroupController =
       Get.put(ProductFromItemGroupController());
+
   final searchController = Get.put(SearchResultController());
 
   /* String _scanBarcode = '';
@@ -46,7 +43,6 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
       _scanBarcode = barcodeScanRes;
     });
   }*/
-
   @override
   Widget build(BuildContext context) {
     // final catID = ModalRoute.of(context)?.settings.arguments;
@@ -54,7 +50,8 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
         <String, dynamic>{}) as Map;
 
     // final products = arguments['products'];
-    final title = arguments['title'];
+    if (arguments['title'].toString().isNotEmpty)
+      productFromItemGroupController.groupName.value = arguments['title'];
 
     if (productFromItemGroupController.productList.isEmpty)
       productFromItemGroupController.getItemGroupDetails(arguments['grp_id']);
@@ -81,7 +78,8 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                     width: 30,
                     child: SvgPicture.asset("assets/icons/back.svg")),
                 onTap: () {
-                  Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                  Navigator.pop(context);
+                  // Navigator.of(context).popUntil(ModalRoute.withName('/'));
                   // Get.delete<ProductController>();
                   /*Get.back();
                       Get.delete<ProductController>();*/
@@ -113,9 +111,12 @@ class _ProductsFromHomeScreenState extends State<ProductsFromHomeScreen> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Expanded(
-                              child: ReusableText(
-                                title: title,
+                            Obx(
+                              () => Expanded(
+                                child: ReusableText(
+                                  title: productFromItemGroupController
+                                      .groupName.value,
+                                ),
                               ),
                             ),
                           ]),

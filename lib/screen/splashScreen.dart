@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rawabi/utils/app_utils.dart';
+import 'package:rawabi/utils/notification/notificationData.dart';
 
 import '../model/response/languageParamResponse.dart';
 import '../utils/colors.dart';
@@ -113,9 +114,11 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration:  BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(Platform.isAndroid ?"assets/images/splash.png":"assets/images/splash_iphone.jpg"),
+                image: AssetImage(Platform.isAndroid
+                    ? "assets/images/splash.png"
+                    : "assets/images/splash_iphone.jpg"),
                 fit: BoxFit.cover),
           ),
           child: Padding(
@@ -204,12 +207,13 @@ class _SplashScreenState extends State<SplashScreen> {
         print("token------------------------: " + fcmToken.toString());
       }
       // else
+      //   print("token------------------------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
+      // else
       // print("t------: "+await StorageManager.readData(StorageManager.keyFirebaseToken));
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
-
         print('Got a message whilst in the foreground!');
         if (message.notification != null && android != null) {
           print('Notification Title: ${message.notification!.title}');
@@ -218,6 +222,7 @@ class _SplashScreenState extends State<SplashScreen> {
               notification.hashCode,
               notification!.title,
               notification.body,
+              payload: jsonEncode(message.data).toString(),
               NotificationDetails(
                 android: AndroidNotificationDetails(
                   channel.id,
@@ -226,6 +231,28 @@ class _SplashScreenState extends State<SplashScreen> {
                   // other properties...
                 ),
               ));
+        }
+      });
+
+      var androidSettings =
+          const AndroidInitializationSettings('@mipmap/ic_launcher');
+      var initSettings = InitializationSettings(android: androidSettings);
+
+      final FlutterLocalNotificationsPlugin _notificationsPlugin =
+          FlutterLocalNotificationsPlugin();
+
+      _notificationsPlugin.initialize(initSettings,
+          onDidReceiveBackgroundNotificationResponse: (details) {
+        print("details;---------" + details.payload.toString());
+        _handleNotificationClick(details.payload.toString());
+      }, onDidReceiveNotificationResponse: (details) {
+        print("details;---------" + details.payload.toString());
+        _handleNotificationClick(details.payload.toString());
+      });
+
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        if (context.mounted) {
+          _handleNotificationClick1(context, message);
         }
       });
 
@@ -258,4 +285,36 @@ class _SplashScreenState extends State<SplashScreen> {
 //     error.printError();
 //   }
 // }
+}
+
+void _handleNotificationClick(String payload) {
+  var responseData = NotificationData.fromJson(json.decode(payload));
+
+  if (responseData.type == "product") {
+    Navigator.pushNamed(
+      Get.context!,
+      '/ProductDetailsScreen',
+      arguments: {
+        'productID': responseData.id.toString(),
+      },
+    );
+  } else if (responseData.type == "itemgroup") {
+    Navigator.pushNamed(
+      Get.context!,
+      '/ProductsFromHomeScreen',
+      arguments: {'title': "", "grp_id": responseData.id.toString()},
+    );
+  }
+  // print("type------------------------: " + responseData.type.toString());
+  // print("id------------------------: " + responseData.id.toString());
+}
+
+void _handleNotificationClick1(BuildContext context, RemoteMessage message) {
+  final notificationData = message.data;
+
+  if (notificationData.containsKey('type')) {
+    final type = notificationData['type'];
+    print("type------------------------: " + type);
+    Navigator.of(context).pushNamed(type);
+  }
 }
