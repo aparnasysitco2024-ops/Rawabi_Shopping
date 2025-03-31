@@ -7,13 +7,15 @@ import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 
 import '../utils/colors.dart';
+import 'account/reviewScreen.dart';
 import 'myOrder/orderDetailsScreen.dart';
 
 // ignore: must_be_immutable
 class OrderPlacedScreen extends StatelessWidget {
   var orderId;
   bool isPreOrder;
-  OrderPlacedScreen({super.key, this.orderId,required this.isPreOrder});
+
+  OrderPlacedScreen({super.key, this.orderId, required this.isPreOrder});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,8 @@ class OrderPlacedScreen extends StatelessWidget {
                 ),
                 ReusableButton1(
                   onPressed: () {
-                    AppUtils.navigateToPageReplace(OrderDetailsScreen(isPreOrder: isPreOrder,
+                    AppUtils.navigateToPageReplace(OrderDetailsScreen(
+                      isPreOrder: isPreOrder,
                       orderid: orderId,
                     ));
                   },
@@ -73,6 +76,19 @@ class OrderPlacedScreen extends StatelessWidget {
                   backgroundColor: Colors.white,
                   txtColor: darkGrey,
                   title: "Track order".tr,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ReusableButton1(
+                  onPressed: () {
+                    AppUtils.navigateToPageReplace(ReviewScreen());
+                  },
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  backgroundColor: Colors.white,
+                  txtColor: darkGrey,
+                  title: "Review order".tr,
                 ),
                 const SizedBox(
                   height: 30,
