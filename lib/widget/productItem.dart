@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/model/response/products.dart';
+import 'package:rawabi/utils/constants.dart';
 
 import '../controller/cartController.dart';
 import '../controller/productsController.dart';
@@ -63,24 +64,24 @@ class _ProductItemState extends State<ProductItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                widget.products.best_seller == 1
-                    ? Container(
+                widget.products.best_seller == 0
+                    ? SizedBox()
+                    : Container(
                         alignment: Alignment.center,
                         height: 20,
-                        width: 70,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 3, vertical: 2),
                         decoration: const BoxDecoration(
-                            color: lightPink,
+                            color: lightGreen,
                             borderRadius: BorderRadius.all(Radius.circular(4))),
                         child: ReusableText(
-                          title: widget
-                              .homeController.languageParam.value.bestSeller,
-                          color: primaryColor,
+                          title: best_seller[int.parse(
+                                  widget.products.best_seller.toString()) -
+                              1],
+                          color: Colors.white,
                           size: 10,
                         ),
-                      )
-                    : SizedBox(),
+                      ),
                 Spacer(),
                 InkWell(
                   onTap: () {

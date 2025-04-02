@@ -1,4 +1,6 @@
 // const baseURL = 'https://rawabihypermarket.com/dev/rwbapi/Api/'; //dev
+import 'package:get/get.dart';
+
 const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
 // const baseURL_onlinePayment = 'https://rawabihypermarket.com/dev/rwbapi/Onlinepay/'; //dev
 const baseURL_onlinePayment = 'https://rawabihypermarket.com/rawabi/rwbapi/onlinepay/'; //production
@@ -90,3 +92,5 @@ const category = "category";
 const subCategory = "subCategory";
 const subSubCategory = "subSubCategory";
 const subSubSubCategory = "subSubSubCategory";
+
+final List<String> best_seller = ["Featured", "Best Seller", "Organic", "Vegan","online exclusive","Qatari Product"];

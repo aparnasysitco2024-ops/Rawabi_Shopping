@@ -155,7 +155,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                       )
                     : InAppWebView(
-                        initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                        initialUrlRequest: URLRequest(url: WebUri(url)),
                         initialOptions: InAppWebViewGroupOptions(
                             crossPlatform: InAppWebViewOptions(
                           clearCache: true,
