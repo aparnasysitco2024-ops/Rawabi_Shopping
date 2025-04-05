@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
 import 'package:rawabi/model/response/products.dart';
-import 'package:rawabi/utils/constants.dart';
+import 'package:rawabi/widget/bestSellerWidget.dart';
 
 import '../controller/cartController.dart';
 import '../controller/productsController.dart';
@@ -60,29 +60,85 @@ class _ProductItemState extends State<ProductItem> {
             border: Border.all(color: silver)),
         padding: const EdgeInsets.all(8),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                widget.products.best_seller == 0
-                    ? SizedBox()
-                    : Container(
-                        alignment: Alignment.center,
-                        height: 20,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 3, vertical: 2),
-                        decoration: const BoxDecoration(
-                            color: lightGreen,
-                            borderRadius: BorderRadius.all(Radius.circular(4))),
-                        child: ReusableText(
-                          title: best_seller[int.parse(
-                                  widget.products.best_seller.toString()) -
-                              1],
-                          color: Colors.white,
-                          size: 10,
-                        ),
-                      ),
+                Expanded(
+                  flex: 0,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        widget.products.bestSeller == 1
+                            ? BestSellerWidget(
+                                title: "Best Seller",
+                              )
+                            : widget.products.featured == 1
+                                ? BestSellerWidget(
+                                    title: "Featured",
+                                  )
+                                : widget.products.organic == 1
+                                    ? BestSellerWidget(
+                                        title: "Organic",
+                                      )
+                                    : widget.products.vegan == 1
+                                        ? BestSellerWidget(
+                                            title: "Vegan",
+                                          )
+                                        : widget.products.onlineExclusive == 1
+                                            ? BestSellerWidget(
+                                                title: "online exclusive",
+                                              )
+                                            : SizedBox(),
+
+                        // widget.products.bestSeller == 0
+                        //     ? SizedBox()
+                        //     : BestSellerWidget(
+                        //         title: "Best Seller",
+                        //       ),
+                        // widget.products.featured == 0
+                        //     ? SizedBox()
+                        //     : Padding(
+                        //         padding: const EdgeInsets.only(left: 5),
+                        //         child: BestSellerWidget(
+                        //           title: "Featured",
+                        //         ),
+                        //       ),
+                        // widget.products.organic == 0
+                        //     ? SizedBox()
+                        //     : Padding(
+                        //         padding: const EdgeInsets.only(left: 5),
+                        //         child: BestSellerWidget(
+                        //           title: "Organic",
+                        //         ),
+                        //       ),
+                        // widget.products.vegan == 0
+                        //     ? SizedBox()
+                        //     : Padding(
+                        //         padding: const EdgeInsets.only(left: 5),
+                        //         child: BestSellerWidget(
+                        //           title: "Vegan",
+                        //         ),
+                        //       ),
+                        // widget.products.onlineExclusive == 1
+                        //     ? SizedBox()
+                        //     : Padding(
+                        //         padding: const EdgeInsets.only(left: 5),
+                        //         child: BestSellerWidget(
+                        //           title: "online exclusive",
+                        //         ),
+                        //       ),
+                      ],
+                    ),
+                  ),
+                ),
                 Spacer(),
+                SizedBox(
+                  width: 5,
+                ),
                 InkWell(
                   onTap: () {
                     widget.products.wishlist == 0

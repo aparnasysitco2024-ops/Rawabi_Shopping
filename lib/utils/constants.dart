@@ -1,12 +1,14 @@
 // const baseURL = 'https://rawabihypermarket.com/dev/rwbapi/Api/'; //dev
-import 'package:get/get.dart';
+
 
 const baseURL = 'https://rawabihypermarket.com/rawabi/rwbapi/Api/'; //production
 // const baseURL_onlinePayment = 'https://rawabihypermarket.com/dev/rwbapi/Onlinepay/'; //dev
-const baseURL_onlinePayment = 'https://rawabihypermarket.com/rawabi/rwbapi/onlinepay/'; //production
+const baseURL_onlinePayment =
+    'https://rawabihypermarket.com/rawabi/rwbapi/onlinepay/'; //production
 
 // const baseURL_onlinePayment_Pre = 'https://rawabihypermarket.com/dev/rwbapi/onlineprepay/'; //dev
-const baseURL_onlinePayment_Pre = 'https://rawabihypermarket.com/rawabi/rwbapi/onlineprepay/'; //production
+const baseURL_onlinePayment_Pre =
+    'https://rawabihypermarket.com/rawabi/rwbapi/onlineprepay/'; //production
 
 const baseURLDriver = 'https://rawabihypermarket.com/rawabi/rwbapi/Driverapi/';
 
@@ -81,7 +83,6 @@ const myorders_preUrl = '${baseURL}myorders_pre';
 const order_detail_preUrl = '${baseURL}order_detail_pre';
 const onlineCheckout_preUrl = '${baseURL_onlinePayment_Pre}checkout';
 
-
 //keys
 const token = "Rawabi_jc";
 const tokenDriver = "Rawabi_dc";
@@ -93,4 +94,3 @@ const subCategory = "subCategory";
 const subSubCategory = "subSubCategory";
 const subSubSubCategory = "subSubSubCategory";
 
-final List<String> best_seller = ["Featured", "Best Seller", "Organic", "Vegan","online exclusive","Qatari Product"];

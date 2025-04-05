@@ -15,7 +15,11 @@ class Products {
   String? productImage;
   int? cartCount;
   int? wishlist;
-  int? best_seller;
+  int? bestSeller;
+  int? featured;
+  int? organic;
+  int? vegan;
+  int? onlineExclusive;
   String? item_status;
 
   Products(
@@ -35,7 +39,11 @@ class Products {
       this.productImage,
       this.cartCount,
       this.wishlist,
-      this.best_seller,
+      this.bestSeller,
+      this.featured,
+      this.organic,
+      this.vegan,
+      this.onlineExclusive,
       this.item_status});
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -55,7 +63,11 @@ class Products {
     productImage = json['product_image'];
     cartCount = json['cart_count'] ?? 0;
     wishlist = json['wishlist'] ?? 0;
-    best_seller = json['best_seller'] ?? 0;
+    bestSeller = json['best_seller'] ?? 0;
+    featured = json['featured'] ?? 0;
+    organic = json['organic'] ?? 0;
+    vegan = json['vegan'] ?? 0;
+    onlineExclusive = json['online_exclusive'] ?? 0;
     item_status = json['item_status'];
   }
 
@@ -77,7 +89,11 @@ class Products {
     data['product_image'] = productImage;
     data['cart_count'] = cartCount;
     data['wishlist'] = wishlist;
-    data['best_seller'] = best_seller;
+    data['best_seller'] = this.bestSeller;
+    data['featured'] = this.featured;
+    data['organic'] = this.organic;
+    data['vegan'] = this.vegan;
+    data['online_exclusive'] = this.onlineExclusive;
     data['item_status'] = item_status;
     return data;
   }
