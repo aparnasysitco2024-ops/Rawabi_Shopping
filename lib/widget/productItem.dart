@@ -90,7 +90,7 @@ class _ProductItemState extends State<ProductItem> {
                                           )
                                         : widget.products.onlineExclusive == 1
                                             ? BestSellerWidget(
-                                                title: "online exclusive",
+                                                title: "Online exclusive",
                                               )
                                             : SizedBox(),
 

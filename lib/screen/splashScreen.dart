@@ -256,6 +256,10 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       });
 
+      FirebaseMessaging.instance.getInitialMessage().then((value) {
+        _handleNotificationClick1(context, value!);
+      },);
+
       await FirebaseMessaging.instance
           .setForegroundNotificationPresentationOptions(
         alert: true,
@@ -312,9 +316,27 @@ void _handleNotificationClick(String payload) {
 void _handleNotificationClick1(BuildContext context, RemoteMessage message) {
   final notificationData = message.data;
 
+  Timer(const Duration(seconds: 1), () async {
+
+
+
   if (notificationData.containsKey('type')) {
     final type = notificationData['type'];
-    print("type------------------------: " + type);
-    Navigator.of(context).pushNamed(type);
-  }
+    final id = notificationData['id'];
+    if (type == "product") {
+      Navigator.pushNamed(
+        context,
+        '/ProductDetailsScreen',
+        arguments: {
+          'productID': id.toString(),
+        },
+      );
+    } else if (type == "itemgroup") {
+      Navigator.pushNamed(
+        context,
+        '/ProductsFromHomeScreen',
+        arguments: {'title': "", "grp_id": id.toString()},
+      );
+    }
+  }  });
 }

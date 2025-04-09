@@ -16,12 +16,13 @@ class BestSellerWidget extends StatelessWidget {
       height: 20,
       padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
       decoration: const BoxDecoration(
-          color: lightGreen,
+          color: primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(4))),
       child: ReusableText(
         title: title,
         color: Colors.white,
         size: 10,
+        weight:FontWeight.bold,
       ),
     );
   }
