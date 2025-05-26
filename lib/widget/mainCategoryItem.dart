@@ -19,9 +19,9 @@ class MainCategoryItem extends StatelessWidget {
           '/ProductsByCategory',
           arguments: {
             'catId': category.catId,
-            'subCatId': "0",
-            'subSubCatId': "0",
-            'subSubSubCatId': "0"
+            'subCatId': category.sub_cat_id,
+            'subSubCatId': category.sub_sub_cat_id,
+            'subSubSubCatId': category.sub_sub_sub_cat_id,
           },
         );
 

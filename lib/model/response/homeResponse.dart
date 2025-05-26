@@ -26,11 +26,15 @@ class HomeResponse {
 
 class Res {
   List<Category>? category;
+  List<Category>? subCategory;
+  List<Category>? subSubCategory;
+  List<Category>? subSubSubCategory;
   List<Slider>? slider;
   List<ItemGroup>? itemGroup;
   List<Null>? bottomBanner;
 
-  Res({this.category, this.slider, this.itemGroup, this.bottomBanner});
+  Res({this.category,this.subCategory,this.subSubCategory,this.subSubSubCategory,
+    this.slider, this.itemGroup, this.bottomBanner});
 
   Res.fromJson(Map<String, dynamic> json) {
     if (json['category'] != null) {
@@ -39,6 +43,29 @@ class Res {
         category!.add(Category.fromJson(v));
       });
     }
+
+    if (json['sub-category'] != null) {
+      subCategory = <Category>[];
+      json['sub-category'].forEach((v) {
+        subCategory!.add(Category.fromJson(v));
+      });
+    }
+
+    if (json['sub-sub-category'] != null) {
+      subSubCategory = <Category>[];
+      json['sub-sub-category'].forEach((v) {
+        subSubCategory!.add(Category.fromJson(v));
+      });
+    }
+
+    if (json['sub-sub-sub-category'] != null) {
+      subSubSubCategory = <Category>[];
+      json['sub-sub-sub-category'].forEach((v) {
+        subSubSubCategory!.add(Category.fromJson(v));
+      });
+    }
+
+
     if (json['slider'] != null) {
       slider = <Slider>[];
       json['slider'].forEach((v) {
@@ -80,6 +107,9 @@ class Res {
 
 class Category {
   String? catId;
+  String? sub_cat_id;
+  String? sub_sub_cat_id;
+  String? sub_sub_sub_cat_id;
   String? catName;
   String? catBanner;
   String? catIcon;
@@ -88,6 +118,9 @@ class Category {
 
   Category.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
+    sub_cat_id = json['sub_cat_id'];
+    sub_sub_cat_id = json['sub_sub_cat_id'];
+    sub_sub_sub_cat_id = json['sub_sub_sub_cat_id'];
     catName = json['cat_name'];
     catBanner = json['cat_banner'];
     catIcon = json['cat_icon'];
@@ -96,6 +129,9 @@ class Category {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['cat_id'] = catId;
+    data['sub_cat_id'] = sub_cat_id;
+    data['sub_sub_cat_id'] = sub_sub_cat_id;
+    data['sub_sub_sub_cat_id'] = sub_sub_sub_cat_id;
     data['cat_name'] = catName;
     data['cat_banner'] = catBanner;
     data['cat_icon'] = catIcon;
