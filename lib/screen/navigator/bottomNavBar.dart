@@ -150,7 +150,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           bottomNavigationBar: homeController.languageParam.value.home != null
               ? Container(
                   key: bottomNavigationKey,
-                  height: Platform.isIOS ? 100 : 70,
+                  height: Platform.isIOS ? 100 : 78,
                   decoration: const BoxDecoration(
                       boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
                   child: BottomAppBar(

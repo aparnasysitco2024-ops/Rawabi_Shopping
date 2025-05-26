@@ -81,41 +81,6 @@ class HomeController extends GetxController {
           await StorageManager.readData(StorageManager.keyDefaultAddress);
       storeName.value =
           await StorageManager.readData(StorageManager.keyStoreName);
-      // getSlot(
-      //     await StorageManager.readData(StorageManager.keyDefaultAddressLat),
-      //     await StorageManager.readData(StorageManager.keyDefaultAddressLng),
-      //     defaultAddress.value);
-
-      //   if (defaultAddressId.value.isEmpty) {
-      //     storeAddress.value =
-      //         await StorageManager.readData(StorageManager.keyStoreAddress);
-      //     storeID.value =
-      //     await StorageManager.readData(StorageManager.keyStoreID);
-      //
-      //     // storeLat = await StorageManager.readData(StorageManager.keyStoreLat)
-      //     //     .toString();
-      //     storeLat =await StorageManager.getStoreLat();
-      //     storeLng = await StorageManager.getStoreLng();
-      //     getSlot(storeLat, storeLng, storeAddress.value);
-      //   } else {
-      //     storeAddress.value =
-      //         await StorageManager.readData(StorageManager.keyDefaultAddress);
-      //     storeID.value =
-      //     await StorageManager.readData(StorageManager.keyStoreID);
-      //
-      //     getSlot(
-      //         await StorageManager.readData(StorageManager.keyDefaultAddressLat),
-      //         await StorageManager.readData(StorageManager.keyDefaultAddressLng),
-      //         await StorageManager.readData(StorageManager.keyDefaultAddress));
-      //   }
-      //
-      //   defaultAddressId.value =
-      //       await StorageManager.readData(StorageManager.keyDefaultAddressId);
-      // }else{
-      //   storeAddress.value =
-      //   await StorageManager.readData(StorageManager.keyStoreAddress);
-      //   storeID.value =
-      //   await StorageManager.readData(StorageManager.keyStoreID);
     }
   }
 
@@ -247,6 +212,15 @@ class HomeController extends GetxController {
 
         if (responseData.code == "200") {
           categoryList.addAll(responseData.res!.category as List<Category>);
+
+          if(responseData.res!.subCategory!=null)
+            categoryList.addAll(responseData.res!.subCategory as List<Category>);
+
+          if(responseData.res!.subSubCategory!=null)
+            categoryList.addAll(responseData.res!.subSubCategory as List<Category>);
+
+          if(responseData.res!.subSubSubCategory!=null)
+            categoryList.addAll(responseData.res!.subSubSubCategory as List<Category>);
 
           responseData.res!.slider!.forEach((element) {
             if (element.banner_type == "Top")
