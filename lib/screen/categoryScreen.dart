@@ -111,7 +111,7 @@ class CategoryScreen extends StatelessWidget {
                       ),
                     )
                   : SizedBox(
-                      height: MediaQuery.of(context).size.height - 280,
+                      height: 500,
                       child: const Center(
                         child: CircularProgressIndicator(
                           color: primaryColor,
