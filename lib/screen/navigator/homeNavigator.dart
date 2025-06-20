@@ -33,6 +33,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       key: homeNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
+
             settings: settings,
             builder: (BuildContext context) {
               switch (settings.name) {

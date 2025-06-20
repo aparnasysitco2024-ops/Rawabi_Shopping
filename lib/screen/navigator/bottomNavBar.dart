@@ -148,224 +148,442 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: Obx(() => Scaffold(
           body: _pages[currentIndex.value],
           bottomNavigationBar: homeController.languageParam.value.home != null
-              ? Container(
-                  key: bottomNavigationKey,
-                  height: Platform.isIOS ? 100 : 78,
-                  decoration: const BoxDecoration(
-                      boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
-                  child: BottomAppBar(
-                    color: white,
-                    surfaceTintColor: white,
-                    shape: const CircularNotchedRectangle(),
-                    child: Container(
-                      width: double.maxFinite,
-                      padding:
-                          const EdgeInsets.only(top: 5, left: 15, right: 15),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: SizedBox(
-                        child: Row(
-                          //crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  if (Get.isRegistered<ProductController>())
-                                    Get.delete<ProductController>();
-                                  setState(() {
-                                    currentIndex.value = 0;
-                                  });
-                                },
-                                child: SizedBox(
-                                  child: Column(
-                                    children: [
-                                      SvgIcon(
-                                        image: "assets/icons/homeIcon.svg",
-                                        height: 20,
-                                        color: currentIndex == 0
-                                            ? primaryColor
-                                            : Colors.black,
-                                      ),
-                                      Expanded(
-                                        child: ReusableText(
-                                          title: homeController
-                                              .languageParam.value.home,
-                                          color: currentIndex == 0
-                                              ? primaryColor
-                                              : Colors.black,
-                                          size: 12,
-                                        ),
-                                      )
-                                    ],
+              ?Platform.isAndroid?
+          SafeArea(child: Container(
+            key: bottomNavigationKey,
+            height:  70,
+            decoration: const BoxDecoration(
+                boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
+            child: BottomAppBar(
+              color: white,
+              surfaceTintColor: white,
+              shape: const CircularNotchedRectangle(),
+              child: Container(
+                width: double.maxFinite,
+                padding:
+                const EdgeInsets.only(top: 5, left: 15, right: 15),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: SizedBox(
+                  child: Row(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 0;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/homeIcon.svg",
+                                  height: 20,
+                                  color: currentIndex == 0
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.home,
+                                    color: currentIndex == 0
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
                                   ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  if (Get.isRegistered<ProductController>())
-                                    Get.delete<ProductController>();
-                                  setState(() {
-                                    currentIndex.value = 1;
-                                  });
-                                },
-                                child: SizedBox(
-                                  child: Column(
-                                    children: [
-                                      SvgIcon(
-                                        image: "assets/icons/explore.svg",
-                                        height: 20,
-                                        color: currentIndex == 1
-                                            ? primaryColor
-                                            : Colors.black,
-                                      ),
-                                      Expanded(
-                                        child: ReusableText(
-                                          title: homeController
-                                              .languageParam.value.explore,
-                                          color: currentIndex == 1
-                                              ? primaryColor
-                                              : Colors.black,
-                                          size: 12,
-                                        ),
-                                      )
-                                    ],
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 1;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/explore.svg",
+                                  height: 20,
+                                  color: currentIndex == 1
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.explore,
+                                    color: currentIndex == 1
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
                                   ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  if (Get.isRegistered<ProductController>())
-                                    Get.delete<ProductController>();
-                                  setState(() {
-                                    currentIndex.value = 2;
-                                  });
-                                },
-                                child: SizedBox(
-                                  child: Column(
-                                    children: [
-                                      SvgIcon(
-                                        image: "assets/icons/gift.svg",
-                                        height: 20,
-                                        color: currentIndex == 2
-                                            ? primaryColor
-                                            : Colors.black,
-                                      ),
-                                      Expanded(
-                                        child: ReusableText(
-                                          title: homeController
-                                              .languageParam.value.offers,
-                                          color: currentIndex == 2
-                                              ? primaryColor
-                                              : Colors.black,
-                                          size: 12,
-                                        ),
-                                      )
-                                    ],
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 2;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/gift.svg",
+                                  height: 20,
+                                  color: currentIndex == 2
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.offers,
+                                    color: currentIndex == 2
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
                                   ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  if (Get.isRegistered<ProductController>())
-                                    Get.delete<ProductController>();
-                                  setState(() {
-                                    currentIndex.value = 3;
-                                  });
-                                },
-                                child: SizedBox(
-                                  child: Column(
-                                    children: [
-                                      Bouncy(
-                                        lift: 20,
-                                        child: badges.Badge(
-                                          position: badges.BadgePosition.topEnd(
-                                              top: -12, end: -12),
-                                          showBadge:
-                                              cartController.totalItemCount == 0
-                                                  ? false
-                                                  : true,
-                                          badgeContent: Text(
-                                            cartController.totalItemCount.value
-                                                .toString(),
-                                            style: const TextStyle(
-                                              fontSize: 10,
-                                              color: white,
-                                            ),
-                                          ),
-                                          badgeAnimation:
-                                              badges.BadgeAnimation.scale(
-                                            animationDuration:
-                                                Duration(milliseconds: 300),
-                                            curve: Curves.bounceOut,
-                                          ),
-                                          badgeStyle: badges.BadgeStyle(
-                                            shape: badges.BadgeShape.circle,
-                                            badgeColor: primaryColor,
-                                            padding: const EdgeInsets.all(8),
-                                            //borderRadius:
-                                            //BorderRadius.circular(10),
-                                            borderSide: const BorderSide(
-                                                color: Colors.white, width: 2),
-                                            elevation: 0,
-                                          ),
-                                          child: SvgIcon(
-                                            image: "assets/icons/cart.svg",
-                                            height: 20,
-                                            color: currentIndex == 3
-                                                ? primaryColor
-                                                : Colors.black,
-                                          ),
-                                        ),
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 3;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                Bouncy(
+                                  lift: 20,
+                                  child: badges.Badge(
+                                    position: badges.BadgePosition.topEnd(
+                                        top: -12, end: -12),
+                                    showBadge:
+                                    cartController.totalItemCount == 0
+                                        ? false
+                                        : true,
+                                    badgeContent: Text(
+                                      cartController.totalItemCount.value
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: white,
                                       ),
-                                      Expanded(
-                                        child: ReusableText(
-                                          title: homeController
-                                              .languageParam.value.cart,
-                                          color: currentIndex == 3
-                                              ? primaryColor
-                                              : Colors.black,
-                                          size: 12,
-                                        ),
-                                      )
-                                    ],
+                                    ),
+                                    badgeAnimation:
+                                    badges.BadgeAnimation.scale(
+                                      animationDuration:
+                                      Duration(milliseconds: 300),
+                                      curve: Curves.bounceOut,
+                                    ),
+                                    badgeStyle: badges.BadgeStyle(
+                                      shape: badges.BadgeShape.circle,
+                                      badgeColor: primaryColor,
+                                      padding: const EdgeInsets.all(8),
+                                      //borderRadius:
+                                      //BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2),
+                                      elevation: 0,
+                                    ),
+                                    child: SvgIcon(
+                                      image: "assets/icons/cart.svg",
+                                      height: 20,
+                                      color: currentIndex == 3
+                                          ? primaryColor
+                                          : Colors.black,
+                                    ),
                                   ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  // setState(() {
-                                  if (Get.isRegistered<ProductController>())
-                                    Get.delete<ProductController>();
-                                  currentIndex.value = 4;
-                                  // });
-                                },
-                                child: SizedBox(
-                                  child: Column(
-                                    children: [
-                                      SvgIcon(
-                                        image: "assets/icons/account.svg",
-                                        height: 20,
-                                        color: currentIndex == 4
-                                            ? primaryColor
-                                            : Colors.black,
-                                      ),
-                                      Expanded(
-                                        child: ReusableText(
-                                          title: homeController
-                                              .languageParam.value.account,
-                                          color: currentIndex == 4
-                                              ? primaryColor
-                                              : Colors.black,
-                                          size: 12,
-                                        ),
-                                      )
-                                    ],
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.cart,
+                                    color: currentIndex == 3
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
                                   ),
-                                )),
-                          ],
-                        ),
-                      ),
-                    ),
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            // setState(() {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            currentIndex.value = 4;
+                            // });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/account.svg",
+                                  height: 20,
+                                  color: currentIndex == 4
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.account,
+                                    color: currentIndex == 4
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                    ],
                   ),
-                )
+                ),
+              ),
+            ),
+          )):Container(
+            key: bottomNavigationKey,
+            height:  100,
+            decoration: const BoxDecoration(
+                boxShadow: [BoxShadow(color: grey, blurRadius: 1)]),
+            child: BottomAppBar(
+              color: white,
+              surfaceTintColor: white,
+              shape: const CircularNotchedRectangle(),
+              child: Container(
+                width: double.maxFinite,
+                padding:
+                const EdgeInsets.only(top: 5, left: 15, right: 15),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: SizedBox(
+                  child: Row(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 0;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/homeIcon.svg",
+                                  height: 20,
+                                  color: currentIndex == 0
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.home,
+                                    color: currentIndex == 0
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 1;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/explore.svg",
+                                  height: 20,
+                                  color: currentIndex == 1
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.explore,
+                                    color: currentIndex == 1
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 2;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/gift.svg",
+                                  height: 20,
+                                  color: currentIndex == 2
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.offers,
+                                    color: currentIndex == 2
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            setState(() {
+                              currentIndex.value = 3;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                Bouncy(
+                                  lift: 20,
+                                  child: badges.Badge(
+                                    position: badges.BadgePosition.topEnd(
+                                        top: -12, end: -12),
+                                    showBadge:
+                                    cartController.totalItemCount == 0
+                                        ? false
+                                        : true,
+                                    badgeContent: Text(
+                                      cartController.totalItemCount.value
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: white,
+                                      ),
+                                    ),
+                                    badgeAnimation:
+                                    badges.BadgeAnimation.scale(
+                                      animationDuration:
+                                      Duration(milliseconds: 300),
+                                      curve: Curves.bounceOut,
+                                    ),
+                                    badgeStyle: badges.BadgeStyle(
+                                      shape: badges.BadgeShape.circle,
+                                      badgeColor: primaryColor,
+                                      padding: const EdgeInsets.all(8),
+                                      //borderRadius:
+                                      //BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2),
+                                      elevation: 0,
+                                    ),
+                                    child: SvgIcon(
+                                      image: "assets/icons/cart.svg",
+                                      height: 20,
+                                      color: currentIndex == 3
+                                          ? primaryColor
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.cart,
+                                    color: currentIndex == 3
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                      InkWell(
+                          onTap: () {
+                            // setState(() {
+                            if (Get.isRegistered<ProductController>())
+                              Get.delete<ProductController>();
+                            currentIndex.value = 4;
+                            // });
+                          },
+                          child: SizedBox(
+                            child: Column(
+                              children: [
+                                SvgIcon(
+                                  image: "assets/icons/account.svg",
+                                  height: 20,
+                                  color: currentIndex == 4
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                Expanded(
+                                  child: ReusableText(
+                                    title: homeController
+                                        .languageParam.value.account,
+                                    color: currentIndex == 4
+                                        ? primaryColor
+                                        : Colors.black,
+                                    size: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
               : SizedBox())),
     );
   }
 }
+
