@@ -21,7 +21,7 @@ class BestSellerWidget extends StatelessWidget {
       child: ReusableText(
         title: title,
         color: Colors.white,
-        size: 10,
+        size: 8,
         weight:FontWeight.bold,
       ),
     );

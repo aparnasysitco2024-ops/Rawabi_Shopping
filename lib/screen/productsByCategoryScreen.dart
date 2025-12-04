@@ -479,10 +479,10 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                   // physics: const BouncingScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 12,
+                                          crossAxisCount: 3,
+                                          mainAxisSpacing: 10,
                                           mainAxisExtent: productItemHeight,
-                                          crossAxisSpacing: 12,
+                                          crossAxisSpacing: 10,
                                           childAspectRatio: 0.5),
                                   itemBuilder: (_, index) {
                                     return InkWell(

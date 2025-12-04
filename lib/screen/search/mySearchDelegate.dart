@@ -76,7 +76,7 @@ class MySearchDelegate extends SearchDelegate {
                             // physics: const BouncingScrollPhysics(),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
+                                    crossAxisCount: 3,
                                     mainAxisSpacing: 12,
                                     mainAxisExtent: productItemHeight,
                                     crossAxisSpacing: 12,

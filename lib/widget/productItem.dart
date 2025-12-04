@@ -53,12 +53,12 @@ class _ProductItemState extends State<ProductItem> {
         );
       },
       child: Container(
-        width: 150,
+        width: 120,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             color: Colors.white,
             border: Border.all(color: silver)),
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(6),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -137,7 +137,7 @@ class _ProductItemState extends State<ProductItem> {
                 ),
                 Spacer(),
                 SizedBox(
-                  width: 5,
+                  width: 3,
                 ),
                 InkWell(
                   onTap: () {
@@ -162,14 +162,14 @@ class _ProductItemState extends State<ProductItem> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 3,
             ),
             ReusableNetworkImage(
               image: widget.products.productImage.toString(),
-              height: 130,
+              height: 60,
             ),
             const SizedBox(
-              height: 10,
+              height: 3,
             ),
             Flexible(
               child: Column(
@@ -185,8 +185,8 @@ class _ProductItemState extends State<ProductItem> {
                   ),
                   ReusableText(
                     title: widget.products.productName,
-                    maxLine: 2,
-                    size: 10,
+                    maxLine: 3,
+                    size: 8,
                     weight: FontWeight.w600,
                   ),
                   const SizedBox(
@@ -223,139 +223,114 @@ class _ProductItemState extends State<ProductItem> {
                                     widget.products.sellingPrice.toString()
                                 : "QAR " +
                                     widget.products.offerPrice.toString(),
-                            size: 12,
+                            size: 9,
                             weight: FontWeight.bold,
                           ),
                         ],
                       ),
                       Flexible(
-                        child: widget.products.item_status == "1"
-                            ? widget.products.cartCount == 0
-                                ? OutLinedButton(
-                                    onPressed: () {
-                                      widget.cartController.addToCart(
-                                          widget.products.productId.toString(),
-                                          widget.products.storeId.toString(),
-                                          widget.products.offerPrice
-                                                      .toString() ==
-                                                  "0.00"
-                                              ? widget.products.sellingPrice
-                                                  .toString()
-                                              : widget.products.offerPrice
-                                                  .toString(),
-                                          "1",
-                                          "");
-                                      setState(() {
-                                        widget.products.cartCount =
-                                            (widget.products.cartCount! + 1);
-                                      });
-                                    },
-                                    title: "Add".tr,
-                                    txtColor: primaryColor,
-                                    size: const Size(60, 27),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  )
-                                : Container(
-                                    margin: const EdgeInsets.only(
-                                        bottom: 5, top: 5),
-                                    height: 30,
-                                    width: 65,
-                                    padding: const EdgeInsets.all(1),
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            // if (widget.products.cartCount == 1) {
-                                            //   widget.cartController.removeCartItem(
-                                            //       widget.products.productId);
-                                            // } else {
-                                            widget.cartController.updateQty(
-                                                widget.products.productId,
-                                                int.parse(widget
-                                                        .products.cartCount
-                                                        .toString()) -
-                                                    1);
-                                            setState(() {
-                                              widget.products.cartCount =
-                                                  (widget.products.cartCount! -
-                                                      1);
-                                            });
-                                            // }
-                                          },
-                                          child: SvgPicture.asset(
-                                            "assets/icons/minus_item.svg",
-                                            height: 18,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        ReusableText(
-                                          title: widget.products.cartCount
-                                              .toString(),
-                                          size: 12,
-                                          color: silver,
-                                          weight: FontWeight.bold,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            widget.cartController.addToCart(
-                                                widget.products.productId
-                                                    .toString(),
-                                                widget.products.storeId
-                                                    .toString(),
-                                                widget.products.offerPrice
-                                                            .toString() ==
-                                                        "0.00"
-                                                    ? widget
-                                                        .products.sellingPrice
-                                                        .toString()
-                                                    : widget.products.offerPrice
-                                                        .toString(),
-                                                "1",
-                                                "");
-                                            setState(() {
-                                              widget.products.cartCount =
-                                                  (widget.products.cartCount! +
-                                                      1);
-                                            });
-                                          },
-                                          child: SvgPicture.asset(
-                                            "assets/icons/plus_item.svg",
-                                            height: 18,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                            : widget.products.item_status == "4"
-                                ? Expanded(
-                                    child: ReusableText(
-                                      title: "PreOrder".tr,
-                                      textAlign: TextAlign.center,
-                                      size: 12,
-                                      color: primaryColor,
-                                    ),
-                                  )
-                                : Expanded(
-                                    child: ReusableText(
-                                      title: "Available Soon".tr,
-                                      textAlign: TextAlign.center,
-                                      size: 12,
-                                      color: primaryColor,
-                                    ),
+                        child: SizedBox(
+                          height: 22, // Ensures both buttons align perfectly
+                          child: widget.products.item_status == "1"
+                              ? widget.products.cartCount == 0
+                              ? OutLinedButton(
+                            onPressed: () {
+                              widget.cartController.addToCart(
+                                  widget.products.productId.toString(),
+                                  widget.products.storeId.toString(),
+                                  widget.products.offerPrice.toString() == "0.00"
+                                      ? widget.products.sellingPrice.toString()
+                                      : widget.products.offerPrice.toString(),
+                                  "1",
+                                  "");
+                              setState(() {
+                                widget.products.cartCount =
+                                (widget.products.cartCount! + 1);
+                              });
+                            },
+                            title: "Add".tr,
+                            txtColor: primaryColor,
+                            size: const Size(52, 22),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          )
+                              : Container(
+                            margin: EdgeInsets.zero, // FIX alignment
+                            height: 22,
+                            width: 55,
+                            padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    widget.cartController.updateQty(
+                                        widget.products.productId,
+                                        int.parse(widget.products.cartCount.toString()) -
+                                            1);
+                                    setState(() {
+                                      widget.products.cartCount =
+                                      (widget.products.cartCount! - 1);
+                                    });
+                                  },
+                                  child: SvgPicture.asset(
+                                    "assets/icons/minus_item.svg",
+                                    height: 12,
                                   ),
+                                ),
+                                const SizedBox(width: 5),
+                                ReusableText(
+                                  title: widget.products.cartCount.toString(),
+                                  size: 12,
+                                  color: silver,
+                                  weight: FontWeight.bold,
+                                ),
+                                const SizedBox(width: 5),
+                                InkWell(
+                                  onTap: () {
+                                    widget.cartController.addToCart(
+                                        widget.products.productId.toString(),
+                                        widget.products.storeId.toString(),
+                                        widget.products.offerPrice.toString() == "0.00"
+                                            ? widget.products.sellingPrice.toString()
+                                            : widget.products.offerPrice.toString(),
+                                        "1",
+                                        "");
+                                    setState(() {
+                                      widget.products.cartCount =
+                                      (widget.products.cartCount! + 1);
+                                    });
+                                  },
+                                  child: SvgPicture.asset(
+                                    "assets/icons/plus_item.svg",
+                                    height: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                              : widget.products.item_status == "4"
+                              ? Center(
+                            child: ReusableText(
+                              title: "PreOrder".tr,
+                              textAlign: TextAlign.center,
+                              size: 10,
+                              color: primaryColor,
+                            ),
+                          )
+                              : Center(
+                            child: ReusableText(
+                              title: "Available Soon".tr,
+                              textAlign: TextAlign.center,
+                              size: 10,
+                              color: primaryColor,
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   )
