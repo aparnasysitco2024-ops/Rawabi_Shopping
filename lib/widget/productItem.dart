@@ -166,7 +166,7 @@ class _ProductItemState extends State<ProductItem> {
             ),
             ReusableNetworkImage(
               image: widget.products.productImage.toString(),
-              height: 60,
+              height: 57,
             ),
             const SizedBox(
               height: 3,
