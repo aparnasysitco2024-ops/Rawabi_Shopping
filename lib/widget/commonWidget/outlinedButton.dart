@@ -12,6 +12,8 @@ class OutLinedButton extends StatelessWidget {
   final Function()? onPressed;
   final double? fontSize;
   final FontWeight fontWeight;
+  final Color? bgColor;
+  final Widget? child;
 
   const OutLinedButton({
     Key? key,
@@ -23,6 +25,7 @@ class OutLinedButton extends StatelessWidget {
     this.onPressed,
     this.fontSize = 18,
     this.fontWeight = FontWeight.w700,
+    this.bgColor, this.child,
   }) : super(key: key);
 
   @override
@@ -36,9 +39,10 @@ class OutLinedButton extends StatelessWidget {
         side: BorderSide(width: 2, color: txtColor!),
         padding: const EdgeInsets.symmetric(horizontal: 5),
         foregroundColor: txtColor!,
+        backgroundColor: bgColor,
       ),
       onPressed: onPressed ?? () {},
-      child: Text(
+      child: child ?? Text(
         title!,
         style: TextStyle(
             fontFamily: Get.locale?.languageCode == 'ar' ? 'cairo' : 'openSans',
