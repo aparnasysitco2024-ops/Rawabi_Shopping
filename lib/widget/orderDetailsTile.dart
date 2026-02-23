@@ -191,8 +191,8 @@ class OrderDetailsTile extends StatelessWidget {
                 //   weight: FontWeight.w600,
                 //   color: darkGrey,
                 // ),
-                Row(
-                  children: [
+                // Row(
+                //   children: [
                     // CircleAvatar(
                     //   backgroundColor: blue,
                     //   radius: 3,
@@ -210,18 +210,18 @@ class OrderDetailsTile extends StatelessWidget {
                     //   width: 10,
                     // ),
 
-                    myOrder.status == "Processing" &&
-                            myOrder.order_type == "delivery"
-                        ? ReusableText(
-                            title: "Arriving in ".tr +
-                                items.deliveryDays.toString() +
-                                " days".tr,
-                            size: 10,
-                            weight: FontWeight.w400,
-                          )
-                        : SizedBox(),
-                  ],
-                ),
+                    // myOrder.status == "Processing" &&
+                    //         myOrder.order_type == "delivery"
+                    //     ? ReusableText(
+                    //         title: "Arriving in ".tr +
+                    //             items.deliveryDays.toString() +
+                    //             " days".tr,
+                    //         size: 10,
+                    //         weight: FontWeight.w400,
+                    //       )
+                    //     : SizedBox(),
+                //   ],
+                // ),
                 ReusableText(
                   title: items.itemQty! + "x QAR ${items.itemPrice}",
                   size: 10,
