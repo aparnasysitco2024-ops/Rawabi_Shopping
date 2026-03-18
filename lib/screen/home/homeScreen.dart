@@ -24,6 +24,7 @@ import 'package:rawabi/widget/commonWidget/networkImageWidget.dart';
 import 'package:rawabi/widget/commonwidget/reusable_text.dart';
 import 'package:rawabi/widget/itemsWidget.dart';
 import 'package:rawabi/widget/mainCategoryItem.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/response/popupBannerResponse.dart';
 import '../../utils/app_utils.dart';
@@ -113,6 +114,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
   }
 
+  Future<void> openUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   Future<dynamic> showPopUpBannerDialog() async {
     homeController.isPopUpLoaded = true;
     return (showDialog(
@@ -194,6 +208,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "grp_id": i.bannerPoint
                                       },
                                     );
+                                  } else if (i.linkType == "external_url") {
+                                    openUrl(i.bannerPoint ?? "");
                                   }
                                 },
                                 child: Builder(
@@ -614,7 +630,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     (BuildContext context) {
                                                   return InkWell(
                                                     onTap: () {
-                                                      if (i.linkType ==
+                                                      if (i.linkType == "external_url") {
+                                                      openUrl(i.bannerPoint ?? "");
+                                                      } else if (i.linkType ==
                                                           "category") {
                                                         if (i.bannerPoint !=
                                                             "0") {
