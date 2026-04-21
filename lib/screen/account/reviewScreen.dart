@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:radio_group_v2/widgets/views/radio_group.dart';
+import 'package:radio_group_v2/widgets/views/radio_group.dart' as custom;
 import 'package:rawabi/utils/colors.dart';
 import 'package:rawabi/widget/commonwidget/reusable_button1.dart';
 
@@ -128,8 +129,8 @@ class ReviewScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              RadioGroup(
-                                orientation: RadioGroupOrientation.vertical,
+                              custom.RadioGroup(
+                                orientation: custom.RadioGroupOrientation.vertical,
                                 controller: reviewController.radioController,
                                 values: [
                                   "Very Poor",
