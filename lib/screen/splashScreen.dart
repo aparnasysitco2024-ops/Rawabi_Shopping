@@ -9,11 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/notification/notificationData.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/response/languageParamResponse.dart';
 import '../utils/colors.dart';
@@ -61,9 +59,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> initialize() async {
-    ///only for this time
-    await _clearCacheIfOldVersion();
-
     var prefValue =
         await StorageManager.readData(StorageManager.sharedPrfValue);
     if (prefValue != "2") {
@@ -77,51 +72,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     permission();
     // getLanguageData();
-  }
-
-  Future<void> _clearCacheIfOldVersion() async {
-    try {
-      String alreadyCleared = await StorageManager.readData("keyCacheCleared_1.0.40");
-      if (alreadyCleared == "true") {
-        print("⏭️ Cache already cleared once for this update → Skipping");
-        return;
-      }
-
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      String currentVersion = packageInfo.version;
-
-      print("📱 Current app version: $currentVersion");
-      print("🎯 Target version: 1.0.40");
-
-      if (_isVersionGreaterThan(currentVersion, "1.0.40")) {
-        await StorageManager.clearData();
-
-        // ⚠️ Save BOTH flags immediately so initialize() doesn't clear again
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString("keyCacheCleared_1.0.40", "true");
-        await prefs.setString(StorageManager.sharedPrfValue, "2"); // prevent clearData() in initialize()
-
-        print("✅ Version $currentVersion is GREATER than 1.0.40 → Cache & StorageManager CLEARED successfully");
-      } else {
-        print("🚫 Version $currentVersion is NOT greater than 1.0.40 → Cache NOT cleared, proceeding normally");
-      }
-    } catch (e) {
-      print("❌ Version check error: $e");
-    }
-  }
-
-  bool _isVersionGreaterThan(String current, String target) {
-    List<int> currentParts = current.split('.').map(int.parse).toList();
-    List<int> targetParts = target.split('.').map(int.parse).toList();
-
-    while (currentParts.length < targetParts.length) currentParts.add(0);
-    while (targetParts.length < currentParts.length) targetParts.add(0);
-
-    for (int i = 0; i < currentParts.length; i++) {
-      if (currentParts[i] > targetParts[i]) return true;
-      if (currentParts[i] < targetParts[i]) return false;
-    }
-    return false; // equal versions → don't clear
   }
 
   moveToPage() {

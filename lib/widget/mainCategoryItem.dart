@@ -32,31 +32,23 @@ class MainCategoryItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0x33249046),
-                        Color(0x338EC340),
-                      ]),
-                  borderRadius: BorderRadius.circular(10)),
-              height: 90,
-              width: double.infinity,
-              child: Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      placeholder: (context, url) =>
-                          Center(child: Image.asset('assets/images/logo.png')),
-                      imageUrl: category.catIcon.toString()))
-
-              // Image.network(homeController.categoryList[index].catIcon.toString()),
+            padding: const EdgeInsets.all(2),
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green),
+            height: 83,
+            width: 90,
+            child: ClipOval(
+              child: CachedNetworkImage(
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: double.infinity,
+                placeholder: (context, url) =>
+                    Center(child: Image.asset('assets/images/logo.png')),
+                imageUrl: category.catIcon.toString(),
               ),
+            ),
+          ),
           const SizedBox(
             height: 5,
           ),
