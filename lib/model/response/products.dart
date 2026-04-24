@@ -21,6 +21,7 @@ class Products {
   int? vegan;
   int? onlineExclusive;
   String? item_status;
+  String? protags;
 
   Products(
       {this.catId,
@@ -44,7 +45,9 @@ class Products {
       this.organic,
       this.vegan,
       this.onlineExclusive,
-      this.item_status});
+      this.item_status,
+      this.protags,
+      });
 
   Products.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
@@ -69,6 +72,7 @@ class Products {
     vegan = json['vegan'] ?? 0;
     onlineExclusive = json['online_exclusive'] ?? 0;
     item_status = json['item_status'];
+    protags = json['pro_tags'];
   }
 
   Map<String, dynamic> toJson() {
