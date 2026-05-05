@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,25 @@ import 'package:rawabi/screen/home/productsFromHomeScreen.dart';
 import 'package:rawabi/screen/productDetailsScreen.dart';
 import 'package:rawabi/screen/splashScreen.dart';
 import 'package:rawabi/utils/firebase_options.dart';
+import 'package:rawabi/utils/notification/notification_storage_service.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   print('Handling background message: ${message.messageId}');
+
+  final notification = message.notification;
+  if (notification != null) {
+    await NotificationStorageService.saveNotification(
+      title: notification.title ?? '',
+      body: notification.body ?? '',
+      data: message.data,
+    );
+  }
 }
 
 Future<void> main() async {

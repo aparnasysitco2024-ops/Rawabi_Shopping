@@ -1,46 +1,39 @@
-import 'dart:convert';
+// lib/controller/notificationListController.dart
 
 import 'package:get/get.dart';
-import 'package:rawabi/model/response/notificationListResponse.dart';
-
-import '../utils/commonUtils.dart';
-import '../utils/constants.dart';
-import '../utils/http_client/base_client.dart';
+import 'package:rawabi/utils/notification/notification_storage_service.dart';
 
 class NotificationListController extends GetxController {
-  var loading = false.obs;
-  var defaultAddressId = "".obs;
-
-  NotificationListController();
-
-  var notifications = <Notifications>[].obs;
+  var loading = true.obs;
+  var notifications = <StoredNotification>[].obs;
 
   @override
-  onInit() async {
+  void onInit() {
     super.onInit();
+    getNotificationList();
   }
 
   Future<void> getNotificationList() async {
-    try {
-      loading.value = true;
-
-      var response = await BaseClient().get(notificationList);
-      loading.value = false;
-      if (response != null) {
-        notifications.clear();
-        var responseData =
-            NotificationListResponse.fromJson(json.decode(response.toString()));
-        if (responseData.code == "200") {
-          notifications.addAll(responseData.res! as Iterable<Notifications>);
-        } else {
-          CommonUtils.showErrorDialog(responseData.message);
-        }
-      } else {
-        CommonUtils.showErrorDialog(response.message);
-      }
-    } catch (error) {
-      // CommonUtils.showErrorDialog(error.toString());
-    }
+    loading.value = true;
+    final list = await NotificationStorageService.loadNotifications();
+    print('🔔 Loaded ${list.length} notifications from storage');
+    notifications.value = list;
+    await NotificationStorageService.markAllRead();
     loading.value = false;
+  }
+
+  Future<void> deleteNotification(StoredNotification n) async {
+    await NotificationStorageService.deleteNotification(n.id);
+    notifications.removeWhere((x) => x.id == n.id);
+  }
+
+  Future<void> clearAll() async {
+    await NotificationStorageService.clearAll();
+    notifications.clear();
+  }
+
+  // Called from splashScreen when new FCM message arrives
+  Future<void> onNewNotification() async {
+    await getNotificationList();
   }
 }

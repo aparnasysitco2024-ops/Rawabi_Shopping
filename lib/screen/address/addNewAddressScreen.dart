@@ -6,19 +6,44 @@ import 'package:rawabi/utils/colors.dart';
 
 import '../../controller/addAddressController.dart';
 import '../../controller/homeController.dart';
+import '../../model/response/addressListResponse.dart';
 import '../../widget/commonwidget/reusable_button1.dart';
 import '../../widget/commonwidget/reusable_text.dart';
 import '../../widget/commonwidget/reusable_textformfield.dart';
 
 // ignore: must_be_immutable
-class AddNewAddressesScreen extends StatelessWidget {
+class AddNewAddressesScreen extends StatefulWidget {
   var lat, lng;
+  final AddressList? addressList;
+
+  AddNewAddressesScreen({super.key, this.lat, this.lng, this.addressList});
+
+  @override
+  State<AddNewAddressesScreen> createState() => _AddNewAddressesScreenState();
+}
+
+class _AddNewAddressesScreenState extends State<AddNewAddressesScreen> {
   final homeController = Get.put(HomeController());
 
-  AddNewAddressesScreen({super.key, this.lat, this.lng});
-
   final addAddressController = Get.put(AddAddressController());
+
   var _country = countries.firstWhere((element) => element.code == "QA");
+
+  @override
+  void initState() {
+    super.initState();
+    addAddressController.clearControllers();
+    if (widget.addressList != null) {
+      addAddressController.addressID = widget.addressList!.addressId ?? "";
+      addAddressController.addressNameController.text = widget.addressList!.addressName ?? "";
+      addAddressController.mobileController.text = widget.addressList!.phone ?? "";
+      addAddressController.zoneController.text = widget.addressList!.zone ?? "";
+      addAddressController.buildingController.text = widget.addressList!.houseBuilding ?? "";
+      addAddressController.apartmentController.text = widget.addressList!.apartmentOffice ?? "";
+      addAddressController.floorController.text = widget.addressList!.floor ?? "";
+      addAddressController.addressController.text = widget.addressList!.address ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +218,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                           ),
                           ReusableTextForm(
                             fillColor: lightGreyColor,
-                            controller:
-                                addAddressController.apartmentController,
+                            controller: addAddressController.apartmentController,
                             borderRadius: 6,
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 5),
@@ -310,7 +334,7 @@ class AddNewAddressesScreen extends StatelessWidget {
                                   if (addAddressController.formKey.currentState!
                                       .validate()) {
                                     addAddressController.saveAddressList(
-                                        lat, lng);
+                                        widget.lat, widget.lng);
                                   }
                                 }),
                           ),

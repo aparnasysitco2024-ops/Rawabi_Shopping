@@ -12,6 +12,7 @@ import 'package:rawabi/screen/address/addNewAddressScreen.dart';
 import 'package:rawabi/utils/colors.dart';
 
 import '../../controller/homeController.dart';
+import '../../model/response/addressListResponse.dart';
 import '../../utils/app_utils.dart';
 import '../../utils/commonUtils.dart';
 import '../../utils/constants.dart';
@@ -21,7 +22,8 @@ import '../../widget/commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
 class AddNewAddressesMapScreen extends StatefulWidget {
-  AddNewAddressesMapScreen({super.key});
+  final AddressList? addressList;
+  AddNewAddressesMapScreen({super.key, this.addressList});
 
   final homeController = Get.put(HomeController());
 
@@ -47,12 +49,22 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
   @override
   void initState() {
     super.initState();
-    _getLastLocation();
-    _kGooglePlex = CameraPosition(
-      target: LatLng(lat, lng),
-      zoom: 18,
-    );
-    _determinePosition();
+    if (widget.addressList != null) {
+      lat = double.tryParse(widget.addressList!.lat ?? "") ?? 25.2854;
+      lng = double.tryParse(widget.addressList!.long ?? "") ?? 51.5310;
+      _kGooglePlex = CameraPosition(target: LatLng(lat, lng), zoom: 18);
+      // Don't call _determinePosition() when editing
+    } else {
+      _getLastLocation();
+      _kGooglePlex = CameraPosition(target: LatLng(lat, lng), zoom: 18);
+      _determinePosition();
+    }
+    // _getLastLocation();
+    // _kGooglePlex = CameraPosition(
+    //   target: LatLng(lat, lng),
+    //   zoom: 18,
+    // );
+    // _determinePosition();
   }
 
   Future<void> _handlePressButton() async {
@@ -300,7 +312,7 @@ class _AddNewAddressesMapScreenState extends State<AddNewAddressesMapScreen> {
                                   AppUtils.navigateToPageReplace(
                                       AddNewAddressesScreen(
                                     lat: lat,
-                                    lng: lng,
+                                    lng: lng, addressList: widget.addressList,
                                   ));
                                 }
                               },

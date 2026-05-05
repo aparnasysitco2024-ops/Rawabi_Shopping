@@ -1,5 +1,6 @@
 class AddAddressRequest {
   String? addressName;
+  String? addressid;
   String? zone;
   String? phone;
   String? type;
@@ -12,6 +13,7 @@ class AddAddressRequest {
 
   AddAddressRequest(
       {this.addressName,
+      this.addressid,
       this.zone,
       this.phone,
       this.type,
@@ -24,6 +26,7 @@ class AddAddressRequest {
 
   AddAddressRequest.fromJson(Map<String, dynamic> json) {
     addressName = json['address_name'];
+    addressid = json['address_id'];
     zone = json['zone'];
     phone = json['phone'];
     type = json['type'];
@@ -37,6 +40,7 @@ class AddAddressRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['address_id'] = addressid;
     data['address_name'] = addressName;
     data['zone'] = zone;
     data['phone'] = phone;

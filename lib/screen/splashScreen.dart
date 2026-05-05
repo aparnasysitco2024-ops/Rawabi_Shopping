@@ -12,8 +12,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/notification/notificationData.dart';
 
+import '../controller/notificationListController.dart';
 import '../model/response/languageParamResponse.dart';
 import '../utils/colors.dart';
+import '../utils/notification/notification_storage_service.dart';
 import '../utils/storage_manager.dart';
 import '../widget/commonWidget/reusable_text.dart';
 import 'deliverymode/deliveryModeScreen.dart';
@@ -186,9 +188,38 @@ class _SplashScreenState extends State<SplashScreen> {
         onDidReceiveBackgroundNotification,   // ✅ top-level
       );
 
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         final notification = message.notification;
         final android = message.notification?.android;
+
+        // ✅ Save to local storage
+        if (notification != null) {
+          await NotificationStorageService.saveNotification(
+            title: notification.title ?? '',
+            body: notification.body ?? '',
+            data: message.data,
+          );
+          // ✅ Refresh screen if it's open
+          if (Get.isRegistered<NotificationListController>()) {
+            Get.find<NotificationListController>().onNewNotification();
+          }
+        }
+
+        if (notification == null && message.data.isNotEmpty) {
+          final title = message.data['title'] ?? message.data['Title'] ?? 'New Notification';
+          final body = message.data['body'] ?? message.data['Body'] ?? '';
+          await NotificationStorageService.saveNotification(
+            title: title.toString(),
+            body: body.toString(),
+            data: message.data,
+          );
+
+          // ✅ Refresh screen if it's open
+          if (Get.isRegistered<NotificationListController>()) {
+            Get.find<NotificationListController>().onNewNotification();
+          }
+        }
+
         if (notification != null && android != null) {
           flutterLocalNotificationsPlugin.show(
             notification.hashCode,

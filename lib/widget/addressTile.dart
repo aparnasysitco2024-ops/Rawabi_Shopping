@@ -8,6 +8,8 @@ import 'package:rawabi/widget/commonWidget/reusable_button1.dart';
 import '../controller/cartController.dart';
 import '../controller/homeController.dart';
 import '../controller/myAddressController.dart';
+import '../screen/address/addNewAddressMapScreen.dart';
+import '../utils/app_utils.dart';
 import 'commonwidget/reusable_text.dart';
 
 // ignore: must_be_immutable
@@ -107,6 +109,20 @@ class _AddressTileState extends State<AddressTile> {
                 textAlign: TextAlign.left,
               ),
               const Spacer(),
+              SizedBox(
+                width: 70,
+                height: 30,
+                child: ReusableButton1(
+                  title: "Edit".tr,
+                  fontSize: 11,
+                  onPressed: () {
+                    AppUtils.navigateToPage(
+                        AddNewAddressesMapScreen(addressList: widget.addressList)
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: 10,),
               SizedBox(
                 width: 70,
                 height: 30,

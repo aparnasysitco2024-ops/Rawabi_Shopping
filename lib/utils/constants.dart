@@ -81,6 +81,7 @@ const deletecart_preUrl = '${baseURL}deletecart_pre';
 const checkout_preUrl = '${baseURL}checkout_pre';
 const myorders_preUrl = '${baseURL}myorders_pre';
 const order_detail_preUrl = '${baseURL}order_detail_pre';
+const profile_update = '${baseURL}profile_update';
 const onlineCheckout_preUrl = '${baseURL_onlinePayment_Pre}checkout';
 
 //keys

@@ -18,6 +18,7 @@ class AddAddressController extends GetxController {
   final myAddressController = Get.put(MyAddressController());
   final formKey = GlobalKey<FormState>();
   var addressNameController = TextEditingController();
+  var addressID = "";
   var mobileController = TextEditingController();
   var zoneController = TextEditingController();
   var buildingController = TextEditingController();
@@ -32,10 +33,23 @@ class AddAddressController extends GetxController {
     super.onInit();
   }
 
+  void clearControllers() {
+    addressNameController.clear();
+    mobileController.clear();
+    zoneController.clear();
+    buildingController.clear();
+    apartmentController.clear();
+    floorController.clear();
+    addressController.clear();
+    selectedOption.value = 1;
+  }
+
+
   Future<void> saveAddressList(var lat, var lng) async {
     try {
       loading.value = true;
       AddAddressRequest addAddressRequest = AddAddressRequest();
+      addAddressRequest.addressid = addressID;
       addAddressRequest.addressName = addressNameController.text;
       addAddressRequest.phone = mobileController.text;
       addAddressRequest.zone = zoneController.text;

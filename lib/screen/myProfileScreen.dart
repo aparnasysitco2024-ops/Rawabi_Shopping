@@ -110,6 +110,7 @@ class MyProfileScreen extends StatelessWidget {
                                 child: ReusableTextForm(
                                   controller:
                                       profileController.nameController.value,
+                                  enabled: false,
                                 ),
                               ),
                               const SizedBox(
@@ -219,7 +220,7 @@ class MyProfileScreen extends StatelessWidget {
               child: ReusableButton1(
                 title: homeController.languageParam.value.saveAndUpdate,
                 onPressed: () {
-
+                  profileController.editProfile();
                 },
               ),
             ),
