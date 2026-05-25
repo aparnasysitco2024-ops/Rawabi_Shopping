@@ -388,67 +388,67 @@ class CartScreenPreOrder extends StatelessWidget {
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        Row(
-                                          children: [
-                                            RoundCard(
-                                              image: 'assets/icons/money.svg',
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            ReusableText(
-                                              title: homeController
-                                                  .languageParam
-                                                  .value
-                                                  .cashOnDelivery,
-                                              weight: FontWeight.w400,
-                                            ),
-                                            const Spacer(),
-                                            Radio(
-                                                value: cartController.cash,
-                                                groupValue: cartController
-                                                    .paymentValue.value,
-                                                activeColor: WidgetStateColor
-                                                    .resolveWith((states) =>
-                                                        primaryColor),
-                                                onChanged: (v) {
-                                                  cartController
-                                                      .paymentValue.value = v!;
-                                                })
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const Divider(),
-                                        Row(
-                                          children: [
-                                            RoundCard(
-                                              image:
-                                                  'assets/icons/card-on-delvery.png',
-                                              isPng: true,
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            ReusableText(
-                                              title: "Card on Delivery",
-                                              weight: FontWeight.w400,
-                                            ),
-                                            const Spacer(),
-                                            Radio(
-                                                value: cartController.card,
-                                                groupValue: cartController
-                                                    .paymentValue.value,
-                                                activeColor: WidgetStateColor
-                                                    .resolveWith((states) =>
-                                                        primaryColor),
-                                                onChanged: (v) {
-                                                  cartController
-                                                      .paymentValue.value = v!;
-                                                })
-                                          ],
-                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     RoundCard(
+                                        //       image: 'assets/icons/money.svg',
+                                        //     ),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     ReusableText(
+                                        //       title: homeController
+                                        //           .languageParam
+                                        //           .value
+                                        //           .cashOnDelivery,
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     Radio(
+                                        //         value: cartController.cash,
+                                        //         groupValue: cartController
+                                        //             .paymentValue.value,
+                                        //         activeColor: WidgetStateColor
+                                        //             .resolveWith((states) =>
+                                        //                 primaryColor),
+                                        //         onChanged: (v) {
+                                        //           cartController
+                                        //               .paymentValue.value = v!;
+                                        //         })
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        // const Divider(),
+                                        // Row(
+                                        //   children: [
+                                        //     RoundCard(
+                                        //       image:
+                                        //           'assets/icons/card-on-delvery.png',
+                                        //       isPng: true,
+                                        //     ),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     ReusableText(
+                                        //       title: "Card on Delivery",
+                                        //       weight: FontWeight.w400,
+                                        //     ),
+                                        //     const Spacer(),
+                                        //     Radio(
+                                        //         value: cartController.card,
+                                        //         groupValue: cartController
+                                        //             .paymentValue.value,
+                                        //         activeColor: WidgetStateColor
+                                        //             .resolveWith((states) =>
+                                        //                 primaryColor),
+                                        //         onChanged: (v) {
+                                        //           cartController
+                                        //               .paymentValue.value = v!;
+                                        //         })
+                                        //   ],
+                                        // ),
                                         const SizedBox(
                                           height: 5,
                                         ),

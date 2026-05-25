@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rawabi/utils/app_utils.dart';
 import 'package:rawabi/utils/notification/notificationData.dart';
@@ -20,6 +21,7 @@ import '../utils/storage_manager.dart';
 import '../widget/commonWidget/reusable_text.dart';
 import 'deliverymode/deliveryModeScreen.dart';
 import 'navigator/bottomNavBar.dart';
+import 'package:path_provider/path_provider.dart';
 
 @pragma('vm:entry-point')
 void onDidReceiveBackgroundNotification(NotificationResponse details) {
@@ -41,8 +43,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-  bool _firebaseInitialized = false; // ✅ guard flag
+  bool _firebaseInitialized = false;
 
   @override
   void initState() {
@@ -50,8 +51,58 @@ class _SplashScreenState extends State<SplashScreen> {
     initialize();
   }
 
+  // ─── Internet check ───────────────────────────────────────────────────
+
+  Future<bool> _hasInternetAccess() async {
+    try {
+      final result = await InternetAddress.lookup('google.com')
+          .timeout(const Duration(seconds: 5));
+      return result.isNotEmpty && result.first.rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
+    } on TimeoutException catch (_) {
+      return false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Shows a styled "No Internet" alert.
+  /// Returns true when the user taps "Retry" and connectivity is restored.
+  Future<void> _showNoInternetDialog() async {
+    if (!mounted) return;
+
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => _NoInternetDialog(
+        onRetry: () async {
+          Navigator.of(ctx).pop(); // close dialog first
+          final connected = await _hasInternetAccess();
+          if (connected) {
+            // Re-run the full init flow
+            await initialize();
+          } else {
+            // Show again if still offline
+            await _showNoInternetDialog();
+          }
+        },
+      ),
+    );
+  }
+
+  // ─── Init flow ────────────────────────────────────────────────────────
+
   Future<void> initialize() async {
-    var prefValue = await StorageManager.readData(StorageManager.sharedPrfValue);
+    // Check internet before doing anything
+    final connected = await _hasInternetAccess();
+    if (!connected) {
+      await _showNoInternetDialog();
+      return; // dialog handles retry → re-calls initialize()
+    }
+
+    var prefValue =
+    await StorageManager.readData(StorageManager.sharedPrfValue);
     if (prefValue != "2") {
       StorageManager.clearData();
       StorageManager.saveData(StorageManager.sharedPrfValue, "2");
@@ -65,10 +116,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _requestLocationAndProceed() async {
-    // ✅ Request permission once, then call firebase() exactly once
     final status = await Permission.location.request();
     print('Location permission status: $status');
-    await firebase(); // always called exactly once, regardless of status
+    await firebase();
   }
 
   moveToPage() {
@@ -78,7 +128,8 @@ class _SplashScreenState extends State<SplashScreen> {
       if (storeAddress.isEmpty) {
         AppUtils.navigateToPage(DeliveryModeScreen());
       } else {
-        AppUtils.navigateToPageReplace(BottomNavBar(productId: widget.productId));
+        AppUtils.navigateToPageReplace(
+            BottomNavBar(productId: widget.productId));
       }
     });
   }
@@ -97,20 +148,16 @@ class _SplashScreenState extends State<SplashScreen> {
     final String response =
     await rootBundle.loadString('assets/json/englishLanguage.json');
     widget.languageParam.value = LanguageParam.fromJson(json.decode(response));
-    StorageManager.saveData(
-        StorageManager.keyLanguageParams,
+    StorageManager.saveData(StorageManager.keyLanguageParams,
         json.encode(widget.languageParam.value));
     moveToPage();
   }
 
   Future<void> firebase() async {
-    // ✅ Guard against being called more than once
     if (_firebaseInitialized) return;
     _firebaseInitialized = true;
 
     try {
-      // ✅ DO NOT call Firebase.initializeApp() here — already done in main.dart
-
       final messaging = FirebaseMessaging.instance;
 
       await messaging.requestPermission(
@@ -123,7 +170,6 @@ class _SplashScreenState extends State<SplashScreen> {
         sound: true,
       );
 
-      // ✅ iOS APNs token wait
       if (Platform.isIOS) {
         String? apnsToken;
         int retries = 0;
@@ -153,7 +199,8 @@ class _SplashScreenState extends State<SplashScreen> {
       FlutterLocalNotificationsPlugin();
 
       await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
 
       final savedToken =
@@ -174,7 +221,6 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       }
 
-      // ✅ Top-level function references — fixes the assertion crash
       var initSettings = InitializationSettings(
         android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: const DarwinInitializationSettings(),
@@ -183,44 +229,52 @@ class _SplashScreenState extends State<SplashScreen> {
       await flutterLocalNotificationsPlugin.initialize(
         initSettings,
         onDidReceiveBackgroundNotificationResponse:
-        onDidReceiveBackgroundNotification, // ✅ top-level
-        onDidReceiveNotificationResponse:
-        onDidReceiveBackgroundNotification,   // ✅ top-level
+        onDidReceiveBackgroundNotification,
+        onDidReceiveNotificationResponse: onDidReceiveBackgroundNotification,
       );
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         final notification = message.notification;
-        final android = message.notification?.android;
 
-        // ✅ Save to local storage
         if (notification != null) {
           await NotificationStorageService.saveNotification(
             title: notification.title ?? '',
             body: notification.body ?? '',
             data: message.data,
           );
-          // ✅ Refresh screen if it's open
           if (Get.isRegistered<NotificationListController>()) {
             Get.find<NotificationListController>().onNewNotification();
           }
         }
 
         if (notification == null && message.data.isNotEmpty) {
-          final title = message.data['title'] ?? message.data['Title'] ?? 'New Notification';
+          final title =
+              message.data['title'] ?? message.data['Title'] ?? 'New Notification';
           final body = message.data['body'] ?? message.data['Body'] ?? '';
           await NotificationStorageService.saveNotification(
             title: title.toString(),
             body: body.toString(),
             data: message.data,
           );
-
-          // ✅ Refresh screen if it's open
           if (Get.isRegistered<NotificationListController>()) {
             Get.find<NotificationListController>().onNewNotification();
           }
         }
 
-        if (notification != null && android != null) {
+        if (notification != null) {
+          String? imageUrl;
+          if (Platform.isIOS) {
+            imageUrl = message.notification?.apple?.imageUrl;
+          } else {
+            imageUrl = message.notification?.android?.imageUrl;
+            imageUrl ??= message.data['image']?.toString();
+          }
+
+          String? localImagePath;
+          if (imageUrl != null && imageUrl.isNotEmpty) {
+            localImagePath = await _downloadAndSaveImage(imageUrl);
+          }
+
           flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
@@ -228,9 +282,27 @@ class _SplashScreenState extends State<SplashScreen> {
             payload: jsonEncode(message.data),
             NotificationDetails(
               android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
+                'high_importance_channel',
+                'High Importance Notifications',
+                importance: Importance.high,
+                priority: Priority.high,
                 icon: '@drawable/launcher_icon',
+                color: const Color(0xFFFFEB3B),
+                playSound: true,
+                styleInformation: localImagePath != null
+                    ? BigPictureStyleInformation(
+                  FilePathAndroidBitmap(localImagePath),
+                  hideExpandedLargeIcon: false,
+                )
+                    : const DefaultStyleInformation(true, true),
+              ),
+              iOS: DarwinNotificationDetails(
+                presentAlert: true,
+                presentBadge: true,
+                presentSound: true,
+                attachments: localImagePath != null
+                    ? [DarwinNotificationAttachment(localImagePath)]
+                    : null,
               ),
             ),
           );
@@ -260,7 +332,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } catch (e) {
       print("-------------------firebase error-------------------");
       print(e);
-      await getLanguageData(); // ✅ always navigate even on error
+      await getLanguageData();
     }
   }
 
@@ -320,7 +392,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ReusableText(
                 textAlign: TextAlign.center,
                 title:
-                "The best delivery app in town for delivering your daily fresh groceries".tr,
+                "The best delivery app in town for delivering your daily fresh groceries"
+                    .tr,
                 size: 15,
                 color: grey,
                 weight: FontWeight.w400,
@@ -334,7 +407,151 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ─── Top-level functions (outside any class) ───────────────────────────
+// ─── No Internet Dialog Widget ────────────────────────────────────────────────
+
+class _NoInternetDialog extends StatefulWidget {
+  final Future<void> Function() onRetry;
+
+  const _NoInternetDialog({required this.onRetry});
+
+  @override
+  State<_NoInternetDialog> createState() => _NoInternetDialogState();
+}
+
+class _NoInternetDialogState extends State<_NoInternetDialog> {
+  bool _isRetrying = false;
+
+  Future<void> _handleRetry() async {
+    setState(() => _isRetrying = true);
+    await widget.onRetry();
+    // If dialog is still mounted after retry (still offline), reset state
+    if (mounted) setState(() => _isRetrying = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.12),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Icon
+            Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF3E0),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.wifi_off_rounded,
+                size: 38,
+                color: Color(0xFFFF6F00),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Title
+            const Text(
+              'No Internet Connection',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1A1A2E),
+                letterSpacing: 0.2,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Body
+            const Text(
+              'Please check your Wi-Fi or mobile data and try again.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFF757575),
+                height: 1.5,
+              ),
+            ),
+            const SizedBox(height: 28),
+
+            // Retry Button
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: _isRetrying ? null : _handleRetry,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFEB3B),
+                  foregroundColor: const Color(0xFF1A1A2E),
+                  disabledBackgroundColor: const Color(0xFFFFF9C4),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: _isRetrying
+                    ? const SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFF1A1A2E),
+                    ),
+                  ),
+                )
+                    : const Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Top-level functions (outside any class) ──────────────────────────────────
+
+Future<String?> _downloadAndSaveImage(String imageUrl) async {
+  try {
+    final response = await http.get(Uri.parse(imageUrl));
+    if (response.statusCode == 200) {
+      final tempDir = await getTemporaryDirectory();
+      final filePath =
+          '${tempDir.path}/notif_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final file = File(filePath);
+      await file.writeAsBytes(response.bodyBytes);
+      return filePath;
+    }
+  } catch (e) {
+    print('Image download failed: $e');
+  }
+  return null;
+}
 
 void _handleNotificationClick(String payload) {
   try {
