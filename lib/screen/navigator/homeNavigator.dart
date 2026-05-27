@@ -14,13 +14,16 @@ class HomeNavigator extends StatefulWidget {
   final VoidCallback onCartSelected;
   final VoidCallback onOffersSelected;
   String? productId;
+  String? groupId;
   String? grp_id;
 
   HomeNavigator(
       {super.key,
       required this.onCartSelected,
       required this.onOffersSelected,
-      this.productId = ""});
+      this.productId = "",
+      this.groupId = "",
+      });
 
   @override
   State<HomeNavigator> createState() => _HomeNavigatorState();
@@ -40,6 +43,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                 case '/':
                   return HomeScreen(
                     productId: widget.productId,
+                    groupId: widget.groupId,
                     onOffersSelected: widget.onOffersSelected,
                   );
                 case '/ProductsByCategory':

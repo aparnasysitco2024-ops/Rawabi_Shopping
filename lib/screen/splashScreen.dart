@@ -33,7 +33,12 @@ void onDidReceiveBackgroundNotification(NotificationResponse details) {
 // ignore: must_be_immutable
 class SplashScreen extends StatefulWidget {
   String? productId;
-  SplashScreen({super.key, this.productId = ""});
+  String? groupId;
+  SplashScreen({
+    super.key,
+    this.productId = "",
+    this.groupId = "",
+  });
 
   var languageParam = LanguageParam().obs;
   var languageParamString = "";
@@ -102,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     var prefValue =
-    await StorageManager.readData(StorageManager.sharedPrfValue);
+        await StorageManager.readData(StorageManager.sharedPrfValue);
     if (prefValue != "2") {
       StorageManager.clearData();
       StorageManager.saveData(StorageManager.sharedPrfValue, "2");
@@ -124,19 +129,35 @@ class _SplashScreenState extends State<SplashScreen> {
   moveToPage() {
     Timer(const Duration(seconds: 1), () async {
       String storeAddress =
-      await StorageManager.readData(StorageManager.keyStoreAddress);
+          await StorageManager.readData(StorageManager.keyStoreAddress);
       if (storeAddress.isEmpty) {
         AppUtils.navigateToPage(DeliveryModeScreen());
       } else {
+        // AppUtils.navigateToPageReplace(
+        //     BottomNavBar(productId: widget.productId));
+        if (widget.productId != null && widget.productId!.isNotEmpty) {
+          AppUtils.navigateToPageReplace(
+              BottomNavBar(productId: widget.productId));
+          return;
+        }
+
+        /// GROUP DEEP LINK
+        if (widget.groupId != null && widget.groupId!.isNotEmpty) {
+          AppUtils.navigateToPageReplace(BottomNavBar(groupId: widget.groupId));
+          return;
+        }
+
+        /// NORMAL FLOW
         AppUtils.navigateToPageReplace(
-            BottomNavBar(productId: widget.productId));
+          BottomNavBar(),
+        );
       }
     });
   }
 
   Future<void> getLanguageData() async {
     widget.languageParamString =
-    await StorageManager.readData(StorageManager.keyLanguageParams);
+        await StorageManager.readData(StorageManager.keyLanguageParams);
     if (widget.languageParamString.isNotEmpty) {
       moveToPage();
     } else {
@@ -146,7 +167,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> readJsonLanguage() async {
     final String response =
-    await rootBundle.loadString('assets/json/englishLanguage.json');
+        await rootBundle.loadString('assets/json/englishLanguage.json');
     widget.languageParam.value = LanguageParam.fromJson(json.decode(response));
     StorageManager.saveData(StorageManager.keyLanguageParams,
         json.encode(widget.languageParam.value));
@@ -196,15 +217,15 @@ class _SplashScreenState extends State<SplashScreen> {
       );
 
       final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+          FlutterLocalNotificationsPlugin();
 
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
+              AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
 
       final savedToken =
-      await StorageManager.readData(StorageManager.keyFirebaseToken);
+          await StorageManager.readData(StorageManager.keyFirebaseToken);
 
       if (savedToken == "") {
         final fcmToken = await FirebaseMessaging.instance.getToken();
@@ -229,7 +250,7 @@ class _SplashScreenState extends State<SplashScreen> {
       await flutterLocalNotificationsPlugin.initialize(
         initSettings,
         onDidReceiveBackgroundNotificationResponse:
-        onDidReceiveBackgroundNotification,
+            onDidReceiveBackgroundNotification,
         onDidReceiveNotificationResponse: onDidReceiveBackgroundNotification,
       );
 
@@ -248,8 +269,9 @@ class _SplashScreenState extends State<SplashScreen> {
         }
 
         if (notification == null && message.data.isNotEmpty) {
-          final title =
-              message.data['title'] ?? message.data['Title'] ?? 'New Notification';
+          final title = message.data['title'] ??
+              message.data['Title'] ??
+              'New Notification';
           final body = message.data['body'] ?? message.data['Body'] ?? '';
           await NotificationStorageService.saveNotification(
             title: title.toString(),
@@ -291,9 +313,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 playSound: true,
                 styleInformation: localImagePath != null
                     ? BigPictureStyleInformation(
-                  FilePathAndroidBitmap(localImagePath),
-                  hideExpandedLargeIcon: false,
-                )
+                        FilePathAndroidBitmap(localImagePath),
+                        hideExpandedLargeIcon: false,
+                      )
                     : const DefaultStyleInformation(true, true),
               ),
               iOS: DarwinNotificationDetails(
@@ -316,7 +338,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
 
       final initialMessage =
-      await FirebaseMessaging.instance.getInitialMessage();
+          await FirebaseMessaging.instance.getInitialMessage();
       if (initialMessage != null && context.mounted) {
         _handleNotificationClick1(context, initialMessage);
       }
@@ -392,8 +414,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ReusableText(
                 textAlign: TextAlign.center,
                 title:
-                "The best delivery app in town for delivering your daily fresh groceries"
-                    .tr,
+                    "The best delivery app in town for delivering your daily fresh groceries"
+                        .tr,
                 size: 15,
                 color: grey,
                 weight: FontWeight.w400,
@@ -508,23 +530,23 @@ class _NoInternetDialogState extends State<_NoInternetDialog> {
                 ),
                 child: _isRetrying
                     ? const SizedBox(
-                  width: 22,
-                  height: 22,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Color(0xFF1A1A2E),
-                    ),
-                  ),
-                )
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF1A1A2E),
+                          ),
+                        ),
+                      )
                     : const Text(
-                  'Try Again',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.3,
-                  ),
-                ),
+                        'Try Again',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
               ),
             ),
           ],

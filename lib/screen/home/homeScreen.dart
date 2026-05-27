@@ -35,11 +35,13 @@ import '../../widget/commonWidget/reusable_button.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
   String? productId;
+  String? groupId;
   final VoidCallback onOffersSelected;
 
   HomeScreen({
     super.key,
     this.productId = "",
+    this.groupId = "",
     required this.onOffersSelected,
   });
 
@@ -62,6 +64,17 @@ class _HomeScreenState extends State<HomeScreen> {
           '/ProductDetailsScreen',
           arguments: {
             'productID': widget.productId,
+          },
+        );
+      });
+    } else if(widget.groupId!.isNotEmpty) {
+      Timer(const Duration(microseconds: 500), () async {
+        Navigator.pushNamed(
+          context,
+          '/ProductsFromHomeScreen',
+          arguments: {
+            'title': "",
+            'grp_id': widget.groupId.toString(),
           },
         );
       });
