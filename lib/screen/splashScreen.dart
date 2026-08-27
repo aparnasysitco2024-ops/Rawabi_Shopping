@@ -34,10 +34,12 @@ void onDidReceiveBackgroundNotification(NotificationResponse details) {
 class SplashScreen extends StatefulWidget {
   String? productId;
   String? groupId;
+  bool? flyer;
   SplashScreen({
     super.key,
     this.productId = "",
     this.groupId = "",
+    this.flyer = false,
   });
 
   var languageParam = LanguageParam().obs;
@@ -133,8 +135,6 @@ class _SplashScreenState extends State<SplashScreen> {
       if (storeAddress.isEmpty) {
         AppUtils.navigateToPage(DeliveryModeScreen());
       } else {
-        // AppUtils.navigateToPageReplace(
-        //     BottomNavBar(productId: widget.productId));
         if (widget.productId != null && widget.productId!.isNotEmpty) {
           AppUtils.navigateToPageReplace(
               BottomNavBar(productId: widget.productId));
@@ -144,6 +144,12 @@ class _SplashScreenState extends State<SplashScreen> {
         /// GROUP DEEP LINK
         if (widget.groupId != null && widget.groupId!.isNotEmpty) {
           AppUtils.navigateToPageReplace(BottomNavBar(groupId: widget.groupId));
+          return;
+        }
+
+        /// FLYER DEEP LINK
+        if (widget.flyer == true) {
+          AppUtils.navigateToPageReplace(BottomNavBar(flyer: true));
           return;
         }
 

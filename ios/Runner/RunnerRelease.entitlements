@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>https://rawabihypermarket.com</string>
+		<string>applinks:rawabihypermarket.com</string> 
 	</array>
 </dict>
 </plist>

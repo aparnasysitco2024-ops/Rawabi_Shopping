@@ -7,7 +7,6 @@ import 'package:rawabi/widget/commonWidget/networkImageWidget.dart';
 import 'package:rawabi/widget/headerWidget.dart';
 
 import '../../utils/colors.dart';
-import '../../utils/constants.dart';
 
 class FlayerListScreen extends StatelessWidget {
   FlayerListScreen({super.key});
@@ -60,16 +59,16 @@ class FlayerListScreen extends StatelessWidget {
                             child: NetworkImageWidget(
                               image:
                                   flayerListController.flayersList[index].image,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           ),
                         )),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 0,
-                        mainAxisExtent: productItemHeight,
+                        mainAxisExtent: 300,
                         crossAxisSpacing: 0,
-                        childAspectRatio: 0.5),
+                        childAspectRatio: 0.7),
                   ),
           ))
         ],

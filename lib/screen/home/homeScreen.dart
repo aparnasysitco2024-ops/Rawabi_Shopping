@@ -36,13 +36,17 @@ import '../../widget/commonWidget/reusable_button.dart';
 class HomeScreen extends StatefulWidget {
   String? productId;
   String? groupId;
+  bool? flyer;
   final VoidCallback onOffersSelected;
+  final VoidCallback? onDeepLinkHandled;
 
   HomeScreen({
     super.key,
     this.productId = "",
     this.groupId = "",
+    this.flyer = false,
     required this.onOffersSelected,
+    this.onDeepLinkHandled,
   });
 
   @override
@@ -54,37 +58,45 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final cartController = Get.put(CartController());
   final searchController = Get.put(SearchResultController());
+  static bool _deepLinkHandled = false;
 
   @override
   void initState() {
-    if (widget.productId!.isNotEmpty) {
-      Timer(const Duration(microseconds: 500), () async {
-        Navigator.pushNamed(
-          context,
-          '/ProductDetailsScreen',
-          arguments: {
-            'productID': widget.productId,
-          },
-        );
-      });
-    } else if(widget.groupId!.isNotEmpty) {
-      Timer(const Duration(microseconds: 500), () async {
-        Navigator.pushNamed(
-          context,
-          '/ProductsFromHomeScreen',
-          arguments: {
-            'title': "",
-            'grp_id': widget.groupId.toString(),
-          },
-        );
-      });
-    } else {
-      if (!homeController.isSavedAddressSlotLoaded)
-        homeController.getSavedAddressSlot();
-      if (!homeController.isPopUpLoaded) getPopupBanner();
-      homeController.getHomeCategory();
-    }
     super.initState();
+
+    if (!homeController.isSavedAddressSlotLoaded)
+      homeController.getSavedAddressSlot();
+    if (!homeController.isPopUpLoaded) getPopupBanner();
+    homeController.getHomeCategory();
+
+    if (!_deepLinkHandled) {
+      if (widget.productId!.isNotEmpty) {
+        _deepLinkHandled = true;
+        Timer(const Duration(milliseconds: 500), () {
+          Navigator.of(context, rootNavigator: true).pushNamed(
+            '/ProductDetailsScreen',
+            arguments: {'productID': widget.productId},
+          );
+        });
+      } else if (widget.groupId!.isNotEmpty) {
+        _deepLinkHandled = true;
+        Timer(const Duration(milliseconds: 500), () {
+          Navigator.of(context, rootNavigator: true).pushNamed(
+            '/ProductsFromHomeScreen',
+            arguments: {
+              'title': "",
+              'grp_id': widget.groupId.toString(),
+            },
+          );
+        });
+      } else if (widget.flyer != false) {
+        _deepLinkHandled = true;
+        Timer(const Duration(milliseconds: 500), () {
+          AppUtils.navigateToPage(
+              FlayerListScreen());
+        });
+      }
+    }
   }
 
   Future<void> getPopupBanner() async {

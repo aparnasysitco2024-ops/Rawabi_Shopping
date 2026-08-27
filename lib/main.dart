@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -41,27 +42,10 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-// final router = GoRouter(
-//   routes: [
-//     GoRoute(
-//       path: '/',
-//       builder: (_, __) => SplashScreen(),
-//       routes: [
-//         GoRoute(
-//           path: 'details',
-//           builder: (_, __) => Scaffold(
-//             appBar: AppBar(title: const Text('Details Screen')),
-//           ),
-//         ),
-//       ],
-//     ),
-//   ],
-// );
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(

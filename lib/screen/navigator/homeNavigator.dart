@@ -16,6 +16,7 @@ class HomeNavigator extends StatefulWidget {
   String? productId;
   String? groupId;
   String? grp_id;
+  bool? flyer;
 
   HomeNavigator(
       {super.key,
@@ -23,7 +24,7 @@ class HomeNavigator extends StatefulWidget {
       required this.onOffersSelected,
       this.productId = "",
       this.groupId = "",
-      });
+      this.flyer = false});
 
   @override
   State<HomeNavigator> createState() => _HomeNavigatorState();
@@ -36,7 +37,6 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       key: homeNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-
             settings: settings,
             builder: (BuildContext context) {
               switch (settings.name) {
@@ -44,6 +44,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   return HomeScreen(
                     productId: widget.productId,
                     groupId: widget.groupId,
+                    flyer: widget.flyer,
                     onOffersSelected: widget.onOffersSelected,
                   );
                 case '/ProductsByCategory':

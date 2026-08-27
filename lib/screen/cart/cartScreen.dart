@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -29,18 +30,22 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     cartController.getCartList();
     cartController.getCartListPreOrder();
-
-    // var result = DateTime.now().add(Duration(hours: 1));
-    // print("now + 1 hr = ${result}");
-    // DateTime currentTime = DateTime.now();
-    // String dateString = '10.00';
-    // DateFormat format = new DateFormat("hh:MM");
-    // DateTime dateTime = format.parse(dateString);
-    // print(dateTime);
-
-    // DateFormat dateFormat = DateFormat("HH:mm");
-    // String currentTime = dateFormat.format(DateTime.now());
-    // print(currentTime);
+    FirebaseAnalytics.instance.logEvent(
+      name: "begin_checkout",
+      parameters: {
+        "cart_total": cartController.subTotal.value,
+        "items": cartController.cartProducts.map((item) {
+          return {
+            "store_id": item.storeId ?? "",
+            "item_id": item.productId ?? "",
+            "item_name": item.productName ?? "",
+            "price": double.tryParse(item.itemPrice ?? "0") ?? 0,
+            "quantity": int.tryParse(item.quantity ?? "0") ?? 0,
+          };
+        }).toList(),
+      },
+    );
+    print("After begin_checkout");
     DateTime todayDate = DateTime.now();
 
     void PickupSlot() {

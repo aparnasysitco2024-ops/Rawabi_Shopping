@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/model/response/products.dart';
@@ -8,6 +9,7 @@ import '../model/response/productDetailsResponse.dart';
 import '../utils/commonUtils.dart';
 import '../utils/constants.dart';
 import '../utils/http_client/base_client.dart';
+import '../utils/storage_manager.dart';
 
 class ProductDetailsController extends GetxController {
   var loading = false.obs;
@@ -33,6 +35,7 @@ class ProductDetailsController extends GetxController {
         // if (!isKeyboardRefresh.value) {
         loading.value = true;
         // }
+        var storeName = await StorageManager.readData(StorageManager.keyStoreName);
         isKeyboardRefresh.value = false;
         var request = {"id": productID};
         var response = await BaseClient().post(product_details, request);
@@ -43,6 +46,23 @@ class ProductDetailsController extends GetxController {
           if (responseData.code == "200") {
             productDetails.value = responseData.productDetails!;
             similarProducts.value =responseData.products!;
+            print("Before view_item");
+            try {
+              await FirebaseAnalytics.instance.logEvent(
+                name: "view_item",
+                parameters: {
+                  "item_id": productDetails.value.productId.toString(),
+                  "item_name": productDetails.value.productName.toString(),
+                  "store_id": productDetails.value.storeId.toString(),
+                  "store_name": storeName,
+                },
+              );
+
+              print("After view_item");
+            } catch (e, s) {
+              print("Analytics Error: $e");
+              print(s);
+            }
           } else {
             CommonUtils.showErrorDialog(responseData.message);
           }

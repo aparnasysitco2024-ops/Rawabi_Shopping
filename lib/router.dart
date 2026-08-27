@@ -37,6 +37,16 @@ class Router {
               );
             }
 
+            else if (uri.pathSegments.isNotEmpty &&
+                uri.pathSegments[0] == "flayer") {
+
+              return MaterialPageRoute(
+                builder: (_) => SplashScreen(
+                  flyer: true,
+                ),
+              );
+            }
+
             else if (uri.pathSegments.isNotEmpty) {
 
               String productId = uri.pathSegments.last;

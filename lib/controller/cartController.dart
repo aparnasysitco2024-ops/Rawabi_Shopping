@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rawabi/controller/homeController.dart';
@@ -52,6 +53,7 @@ class CartController extends GetxController {
   var selectedPickupSlot = "".obs;
   var noteTextController = TextEditingController();
   var displayMessage = "".obs;
+  List<AnalyticsEventItem> analyticsItems = [];
 
   CartController();
 
@@ -96,6 +98,14 @@ class CartController extends GetxController {
           //       subTotal.value + double.parse(element.subtotal.toString());
           // }
           setTotal();
+          analyticsItems = cartProducts.map((item) {
+            return AnalyticsEventItem(
+              itemId: item.productId ?? "",
+              itemName: item.productName ?? "",
+              price: double.tryParse(item.itemPrice ?? "0") ?? 0,
+              quantity: int.tryParse(item.quantity ?? "0") ?? 0,
+            );
+          }).toList();
         } else {
           CommonUtils.showErrorDialog(responseData.message);
         }
@@ -359,6 +369,19 @@ class CartController extends GetxController {
                 CheckoutResponse.fromJson(json.decode(response.toString()));
             if (responseData.code == "200") {
               getCartList();
+              print("Before purchase");
+
+              try {
+                await FirebaseAnalytics.instance.logPurchase(
+                  transactionId: responseData.orderId ?? "",
+                  value: grandTotal.value,
+                  currency: "QAR",
+                  items: analyticsItems,
+                );
+                print("After purchase");
+              } catch (e) {
+                print("Purchase Event Error: $e");
+              }
               AppUtils.navigateToPage(OrderPlacedScreen(
                 isPreOrder: false,
                 orderId: responseData.orderId,
@@ -476,6 +499,24 @@ class CartController extends GetxController {
             BaseResponse.fromJson(json.decode(response.toString()));
         if (responseData.code == "200") {
           getCartList();
+          print("Before add_to_cart");
+
+          try {
+            await FirebaseAnalytics.instance.logEvent(
+              name: "add_to_cart",
+              parameters: {
+                "item_id": itemID,
+                "store_id": storeID,
+                "item_price": itemPrice ?? "",
+                "item_qty": itemQty,
+              },
+            );
+
+            print("After add_to_cart");
+          } catch (e, s) {
+            print("Analytics Error: $e");
+            print(s);
+          }
         } else {
           CommonUtils.showErrorDialog(responseData.message);
           if (Get.isRegistered<ProductDetailsController>()) {

@@ -20,8 +20,9 @@ import 'offerNavigator.dart';
 class BottomNavBar extends StatefulWidget {
   String? productId;
   String? groupId;
+  bool? flyer;
 
-  BottomNavBar({super.key, this.productId = "", this.groupId = ""});
+  BottomNavBar({super.key, this.productId = "", this.groupId = "", this.flyer = false});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -51,6 +52,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         onOffersSelected: () => currentIndex.value = 2,
         productId: widget.productId,
         groupId: widget.groupId,
+        flyer: widget.flyer,
       ),
       CategoryNavigator(
         onCartSelected: () => currentIndex.value = 3,
@@ -68,24 +70,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       )
     ];
   }
-
-  // getLanguageData() async {
-  //   languageParamString =
-  //       await StorageManager.readData(StorageManager.keyLanguageParams);
-  //   if (languageParamString.isNotEmpty)
-  //     languageParam.value =
-  //         LanguageParam.fromJson(json.decode(languageParamString));
-  //   else
-  //     readJsonLanguage();
-  // }
-  //
-  // Future<void> readJsonLanguage() async {
-  //   final String response = await rootBundle.loadString('assets/json/englishLanguage.json');
-  //   languageParam.value =
-  //       LanguageParam.fromJson(json.decode(response));
-  //   StorageManager.saveData(StorageManager.keyLanguageParams,
-  //       json.encode(languageParam.value));
-  // }
 
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     homeNavigatorKey,
@@ -137,16 +121,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return PopScope(
       canPop: false,
       onPopInvoked: _systemBackButtonPressed,
-      //     (bool didPop) async {
-      //   if (didPop) {
-      //     return;
-      //   }
-      //   // final NavigatorState navigator = Navigator.of(context);
-      //   // final bool shouldPop = await _showBackDialog();
-      //   // if (shouldPop) {
-      //   //   navigator.pop();
-      //   // }
-      // },
       child: Obx(() => Scaffold(
           body: _pages[currentIndex.value],
           bottomNavigationBar: homeController.languageParam.value.home != null
